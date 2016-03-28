@@ -1,0 +1,11 @@
+<footer class="main-footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                Følg oss på <a href="https://www.facebook.com/kodeklubbentrondheim" target="_blank">Facebook!</a>
+            </div>
+            <div class="col-md-4">Kodeklubben {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'region'})) }} &copy;{{ "now"|date('Y') }}</div>
+            <div class="col-md-4">E-post: {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'email'})) }}</div>
+        </div>
+    </div>
+</footer>

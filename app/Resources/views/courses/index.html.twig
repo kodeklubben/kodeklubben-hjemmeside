@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Kodeklubben {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'region'})) }} sine kurs</h1>
+    <hr>
+    <br>
+    <br>
+    {% for course in courses %}
+        <div class="row" id="{{ course.name }}">
+
+            <div class="col-md-4 img-container">
+                <img src="{{ course.imgUrl }}" alt="{{ course.name }}">
+            </div>
+
+            <div class="col-md-8">
+                <h2>{{ course.name }}</h2>
+                <p>{{ course.description|replace({'\n':'<br>'})|raw }}</p>
+                <p>
+                    <a href="{{ path('sign_up') }}" class="btn btn-primary">Meld deg på {{ course.name }}</a>
+                    {% if not course.challengesUrl is null %}<a href="{{ course.challengesUrl }}" class="btn btn-default">Oppgaver</a>{% endif %}
+                </p>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

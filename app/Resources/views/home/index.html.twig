@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row container">{% include 'home/header.html.twig' %}</div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well text-center">
+                Lær programmering med artige oppgaver fra Kodeklubben {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'region'})) }}!
+            </div>
+        </div>
+    </div>
+
+    <div class="row container">
+        <div class=" col-md-7 col-md-offset-1 col-md-push-4 thumbnail">
+            <!-- Schedule -->
+            {{ render(controller('AppBundle:Home:showSchedule')) }}
+        </div>
+        <div class="col-md-4 col-md-pull-8 thumbnail">
+            <!-- Messages -->
+            {{ render(controller('AppBundle:Home:showMessages')) }}
+        </div>
+    </div>
+
+    <!-- Courses -->
+    {{ render(controller('AppBundle:Home:showCourseTypes')) }}
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>Bli Deltaker</h3>
+                </div>
+                <img class="img-responsive" src="{{ asset('img/deltaker.jpg') }}" alt="Bli Deltaker">
+                <div class="caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit.Lorem ipsum doloLorem ipsum dolor sit amet, consectetur
+                        adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum
+                        doloLorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit.Lorem ipsum dolo</p>
+                    <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli deltaker!</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 divider-left">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>Bli Veileder</h3>
+                </div>
+                <img class="img-responsive" src="{{ asset('img/veileder.jpg') }}" alt="Bli Veileder">
+                <div class="caption">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit.Lorem ipsum doloLorem ipsum dolor sit amet, consectetur
+                        adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing Lorem ipsum dolor sit
+                        amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit.Lorem ipsum doloLorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum
+                        dolor sit amet, consectetur adipisicing </p>
+                    <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli veileder!</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

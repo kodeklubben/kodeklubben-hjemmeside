@@ -1,0 +1,135 @@
+@import "variables";
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootswatch";
+@import "heroic-features";
+
+$background-grey: #f6f6f6;
+
+body {
+  overflow-x: hidden;
+  background-color: $background-grey;
+}
+.thumbnail{
+  background-color: $background-grey;
+  box-shadow: 0px 1px 18px 0px rgba(44,62,80,0.15);
+}
+hr{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+.logo {
+  $green: #71bb4f;
+  $yellow: #eae813;
+  $white: #f0f0f0;
+  $hover: #e70400;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: monospace, Menlo, Monaco, Consolas, 'Courier New';
+  color: $white;
+  > span {
+    > span:nth-child(1) {
+      color: $green;
+      &:hover {
+        color: $hover;
+      }
+    }
+    > span:nth-child(2) {
+      color: $yellow;
+      &:hover {
+        color: $hover;
+      }
+    }
+    > span:last-child {
+      color: $green;
+      &:hover {
+        color: $hover;
+      }
+    }
+  }
+}
+
+.well{
+  background-color: rgba(44,62,80,0.1);
+}
+
+.schedule-table {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+  .prev-week {
+    float: left;
+  }
+  .next-week {
+    float: right;
+  }
+}
+
+.top-header {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+.header-img {
+  width: 100%;
+  max-height: 350px;
+}
+
+.course {
+  height: 400px;
+  .description {
+    max-height: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.messages {
+  padding:5px;
+  .message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+@media screen and(min-width: 992px){
+  .divider-left {
+    border-left: 2px solid #ddd;
+  }
+}
+
+.register-container {
+  margin-top: 20px;
+  a {
+    margin-top: 10px;
+  }
+}
+
+.main-footer {
+  margin-top: 30px;
+  padding: 15px;
+  border-top: 3px solid #2c3e50;
+}
+
+.table-striped{
+
+}

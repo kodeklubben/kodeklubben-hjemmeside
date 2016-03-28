@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1 class="text-center">Bli {{ role }}</h1>
+            {{ form_start(form) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            {{ form_row(form.password) }}
+            <input class="btn btn-primary" type="submit" value="Registrer">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

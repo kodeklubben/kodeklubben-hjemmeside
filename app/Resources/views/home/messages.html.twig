@@ -1,0 +1,23 @@
+<div class="messages">
+
+<h3>Meldinger</h3>
+{% if messages|length == 0 %}
+    <p>Ingen meldinger</p>
+{% else %}
+    {% for message in messages %}
+        <hr>
+        <p>{{ message.timestamp|date('d.m.Y\\, \\k\\l H.i') }}:</p>
+        <p class="message">{{ message.message }}</p>
+    {% endfor %}
+{% endif %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $('.message').each(function(){
+            var message = $(this);
+            message.on("click", function(){
+                message.css("white-space") == "nowrap" ? message.css("white-space", "normal") : message.css("white-space", "nowrap");
+            })
+        });
+    });
+</script>

@@ -1,0 +1,40 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Logg inn{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="row">
+        <h1 class="text-center">Innlogging</h1>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+
+            <form role="form" action="{{ path('security_login_check') }}" method="post">
+                <div class="form-group">
+                    <label for="username">E-post:</label>
+                    <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Passord:</label>
+                    <input class="form-control" type="password" id="password" name="_password"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-sm" type="submit">Logg inn</button>
+                    <label for="remember_me">&nbsp;Husk meg</label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </form>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <hr>
+    <div class="text-center register-container">
+        <h4>Har du ikke bruker?</h4>
+        <a class="btn btn-info" href="{{ path('participant_registration') }}">Registrer deg som deltaker</a>
+        <a class="btn btn-primary" href="{{ path('tutor_registration') }}">Registrer deg som veileder</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+# This file defines the canonical configuration parameters of the application.
+# Symfony uses this file as a template to generate the real app/config/parameters.yml
+# used by the application.
+# See http://symfony.com/doc/current/best_practices/configuration.html#canonical-parameters
+parameters:
+
+    database_host: localhost
+    database_port: 3306
+    database_name: kodeklubben
+    database_user: root
+    database_password: ~
+
+    # You can even create the database and load the sample data from the command line:
+    #
+    # $ cd symfony-demo/
+    # $ php app/console doctrine:database:create
+    # $ php app/console doctrine:schema:create
+    # $ php app/console doctrine:fixtures:load
+
+    # If you don't use a real mail server, you can send emails via your Gmail account.
+    # see http://symfony.com/doc/current/cookbook/email/gmail.html
+    mailer_transport:  gmail
+    mailer_host: ~
+    mailer_user: ~
+    mailer_password: ~
+
+    # The code of the default language used by the application ('no' = Norwegian)
+    locale: no
+
+    # The 'secret' value is a random string of characters, numbers and symbols
+    # used internally by Symfony in several places (CSRF tokens, URI signing,
+    # 'Remember Me' functionality, etc.)
+    # see: http://symfony.com/doc/current/reference/configuration/framework.html#secret
+    secret: 'this_is_not_very_secret_change_this'
+
+twig:
+    globals:
+        email: ~
+        region: ~

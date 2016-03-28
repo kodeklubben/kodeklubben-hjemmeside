@@ -1,0 +1,48 @@
+#Pages
+home:
+  path: /
+  defaults: {_controller: AppBundle:Home:show}
+
+courses:
+  path: /kurs
+  defaults: {_controller: AppBundle:Course:show}
+
+about:
+  path: /om
+  defaults: {_controller: AppBundle:About:show}
+
+sign_up:
+  path: /pamelding
+  defaults: {_controller: AppBundle:SignUp:show}
+
+#Registration
+participant_registration:
+  path: /registrer/deltaker
+  defaults: {_controller: AppBundle:User:registerParticipant}
+
+tutor_registration:
+  path: /registrer/veileder
+  defaults: {_controller: AppBundle:User:registerTutor}
+
+admin_registration:
+  path: /kontrollpanel/registrer/admin
+  defaults: {_controller: AppBundle:User:registerAdmin}
+
+#Control Panel
+control_panel:
+  path: /kontrollpanel
+  defaults: {_controller: AppBundle:ControlPanel:show}
+
+#Security
+security_login_form:
+    path: /login
+    defaults: {_controller: AppBundle:Security:login}
+
+security_login_check:
+    path: /login_check
+    defaults: {_controller: AppBundle:Security:loginCheck}
+
+
+security_logout:
+    path: /logout
+    defaults: {_controller: AppBundle:Security:logout}
