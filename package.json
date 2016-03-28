@@ -23,8 +23,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "",
   "dependencies": {
-    "gulp": "^3.9.1"
+    "bootstrap-sass": "^3.3.6",
+    "jquery": "^2.2.2"
   }
 }
