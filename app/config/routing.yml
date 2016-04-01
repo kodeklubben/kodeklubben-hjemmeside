@@ -33,6 +33,96 @@ control_panel:
   path: /kontrollpanel
   defaults: {_controller: AppBundle:ControlPanel:show}
 
+cp_email:
+  path: /kontrollpanel/epost
+  defaults: {_controller: AppBundle:ControlPanel:showEmail}
+
+cp_message:
+  path: /kontrollpanel/melding
+  defaults: {_controller: AppBundle:ControlPanel:showMessage}
+
+cp_info:
+  path: /kontrollpanel/info
+  defaults: {_controller: AppBundle:ControlPanel:showInfo}
+
+cp_course_type:
+  path: /kontrollpanel/kurs/type
+  defaults: {_controller: AppBundle:Course:showCourseType}
+
+cp_create_course_type:
+  path: /kontrollpanel/kurs/type/ny
+  defaults: {_controller: AppBundle:Course:editCourseType}
+
+cp_edit_course_type:
+  path: /kontrollpanel/kurs/type/{id}
+  defaults: {_controller: AppBundle:Course:editCourseType}
+  requirements:
+    id: \d+
+
+cp_delete_course_type:
+  path: /kontrollpanel/kurs/type/slett/{id}
+  defaults: {_controller: AppBundle:Course:deleteCourseType}
+  requirements:
+    id: \d+
+
+cp_course:
+  path: /kontrollpanel/kurs
+  defaults: {_controller: AppBundle:Course:showCourse}
+
+cp_create_course:
+  path: /kontrollpanel/kurs/ny
+  defaults: {_controller: AppBundle:Course:editCourse}
+
+cp_edit_course:
+  path: /kontrollpanel/kurs/{id}
+  defaults: {_controller: AppBundle:Course:editCourse}
+  requirements:
+    id: \d+
+
+cp_delete_course:
+  path: /kontrollpanel/kurs/slett/{id}
+  defaults: {_controller: AppBundle:Course:deleteCourse}
+  requirements:
+    id: \d+
+
+cp_course_time_table:
+  path: /kontrollpanel/kurs/timeplan/{id}
+  defaults: {_controller: AppBundle:Course:editTimeTable}
+  requirements:
+    id: \d+
+
+api_get_course_classes_by_week:
+  path: /api/kurs/uke/{week}
+  defaults: {_controller: AppBundle:Course:getCourseClasses}
+  requirements:
+    week: \d+
+
+#Control Panel Static Content
+api_update_static_content:
+  path: /kontrollpanel/api/statisk_innhold
+  defaults: {_controller: AppBundle:StaticContent:update}
+  methods: [POST]
+
+cp_sc_header:
+  path: /kontrollpanel/statisk_innhold/header
+  defaults: {_controller: AppBundle:StaticContent:showHeader}
+
+cp_sc_tagline:
+  path: /kontrollpanel/statisk_innhold/tagline
+  defaults: {_controller: AppBundle:StaticContent:showTagline}
+
+cp_sc_participant_info:
+  path: /kontrollpanel/statisk_innhold/deltaker
+  defaults: {_controller: AppBundle:StaticContent:showParticipant}
+
+cp_sc_tutor_info:
+  path: /kontrollpanel/statisk_innhold/veileder
+  defaults: {_controller: AppBundle:StaticContent:showTutor}
+
+cp_sc_about:
+  path: /kontrollpanel/statisk_innhold/om
+  defaults: {_controller: AppBundle:StaticContent:showAbout}
+
 #Security
 security_login_form:
     path: /login

@@ -5,16 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Kodeklubben{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}" />
     </head>
     <body>
-        {% include 'navigation.html.twig' %}
+        {% include '_base/navigation.html.twig' %}
         <div class="container">
             {% block body %}{% endblock %}
         </div>
         <div class="container-fluid">
-            {% include 'footer.html.twig' %}
+            {% include '_base/footer.html.twig' %}
         </div>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>

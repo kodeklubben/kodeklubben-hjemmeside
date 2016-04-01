@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '_base/base.html.twig' %}
 
 {% block body %}
     <div class="row container">
@@ -11,30 +11,14 @@
             </div>
             <div class="col-md-8">
                 <h2>For Deltakere</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies sit amet mi in imperdiet.
-                    Phasellus elementum ligula enim. Praesent elementum risus augue, in viverra dui tincidunt in. Sed
-                    tempor tempus eros sed porttitor. Vivamus dolor dolor, porta ac pellentesque sed, aliquam
-                    ullamcorper lorem. Nulla venenatis tincidunt tempus. Fusce ut nulla imperdiet, tempor odio ut,
-                    blandit nibh. Sed enim massa, consequat eget tellus nec, rhoncus gravida quam. Ut sed pulvinar est,
-                    a pretium nisl. In vulputate, ligula id tristique tempor, neque arcu molestie dolor, non tristique
-                    tellus ligula sed sem. Duis a finibus eros. Nam vitae blandit felis. Curabitur non augue vitae odio
-                    pulvinar lobortis. Proin nec hendrerit lectus, sed tincidunt nisl. Vestibulum consectetur leo nibh,
-                    ac fringilla mauris euismod et. </p>
+                <p>{{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'about_participant'})) }}</p>
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-8">
                 <h2>For Veildere</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies sit amet mi in imperdiet.
-                    Phasellus elementum ligula enim. Praesent elementum risus augue, in viverra dui tincidunt in. Sed
-                    tempor tempus eros sed porttitor. Vivamus dolor dolor, porta ac pellentesque sed, aliquam
-                    ullamcorper lorem. Nulla venenatis tincidunt tempus. Fusce ut nulla imperdiet, tempor odio ut,
-                    blandit nibh. Sed enim massa, consequat eget tellus nec, rhoncus gravida quam. Ut sed pulvinar est,
-                    a pretium nisl. In vulputate, ligula id tristique tempor, neque arcu molestie dolor, non tristique
-                    tellus ligula sed sem. Duis a finibus eros. Nam vitae blandit felis. Curabitur non augue vitae odio
-                    pulvinar lobortis. Proin nec hendrerit lectus, sed tincidunt nisl. Vestibulum consectetur leo nibh,
-                    ac fringilla mauris euismod et. </p>
+                <p>{{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'about_tutor'})) }}</p>
                 <br>
                 <h4>Kontakt: {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'email'})) }}</h4>
                 <p><a href="{{ path('courses') }}">Les mer om kursene våre -></a></p>

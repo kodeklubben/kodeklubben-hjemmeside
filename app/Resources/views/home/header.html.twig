@@ -5,7 +5,7 @@
     <!-- /.col-md-8 -->
     <div class="col-md-4">
         <h1>Kodeklubben {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'region'})) }}</h1>
-        <p>Påmeldingen er åpen og det er nå mulig å melde seg som deltakere, veiledere og reserve på de forskjellige kursene. Under er mer detaljer over de forskjellige kursene. Alle kursene blir holdt på Realfagsbygget ved NTNU fra klokken 1815-2000. </p>
+        <p>{{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'header'})) }}</p>
         <a class="btn btn-primary btn-lg" href="{{ path('sign_up') }}">Meld deg på!</a>
     </div>
     <!-- /.col-md-4 -->

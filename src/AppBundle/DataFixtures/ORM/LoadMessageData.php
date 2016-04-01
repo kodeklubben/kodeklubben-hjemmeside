@@ -18,11 +18,17 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
 
         $message2 = new Message();
         $message2->setMessage("This is a very long message: Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla");
+        $message2->getTimestamp()->modify('-1day');
         $manager->persist($message2);
+
+        $message3 = new Message();
+        $message3->setMessage("This is a super long message: Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla");
+        $manager->persist($message3);
 
         $manager->flush();
         $this->setReference('message-1', $message1);
         $this->setReference('message-2', $message2);
+        $this->setReference('message-3', $message3);
     }
 
     public function getOrder()

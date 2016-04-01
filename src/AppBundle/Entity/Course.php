@@ -2,15 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Course
  *
- * @ORM\Table(name="course_series")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CourseSeriesRepository")
+ * @ORM\Table(name="course")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CourseRepository")
  */
-class CourseSeries
+class Course
 {
     /**
      * @var int
@@ -63,7 +64,7 @@ class CourseSeries
      *
      * @ORM\ManyToMany(targetEntity="User")
      * @ORM\JoinTable(name="tutor",
-     *    joinColumns={@ORM\JoinColumn(name="course_series_id", referencedColumnName="id")},
+     *    joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *    )
      */
@@ -72,16 +73,32 @@ class CourseSeries
     /**
      * @var Participant[]
      *
-     * @ORM\OneToMany(targetEntity="Participant", mappedBy="CourseSeries")
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="course")
      */
     private $participants;
 
     /**
      * @var CourseClass[]
      *
-     * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="CourseSeries")
+     * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="course")
      */
     private $classes;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * Course constructor.
+     */
+    public function __construct()
+    {
+        $this->classes = new ArrayCollection();
+        $this->deleted = false;
+    }
 
 
     /**
@@ -238,7 +255,33 @@ class CourseSeries
         $this->classes = $classes;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
 
+    /**
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * Deletes the course type
+     */
+    public function delete(){
+        $this->deleted = true;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
 }
 

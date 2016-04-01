@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-md-6">
+        <form class="enter-click-button">
+            <div class="form-group">
+                <label class="control-label required" for="facebookContent" >{{ label }}</label>
+                <input type="text" id="{{ idString }}Content" required="required" class="form-control"
+                       value="{{ render(controller('AppBundle:StaticContent:getContent', {'idString': idString})) }}">
+            </div>
+
+            <button type="button" class="btn btn-primary btn-sm btn-flat" id="{{ buttonId }}">{{ buttonLabel }}</button>
+        </form>
+    </div>
+</div>

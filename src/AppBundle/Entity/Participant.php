@@ -51,6 +51,14 @@ class Participant
     private $user;
 
     /**
+     * @var Course
+     *
+     * @ORM\ManyToOne(targetEntity="Course", inversedBy="participants")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     */
+    private $course;
+
+    /**
      * Get id
      *
      * @return int
@@ -122,6 +130,22 @@ class Participant
     public function setUser(User $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    /**
+     * @param Course $course
+     */
+    public function setCourse($course)
+    {
+        $this->course = $course;
     }
 
 

@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function showAction()
     {
 
-        return $this->render('home/index.html.twig');
+        return $this->render('home/show.html.twig');
     }
 
     public function showMessagesAction()
@@ -28,7 +28,12 @@ class HomeController extends Controller
         return $this->render('home/course.html.twig', array('courses' => $courseTypes));
     }
 
-    public function showScheduleAction(){
-        return $this->render('home/schedule.html.twig');
+    public function showTimeTableAction($week = null){
+        if(is_null($week))$week = (new \DateTime())->format('W');
+        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week);
+        return $this->render('home/timeTable.html.twig',array(
+            'courseClasses' => $courseClasses,
+            'week' => $week,
+        ));
     }
 }

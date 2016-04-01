@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '_base/base.html.twig' %}
 
 {% block body %}
     <div class="row">
@@ -11,7 +11,7 @@
             {{ form_row(form.email) }}
             {{ form_row(form.phone) }}
             {{ form_row(form.password) }}
-            <input class="btn btn-primary" type="submit" value="Registrer">
+            <button class="btn btn-primary onclick-disable" type="submit">Registrer</button>
             {{ form_end(form) }}
         </div>
     </div>

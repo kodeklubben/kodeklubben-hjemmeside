@@ -1,0 +1,20 @@
+{% extends '_base/admin_base.html.twig' %}
+
+{% set label, buttonId, idString, buttonLabel, rows = 'Deltaker info', 'submitParticipant', 'participant_info', 'Endre Deltakerinfo', 10 %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Statisk innhold: Deltaker</h1>
+        <hr>
+    </section>
+
+    <section class="content">
+        {% include 'control_panel/static_content/form_textarea.html.twig' with {'label': label, 'buttonId': buttonId, 'idString': idString, 'buttonLabel': buttonLabel, 'rows': rows} %}
+    </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/static_content_api.js') }}" type="text/javascript"></script>
+    <script>
+        handleStaticContentFormSubmit($('#{{ buttonId }}'), '{{ idString }}', $('#{{ idString }}Content'));
+    </script>
+{% endblock %}

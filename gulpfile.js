@@ -31,7 +31,6 @@ gulp.task('scriptsProd', ['bootstrapJS', 'jquery'], function () {
     gulp.src(path.src + 'js/**/*.js')
         .pipe(plumber())
         .pipe(changed(dest))
-        .pipe(gulp.dest(path.dist + 'js/'))
         .pipe(uglify())
         .pipe(gulp.dest(dest))
 });

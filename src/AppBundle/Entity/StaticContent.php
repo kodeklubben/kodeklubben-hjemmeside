@@ -39,13 +39,6 @@ class StaticContent
     private $content;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="picture_url", type="string", nullable=true)
-     */
-    private $pictureUrl;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_edited", type="datetime")
@@ -109,22 +102,6 @@ class StaticContent
     public function setContent($content)
     {
         $this->content = $content;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPictureUrl()
-    {
-        return $this->pictureUrl;
-    }
-
-    /**
-     * @param string $pictureUrl
-     */
-    public function setPictureUrl($pictureUrl)
-    {
-        $this->pictureUrl = $pictureUrl;
     }
 
     /**

@@ -106,7 +106,7 @@ class Semester
 
     public function __toString()
     {
-        return $this->isSpring ? 'Vår' : 'Høst' . $this->year;
+        return ($this->isSpring ? 'Vår ' : 'Høst ') . $this->year;
     }
 
 }

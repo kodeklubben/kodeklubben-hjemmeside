@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="course_class")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CourseClassRepository")
  */
-class CourseClass
+class CourseClass implements \JsonSerializable
 {
     /**
      * @var int
@@ -36,12 +36,12 @@ class CourseClass
     private $place;
 
     /**
-     * @var CourseSeries
+     * @var Course
      *
-     * @ORM\ManyToOne(targetEntity="CourseSeries")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Course", inversedBy="classes")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $courseSeries;
+    private $course;
 
 
     /**
@@ -103,19 +103,44 @@ class CourseClass
     }
 
     /**
-     * @return CourseSeries
+     * @return Course
      */
-    public function getCourseSeries()
+    public function getCourse()
     {
-        return $this->courseSeries;
+        return $this->course;
     }
 
     /**
-     * @param CourseSeries $courseSeries
+     * @param Course $course
      */
-    public function setCourseSeries(CourseSeries $courseSeries)
+    public function setCourse(Course $course)
     {
-        $this->courseSeries = $courseSeries;
+        $this->course = $course;
+    }
+
+    public function getDayNorwegian()
+    {
+        $norwegianWeek = array(
+            1 => 'Mandag',
+            2 => 'Tirsdag',
+            3 => 'Onsdag',
+            4 => 'Torsdag',
+            5 => 'Fredag',
+            6 => 'Lørdag',
+            7 => 'Søndag'
+        );
+        return $norwegianWeek[$this->time->format('N')];
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'day' => $this->getDayNorwegian(),
+            'place' => $this->place,
+            'course' => $this->course->getName(),
+            'time' => $this->time->format('H:i'),
+            'datetime' => $this->time
+        );
     }
 
 

@@ -17,7 +17,7 @@ class LoadCourseTypeData extends AbstractFixture implements OrderedFixtureInterf
         $courseType1->setDescription('Dette kurset er for nybegynnere og er anbefalt fra 4. klasse og oppover. Et flott kurs å starte på for å få følelsen av hva programmering går ut på. Scratch er et blokkbasert programmeringsspråk hvor vi kommer til å fokusere på å lage enkle spill.
 
 Scratch er et gratis visuelt programmeringsspråk, som kan bli brukt av elever, studenter, interesserte, lærere og foreldre for lett å lære å skape spill, animasjoner og andre programmer. Scratch er designet og vedligeholdt av "the Lifelong Kindergarten group" på "the MIT Media Lab". Målet med Scratch er å bruke det som et trinn mot en mer avansert programmeringsverden.');
-        $courseType1->setImgUrl('img/scratch.png');
+        $courseType1->setImgUrl('/img/scratch.png');
         $courseType1->setChallengesUrl('http://kodeklubben.github.io/scratch/index.html');
         $manager->persist($courseType1);
 
@@ -31,7 +31,7 @@ Python er et objektorientert programmeringsspråk startet på av Guido van Rossu
 Python var opprinnelig et scriptspråk for Amoeba OS for å lage systemendringer. Perl, Ruby, Tcl, Scheme og tildels Java blir ofte sett på som alternativer til Python. Python er utviklet som et fri programvare-prosjekt.
 
 Python har en lettlest og klar syntaks. I Python deles koden opp etter innrykk, ikke etter spesialtegn som }. Dette er trekk ved programmeringsspråket som skal gjøre det lettere og raskere å skrive programmer. Mange ser på Python som en nyere, men strengere og en mer striglet versjon av Perl.');
-        $courseType2->setImgUrl('img/python-logo.png');
+        $courseType2->setImgUrl('/img/python-logo.png');
         $courseType2->setChallengesUrl('http://kodeklubben.github.io/python/index.html');
         $manager->persist($courseType2);
 
@@ -42,7 +42,7 @@ Python har en lettlest og klar syntaks. I Python deles koden opp etter innrykk, 
 Minecraft er et sandkasse-/overlevelsesspill for PC, mobil og spillkonsoller, som lar spilleren bygge og rive ned konstruksjoner av kuber i en 3D-verden.
 
 Minecraft er utviklet av Mojang AB, men startet som et fritidsprosjekt av Markus «Notch» Persson i 2009. Minecraft er inspirert av spillene Dwarf Fortress, RollerCoaster Tycoon, Dungeon Keeper, og spesielt Infiniminer. Jens Bergensten, eller Jeb, har siden desember 2011 vært den ledende utvikleren av spillet, etter at Markus Persson forlot rollen. Det kreves en Mojang-konto (tidligere Minecraft-konto) med betalt fullversjon (ca. 166 NOK) for å spille fullversjonen. ');
-        $courseType3->setImgUrl('img/minecraft-logo.png');
+        $courseType3->setImgUrl('/img/minecraft-logo.png');
         $courseType3->setChallengesUrl('http://kodeklubben.github.io/computercraft/index.html');
         $manager->persist($courseType3);
 
@@ -55,17 +55,16 @@ Java er et objektorientert programmeringsspråk, utviklet av James Gosling og an
 I motsetning til f.eks. C, kompileres ikke Java til maskinkode, men til plattformuavhengig bytekode som kjøres av et underliggende lag programvare kalt Java Virtual Machine (JVM). Javaprogrammer kan derfor kjøre på alle operativsystemer hvor det finnes en Java Virtual Machine.
 
 For å kjøre vanlige Javaprogrammer trenger man en Java Runtime Environment (JRE). Denne består av JVM samt de grunnleggende bibliotekene. For utvikling av Javaprogrammer må man ha Java Development Kit (JDK), som i tillegg til en fullverdig JRE inneholder Javakompilatoren og andre sentrale verktøy for Javautvikling.');
-        $courseType4->setImgUrl('img/java-logo.png');
+        $courseType4->setImgUrl('/img/java-logo.png');
         $courseType4->setChallengesUrl('http://kodeklubben.github.io/javafx/index.html');
         $manager->persist($courseType4);
 
-
         $manager->flush();
 
-        $this->setReference('courseType-1', $courseType1);
-        $this->setReference('courseType-2', $courseType2);
-        $this->setReference('courseType-3', $courseType3);
-        $this->setReference('courseType-4', $courseType4);
+        $this->setReference('courseType-scratch', $courseType1);
+        $this->setReference('courseType-python', $courseType2);
+        $this->setReference('courseType-minecraft', $courseType3);
+        $this->setReference('courseType-java', $courseType4);
     }
 
     public function getOrder()

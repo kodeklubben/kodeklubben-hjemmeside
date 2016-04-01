@@ -1,0 +1,68 @@
+{% extends '_base/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Meldinger</h1>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <!-- TABLE: LATEST ORDERS -->
+                <div class="box box-default">
+                    <div class="box-header">
+                        <h3 class="box-title">Siste meldinger</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-margin">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Melding</th>
+                                    <th>Opprettet</th>
+                                    <th>Utløpsdato</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for message in messages %}
+                                    <tr>
+                                        <td>{{ message.id }}</td>
+                                        <td>{{ message.message }}</td>
+                                        <td>{{ message.timestamp|date('d/m/Y H:i') }}</td>
+                                        <td>{{ message.expireDate|date('d/m/Y H:i') }}</td>
+                                        <td><button class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash-o"></i></button></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <a href="#" class="btn btn-sm btn-info btn-flat pull-left" id="new-message-btn">Ny Melding</a>
+                        <a href="#" class="btn btn-sm btn-default btn-flat pull-right">Vis Alle Meldinger</a>
+                    </div><!-- /.box-footer -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+
+        <div class="row" id="new-message">
+            <div class="col-sm-10 col-md-8 col-lg-6">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary btn-sm onclick-disable" type="submit">Lagre melding</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var $newMessage = $('#new-message');
+        $('#new-message-btn').on('click', function(){
+            $newMessage.slideToggle();
+        })
+    </script>
+{% endblock %}

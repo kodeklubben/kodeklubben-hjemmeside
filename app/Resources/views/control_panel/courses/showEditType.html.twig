@@ -1,0 +1,26 @@
+{% extends '_base/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>{{ courseType.name|length ? 'Endre ' ~ courseType.name : 'Ny kurstype'}}</h1>
+        <hr>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                <br>
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description, {'attr': {'rows': 15}}) }}
+                <br>
+                {{ form_label(form.challengesUrl) }}
+                {{ form_widget(form.challengesUrl) }}
+                <br>
+                <button type="submit" class="btn btn-primary btn-flat onclick-disable">Lagre</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

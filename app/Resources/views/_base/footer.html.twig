@@ -1,0 +1,11 @@
+<footer class="main-footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <p>Følg oss på <a href="https://www.facebook.com/{{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'facebook'})) }}" target="_blank">Facebook!</a></p>
+            </div>
+            <div class="col-md-4"><p>Kodeklubben {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'region'})) }} &copy;{{ "now"|date('Y') }}</p></div>
+            <div class="col-md-4"><p>E-post: {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'email'})) }}</p></div>
+        </div>
+    </div>
+</footer>

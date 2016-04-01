@@ -50,11 +50,19 @@ class CourseType
     private $challengesUrl;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", nullable=true)
+     */
+    private $deleted;
+
+    /**
      * Course constructor.
      */
     public function __construct()
     {
         $this->imgUrl = "http://placehold.it/800x500";
+        $this->deleted = false;
     }
 
 
@@ -164,5 +172,32 @@ class CourseType
         return $this->challengesUrl;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+    }
+
+    /**
+     * Deletes the course type
+     */
+    public function delete(){
+        $this->deleted = true;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
 

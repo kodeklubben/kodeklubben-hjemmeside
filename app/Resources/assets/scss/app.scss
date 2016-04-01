@@ -2,12 +2,16 @@
 @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootswatch";
 @import "heroic-features";
+@import "box";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
 
+$background-control-panel: #ecf0f5;
 $background-grey: #f6f6f6;
 
 body {
   overflow-x: hidden;
   background-color: $background-grey;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .thumbnail{
   background-color: $background-grey;
@@ -130,6 +134,11 @@ hr{
   border-top: 3px solid #2c3e50;
 }
 
-.table-striped{
-
+.table-fixed{
+  table-layout: fixed;
+}
+.loading-wheel{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
