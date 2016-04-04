@@ -129,6 +129,18 @@ class AvailabilityFunctionalTest extends WebTestCase
     {
         return array(
             array('/kontrollpanel'),
+            array('/kontrollpanel/kurs'),
+            array('/kontrollpanel/kurs/ny'),
+            array('/kontrollpanel/kurs/type'),
+            array('/kontrollpanel/kurs/type/ny'),
+            array('/kontrollpanel/epost'),
+            array('/kontrollpanel/melding'),
+            array('/kontrollpanel/info'),
+            array('/kontrollpanel/statisk_innhold/header'),
+            array('/kontrollpanel/statisk_innhold/tagline'),
+            array('/kontrollpanel/statisk_innhold/deltaker'),
+            array('/kontrollpanel/statisk_innhold/veileder'),
+            array('/kontrollpanel/statisk_innhold/om'),
         );
     }
 }
