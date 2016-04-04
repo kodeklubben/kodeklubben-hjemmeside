@@ -9,4 +9,5 @@ Utviklingsprosjekt for kodeklubben som sikter mot å lage en generisk hjemmeside
 
 ## Install
 `composer install`
+
 `composer build`
