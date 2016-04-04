@@ -125,6 +125,18 @@ class CourseController extends Controller
         ));
     }
 
+    public function deleteCourseClassAction($id){
+        $manager = $this->getDoctrine()->getManager();
+        $courseClass = $manager->getRepository('AppBundle:CourseClass')->find($id);
+        if(!is_null($courseClass)){
+            $manager->remove($courseClass);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('cp_course_time_table', array(
+            'id' => $courseClass->getCourse()->getId()
+        ));
+    }
+
     public function getCourseClassesAction($week)
     {
         $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week);

@@ -17,15 +17,16 @@
         <div class="row text-center">
             {% for course in courses %}
                 <div class="col-md-3 col-sm-6">
-                    <div class="course box box-primary">
-                        <div class="box-body">
-
+                    <div class="box box-primary">
+                        <div class="box-body course">
                             <div class="img-container">
                                 <img src="{{ course.imgUrl }}" alt="{{ course.name }}">
                             </div>
-                            <div class="caption">
+                            <div>
                                 <h3>{{ course.name }}</h3>
                                 <p class="description">{{ course.description }}</p>
+                            </div>
+                            <div class="pull-down">
                                 <footer>
                                     <a href="{{ path('cp_edit_course_type', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
                                     <a href="{{ path('cp_delete_course_type', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
@@ -41,18 +42,6 @@
 
 {% block javascripts %}
     <script>
-        //Cache the loading wheel image
-        var loader =$('<img/>');
-        loader.attr('src', "/img/loader.gif");
-        loader.attr('width', 20);
 
-        function onclickDisable(){
-            var $ele = $('.onclick-disable');
-            $ele.on('click', function(e){
-                e.target.setAttribute('disabled', true);
-                e.target.innerHTML = '';
-                e.target.appendChild(loader[0]);
-            })
-        }
     </script>
 {% endblock %}

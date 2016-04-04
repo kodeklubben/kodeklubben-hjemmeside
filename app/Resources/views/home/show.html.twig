@@ -1,10 +1,8 @@
 {% extends '_base/base.html.twig' %}
 {% block body %}
-    <div class="row container">{% include 'home/header.html.twig' %}</div>
+    <div class="row row-home container">{% include 'home/header.html.twig' %}</div>
 
-    <hr>
-
-    <div class="row">
+    <div class="row row-home">
         <div class="col-lg-12">
             <div class="well text-center">
                 {{ render(controller('AppBundle:StaticContent:getContent', {'idString': 'tagline'})) }}
@@ -12,7 +10,7 @@
         </div>
     </div>
 
-    <div class="row container">
+    <div class="row container row-home">
         <div class=" col-md-7 col-md-offset-1 col-md-push-4">
             <!-- Schedule -->
             {{ render(controller('AppBundle:Home:showTimeTable')) }}
@@ -23,8 +21,11 @@
         </div>
     </div>
 
+    <div class="row-home">
+
     <!-- Courses -->
     {{ render(controller('AppBundle:Home:showCourseTypes')) }}
+    </div>
 
     <br>
     <div class="row">

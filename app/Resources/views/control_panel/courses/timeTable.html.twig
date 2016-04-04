@@ -22,6 +22,7 @@
                                 <th>Dato</th>
                                 <th>Tid</th>
                                 <th>Sted</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,6 +32,7 @@
                                     <td>{{ class.time|date('d. M') }}</td>
                                     <td>{{ class.time|date('H:i') }}</td>
                                     <td>{{ class.place }}</td>
+                                    <td><a href="{{ path('api_delete_course_class', { 'id': class.id }) }}" class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash"></i></a></td>
                                 </tr>
                             {% endfor %}
                             </tbody>

@@ -18,7 +18,6 @@
                             <table class="table table-bordered no-margin">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Melding</th>
                                     <th>Opprettet</th>
                                     <th>Utløpsdato</th>
@@ -28,11 +27,10 @@
                                 <tbody>
                                 {% for message in messages %}
                                     <tr>
-                                        <td>{{ message.id }}</td>
                                         <td>{{ message.message }}</td>
                                         <td>{{ message.timestamp|date('d/m/Y H:i') }}</td>
                                         <td>{{ message.expireDate|date('d/m/Y H:i') }}</td>
-                                        <td><button class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash-o"></i></button></td>
+                                        <td><a href="{{ path('api_delete_message', {'id': message.id}) }}" class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash-o"></i></a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

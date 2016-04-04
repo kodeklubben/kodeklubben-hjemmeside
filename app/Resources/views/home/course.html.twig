@@ -8,19 +8,21 @@
 <div class="row text-center">
     {% for course in courses %}
         <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="box box-primary course">
-                <div class="box-body">
+            <div class="box box-primary">
+                <div class="box-body course">
                     <div class="img-container">
                         <img src="{{ course.imgUrl }}" alt="{{ course.name }}">
                     </div>
-                    <div class="caption">
+                    <div>
                         <h3>{{ course.name }}</h3>
                         <p class="description">{{ course.description }}</p>
-                        <footer>
-                            <a href="{{ path('courses') }}#{{ course.name }}" class="btn btn-primary">Les mer</a>
-                            {% if not course.challengesUrl is null %}<a href="{{ course.challengesUrl }}"
-                                                                        class="btn btn-default">Oppgaver</a>{% endif %}
-                        </footer>
+                    </div>
+                    <div class="pull-down">
+                    <footer>
+                        <a href="{{ path('courses') }}#{{ course.name }}" class="btn btn-primary">Les mer</a>
+                        {% if not course.challengesUrl is null %}<a href="{{ course.challengesUrl }}"
+                                                                    class="btn btn-default">Oppgaver</a>{% endif %}
+                    </footer>
                     </div>
                 </div>
             </div>

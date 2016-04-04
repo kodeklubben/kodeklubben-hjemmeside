@@ -10,7 +10,6 @@
     </div>
     <div class="box-body">
         <div class="table-responsive">
-
             <table id="timeTable" class="table table-striped table-fixed">
                 <thead>
                 <tr>
@@ -31,6 +30,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {% if (not courseClasses|length) %}<h4>Ingen kurs denne uken</h4>{% endif %}
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
         sortTable();
 
         //Cache loading wheel
-        var size = 75;
+        var size = 50;
         $loadingWheel = loading.clone();
         $loadingWheel.attr('width', size);
         $loadingWheel.attr('height', size);

@@ -13,10 +13,7 @@ body {
   background-color: $background-grey;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.thumbnail{
-  background-color: $background-grey;
-  box-shadow: 0px 1px 18px 0px rgba(44,62,80,0.15);
-}
+
 hr{
   display: block;
   height: 1px;
@@ -25,6 +22,17 @@ hr{
   margin: 1em 0;
   padding: 0;
 }
+
+.main-footer {
+  margin-top: 30px;
+  padding: 15px;
+  border-top: 3px solid #2c3e50;
+}
+
+/*
+ * LOGO
+ */
+
 .logo {
   $green: #71bb4f;
   $yellow: #eae813;
@@ -55,22 +63,12 @@ hr{
     }
   }
 }
+//LOGO END
 
-.well{
-  background-color: rgba(44,62,80,0.1);
-}
 
-.schedule-table {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 20px;
-  .prev-week {
-    float: left;
-  }
-  .next-week {
-    float: right;
-  }
-}
+/*
+ * HOMEPAGE
+ */
 
 .top-header {
   h1 {
@@ -83,25 +81,12 @@ hr{
   max-height: 350px;
 }
 
-.course {
-  height: 400px;
-  .description {
-    max-height: 110px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
+.row-home{
+  margin-bottom:50px;
 }
 
-.img-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-  img {
-    max-height: 100%;
-    max-width: 100%;
-  }
+.well{
+  background-color: rgba(44,62,80,0.1);
 }
 
 .messages {
@@ -120,19 +105,42 @@ hr{
     border-left: 2px solid #ddd;
   }
 }
+//HOMEPAGE END
 
-.register-container {
-  margin-top: 20px;
-  a {
-    margin-top: 10px;
+/*
+ * Course
+ */
+
+.course {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .description {
+    max-height: 110px;
+    overflow: hidden;
+  }
+  .img-container {
+    min-height:150px;
+    height: 150px;
+    position: relative;;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
   }
 }
+//COURSE END
 
-.main-footer {
-  margin-top: 30px;
-  padding: 15px;
-  border-top: 3px solid #2c3e50;
-}
+/*
+ * UTILS
+ */
 
 .table-fixed{
   table-layout: fixed;
@@ -142,3 +150,11 @@ hr{
   margin-left: auto;
   margin-right: auto;
 }
+
+.pull-down{
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+}
+//UTILS END

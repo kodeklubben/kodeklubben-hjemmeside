@@ -42,6 +42,16 @@ class ControlPanelController extends Controller
         ));
     }
 
+    public function deleteMessageAction($id){
+        $manager = $this->getDoctrine()->getManager();
+        $message = $manager->getRepository('AppBundle:Message')->find($id);
+        if(!is_null($message)){
+            $manager->remove($message);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('cp_message');
+    }
+
     public function showInfoAction(Request $request){
         $region = $this->getDoctrine()->getRepository('AppBundle:StaticContent')->findOneBy(array('idString' => 'region'));
         $regionForm = $this->createForm(new InfoType(), $region);

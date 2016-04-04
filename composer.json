@@ -38,13 +38,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "npm install",
-            "gulp build:dev",
-            "php app/console doctrine:database:create --env=dev",
-            "php app/console doctrine:schema:update --force --env=dev",
-            "php app/console doctrine:fixtures:load --env=dev -n",
-            "php app/console server:run --env=dev"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -53,6 +47,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "build": [
+            "npm install",
+            "gulp build:dev",
+            "php app/console doctrine:database:create --env=dev",
+            "php app/console doctrine:schema:update --force --env=dev",
+            "php app/console doctrine:fixtures:load --env=dev -n",
+            "php app/console server:run --env=dev"
         ]
     },
     "config": {

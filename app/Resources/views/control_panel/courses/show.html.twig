@@ -15,23 +15,22 @@
         <br>
         <div class="row text-center">
             {% for course in courses %}
-                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="box box-warning">
-                        <div class="box-body">
-
+                        <div class="box-body course">
                             <div class="img-container">
                                 <img src="{{ course.courseType.imgUrl }}" alt="{{ course.name }}">
                             </div>
-                            <div class="caption">
+                            <div>
                                 <h3>{{ course.name }}</h3>
                                 <p class="description">{{ course.description }}</p>
-                                <footer>
-                                    <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
-                                    <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
-                                    <a href="{{ path('cp_delete_course', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
-                                </footer>
                             </div>
-                        </div>
+                            <footer>
+                                <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
+                                <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
+                                <a href="{{ path('cp_delete_course', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
+                            </footer>
+                            </div>
                     </div>
                 </div>
             {% endfor %}
