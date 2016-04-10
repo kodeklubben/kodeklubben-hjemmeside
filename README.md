@@ -2,8 +2,8 @@
 
 ## Requirements
 - [PHP](http://php.net/)
-- [Composer](https://nodejs.org/en/)
-- [Node.js](https://getcomposer.org/)
+- [Composer](https://getcomposer.org/)
+- [Node.js](https://nodejs.org/en/)
 
 ## Install
 `composer install`
