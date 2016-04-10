@@ -11,12 +11,12 @@
 `composer build`
 
 ### Build problems
-If you experience problems try deleting node_modules before running 'composer build'.
+Try deleting `node_modules` before running `composer build`.
 
-Windows has issues with long filenames which may prevent you from deleting the node_modules directory. To solve this, run
+Windows has issues with long filenames which may prevent you from deleting the `node_modules` directory. To solve this, run
 
-'npm install -g rimraf'
+`npm install -g rimraf`
 
 and then remove by executing
 
-'rimraf node_modules'
+`rimraf node_modules`
