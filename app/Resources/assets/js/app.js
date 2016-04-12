@@ -27,6 +27,9 @@ loading.attr('width', 20);
     }
 })();
 
+/**
+ * Click the closest button when enter is pressed
+ */
 (function enterClickButton(){
     var $forms = $('.enter-click-button')
     $forms.keydown(function(e){
@@ -38,8 +41,23 @@ loading.attr('width', 20);
 })();
 
 /**
+ * Adds the active class to active navigation links
+ */
+(function addActiveClassToLinks() {
+    var pathname = window.location.pathname
+    var $activeLink = $('a[href="' + pathname + '"]')
+    $activeLink.closest('li').addClass('active')
+
+    //Add active class to control panel link in main navigation if a control panel page is active
+    if (pathname.indexOf('/kontrollpanel') > -1) {
+        var $controlPanelLink = $('ul.nav a[href="/kontrollpanel"]')
+        $controlPanelLink.closest('li').addClass('active')
+    }
+})();
+
+/**
  * Sort Table By Attribute
- * @param $table A Table jQuery element
+ * @param $table jQuery table element
  * @param {string} attr Attribute to be sorted by
  * @param {boolean} ascending True will sort ascending order
  */
