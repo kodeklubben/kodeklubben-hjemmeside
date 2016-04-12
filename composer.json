@@ -53,8 +53,7 @@
             "gulp build:dev",
             "php app/console doctrine:database:create --env=dev",
             "php app/console doctrine:schema:update --force --env=dev",
-            "php app/console doctrine:fixtures:load --env=dev -n",
-            "php app/console server:run --env=dev"
+            "php app/console doctrine:fixtures:load --env=dev -n"
         ]
     },
     "config": {
