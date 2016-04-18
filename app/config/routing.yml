@@ -11,9 +11,23 @@ about:
   path: /om
   defaults: {_controller: AppBundle:About:show}
 
+#Sign up
 sign_up:
   path: /pamelding
   defaults: {_controller: AppBundle:SignUp:show}
+
+sign_up_course:
+  path: /pamelding/{id}
+  defaults: {_controller: AppBundle:SignUp:signUp}
+  requirements:
+    id: \d+
+
+sign_off_course:
+  path: /pamelding/meldav/{id}
+  defaults: {_controller: AppBundle:SignUp:signOff}
+  requirements:
+    id: \d+
+
 
 #Registration
 participant_registration:

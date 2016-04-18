@@ -57,6 +57,13 @@ class CourseType
     private $deleted;
 
     /**
+     * @var Course[]
+     *
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="courseType")
+     */
+    private $courses;
+
+    /**
      * Course constructor.
      */
     public function __construct()
@@ -199,5 +206,23 @@ class CourseType
     {
         return $this->name;
     }
+
+    /**
+     * @return Course[]
+     */
+    public function getCourses()
+    {
+        return $this->courses;
+    }
+
+    /**
+     * @param Course[] $courses
+     */
+    public function setCourses($courses)
+    {
+        $this->courses = $courses;
+    }
+
+
 }
 

@@ -47,7 +47,7 @@ class Course
     /**
      * @var CourseType
      *
-     * @ORM\ManyToOne(targetEntity="CourseType")
+     * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="courses")
      * @ORM\JoinColumn(name="course_type_id", referencedColumnName="id")
      */
     private $courseType;
@@ -97,6 +97,7 @@ class Course
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->tutors = new ArrayCollection();
         $this->deleted = false;
     }
 
@@ -221,6 +222,22 @@ class Course
     public function setTutors($tutors)
     {
         $this->tutors = $tutors;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function removeTutor($user)
+    {
+        $this->tutors->removeElement($user);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function addTutor($user)
+    {
+        $this->tutors[] = $user;
     }
 
     /**

@@ -47,7 +47,7 @@ security:
     role_hierarchy:
         ROLE_PARTICIPANT: ROLE_USER
         ROLE_TUTOR: ROLE_USER
-        ROLE_ADMIN: [ROLE_USER, ROLE_PARTICIPANT, ROLE_TUTOR]
+        ROLE_ADMIN: [ROLE_USER, ROLE_TUTOR]
 
     access_control:
         # this is a catch-all for the admin area

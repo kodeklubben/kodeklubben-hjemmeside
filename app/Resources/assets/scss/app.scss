@@ -136,7 +136,26 @@ hr{
     }
   }
 }
+.time-table-wrapper{
+  margin-bottom:20px;
+  max-height:250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.time-table{
+  width:100%;
+  th{
+    text-align: center;
+  }
+}
 //COURSE END
+
+/*
+ * Sign Up
+ */
+.btn-sign-up{
+  max-height:35px;
+}
 
 /*
  * UTILS
@@ -145,12 +164,20 @@ hr{
 .table-fixed{
   table-layout: fixed;
 }
+.text-bold{
+  font-weight:bold;
+}
 .loading-wheel{
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
+.float-right{
+  float:right;
+}
+.float-left{
+  float:left;
+}
 .pull-down{
   height:100%;
   display: flex;
