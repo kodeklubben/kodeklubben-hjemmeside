@@ -67,7 +67,7 @@ class SignUpController extends Controller
         return $this->redirectToRoute('sign_up');
     }
 
-    public function signOffAction(Course $course)
+    public function withdrawAction(Course $course)
     {
         $user = $this->getUser();
         // Check if user is already signed up to the course
