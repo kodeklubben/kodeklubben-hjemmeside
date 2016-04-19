@@ -47,6 +47,10 @@ class SignUpController extends Controller
 
         // Sign up as a participant if the user is logged in as a participant user
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
+            //Check if course is full
+            if(count($course->getParticipants()) >= $course->getParticipantLimit()) return $this->redirectToRoute('sign_up');
+
+            //Add user as participant to the course
             $participant = new Participant();
             $participant->setUser($user);
             $participant->setCourse($course);

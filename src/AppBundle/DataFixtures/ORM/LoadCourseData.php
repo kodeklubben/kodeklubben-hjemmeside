@@ -31,7 +31,7 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
 
         $course_scratch_wednesday = new Course();
         $course_scratch_wednesday->setCourseType($this->getReference('courseType-scratch'));
-        $course_scratch_wednesday->setDescription('Scratch Mandag R10');
+        $course_scratch_wednesday->setDescription('Scratch Onsdag R10');
         $course_scratch_wednesday->setName('Scratch');
         $course_scratch_wednesday->setParticipantLimit(25);
         $course_scratch_wednesday->setSemester($this->getReference('semester-1'));
