@@ -12,12 +12,18 @@ loading.attr('width', 20);
 
     $noSubmitElements.on('click', function(e){
         var $target = $(e.target).closest('.onclick-disable')
-        disableElement($target)
+        if(!$target.attr('disabled')){
+            disableElement($target)
+        }else{
+            e.preventDefault()
+        }
     })
 
     $submitElements.closest('form').submit(function(){
         var $ele =  $(this).find('.onclick-disable')
-        disableElement($ele)
+        if(!$ele.attr('disabled')){
+            disableElement($ele)
+        }
     })
 
     function disableElement($ele){

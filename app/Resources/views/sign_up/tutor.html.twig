@@ -1,0 +1,113 @@
+{% extends '_base/base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center">Påmelding for veiledere</h1>
+    <hr>
+    {% if tutoringCourses|length %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h4>Du har meldt deg på følgende kurs:</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Kurs</th>
+                                <th>Beskrivelse</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for course in tutoringCourses %}
+                                <tr>
+                                    <td>{{ course.name }}</td>
+                                    <td>{{ course.description }}</td>
+                                    <td><a href="{{ path('withdraw_from_course', {'id': course.id}) }}"
+                                           class="btn btn-danger btn-xs btn-flat float-right onclick-disable">Meld
+                                            av</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for courseType in courseTypes %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>{{ courseType.name }}</h3>
+
+                <div class="row text-center">
+                    {% for course in courseType.courses %}
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="box box-primary">
+                                <div class="box-body">
+                                    <div>
+                                        <h4><b>{{ course.name }}</b></h4>
+                                        <p class="description">{{ course.description }}</p>
+                                        <div class="table-responsive time-table-wrapper">
+                                            <table class="time-table" class="table table-striped table-fixed">
+                                                <thead>
+                                                <tr>
+                                                    <th>Uke</th>
+                                                    <th>Dag</th>
+                                                    <th>Tid</th>
+                                                    <th>Sted</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for class in course.classes %}
+                                                    <tr class="{{ 'now'|date('W') == class.time|date('W') ? 'text-bold text-info' }}"
+                                                        timestamp="{{ class.time|date('U') }}">
+                                                        <td>{{ class.time|date('W') }}</td>
+                                                        <td>{{ class.dayNorwegian }}</td>
+                                                        <td>{{ class.time|date('H:i') }}</td>
+                                                        <td>{{ class.place }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            {% if (not course.classes|length) %}<h4>Ingen kurs denne
+                                                uken</h4>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="pull-down">
+                                        <footer>
+                                            {% set alreadySignedUp = false %}
+                                            {% for tutoringCourse in tutoringCourses %}
+                                                {% if tutoringCourse == course %}
+                                                    {% set alreadySignedUp = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <a href="{{ path('sign_up_course', {'id': course.id}) }}" {{ alreadySignedUp ? 'disabled' }}
+                                               class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld
+                                                på' }}</a>
+                                            <a href="{{ path('courses') }}#{{ course.name }}"
+                                               class="btn btn-sm btn-default">Mer
+                                                info</a>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var $timeTables = $('.time-table');
+            $timeTables.each(function () {
+                sortTableByAttribute($(this), 'timestamp', true);
+            })
+        })
+    </script>
+{% endblock %}
