@@ -43,6 +43,7 @@ class Participant
      * @var Child
      * 
      * @ORM\ManyToOne(targetEntity="Child")
+     * @ORM\JoinColumn(name="child_id", referencedColumnName="id", nullable=true)
      */
     private $child;
 
