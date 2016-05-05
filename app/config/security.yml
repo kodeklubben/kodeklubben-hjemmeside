@@ -46,6 +46,7 @@ security:
 
     role_hierarchy:
         ROLE_PARTICIPANT: ROLE_USER
+        ROLE_PARENT: [ROLE_USER, ROLE_PARTICIPANT]
         ROLE_TUTOR: ROLE_USER
         ROLE_ADMIN: [ROLE_USER, ROLE_TUTOR]
 
@@ -53,4 +54,6 @@ security:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
         - { path: ^/kontrollpanel, roles: ROLE_ADMIN }
-        - { path: ^/pamelding, roles: [ROLE_ADMIN, ROLE_PARTICIPANT, ROLE_TUTOR] }
+        - { path: ^/pamelding, roles: [ROLE_PARTICIPANT, ROLE_TUTOR] }
+        - { path: ^/pamelding/veileder/meldav, roles: [ROLE_TUTOR] }
+        - { path: ^/pamelding/deltaker/meldav, roles: [ROLE_PARTICIPANT] }

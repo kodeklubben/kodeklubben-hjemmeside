@@ -1,0 +1,77 @@
+{% extends '_base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="row text-center">
+        <h1>Velg brukertype</h1>
+        <div class="registration-options">
+
+            <div class="col-xs-12 col-sm-4">
+                <div class="box box-primary">
+                    <div class="box-body">
+
+                        <a href="{{ path('participant_registration') }}">
+                            <div class="registration-option">
+                                <h3>Deltaker</h3>
+                                <p>Du ønsker selv å delta på kurs</p>
+                                <div class="row">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-warning">Registrer</button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <a href="{{ path('parent_registration') }}">
+                            <div class="registration-option">
+                                <h3>Foresatt</h3>
+                                <p>Du ønkser å melde ett eller flere barn på kurs</p>
+                                <div class="row">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-warning">Registrer</button>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <a href="{{ path('tutor_registration') }}">
+                            <div class="registration-option">
+                                <h3>Veileder</h3>
+                                <p>Du ønsker å være veileder på kurs</p>
+                                <div class="row">
+                                    <i class="fa fa-user-secret fa-5x"></i>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-flat btn-warning">Registrer</button>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

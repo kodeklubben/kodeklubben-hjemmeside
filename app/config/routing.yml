@@ -1,3 +1,6 @@
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 #Pages
 home:
   path: /
@@ -17,6 +20,16 @@ about:
   path: /om
   defaults: {_controller: AppBundle:About:show}
 
+#Child
+child_create:
+  path: /barn/ny
+  defaults: {_controller: AppBundle:Child:createChild}
+
+child_delete:
+  path: /barn/slett/{id}
+  defaults: {_controller: AppBundle:Child:deleteChild}
+  requirements:
+    id: \d+
 
 #Sign up
 sign_up:
@@ -29,17 +42,38 @@ sign_up_course:
   requirements:
     id: \d+
 
-withdraw_from_course:
-  path: /pamelding/meldav/{id}
-  defaults: {_controller: AppBundle:SignUp:withdraw}
+sign_up_course_child:
+  path: /pamelding/barn/{id}/{child}
+  defaults: {_controller: AppBundle:SignUp:signUpChild}
+  requirements:
+    id: \d+
+  options:
+    expose: true
+
+withdraw_from_course_tutor:
+  path: /pamelding/veileder/meldav/{id}
+  defaults: {_controller: AppBundle:SignUp:withdrawTutor}
   requirements:
     id: \d+
 
+withdraw_from_course_participant:
+  path: /pamelding/deltaker/meldav/{id}
+  defaults: {_controller: AppBundle:SignUp:withdrawParticipant}
+  requirements:
+    id: \d+
 
 #Registration
+register_user:
+  path: /registrer
+  defaults: {_controller: AppBundle:User:showRegistrationOptions}
+
 participant_registration:
   path: /registrer/deltaker
   defaults: {_controller: AppBundle:User:registerParticipant}
+
+parent_registration:
+  path: /registrer/foresatt
+  defaults: {_controller: AppBundle:User:registerParent}
 
 tutor_registration:
   path: /registrer/veileder

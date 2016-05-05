@@ -26,7 +26,8 @@
         "symfony/monolog-bundle"               : "~2.7",
         "symfony/swiftmailer-bundle"           : "~2.3",
         "symfony/symfony"                      : "~2.8",
-        "twig/extensions"                      : "~1.2"
+        "twig/extensions"                      : "~1.2",
+        "friendsofsymfony/jsrouting-bundle": "^1.6"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0"
@@ -49,6 +50,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "build": [
+            "php app/console assets:install --symlink web",
             "npm install",
             "gulp build:dev",
             "php app/console doctrine:database:create --env=dev",
