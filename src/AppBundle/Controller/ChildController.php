@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Child;
-use AppBundle\Form\CreateChildType;
+use AppBundle\Form\ChildType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,7 +12,7 @@ class ChildController extends Controller
     public function createChildAction(Request $request)
     {
         $child = new Child();
-        $form = $this->createForm(new CreateChildType(), $child);
+        $form = $this->createForm(new ChildType(), $child);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $child->setParent($this->getUser());
