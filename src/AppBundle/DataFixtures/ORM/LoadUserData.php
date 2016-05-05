@@ -32,6 +32,16 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $user2->setRoles(array('ROLE_PARTICIPANT'));
         $manager->persist($user2);
 
+        $userParent = new User();
+        $userParent->setFirstName('Parent');
+        $userParent->setLastName('Parent');
+        $userParent->setPhone('12345678');
+        $userParent->setEmail('parent@mail.no');
+        $userParent->setUsername('parent@mail.no');
+        $userParent->setPassword('$2y$13$5jT9pYTBA/z5dCIKpQB3Nuz5wUfZcIF6NRcV0wAnWiGXMAqULMTHO');
+        $userParent->setRoles(array('ROLE_PARENT'));
+        $manager->persist($userParent);
+
         $user3 = new User();
         $user3->setFirstName('Tutor');
         $user3->setLastName('Tutor');
@@ -46,6 +56,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         $this->setReference('user-admin', $user1);
         $this->setReference('user-participant', $user2);
+        $this->setReference('user-parent', $userParent);
         $this->setReference('user-tutor', $user3);
     }
 

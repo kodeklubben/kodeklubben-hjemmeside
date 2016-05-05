@@ -93,6 +93,11 @@ class CourseController extends Controller
         $manager->flush();
         return $this->redirectToRoute('cp_course');
     }
+    
+    public function showCourseInfoAction(Course $course)
+    {
+        return $this->render('courses/course_info.html.twig', array('course' => $course));
+    }
 
     public function editTimeTableAction(Request $request, Course $course)
     {

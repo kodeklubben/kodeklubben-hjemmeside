@@ -23,7 +23,7 @@
                 {% for class in courseClasses %}
                     <tr timestamp="{{ class.time|date('U') }}">
                         <td>{{ class.dayNorwegian }}</td>
-                        <td>{{ class.course.name }}</td>
+                        <td><a href="{{ path('course_info', {id: class.course.id}) }}">{{ class.course.name }}</a></td>
                         <td>{{ class.time|date('H:i') }}</td>
                         <td>{{ class.place }}</td>
                     </tr>

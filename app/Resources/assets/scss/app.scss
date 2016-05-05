@@ -100,6 +100,16 @@ hr{
     }
   }
 }
+
+#timeTable{
+  a{
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+
 @media screen and(min-width: 992px){
   .divider-left {
     border-left: 2px solid #ddd;
@@ -151,10 +161,42 @@ hr{
 //COURSE END
 
 /*
+ * Login
+ */
+.register-container{
+  padding:10px;
+}
+
+/*
  * Sign Up
  */
 .btn-sign-up{
   max-height:35px;
+}
+
+/*
+ * Registration options
+ */
+.registration-options{
+  margin-top:50px;
+  a{
+    &:hover, &:active, &:focus{
+      text-decoration: none;
+    }
+  }
+}
+.registration-option{
+    opacity:0.85;
+  padding:10px;
+  color:$brand-info;
+  height:270px;
+  button{
+    margin-top:20px;
+    border-radius:0;
+  }
+  &:hover{
+    opacity:1;
+  }
 }
 
 /*

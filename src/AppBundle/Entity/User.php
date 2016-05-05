@@ -201,5 +201,13 @@ class User implements UserInterface
         $this->phone = $phone;
     }
 
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
+
 
 }
