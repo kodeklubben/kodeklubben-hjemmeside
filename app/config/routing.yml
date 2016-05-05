@@ -7,9 +7,16 @@ courses:
   path: /kurs
   defaults: {_controller: AppBundle:Course:show}
 
+course_info:
+  path: /kurs/{id}
+  defaults: {_controller: AppBundle:Course:showCourseInfo}
+  requirements:
+    id: \d+
+
 about:
   path: /om
   defaults: {_controller: AppBundle:About:show}
+
 
 #Sign up
 sign_up:
