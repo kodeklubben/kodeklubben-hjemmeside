@@ -17,7 +17,6 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $participant->setUser($this->getReference('user-participant'));
         $participant->setFirstName($participant->getUser()->getFirstName());
         $participant->setLastName($participant->getUser()->getLastName());
-        $participant->setIsChild(false);
         $manager->persist($participant);
 
         $participant = new Participant();
@@ -25,7 +24,6 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $participant->setUser($this->getReference('user-participant'));
         $participant->setFirstName($participant->getUser()->getFirstName());
         $participant->setLastName($participant->getUser()->getLastName());
-        $participant->setIsChild(false);
         $manager->persist($participant);
 
         $manager->flush();

@@ -40,11 +40,11 @@ class Participant
     private $lastName;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_child", type="boolean")
+     * @var Child
+     * 
+     * @ORM\ManyToOne(targetEntity="Child")
      */
-    private $isChild;
+    private $child;
 
     /**
      * @var User
@@ -105,19 +105,19 @@ class Participant
     }
 
     /**
-     * @return boolean
+     * @return Child
      */
-    public function isIsChild()
+    public function getChild()
     {
-        return $this->isChild;
+        return $this->child;
     }
 
     /**
-     * @param boolean $isChild
+     * @param Child $child
      */
-    public function setIsChild($isChild)
+    public function setChild($child)
     {
-        $this->isChild = $isChild;
+        $this->child = $child;
     }
 
     /**

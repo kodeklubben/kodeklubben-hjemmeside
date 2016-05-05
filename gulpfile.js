@@ -97,6 +97,11 @@ gulp.task('jquery', function(){
         .pipe(gulp.dest('web/js/'))
 });
 
+gulp.task('bootstrapFonts', function(){
+    gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
+        .pipe(gulp.dest('web/fonts/bootstrap'))
+});
+
 gulp.task('files', function(){
     gulp.src(path.src + 'files/*')
         .pipe(gulp.dest('web/files/'))
@@ -110,6 +115,6 @@ gulp.task('watch', function () {
 });
 
 
-gulp.task('build:prod', ['stylesProd', 'scriptsProd', 'imagesProd', 'files']);
-gulp.task('build:dev', ['stylesDev', 'scriptsDev', 'imagesDev', 'files']);
+gulp.task('build:prod', ['stylesProd', 'scriptsProd', 'imagesProd', 'files', 'bootstrapFonts']);
+gulp.task('build:dev', ['stylesDev', 'scriptsDev', 'imagesDev', 'files', 'bootstrapFonts']);
 gulp.task('default', ['build:dev', 'watch']);

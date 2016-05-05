@@ -24,8 +24,8 @@
                                 <tr>
                                     <td>{{ participant.course.name }}</td>
                                     <td>{{ participant.course.description }}</td>
-                                    <td><a href="{{ path('withdraw_from_course', {'id': participant.course.id}) }}"
-                                           class="btn btn-danger btn-xs btn-flat float-right onclick-disable">Meld
+                                    <td><a href="{{ path('withdraw_from_course_participant', {'id': participant.id}) }}"
+                                           class="btn btn-warning btn-xs btn-flat float-right onclick-disable">Meld
                                             av</a></td>
                                 </tr>
                             {% endfor %}
@@ -50,31 +50,7 @@
                                     <div>
                                         <h4><b>{{ course.name }}</b></h4>
                                         <p class="description">{{ course.description }}</p>
-                                        <div class="table-responsive time-table-wrapper">
-                                            <table class="time-table" class="table table-striped table-fixed">
-                                                <thead>
-                                                <tr>
-                                                    <th>Uke</th>
-                                                    <th>Dag</th>
-                                                    <th>Tid</th>
-                                                    <th>Sted</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for class in course.classes %}
-                                                    <tr class="{{ 'now'|date('W') == class.time|date('W') ? 'text-bold text-info' }}"
-                                                        timestamp="{{ class.time|date('U') }}">
-                                                        <td>{{ class.time|date('W') }}</td>
-                                                        <td>{{ class.dayNorwegian }}</td>
-                                                        <td>{{ class.time|date('H:i') }}</td>
-                                                        <td>{{ class.place }}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>
-                                            {% if (not course.classes|length) %}<h4>Ingen kurs denne
-                                                uken</h4>{% endif %}
-                                        </div>
+                                        {% include 'sign_up/courseTimeTable.html.twig' with {'course': course} %}
                                     </div>
                                     <div class="pull-down">
                                         <footer>
