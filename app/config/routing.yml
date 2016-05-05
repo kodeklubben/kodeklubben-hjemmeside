@@ -10,6 +10,12 @@ courses:
   path: /kurs
   defaults: {_controller: AppBundle:Course:show}
 
+course_info:
+  path: /kurs/{id}
+  defaults: {_controller: AppBundle:Course:showCourseInfo}
+  requirements:
+    id: \d+
+
 about:
   path: /om
   defaults: {_controller: AppBundle:About:show}
@@ -193,7 +199,14 @@ security_login_check:
     path: /login_check
     defaults: {_controller: AppBundle:Security:loginCheck}
 
-
 security_logout:
     path: /logout
     defaults: {_controller: AppBundle:Security:logout}
+
+password_reset:
+  path: /reset_passord
+  defaults: {_controller: AppBundle:PasswordReset:show}
+
+password_new:
+  path: /reset_passord/{code}
+  defaults: {_controller: AppBundle:PasswordReset:resetPassword}

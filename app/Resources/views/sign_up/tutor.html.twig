@@ -40,7 +40,7 @@
     {% for courseType in courseTypes %}
         <div class="row">
             <div class="col-lg-12">
-                <h3>{{ courseType.name }}</h3>
+                <h3 id="{{ courseType.name }}">{{ courseType.name }}</h3>
 
                 <div class="row text-center">
                     {% for course in courseType.courses %}
@@ -63,7 +63,7 @@
                                             <a href="{{ path('sign_up_course', {'id': course.id}) }}" {{ alreadySignedUp ? 'disabled' }}
                                                class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld
                                                 på' }}</a>
-                                            <a href="{{ path('courses') }}#{{ course.name }}"
+                                            <a href="{{ path('course_info', {id: course.id}) }}"
                                                class="btn btn-sm btn-default">Mer
                                                 info</a>
                                         </footer>
