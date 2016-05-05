@@ -69,6 +69,12 @@ cp_course_type:
   path: /kontrollpanel/kurs/type
   defaults: {_controller: AppBundle:Course:showCourseType}
 
+cp_course_participants:
+  path: /kontrollpanel/kurs/deltakere/{id}
+  defaults: {_controller: AppBundle:Course:showParticipantAdministration}
+  requirements:
+    id: \d+
+
 cp_create_course_type:
   path: /kontrollpanel/kurs/type/ny
   defaults: {_controller: AppBundle:Course:editCourseType}

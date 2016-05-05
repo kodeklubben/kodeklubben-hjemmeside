@@ -153,6 +153,14 @@ class Participant
     }
 
 
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
+    
 
 }
 
