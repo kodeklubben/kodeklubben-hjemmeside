@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Child;
 use AppBundle\Entity\Course;
 use AppBundle\Entity\Participant;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SignUpController extends Controller
 {
@@ -101,28 +103,34 @@ class SignUpController extends Controller
         return $this->redirectToRoute('sign_up');
     }
 
-    public function withdrawTutorAction(Course $course)
+    public function withdrawTutorAction(Request $request)
     {
-        $user = $this->getUser();
+        $userRepo = $this->getDoctrine()->getRepository('AppBundle:User');
+        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
+        $tutorId = $request->get('tutorId');
+        $tutor = $isAdmin && !is_null($tutorId) ? $userRepo->find($tutorId) : $this->getUser();
+        $course = $this->getDoctrine()->getRepository('AppBundle:Course')->find($request->get('courseId'));
+        
         // Check if user is already signed up to the course
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('AppBundle:Course')->findByTutorAndCourse($user, $course)) > 0;
+        $isAlreadyTutor = count($this->getDoctrine()->getRepository('AppBundle:Course')->findByTutorAndCourse($tutor, $course)) > 0;
         if ($isAlreadyTutor) {
-            $course->removeTutor($user);
+            $course->removeTutor($tutor);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($course);
             $manager->flush();
         }
-        return $this->redirectToRoute('sign_up');
+        return $this->redirect($request->headers->get('referer'));
     }
 
-    public function withdrawParticipantAction(Participant $participant)
+    public function withdrawParticipantAction(Request $request, Participant $participant)
     {
-        if ($participant->getUser()->getId() == $this->getUser()->getId()) {
+        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
+        if ($isAdmin || ($participant->getUser()->getId() == $this->getUser()->getId())) {
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($participant);
             $manager->flush();
         }
-        return $this->redirectToRoute('sign_up');
+        return $this->redirect($request->headers->get('referer'));
 
     }
 

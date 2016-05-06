@@ -3,14 +3,14 @@
 {% block body %}
     <header class="content-header">
         <a class="btn btn-default btn-sm float-right" href="{{ path('cp_course') }}"><i class="fa fa-reply"></i> Alle kurs</a>
-        <h1>Kursdeltakere {{ course.name }}</h1>
+        <h1>Kursveiledere {{ course.name }}</h1>
         <p>{{ course.description }}</p>
 
     </header>
     <section class="content">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Deltakere</h3>
+                <h3 class="box-title">Veiledere</h3>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -24,18 +24,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for participant in course.participants %}
+                        {% for tutor in course.tutors %}
                             <tr>
-                                <td>{{ participant.fullName }}</td>
-                                <td>{{ participant.user.email }}</td>
-                                <td>{{ participant.user.phone }}</td>
-                                <td><a class="text-danger no-text-decoration onclick-disable" href="{{ path('withdraw_from_course_participant', {id: participant.id}) }}">Fjern</a></td>
+                                <td>{{ tutor.fullName }}</td>
+                                <td>{{ tutor.email }}</td>
+                                <td>{{ tutor.phone }}</td>
+                                <td><a class="text-danger no-text-decoration onclick-disable" href="{{ path('withdraw_from_course_tutor', {courseId: course.id, tutorId: tutor.id}) }}">Fjern</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    {% if (not course.participants|length) %}<h5 class="text-bold text-warning">Ingen har meldt seg på dette kurset
-                        enda</h5>{% endif %}
+                    {% if (not course.tutors|length) %}<h5 class="text-bold text-warning">Det er ingen veiledere på dette kurset</h5>{% endif %}
                 </div>
             </div>
         </div>

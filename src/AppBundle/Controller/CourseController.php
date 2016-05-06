@@ -153,5 +153,10 @@ class CourseController extends Controller
         return $this->render('control_panel/courses/administrate_participants.html.twig', array('course' => $course));
     }
 
+    public function showTutorAdministrationAction(Course $course)
+    {
+        return $this->render('control_panel/courses/administrate_tutors.html.twig', array('course' => $course));
+    }
+    
 }
 

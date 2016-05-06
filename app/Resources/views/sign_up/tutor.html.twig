@@ -24,7 +24,7 @@
                                 <tr>
                                     <td>{{ course.name }}</td>
                                     <td>{{ course.description }}</td>
-                                    <td><a href="{{ path('withdraw_from_course_tutor', {'id': course.id}) }}"
+                                    <td><a href="{{ path('withdraw_from_course_tutor', {'courseId': course.id}) }}"
                                            class="btn btn-warning btn-xs btn-flat float-right onclick-disable">Meld
                                             av</a></td>
                                 </tr>
