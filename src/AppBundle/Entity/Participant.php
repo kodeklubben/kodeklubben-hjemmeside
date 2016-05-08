@@ -160,8 +160,7 @@ class Participant
     {
         return $this->getFirstName() . " " . $this->getLastName();
     }
-
-
+    
 
 }
 

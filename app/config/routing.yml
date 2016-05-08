@@ -51,10 +51,11 @@ sign_up_course_child:
     expose: true
 
 withdraw_from_course_tutor:
-  path: /pamelding/veileder/meldav/{id}
-  defaults: {_controller: AppBundle:SignUp:withdrawTutor}
+  path: /pamelding/veileder/meldav/{courseId}/{tutorId}
+  defaults: {_controller: AppBundle:SignUp:withdrawTutor, tutorId: null}
   requirements:
-    id: \d+
+    courseId: \d+
+    tutorId: \d+
 
 withdraw_from_course_participant:
   path: /pamelding/deltaker/meldav/{id}
@@ -106,9 +107,33 @@ cp_info:
   path: /kontrollpanel/info
   defaults: {_controller: AppBundle:ControlPanel:showInfo}
 
+cp_tutors:
+  path: /kontrollpanel/veiledere/{semesterId}
+  defaults: {_controller: AppBundle:ControlPanel:showTutors, semesterId: null}
+  requirements:
+    semesterId: \d+
+
+cp_participants:
+  path: /kontrollpanel/deltakere/{semesterId}
+  defaults: {_controller: AppBundle:ControlPanel:showParticipants, semesterId: null}
+  requirements:
+    semesterId: \d+
+
 cp_course_type:
   path: /kontrollpanel/kurs/type
   defaults: {_controller: AppBundle:Course:showCourseType}
+
+cp_course_participants:
+  path: /kontrollpanel/kurs/deltakere/{id}
+  defaults: {_controller: AppBundle:Course:showParticipantAdministration}
+  requirements:
+    id: \d+
+
+cp_course_tutors:
+  path: /kontrollpanel/kurs/veiledere/{id}
+  defaults: {_controller: AppBundle:Course:showTutorAdministration}
+  requirements:
+    id: \d+
 
 cp_create_course_type:
   path: /kontrollpanel/kurs/type/ny

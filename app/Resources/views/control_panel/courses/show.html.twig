@@ -26,9 +26,15 @@
                                 <p class="description">{{ course.description }}</p>
                             </div>
                             <footer>
-                                <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
-                                <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
-                                <a href="{{ path('cp_delete_course', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
+                                <div class="row">
+                                    <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
+                                    <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
+                                    <a href="{{ path('cp_delete_course', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
+                                </div>
+                                <div class="row">
+                                    <a href="{{ path('cp_course_participants', {'id': course.id}) }}" class="btn btn-info btn-flat">Deltakere</a>
+                                    <a href="{{ path('cp_course_tutors', {'id': course.id}) }}" class="btn btn-info btn-flat">Veiledere</a>
+                                </div>
                             </footer>
                             </div>
                     </div>

@@ -4,6 +4,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Course;
+use AppBundle\Entity\Semester;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
@@ -41,6 +42,20 @@ class CourseRepository extends EntityRepository
             ->andWhere('tutors = :user')
             ->setParameter('user', $user)
             ->setParameter('course', $course)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Semester $semester
+     * @return Course[]
+     */
+    public function findCoursesBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('course')
+            ->select('course')
+            ->where('course.semester = :semester')
+            ->setParameter('semester', $semester)
             ->getQuery()
             ->getResult();
     }

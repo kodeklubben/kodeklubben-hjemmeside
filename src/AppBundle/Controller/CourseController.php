@@ -147,6 +147,16 @@ class CourseController extends Controller
         $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week);
         return new JsonResponse($courseClasses);
     }
+    
+    public function showParticipantAdministrationAction(Course $course)
+    {
+        return $this->render('control_panel/courses/administrate_participants.html.twig', array('course' => $course));
+    }
 
+    public function showTutorAdministrationAction(Course $course)
+    {
+        return $this->render('control_panel/courses/administrate_tutors.html.twig', array('course' => $course));
+    }
+    
 }
 

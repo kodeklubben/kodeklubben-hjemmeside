@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CourseType;
 use AppBundle\Entity\Message;
+use AppBundle\Entity\Semester;
 use AppBundle\Form\CourseTypeType;
 use AppBundle\Form\InfoType;
 use AppBundle\Form\MessageType;
@@ -67,6 +68,32 @@ class ControlPanelController extends Controller
         return $this->render('control_panel/static_content/showInfo.html.twig', array(
             'regionForm' => $regionForm->createView(),
         ));
+    }
+    
+    public function showTutorsAction(Semester $semester = null)
+    {
+        if(is_null($semester))$semester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findCoursesBySemester($semester);
+        $semesters = $this->getDoctrine()->getRepository('AppBundle:Semester')->findAll();
+        return $this->render('control_panel/show_tutors.html.twig', array(
+            'courses' => $courses,
+            'semester' => $semester,
+            'semesters' => $semesters,
+
+        ));
+    }
+
+    public function showParticipantsAction(Semester $semester = null)
+    {
+        if(is_null($semester))$semester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findCoursesBySemester($semester);
+        $semesters = $this->getDoctrine()->getRepository('AppBundle:Semester')->findAll();
+        return $this->render('control_panel/show_participants.html.twig', array(
+            'courses' => $courses,
+            'semester' => $semester,
+            'semesters' => $semesters,
+        ));
+
     }
 
 }

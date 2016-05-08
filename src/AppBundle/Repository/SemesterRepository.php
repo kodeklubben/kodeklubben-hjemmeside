@@ -3,15 +3,29 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;
 
-/**
- * This custom Doctrine repository is empty because so far we don't need any custom
- * method to query for application semester information. But it's always a good practice
- * to define a custom repository that will be used when the application grows.
- * See http://symfony.com/doc/current/book/doctrine.html#custom-repository-classes
- *
- */
+
 class SemesterRepository extends EntityRepository
 {
+    /**
+     * @return Semester
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findCurrentSemester()
+    {
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $isSpring = intval($now->format('m')) <= 7;
+        return $this->createQueryBuilder('semester')
+            ->select('semester')
+            ->where('semester.year = :year')
+            ->andWhere('semester.isSpring = :isSpring')
+            ->setParameter('year', $year)
+            ->setParameter('isSpring', $isSpring)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }
