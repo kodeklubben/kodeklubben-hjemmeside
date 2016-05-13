@@ -200,6 +200,23 @@ hr{
 }
 
 /*
+ * Tables
+ */
+.user-table{
+  min-width:1000px;
+}
+
+#user-search{
+  width:250px;
+  max-width:100%;
+}
+@media screen and (max-width: 400px){
+  #user-search{
+    width:175px;
+  }
+}
+
+/*
  * UTILS
  */
 
@@ -208,6 +225,12 @@ hr{
 }
 .text-bold{
   font-weight:bold;
+}
+.text-clickable{
+  &:hover{
+    cursor:pointer;
+    text-decoration: underline;
+  }
 }
 .loading-wheel{
   display: block;

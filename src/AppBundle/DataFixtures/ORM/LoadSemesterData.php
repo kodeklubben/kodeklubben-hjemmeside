@@ -19,6 +19,51 @@ class LoadSemesterData extends AbstractFixture implements OrderedFixtureInterfac
         $semester->setYear($now->format('Y'));
         $manager->persist($semester);
 
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setYear(intval($now->format('Y')));
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setYear(intval($now->format('Y'))+1);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setYear(intval($now->format('Y'))+1);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setYear(intval($now->format('Y'))+2);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setYear(intval($now->format('Y'))+2);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setYear(intval($now->format('Y'))-1);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setYear(intval($now->format('Y'))-1);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setYear(intval($now->format('Y'))-2);
+        $manager->persist($semester2);
+
+        $semester2 = new Semester();
+        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setYear(intval($now->format('Y'))-2);
+        $manager->persist($semester2);
+
         $manager->flush();
         $this->setReference('semester-1', $semester);
     }

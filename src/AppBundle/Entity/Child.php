@@ -39,6 +39,7 @@ class Child
      * @var User
      * 
      * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;
 

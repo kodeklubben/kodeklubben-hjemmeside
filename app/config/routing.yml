@@ -119,6 +119,24 @@ cp_participants:
   requirements:
     semesterId: \d+
 
+cp_users:
+  path: /kontrollpanel/brukere
+  defaults: {_controller: AppBundle:ControlPanel:showUsers}
+
+cp_change_user_type:
+  path: /kontrollpanel/bruker/type
+  defaults: {_controller: AppBundle:User:changeUserType}
+  methods: [POST]
+  options:
+    expose: true
+
+cp_user_delete:
+  path: /kontrollpanel/buker/slett
+  defaults: {_controller: AppBundle:User:delete}
+  methods: [POST]
+  options:
+    expose: true
+
 cp_course_type:
   path: /kontrollpanel/kurs/type
   defaults: {_controller: AppBundle:Course:showCourseType}
