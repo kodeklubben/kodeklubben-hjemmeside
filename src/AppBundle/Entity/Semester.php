@@ -31,7 +31,7 @@ class Semester
     /**
      * @var string
      *
-     * @ORM\Column(name="year", type="string", length=4)
+     * @ORM\Column(name="year", type="integer", length=4)
      */
     private $year;
 

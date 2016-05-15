@@ -83,6 +83,7 @@ class ControlPanelController extends Controller
         ));
     }
 
+
     public function showParticipantsAction(Semester $semester = null)
     {
         if(is_null($semester))$semester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
@@ -94,6 +95,14 @@ class ControlPanelController extends Controller
             'semesters' => $semesters,
         ));
 
+    }
+    
+    public function showUsersAction()
+    {
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        return $this->render('control_panel/users/administrate_users.html.twig', array(
+            'users' => $users
+        ));
     }
 
 }

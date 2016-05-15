@@ -3,6 +3,10 @@ var loading =$('<img/>');
 loading.attr('src', "/img/loader.gif");
 loading.attr('width', 20);
 
+function getLoadingWheel(){
+    return loading.clone();
+}
+
 /**
  * Disables elements with class 'onclick-disable' when they are clicked
  */
