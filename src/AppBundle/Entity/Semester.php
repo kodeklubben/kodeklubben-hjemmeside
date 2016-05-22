@@ -109,5 +109,14 @@ class Semester
         return ($this->isSpring ? 'Vår ' : 'Høst ') . $this->year;
     }
 
+    public function isEqualTo(Semester $semester)
+    {
+        if($semester->getYear() == $this->year)
+        {
+            if($semester->isSpring() && $this->isSpring() || !$semester->isSpring() && !$this->isSpring()) return true;
+        }
+        return false;
+    }
+
 }
 

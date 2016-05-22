@@ -30,10 +30,12 @@ class HomeController extends Controller
 
     public function showTimeTableAction($week = null){
         if(is_null($week))$week = (new \DateTime())->format('W');
-        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week);
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week, $currentSemester);
         return $this->render('home/timeTable.html.twig',array(
             'courseClasses' => $courseClasses,
             'week' => $week,
+            'currentSemester' => $currentSemester,
         ));
     }
 }

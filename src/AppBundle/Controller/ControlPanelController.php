@@ -70,31 +70,30 @@ class ControlPanelController extends Controller
         ));
     }
     
-    public function showTutorsAction(Semester $semester = null)
+    public function showTutorsAction(Request $request)
     {
-        if(is_null($semester))$semester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findCoursesBySemester($semester);
-        $semesters = $this->getDoctrine()->getRepository('AppBundle:Semester')->findAll();
-        return $this->render('control_panel/show_tutors.html.twig', array(
-            'courses' => $courses,
-            'semester' => $semester,
-            'semesters' => $semesters,
-
-        ));
+        return $this->renderCourseUsers($request, "control_panel/show_tutors.html.twig");
     }
 
 
-    public function showParticipantsAction(Semester $semester = null)
+    public function showParticipantsAction(Request $request)
     {
-        if(is_null($semester))$semester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        return $this->renderCourseUsers($request, "control_panel/show_participants.html.twig");
+
+    }
+
+    private function renderCourseUsers(Request $request, $template)
+    {
+        $semesterId = $request->query->get('semester');
+        $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
+        $semester = is_null($semesterId) ? $semesterRepo->findCurrentSemester() : $semesterRepo->find($semesterId);
         $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findCoursesBySemester($semester);
-        $semesters = $this->getDoctrine()->getRepository('AppBundle:Semester')->findAll();
-        return $this->render('control_panel/show_participants.html.twig', array(
+        $semesters = $semesterRepo->findAll();
+        return $this->render($template, array(
             'courses' => $courses,
             'semester' => $semester,
             'semesters' => $semesters,
         ));
-
     }
     
     public function showUsersAction()
