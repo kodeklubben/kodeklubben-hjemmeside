@@ -2,14 +2,14 @@
 
 {% block body %}
     <header class="content-header">
-        <h1>Veiledere</h1>
+        <h1>Veiledere {{ semester }}</h1>
         <hr>
         <div class="dropdown">
             <button class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{ semester }}
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 {% for sem in semesters %}
-                    <li><a href="{{ path('cp_tutors', {'semesterId': sem.id}) }}">{{ sem }}</a></li>
+                    <li><a href="{{ path('cp_tutors', {'semester': sem.id}) }}">{{ sem }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -31,7 +31,7 @@
                         {% for course in courses %}
                             {% if course.tutors|length %}
                                 <tr>
-                                    <td>
+                                    <td colspan="4">
                                         <h5 class="text-bold">{{ course.name }} ({{ course.description }})</h5>
                                     </td>
                                 </tr>

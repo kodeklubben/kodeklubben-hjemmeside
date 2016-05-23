@@ -15,25 +15,34 @@
                     <i class="fa fa-user"></i> <span>Brukere</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ path('cp_course') }}">
-                    <i class="fa fa-line-chart"></i> <span>Kurs</span>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-line-chart"></i>
+                    <span>Kurs</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
-            </li>
-            <li>
-                <a href="{{ path('cp_course_type') }}">
-                    <i class="fa fa-briefcase"></i> <span>Kurstyper</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('cp_tutors') }}">
-                    <i class="fa fa-user-secret"></i> <span>Veiledere</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('cp_participants') }}">
-                    <i class="fa fa-users"></i> <span>Deltakere</span>
-                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{{ path('cp_course') }}">
+                            <i class="fa fa-circle-o"></i> <span>Kurs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cp_course_type') }}">
+                            <i class="fa fa-briefcase"></i> <span>Kurstyper</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cp_tutors') }}">
+                            <i class="fa fa-user-secret"></i> <span>Veiledere</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('cp_participants') }}">
+                            <i class="fa fa-users"></i> <span>Deltakere</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="{{ path('cp_email') }}">

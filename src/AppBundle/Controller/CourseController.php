@@ -59,18 +59,30 @@ class CourseController extends Controller
         return $this->redirectToRoute('cp_course_type');
     }
 
-    public function showCourseAction()
+    public function showCourseAction(Request $request)
     {
-        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findAll();
+        $semesterId =$request->query->get('semester');
+        $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
+        if(!is_null($semesterId))
+        {
+            $semester = $semesterRepo->find($semesterId);
+        }else{
+            $semester = $semesterRepo->findCurrentSemester();
+        }
+        $semesters = $semesterRepo->findAll();
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findBySemester($semester);
         return $this->render('control_panel/courses/show.html.twig', array(
-            'courses' => $courses
+            'courses' => $courses,
+            'semester' => $semester,
+            'semesters' => $semesters
         ));
     }
 
     public function editCourseAction(Request $request, Course $course = null)
     {
-        if (is_null($course)) $course = new Course();
-        $form = $this->createForm(new CourseFormType(), $course);
+        $isCreate = is_null($course);
+        if ($isCreate) $course = new Course();
+        $form = $this->createForm(new CourseFormType(!$isCreate), $course);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -144,7 +156,8 @@ class CourseController extends Controller
 
     public function getCourseClassesAction($week)
     {
-        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week);
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week, $currentSemester);
         return new JsonResponse($courseClasses);
     }
     

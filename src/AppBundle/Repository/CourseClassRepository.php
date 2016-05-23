@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\CourseClass;
+use AppBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -33,9 +34,10 @@ class CourseClassRepository extends EntityRepository
 
     /**
      * @param int $week
-     * @return CourseClass[]
+     * @param Semester $semester
+     * @return \AppBundle\Entity\CourseClass[]
      */
-    public function findByWeek($week)
+    public function findByWeek($week, Semester $semester)
     {
         $now = new \DateTime();
         $currentYear = $now->format('Y');
@@ -43,12 +45,13 @@ class CourseClassRepository extends EntityRepository
         return $this->createQueryBuilder('class')
             ->select('class')
             ->join('class.course', 'course')
-            ->join('course.semester', 'semester')
             ->where('course.deleted = false')
             ->andWhere('class.time > :startOfWeek')
             ->andWhere('class.time < :endOfWeek')
+            ->andWhere('course.semester = :semester')
             ->setParameter('startOfWeek', $startOfWeek)
             ->setParameter('endOfWeek', $endOfWeek)
+            ->setParameter('semester', $semester)
             ->getQuery()
             ->getResult();
     }

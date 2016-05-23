@@ -108,16 +108,12 @@ cp_info:
   defaults: {_controller: AppBundle:ControlPanel:showInfo}
 
 cp_tutors:
-  path: /kontrollpanel/veiledere/{semesterId}
-  defaults: {_controller: AppBundle:ControlPanel:showTutors, semesterId: null}
-  requirements:
-    semesterId: \d+
+  path: /kontrollpanel/veiledere
+  defaults: {_controller: AppBundle:ControlPanel:showTutors}
 
 cp_participants:
-  path: /kontrollpanel/deltakere/{semesterId}
-  defaults: {_controller: AppBundle:ControlPanel:showParticipants, semesterId: null}
-  requirements:
-    semesterId: \d+
+  path: /kontrollpanel/deltakere
+  defaults: {_controller: AppBundle:ControlPanel:showParticipants}
 
 cp_users:
   path: /kontrollpanel/brukere

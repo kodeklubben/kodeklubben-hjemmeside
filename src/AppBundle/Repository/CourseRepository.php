@@ -112,4 +112,14 @@ class CourseRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('course')
+            ->select('course')
+            ->where('course.semester = :semester')
+            ->setParameter('semester', $semester)
+            ->getQuery()
+            ->getResult();
+    }
 }
