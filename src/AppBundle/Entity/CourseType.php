@@ -57,6 +57,13 @@ class CourseType
     private $deleted;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hide_on_homepage", type="boolean", nullable=true)
+     */
+    private $hideOnHomepage;
+
+    /**
      * @var Course[]
      *
      * @ORM\OneToMany(targetEntity="Course", mappedBy="courseType")
@@ -70,6 +77,7 @@ class CourseType
     {
         $this->imgUrl = "http://placehold.it/800x500";
         $this->deleted = false;
+        $this->hideOnHomepage = false;
     }
 
 
@@ -200,6 +208,22 @@ class CourseType
      */
     public function delete(){
         $this->deleted = true;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isHideOnHomepage()
+    {
+        return $this->hideOnHomepage;
+    }
+
+    /**
+     * @param boolean $hideOnHomepage
+     */
+    public function setHideOnHomepage($hideOnHomepage)
+    {
+        $this->hideOnHomepage = $hideOnHomepage;
     }
 
     public function __toString()

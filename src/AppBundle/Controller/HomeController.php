@@ -23,9 +23,10 @@ class HomeController extends Controller
     }
 
     public function showCourseTypesAction(){
-        $courseTypes = $this->getDoctrine()->getRepository('AppBundle:CourseType')->findAll();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $courseTypes = $this->getDoctrine()->getRepository('AppBundle:CourseType')->findNotHiddenBySemester($currentSemester);
 
-        return $this->render('home/course.html.twig', array('courses' => $courseTypes));
+        return $this->render('home/course.html.twig', array('courseTypes' => $courseTypes));
     }
 
     public function showTimeTableAction($week = null){

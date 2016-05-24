@@ -51,20 +51,6 @@ class CourseRepository extends EntityRepository
     }
 
     /**
-     * @param Semester $semester
-     * @return Course[]
-     */
-    public function findCoursesBySemester(Semester $semester)
-    {
-        return $this->createQueryBuilder('course')
-            ->select('course')
-            ->where('course.semester = :semester')
-            ->setParameter('semester', $semester)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
      * @return Course[]
      */
     public function findByThisAndLaterSemesters()
@@ -101,6 +87,7 @@ class CourseRepository extends EntityRepository
             ->join('course.semester', 'semester')
             ->join('course.tutors', 'tutors')
             ->where('tutors = :user')
+            ->andWhere('course.deleted = false')
             ->setParameter('user', $tutor)
             ->andWhere('semester.year >= :year')
             ->setParameter('year', $year);
@@ -118,6 +105,7 @@ class CourseRepository extends EntityRepository
         return $this->createQueryBuilder('course')
             ->select('course')
             ->where('course.semester = :semester')
+            ->andWhere('course.deleted = false')
             ->setParameter('semester', $semester)
             ->getQuery()
             ->getResult();
