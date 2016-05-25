@@ -60,7 +60,18 @@
                                                     {% set alreadySignedUp = true %}
                                                 {% endif %}
                                             {% endfor %}
-                                            {% if course.participants|length >= course.participantLimit %}
+
+                                            {% set placesLeft = course.participantLimit-course.participants|length %}
+                                            {% if placesLeft == 0 %}
+                                                {% set placesLeftClass = 'text-danger' %}
+                                            {% elseif placesLeft <= 5 %}
+                                                {% set placesLeftClass = 'text-warning' %}
+                                            {% else %}
+                                                {% set placesLeftClass = 'text-success' %}
+                                            {% endif %}
+
+                                            <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+                                            {% if placesLeft <= 0 %}
                                                 <button disabled class="btn btn-primary btn-sm">Fullt</button>
                                             {% else %}
                                                 <a href="{{ path('sign_up_course', {'id': course.id}) }}" {{ alreadySignedUp ? 'disabled' }}
