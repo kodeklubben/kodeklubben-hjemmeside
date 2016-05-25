@@ -1,31 +1,35 @@
 <!-- Courses -->
-<div class="row">
-    <div class="col-lg-12">
-        <h2>Kurs</h2>
-        <hr>
+{% if courseTypes|length > 0 %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Kurs</h2>
+            <hr>
+        </div>
     </div>
-</div>
-<div class="row text-center">
-    {% for course in courses %}
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="box box-primary">
-                <div class="box-body course">
-                    <div class="img-container">
-                        <img src="{{ course.imgUrl }}" alt="{{ course.name }}">
-                    </div>
-                    <div>
-                        <h3>{{ course.name }}</h3>
-                        <p class="description">{{ course.description }}</p>
-                    </div>
-                    <div class="pull-down">
-                    <footer>
-                        <a href="{{ path('courses') }}#{{ course.name }}" class="btn btn-primary">Les mer</a>
-                        {% if not course.challengesUrl is null %}<a href="{{ course.challengesUrl }}"
-                                                                    class="btn btn-default">Oppgaver</a>{% endif %}
-                    </footer>
+    <div class="row text-center">
+        {% for courseType in courseTypes %}
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="box box-primary">
+                    <div class="box-body course">
+                        <div class="img-container">
+                            <img src="{{ courseType.imgUrl }}" alt="{{ courseType.name }}">
+                        </div>
+                        <div>
+                            <h3>{{ courseType.name }}</h3>
+                            <p class="description">{{ courseType.description }}</p>
+                        </div>
+                        <div class="pull-down">
+                            <footer>
+                                <a href="{{ path('courses') }}#{{ courseType.name }}" class="btn btn-primary">Les
+                                    mer</a>
+                                {% if not courseType.challengesUrl is null %}<a href="{{ courseType.challengesUrl }}"
+                                                                                class="btn btn-default">
+                                        Oppgaver</a>{% endif %}
+                            </footer>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+{% endif %}

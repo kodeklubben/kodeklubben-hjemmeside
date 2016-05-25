@@ -87,7 +87,7 @@ class ControlPanelController extends Controller
         $semesterId = $request->query->get('semester');
         $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
         $semester = is_null($semesterId) ? $semesterRepo->findCurrentSemester() : $semesterRepo->find($semesterId);
-        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findCoursesBySemester($semester);
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findBySemester($semester);
         $semesters = $semesterRepo->findAll();
         return $this->render($template, array(
             'courses' => $courses,
