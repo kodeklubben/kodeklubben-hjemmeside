@@ -103,8 +103,20 @@
                                                     {% endfor %}
                                                 </select>
                                             </div>
+
+                                            {% set placesLeft = course.participantLimit-course.participants|length %}
+                                            {% if placesLeft == 0 %}
+                                                {% set placesLeftClass = 'text-danger' %}
+                                            {% elseif placesLeft <= 5 %}
+                                                {% set placesLeftClass = 'text-warning' %}
+                                            {% else %}
+                                                {% set placesLeftClass = 'text-success' %}
+                                            {% endif %}
+
+                                            <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+
                                             <div class="form-group">
-                                                {% if course.participants|length >= course.participantLimit %}
+                                                {% if placesLeft <= 0 %}
                                                     <button disabled class="btn btn-primary btn-sm">Fullt</button>
                                                 {% else %}
                                                     <button {{ children|length == 0 ? 'disabled' }}
