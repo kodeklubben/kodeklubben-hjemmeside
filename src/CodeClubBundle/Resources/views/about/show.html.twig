@@ -1,0 +1,32 @@
+{% extends '_base/base.html.twig' %}
+
+{% block body %}
+    <div class="row container">
+        <h1>Om Kodeklubben {{ get_content('region') }}</h1>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                <img class="img-responsive" src="{{ asset('img/about.jpg') }}" alt="Om Kodeklubben">
+            </div>
+            <div class="col-md-8">
+                <h2>For Deltakere</h2>
+                <p>{{ get_content('about_participant') }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-8">
+                <h2>For Veildere</h2>
+                <p>{{ get_content('about_tutor') }}</p>
+                <br>
+                <h4>Kontakt: {{ get_content('email') }}</h4>
+                <p><a href="{{ path('courses') }}">Les mer om kursene våre -></a></p>
+            </div>
+            <div class="col-md-4">
+                <img class="img-responsive" src="{{ asset('img/about_social.jpg') }}" alt="Om Kodeklubben">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

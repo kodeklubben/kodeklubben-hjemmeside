@@ -1,251 +1,39 @@
+code_club_generator:
+    resource: "@CodeClubGeneratorBundle/Resources/config/routing.yml"
+    prefix:   /generator
+
+code_club_admin:
+    resource: "@CodeClubAdminBundle/Resources/config/routing.yml"
+    prefix:   /kontrollpanel
+
+code_club:
+    resource: "@CodeClubBundle/Resources/config/routing.yml"
+    prefix:   /
+
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-#Pages
-home:
-  path: /
-  defaults: {_controller: AppBundle:Home:show}
-
-courses:
-  path: /kurs
-  defaults: {_controller: AppBundle:Course:show}
-
-course_info:
-  path: /kurs/{id}
-  defaults: {_controller: AppBundle:Course:showCourseInfo}
-  requirements:
-    id: \d+
-
-about:
-  path: /om
-  defaults: {_controller: AppBundle:About:show}
-
-#Child
-child_create:
-  path: /barn/ny
-  defaults: {_controller: AppBundle:Child:createChild}
-
-child_delete:
-  path: /barn/slett/{id}
-  defaults: {_controller: AppBundle:Child:deleteChild}
-  requirements:
-    id: \d+
-
-#Sign up
-sign_up:
-  path: /pamelding
-  defaults: {_controller: AppBundle:SignUp:show}
-
-sign_up_course:
-  path: /pamelding/{id}
-  defaults: {_controller: AppBundle:SignUp:signUp}
-  requirements:
-    id: \d+
-
-sign_up_course_child:
-  path: /pamelding/barn/{id}/{child}
-  defaults: {_controller: AppBundle:SignUp:signUpChild}
-  requirements:
-    id: \d+
-  options:
-    expose: true
-
-withdraw_from_course_tutor:
-  path: /pamelding/veileder/meldav/{courseId}/{tutorId}
-  defaults: {_controller: AppBundle:SignUp:withdrawTutor, tutorId: null}
-  requirements:
-    courseId: \d+
-    tutorId: \d+
-
-withdraw_from_course_participant:
-  path: /pamelding/deltaker/meldav/{id}
-  defaults: {_controller: AppBundle:SignUp:withdrawParticipant}
-  requirements:
-    id: \d+
-
-#Registration
-register_user:
-  path: /registrer
-  defaults: {_controller: AppBundle:User:showRegistrationOptions}
-
-participant_registration:
-  path: /registrer/deltaker
-  defaults: {_controller: AppBundle:User:registerParticipant}
-
-parent_registration:
-  path: /registrer/foresatt
-  defaults: {_controller: AppBundle:User:registerParent}
-
-tutor_registration:
-  path: /registrer/veileder
-  defaults: {_controller: AppBundle:User:registerTutor}
-
-admin_registration:
-  path: /kontrollpanel/registrer/admin
-  defaults: {_controller: AppBundle:User:registerAdmin}
-
-#Control Panel
-control_panel:
-  path: /kontrollpanel
-  defaults: {_controller: AppBundle:ControlPanel:show}
-
-cp_email:
-  path: /kontrollpanel/epost
-  defaults: {_controller: AppBundle:ControlPanel:showEmail}
-
-cp_message:
-  path: /kontrollpanel/melding
-  defaults: {_controller: AppBundle:ControlPanel:showMessage}
-
-api_delete_message:
-  path: /kontrollpanel/melding/slett/{id}
-  defaults: {_controller: AppBundle:ControlPanel:deleteMessage}
-  requirements:
-    id: \d+
-
-cp_info:
-  path: /kontrollpanel/info
-  defaults: {_controller: AppBundle:ControlPanel:showInfo}
-
-cp_tutors:
-  path: /kontrollpanel/veiledere
-  defaults: {_controller: AppBundle:ControlPanel:showTutors}
-
-cp_participants:
-  path: /kontrollpanel/deltakere
-  defaults: {_controller: AppBundle:ControlPanel:showParticipants}
-
-cp_users:
-  path: /kontrollpanel/brukere
-  defaults: {_controller: AppBundle:ControlPanel:showUsers}
-
-cp_change_user_type:
-  path: /kontrollpanel/bruker/type
-  defaults: {_controller: AppBundle:User:changeUserType}
-  methods: [POST]
-  options:
-    expose: true
-
-cp_user_delete:
-  path: /kontrollpanel/buker/slett
-  defaults: {_controller: AppBundle:User:delete}
-  methods: [POST]
-  options:
-    expose: true
-
-cp_course_type:
-  path: /kontrollpanel/kurs/type
-  defaults: {_controller: AppBundle:Course:showCourseType}
-
-cp_course_participants:
-  path: /kontrollpanel/kurs/deltakere/{id}
-  defaults: {_controller: AppBundle:Course:showParticipantAdministration}
-  requirements:
-    id: \d+
-
-cp_course_tutors:
-  path: /kontrollpanel/kurs/veiledere/{id}
-  defaults: {_controller: AppBundle:Course:showTutorAdministration}
-  requirements:
-    id: \d+
-
-cp_create_course_type:
-  path: /kontrollpanel/kurs/type/ny
-  defaults: {_controller: AppBundle:Course:editCourseType}
-
-cp_edit_course_type:
-  path: /kontrollpanel/kurs/type/{id}
-  defaults: {_controller: AppBundle:Course:editCourseType}
-  requirements:
-    id: \d+
-
-cp_delete_course_type:
-  path: /kontrollpanel/kurs/type/slett/{id}
-  defaults: {_controller: AppBundle:Course:deleteCourseType}
-  requirements:
-    id: \d+
-
-cp_course:
-  path: /kontrollpanel/kurs
-  defaults: {_controller: AppBundle:Course:showCourse}
-
-cp_create_course:
-  path: /kontrollpanel/kurs/ny
-  defaults: {_controller: AppBundle:Course:editCourse}
-
-cp_edit_course:
-  path: /kontrollpanel/kurs/{id}
-  defaults: {_controller: AppBundle:Course:editCourse}
-  requirements:
-    id: \d+
-
-cp_delete_course:
-  path: /kontrollpanel/kurs/slett/{id}
-  defaults: {_controller: AppBundle:Course:deleteCourse}
-  requirements:
-    id: \d+
-
-cp_course_time_table:
-  path: /kontrollpanel/kurs/timeplan/{id}
-  defaults: {_controller: AppBundle:Course:editTimeTable}
-  requirements:
-    id: \d+
-
-api_delete_course_class:
-  path: /kontrollpanel/api/kursdag/slett/{id}
-  defaults: {_controller: AppBundle:Course:deleteCourseClass}
-  requirements:
-    id: \d+
-
-api_get_course_classes_by_week:
-  path: /api/kurs/uke/{week}
-  defaults: {_controller: AppBundle:Course:getCourseClasses}
-  requirements:
-    week: \d+
-
-#Control Panel Static Content
-api_update_static_content:
-  path: /kontrollpanel/api/statisk_innhold
-  defaults: {_controller: AppBundle:StaticContent:update}
-  methods: [POST]
-
-cp_sc_header:
-  path: /kontrollpanel/statisk_innhold/header
-  defaults: {_controller: AppBundle:StaticContent:showHeader}
-
-cp_sc_tagline:
-  path: /kontrollpanel/statisk_innhold/tagline
-  defaults: {_controller: AppBundle:StaticContent:showTagline}
-
-cp_sc_participant_info:
-  path: /kontrollpanel/statisk_innhold/deltaker
-  defaults: {_controller: AppBundle:StaticContent:showParticipant}
-
-cp_sc_tutor_info:
-  path: /kontrollpanel/statisk_innhold/veileder
-  defaults: {_controller: AppBundle:StaticContent:showTutor}
-
-cp_sc_about:
-  path: /kontrollpanel/statisk_innhold/om
-  defaults: {_controller: AppBundle:StaticContent:showAbout}
 
 #Security
 security_login_form:
     path: /login
-    defaults: {_controller: AppBundle:Security:login}
+    defaults: {_controller: CodeClubBundle:Security:login}
 
 security_login_check:
     path: /login_check
-    defaults: {_controller: AppBundle:Security:loginCheck}
+    defaults: {_controller: CodeClubBundle:Security:loginCheck}
 
 security_logout:
     path: /logout
-    defaults: {_controller: AppBundle:Security:logout}
+    defaults: {_controller: CodeClubBundle:Security:logout}
 
 password_reset:
   path: /reset_passord
-  defaults: {_controller: AppBundle:PasswordReset:show}
+  defaults: {_controller: CodeClubBundle:PasswordReset:show}
 
 password_new:
   path: /reset_passord/{code}
-  defaults: {_controller: AppBundle:PasswordReset:resetPassword}
+  defaults: {_controller: CodeClubBundle:PasswordReset:resetPassword}

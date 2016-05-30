@@ -1,0 +1,94 @@
+#code_club_homepage:
+#    path:     /
+#    defaults: { _controller: CodeClubBundle:Default:index }
+
+#Pages
+home:
+  path: /
+  defaults: {_controller: CodeClubBundle:Home:show}
+
+courses:
+  path: /kurs
+  defaults: {_controller: CodeClubBundle:Course:show}
+
+course_info:
+  path: /kurs/{id}
+  defaults: {_controller: CodeClubBundle:Course:showCourseInfo}
+  requirements:
+    id: \d+
+
+about:
+  path: /om
+  defaults: {_controller: CodeClubBundle:About:show}
+
+#Child
+child_create:
+  path: /barn/ny
+  defaults: {_controller: CodeClubBundle:Child:createChild}
+
+child_delete:
+  path: /barn/slett/{id}
+  defaults: {_controller: CodeClubBundle:Child:deleteChild}
+  requirements:
+    id: \d+
+
+#Sign up
+sign_up:
+  path: /pamelding
+  defaults: {_controller: CodeClubBundle:SignUp:show}
+
+sign_up_course:
+  path: /pamelding/{id}
+  defaults: {_controller: CodeClubBundle:SignUp:signUp}
+  requirements:
+    id: \d+
+
+sign_up_course_child:
+  path: /pamelding/barn/{id}/{child}
+  defaults: {_controller: CodeClubBundle:SignUp:signUpChild}
+  requirements:
+    id: \d+
+  options:
+    expose: true
+
+withdraw_from_course_tutor:
+  path: /pamelding/veileder/meldav/{courseId}/{tutorId}
+  defaults: {_controller: CodeClubBundle:SignUp:withdrawTutor, tutorId: null}
+  requirements:
+    courseId: \d+
+    tutorId: \d+
+
+withdraw_from_course_participant:
+  path: /pamelding/deltaker/meldav/{id}
+  defaults: {_controller: CodeClubBundle:SignUp:withdrawParticipant}
+  requirements:
+    id: \d+
+
+#Registration
+register_user:
+  path: /registrer
+  defaults: {_controller: CodeClubBundle:User:showRegistrationOptions}
+
+participant_registration:
+  path: /registrer/deltaker
+  defaults: {_controller: CodeClubBundle:User:registerParticipant}
+
+parent_registration:
+  path: /registrer/foresatt
+  defaults: {_controller: CodeClubBundle:User:registerParent}
+
+tutor_registration:
+  path: /registrer/veileder
+  defaults: {_controller: CodeClubBundle:User:registerTutor}
+
+api_get_course_classes_by_week:
+  path: /api/kurs/uke/{week}
+  defaults: {_controller: CodeClubBundle:Course:getCourseClasses}
+  requirements:
+    week: \d+
+
+
+
+
+
+

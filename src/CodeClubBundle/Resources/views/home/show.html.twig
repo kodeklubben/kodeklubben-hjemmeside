@@ -1,0 +1,62 @@
+{% extends '_base/base.html.twig' %}
+{% block body %}
+    <div class="row row-home container">{% include '@CodeClub/home/header.html.twig' %}</div>
+
+    <div class="row row-home">
+        <div class="col-lg-12">
+            <div class="well text-center">
+                {{ get_content('tagline') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row container row-home">
+        <div class=" col-md-7 col-md-offset-1 col-md-push-4">
+            <!-- Schedule -->
+            {{ render(controller('CodeClubBundle:Home:showTimeTable')) }}
+        </div>
+        <div class="col-md-4 col-md-pull-8">
+            <!-- Messages -->
+            {{ render(controller('CodeClubBundle:Home:showMessages')) }}
+        </div>
+    </div>
+
+    <div class="row-home">
+
+    <!-- Courses -->
+    {{ render(controller('CodeClubBundle:Home:showCourseTypes')) }}
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title box-title-lg">Bli Deltaker</h3>
+                </div>
+                <div class="box-body">
+                    <img class="img-responsive" src="{{ asset('img/deltaker.jpg') }}" alt="Bli Deltaker">
+                    <div class="caption">
+                        <p>{{ get_content('participant_info') }}</p>
+                        <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli deltaker!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 divider-left">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title box-title-lg">Bli Veileder</h3>
+                </div>
+                <div class="box-body">
+                    <img class="img-responsive" src="{{ asset('img/veileder.jpg') }}" alt="Bli Veileder">
+                    <div class="caption">
+                        <p>{{ get_content('tutor_info') }}</p>
+                        <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli veileder!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
