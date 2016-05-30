@@ -5,7 +5,6 @@ namespace CodeClubAdminBundle\Controller;
 use CodeClubAdminBundle\Form\MessageType;
 use CodeClubBundle\Entity\Message;
 use CodeClubBundle\Entity\Semester;
-use CodeClubBundle\Form\InfoType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

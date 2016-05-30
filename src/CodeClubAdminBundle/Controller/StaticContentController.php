@@ -2,7 +2,6 @@
 
 namespace CodeClubAdminBundle\Controller;
 
-use CodeClubAdminBundle\Form\InfoType;
 use StaticContentBundle\Entity\StaticContent;
 use StaticContentBundle\Form\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,20 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StaticContentController extends Controller
 {
-    public function showInfoAction(Request $request){
-        $region = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneByStringId('region');
-        $regionForm = $this->createForm(new InfoType(), $region);
-        $regionForm->handleRequest($request);
-        if($regionForm->isSubmitted() && $regionForm->isValid()){
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($region);
-            $manager->flush();
-            return $this->render('@CodeClubAdmin/static_content/show_info.html.twig', array(
-                'regionForm' => $regionForm->createView(),
-            ));
-        }
+    public function showInfoAction(){
         return $this->render('@CodeClubAdmin/static_content/show_info.html.twig', array(
-            'regionForm' => $regionForm->createView(),
         ));
     }
 

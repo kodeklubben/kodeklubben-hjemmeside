@@ -128,7 +128,7 @@ class AvailabilityFunctionalTest extends WebTestCase
     public function adminUrlProvider()
     {
         return array(
-            array('/kontrollpanel'),
+            array('/kontrollpanel/'),
             array('/kontrollpanel/kurs'),
             array('/kontrollpanel/kurs/ny'),
             array('/kontrollpanel/kurs/type'),
