@@ -1,0 +1,3 @@
+static_content_homepage:
+    path:     /
+    defaults: { _controller: StaticContentBundle:Default:index }

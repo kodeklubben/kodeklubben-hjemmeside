@@ -1,0 +1,166 @@
+{% extends '_base/base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-center">Påmelding for barn til foresatte {{ currentSemester }}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 {{ participants|length ? 'col-lg-push-6' }}">
+            <div class="box box-info">
+                <div class="box-header">
+                    <h4>Dine barn <a href="{{ path('child_create') }}" class="btn btn-xs btn-success float-right">Nytt
+                            barn <i class="fa fa-plus"></i></a></h4>
+                </div>
+                <div class="box-body">
+                    {% if not children|length %}
+                        <p>Ingen barn</p>
+                    {% else %}
+                        <table class="table table-striped table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Fornavn</th>
+                                <th>Etternavn</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for child in children %}
+                                <tr>
+                                    <td>{{ child.firstName }}</td>
+                                    <td>{{ child.lastName }}</td>
+                                    <td><a href="{{ path('child_delete', {'id': child.id}) }}"
+                                           class="btn btn-danger btn-xs btn-flat float-right onclick-disable">Slett</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if participants|length %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h4>Du har meldt dine barn på følgende kurs:</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped table-fixed">
+                            <thead>
+                            <tr>
+                                <th>Barn</th>
+                                <th>Kurs</th>
+                                <th>Beskrivelse</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for participant in participants %}
+                                <tr>
+                                    <td>{{ participant.firstName }} {{ participant.lastName }}</td>
+                                    <td>{{ participant.course.name }}</td>
+                                    <td>{{ participant.course.description }}</td>
+                                    <td><a href="{{ path('withdraw_from_course_participant', {'id': participant.id}) }}"
+                                           class="btn btn-warning btn-xs btn-flat float-right onclick-disable">Meld
+                                            av</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% for courseTypeName in courseTypes|keys %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 id="{{ courseTypeName }}">{{ courseTypeName }}</h3>
+
+                <div class="row text-center">
+                    {% for course in courseTypes[courseTypeName] %}
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="box box-primary">
+                                <div class="box-body">
+                                    <div>
+                                        <h4><b>{{ course.name }}</b></h4>
+                                        <p class="description">{{ course.description }}</p>
+                                        {% include '@CodeClub/sign_up/course_time_table.html.twig' with {'course': course} %}
+                                    </div>
+                                    <div class="pull-down">
+                                        <footer>
+                                            <div class="form-group">
+                                                <label for="">Velg barn</label>
+                                                <select courseId="{{ course.id }}" class="form-control">
+                                                    {% if children|length == 0 %}
+                                                        <option>Ingen barn</option>
+                                                    {% endif %}
+                                                    {% for child in children %}
+                                                        <option value="{{ child.id }}">{{ child.fullName }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+
+                                            {% set placesLeft = course.participantLimit-course.participants|length %}
+                                            {% if placesLeft == 0 %}
+                                                {% set placesLeftClass = 'text-danger' %}
+                                            {% elseif placesLeft <= 5 %}
+                                                {% set placesLeftClass = 'text-warning' %}
+                                            {% else %}
+                                                {% set placesLeftClass = 'text-success' %}
+                                            {% endif %}
+
+                                            <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+
+                                            <div class="form-group">
+                                                {% if placesLeft <= 0 %}
+                                                    <button disabled class="btn btn-primary btn-sm">Fullt</button>
+                                                {% else %}
+                                                    <button {{ children|length == 0 ? 'disabled' }}
+                                                            class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
+                                                {% endif %}
+                                                <a href="{{ path('course_info', {id: course.id}) }}"
+                                                   class="btn btn-sm btn-default">Mer
+                                                    info</a>
+                                            </div>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var $timeTables = $('.time-table');
+            $timeTables.each(function () {
+                sortTableByAttribute($(this), 'timestamp', true);
+            });
+
+            //Sign child up to course when sign up button is clicked
+            $('.btn-sign-up').each(function () {
+                $(this).on('click', function () {
+                    var $select = $(this).closest('footer').find('select').first();
+                    var childId = $select.val();
+                    var courseId = $select.attr('courseId');
+                    window.location = Routing.generate('sign_up_course_child', {id: courseId, child: childId});
+                })
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends '@CodeClubAdmin/_base/admin_base.html.twig' %}
+
+{% block body %}
+
+    <section class="content-header">
+        <h1>Timeplan for {{ course.name }} {{ course.semester }}<a class="btn btn-default btn-sm btn-flat pull-right" href="{{ path('cp_course') }}"><i class="fa fa-reply"></i> Tilbake</a></h1>
+        <hr>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Timeplan</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-striped tablesorter">
+                            <thead>
+                            <tr>
+                                <th>Dag</th>
+                                <th>Dato</th>
+                                <th>Tid</th>
+                                <th>Sted</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for class in course.classes %}
+                                <tr timestamp="{{ class.time|date('U') }}">
+                                    <td>{{ class.getDayNorwegian }}</td>
+                                    <td>{{ class.time|date('d. M') }}</td>
+                                    <td>{{ class.time|date('H:i') }}</td>
+                                    <td>{{ class.place }}</td>
+                                    <td><a href="{{ path('cp_delete_course_class', { 'id': class.id }) }}" class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {{ course.classes|length ? '' : 'Ingen tider lagt inn enda' }}
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ny tid</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form) }}
+                        {{ form_row(form.time) }}
+                        {{ form_row(form.place, {'attr': {'class': 'input-sm'}}) }}
+                            <button class="btn btn-primary btn-sm btn-flat onclick-disable" type="submit">Legg til kurstid <i class="fa fa-plus"></i></button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('select').addClass('input-sm');
+
+        sortTableByAttribute($('table'),'timestamp', true);
+    </script>
+{% endblock %}

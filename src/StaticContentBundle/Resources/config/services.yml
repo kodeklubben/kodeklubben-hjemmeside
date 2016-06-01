@@ -1,0 +1,7 @@
+services:
+  app.static_content_extension:
+        class: StaticContentBundle\Twig\StaticContentExtension
+        arguments:
+          doctrine: "@doctrine"
+        tags:
+          - { name: twig.extension }

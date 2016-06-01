@@ -21,9 +21,13 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new AppBundle\AppBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new ApiBundle\ApiBundle(),
+            new CodeClubBundle\CodeClubBundle(),
+            new CodeClubAdminBundle\CodeClubAdminBundle(),
+            new CodeClubGeneratorBundle\CodeClubGeneratorBundle(),
+            new StaticContentBundle\StaticContentBundle(),
         );
 
         // Some bundles are only used while developing the application or during

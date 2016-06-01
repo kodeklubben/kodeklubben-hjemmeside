@@ -1,0 +1,43 @@
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="{{ path('home') }}"><div class="hidden-xs hidden-sm">{% include '_base/logo.html.twig' %}</div><div class="hidden-md hidden-lg">{% include '_base/logo_short.html.twig' %}</div></a>
+</div>
+
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="main-navigation">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="{{ path('about') }}">Om</a>
+        </li>
+        <li>
+            <a href="{{ path('courses') }}">Kurs</a>
+        </li>
+        {% if app.user %}
+            <li>
+                <a href="{{ path('sign_up') }}">Påmelding</a>
+            </li>
+        {% endif %}
+        <li>
+            <a href="http://kodeklubben.github.io/">Oppgaver</a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a href="{{ path('control_panel') }}">Kontrollpanel</a>
+            </li>
+        {% endif %}
+        <li>
+            {% if app.user %}
+                <a href="{{ path('security_logout') }}">Logg ut</a>
+            {% else %}
+                <a href="{{ path('security_login_form') }}">Logg inn</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
