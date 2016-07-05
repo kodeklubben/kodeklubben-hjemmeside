@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeClubBundle\DataFixtures\ORM;
+namespace UserBundle\DataFixtures\ORM;
 
-use CodeClubBundle\Entity\Participant;
+use UserBundle\Entity\Participant;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

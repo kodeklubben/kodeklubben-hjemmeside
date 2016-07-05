@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CodeClubBundle\Repository;
+namespace UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

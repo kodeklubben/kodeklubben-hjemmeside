@@ -46,9 +46,9 @@ class StaticContent
     private $lastEdited;
 
     /**
-     * @var \CodeClubBundle\Entity\User
+     * @var \UserBundle\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="CodeClubBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(name="last_edited_by_user_id", referencedColumnName="id")
      */
     private $lastEditedBy;
@@ -121,7 +121,7 @@ class StaticContent
     }
 
     /**
-     * @return \CodeClubBundle\Entity\User
+     * @return \UserBundle\Entity\User
      */
     public function getLastEditedBy()
     {
@@ -129,7 +129,7 @@ class StaticContent
     }
 
     /**
-     * @param \CodeClubBundle\Entity\User $lastEditedBy
+     * @param \UserBundle\Entity\User $lastEditedBy
      */
     public function setLastEditedBy($lastEditedBy)
     {

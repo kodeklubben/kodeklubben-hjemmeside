@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeClubBundle\Controller;
+namespace UserBundle\Controller;
 
-use CodeClubBundle\Form\NewPasswordType;
+use UserBundle\Form\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use CodeClubBundle\Entity\PasswordReset;
-use CodeClubBundle\Form\PasswordResetType;
+use UserBundle\Entity\PasswordReset;
+use UserBundle\Form\PasswordResetType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -67,7 +67,7 @@ class PasswordResetController extends Controller
     {
 
         //Connects with the User Entity
-        $repositoryUser = $this->getDoctrine()->getRepository('CodeClubBundle:User');
+        $repositoryUser = $this->getDoctrine()->getRepository('UserBundle:User');
 
         //Gets the email that is typed in the text-field
         $email = $form->get('email')->getData();
@@ -91,7 +91,7 @@ class PasswordResetController extends Controller
         $time = new \DateTime();
 
         //Delete old resetcodes from the database
-        $repositoryPasswordReset = $this->getDoctrine()->getRepository('CodeClubBundle:PasswordReset');
+        $repositoryPasswordReset = $this->getDoctrine()->getRepository('UserBundle:PasswordReset');
         $repositoryPasswordReset->deletePasswordResetsByUser($user);
 
         //Adds the info in the passwordReset entity
@@ -138,7 +138,7 @@ class PasswordResetController extends Controller
             return $this->redirect('/');
         }
 
-        $repositoryPasswordReset = $this->getDoctrine()->getRepository('CodeClubBundle:PasswordReset');
+        $repositoryPasswordReset = $this->getDoctrine()->getRepository('UserBundle:PasswordReset');
 
         //Creates a DateTime to know the current time
         $currentTime = new \DateTime();
@@ -184,7 +184,7 @@ class PasswordResetController extends Controller
                 $em->flush();
 
                 //renders the login page
-                return $this->render('@CodeClub/user/login.html.twig', array(
+                return $this->render('@User/login.html.twig', array(
                     'last_username' => $user->getEmail(),
                     'error' => null
                 ));

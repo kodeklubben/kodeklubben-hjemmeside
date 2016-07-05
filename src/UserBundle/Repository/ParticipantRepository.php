@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeClubBundle\Repository;
+namespace UserBundle\Repository;
 
-use CodeClubBundle\Entity\Participant;
-use CodeClubBundle\Entity\User;
+use UserBundle\Entity\Participant;
+use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 

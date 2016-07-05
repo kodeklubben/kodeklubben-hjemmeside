@@ -38,8 +38,8 @@ security_logout:
 
 password_reset:
   path: /reset_passord
-  defaults: {_controller: CodeClubBundle:PasswordReset:show}
+  defaults: {_controller: UserBundle:PasswordReset:show}
 
 password_new:
   path: /reset_passord/{code}
-  defaults: {_controller: CodeClubBundle:PasswordReset:resetPassword}
+  defaults: {_controller: UserBundle:PasswordReset:resetPassword}

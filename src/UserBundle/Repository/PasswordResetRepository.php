@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeClubBundle\Repository;
+namespace UserBundle\Repository;
 
-use CodeClubBundle\Entity\PasswordReset;
 use Doctrine\ORM\EntityRepository;
+use UserBundle\Entity\PasswordReset;
 
 /**
  * PasswordResetRepository

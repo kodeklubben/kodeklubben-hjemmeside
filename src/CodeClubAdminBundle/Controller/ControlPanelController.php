@@ -78,8 +78,8 @@ class ControlPanelController extends Controller
     
     public function showUsersAction()
     {
-        $users = $this->getDoctrine()->getRepository('CodeClubBundle:User')->findAll();
-        return $this->render('@CodeClubAdmin/user/show_users.html.twig', array(
+        $users = $this->getDoctrine()->getRepository('UserBundle:User')->findAll();
+        return $this->render('@User/control_panel/show_users.html.twig', array(
             'users' => $users
         ));
     }

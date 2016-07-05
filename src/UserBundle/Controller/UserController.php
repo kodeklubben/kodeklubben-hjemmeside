@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeClubBundle\Controller;
+namespace UserBundle\Controller;
 
-use CodeClubBundle\Entity\User;
-use CodeClubBundle\Form\UserType;
+use UserBundle\Entity\User;
+use UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ class UserController extends Controller
     
     public function showRegistrationOptionsAction()
     {
-        return $this->render('@CodeClub/user/registration_options.html.twig');
+        return $this->render('@User/registration_options.html.twig');
     }
 
     public function registerParticipantAction(Request $request)
@@ -61,7 +61,7 @@ class UserController extends Controller
             'ROLE_ADMIN' => 'Admin'
         );
         return $this->render(
-            '@CodeClub/user/registration.html.twig',
+            '@User/registration.html.twig',
             array('form' => $form->createView(), 'role' => $roleTranslate[$role])
         );
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
         $userId = $request->request->get('userId');
         $role = $request->request->get('role');
         $userRole = 'ROLE_' . strtoupper($role);
-        $user = $this->getDoctrine()->getRepository('CodeClubBundle:User')->find($userId);
+        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
         $currentUserRole = $user->getRoles()[0];
         //Check if trying to change to current role
         if($userRole == $currentUserRole) return new JsonResponse(array('status' => 'success'));
@@ -127,7 +127,7 @@ class UserController extends Controller
     public function deleteAction(Request $request)
     {
         $userId = $request->request->get('userId');
-        $user = $this->getDoctrine()->getRepository('CodeClubBundle:User')->find($userId);
+        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
         $isLoggedInUser = $user->getId() === $this->getUser()->getId();
         
         //Clear all connections to courses
@@ -151,7 +151,7 @@ class UserController extends Controller
     private function removeCurrentParticipants($user)
     {
         //Remove participation from all courses this and future semesters
-        $participants = $this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findByUserThisAndLaterSemesters($user);
+        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($participants as $participant)
         {
@@ -174,7 +174,7 @@ class UserController extends Controller
 
     private function removeParticipants($user)
     {
-        $participants = $this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findByUserThisAndLaterSemesters($user);
+        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($participants as $participant)
         {
@@ -197,7 +197,7 @@ class UserController extends Controller
     private function removeChildren($user)
     {
         $manager = $this->getDoctrine()->getManager();
-        $children = $this->getDoctrine()->getRepository('CodeClubBundle:Child')->findBy(array('parent' => $user));
+        $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
         foreach ($children as $child)
         {
             $manager->remove($child);

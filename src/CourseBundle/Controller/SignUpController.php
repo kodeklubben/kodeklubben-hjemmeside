@@ -2,11 +2,11 @@
 
 namespace CourseBundle\Controller;
 
-use CodeClubBundle\Entity\Child;
+use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
-use CodeClubBundle\Entity\Participant;
-use CodeClubBundle\Entity\User;
+use UserBundle\Entity\Participant;
+use UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,14 +24,14 @@ class SignUpController extends Controller
             'user' => $user
         );
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
-            $participants = $this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('user' => $user));
-            $children = $this->getDoctrine()->getRepository('CodeClubBundle:Child')->findBy(array('parent' => $user));
+            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
+            $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
             return $this->render('@CodeClub/sign_up/parent.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
                 'children' => $children
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
-            $participants = $this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('user' => $user));
+            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
             return $this->render('@CodeClub/sign_up/participant.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
             )));
@@ -49,7 +49,7 @@ class SignUpController extends Controller
     public function signUpChildAction(Course $course, Child $child)
     {
         // Check if child is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
+        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || !$isThisSemester) return $this->redirectToRoute('sign_up');
         //Check if course is full
@@ -73,7 +73,7 @@ class SignUpController extends Controller
     {
         $user = $this->getUser();
         // Check if user is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
+        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorAndCourse($user, $course)) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) return $this->redirectToRoute('sign_up');
@@ -105,7 +105,7 @@ class SignUpController extends Controller
 
     public function withdrawTutorAction(Request $request)
     {
-        $userRepo = $this->getDoctrine()->getRepository('CodeClubBundle:User');
+        $userRepo = $this->getDoctrine()->getRepository('UserBundle:User');
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         $tutorId = $request->get('tutorId');
         $tutor = $isAdmin && !is_null($tutorId) ? $userRepo->find($tutorId) : $this->getUser();

@@ -1,13 +1,14 @@
 <?php
 
-namespace CodeClubBundle\Entity;
+namespace UserBundle\Entity;
 
+use UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\ChildRepository")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\ChildRepository")
  * @ORM\Table(name="child")
  */
 class Child
@@ -38,7 +39,7 @@ class Child
     /**
      * @var User
      * 
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parent;

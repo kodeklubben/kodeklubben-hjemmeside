@@ -1,0 +1,18 @@
+#Users
+cp_users:
+  path: /brukere
+  defaults: {_controller: UserBundle:AdminUser:show}
+
+cp_change_user_type:
+  path: /bruker/type
+  defaults: {_controller: UserBundle:User:changeUserType}
+  methods: [POST]
+  options:
+    expose: true
+
+cp_user_delete:
+  path: /buker/slett
+  defaults: {_controller: UserBundle:User:delete}
+  methods: [POST]
+  options:
+    expose: true

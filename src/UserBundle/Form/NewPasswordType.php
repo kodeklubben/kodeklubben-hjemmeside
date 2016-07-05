@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\Form;
+namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ class NewPasswordType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CodeClubBundle\Entity\User',
+            'data_class' => 'UserBundle\Entity\User',
         ));
     }
 

@@ -1,12 +1,13 @@
 <?php
 
 
-namespace CodeClubBundle\Entity;
+namespace UserBundle\Entity;
 
+use UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\PasswordResetRepository")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\PasswordResetRepository")
  * @ORM\Table(name="password_reset")
  */
 
@@ -23,7 +24,7 @@ class PasswordReset
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id")
      */
     protected $user;
@@ -109,7 +110,7 @@ class PasswordReset
     /**
      * Set user
      *
-     * @param \CodeClubBundle\Entity\User $user
+     * @param \UserBundle\Entity\User $user
      * @return PasswordReset
      */
     public function setUser(User $user = null)
@@ -122,7 +123,7 @@ class PasswordReset
     /**
      * Get user
      *
-     * @return \CodeClubBundle\Entity\User
+     * @return \UserBundle\Entity\User
      */
     public function getUser()
     {

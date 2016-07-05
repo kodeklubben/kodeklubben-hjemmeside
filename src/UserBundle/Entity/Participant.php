@@ -1,7 +1,8 @@
 <?php
 
-namespace CodeClubBundle\Entity;
+namespace UserBundle\Entity;
 
+use UserBundle\Entity\User;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Class
  *
  * @ORM\Table(name="participant")
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\ParticipantRepository")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\ParticipantRepository")
  * @UniqueEntity(
  *     fields={"user", "course"}
  * )
@@ -43,7 +44,7 @@ class Participant
     /**
      * @var Child
      * 
-     * @ORM\ManyToOne(targetEntity="Child")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\Child")
      * @ORM\JoinColumn(name="child_id", referencedColumnName="id", nullable=true)
      */
     private $child;
@@ -51,7 +52,7 @@ class Participant
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;

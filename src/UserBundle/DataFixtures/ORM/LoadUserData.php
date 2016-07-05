@@ -5,7 +5,7 @@ namespace CodeClubBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use CodeClubBundle\Entity\User;
+use UserBundle\Entity\User;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -62,6 +62,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 4;
+        return 3;
     }
 }

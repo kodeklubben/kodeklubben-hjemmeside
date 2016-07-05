@@ -2,9 +2,9 @@
 
 namespace CourseBundle\Entity;
 
-use CodeClubBundle\Entity\Participant;
+use UserBundle\Entity\Participant;
 use CodeClubBundle\Entity\Semester;
-use CodeClubBundle\Entity\User;
+use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -65,7 +65,7 @@ class Course
     /**
      * @var User[]
      *
-     * @ORM\ManyToMany(targetEntity="CodeClubBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinTable(name="tutor",
      *    joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -76,7 +76,7 @@ class Course
     /**
      * @var Participant[]
      *
-     * @ORM\OneToMany(targetEntity="CodeClubBundle\Entity\Participant", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Participant", mappedBy="course")
      */
     private $participants;
 
@@ -294,7 +294,8 @@ class Course
     /**
      * Deletes the course type
      */
-    public function delete(){
+    public function delete()
+    {
         $this->deleted = true;
     }
 

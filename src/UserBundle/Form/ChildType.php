@@ -1,34 +1,32 @@
 <?php
 
-namespace CodeClubBundle\Form;
+namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class PasswordResetType extends AbstractType
+class ChildType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'text', array(
-                'label' => 'E-post',
-                'mapped' => false
+            ->add('firstName', TextType::class, array(
+                'label' => 'Fornavn',
+            ))
+            ->add('lastName', TextType::class, array(
+                'label' => 'Etternavn',
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'CodeClubBundle\Entity\PasswordReset',
-        ));
+
     }
 
     public function getName()
     {
-        return 'passwordReset'; // This must be unique
+        return 'app_bundlecreate_child_type';
     }
-
 }

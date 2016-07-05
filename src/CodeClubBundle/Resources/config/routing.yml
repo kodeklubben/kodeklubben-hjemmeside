@@ -11,34 +11,6 @@ about:
   path: /om
   defaults: {_controller: CodeClubBundle:About:show}
 
-#Child
-child_create:
-  path: /barn/ny
-  defaults: {_controller: CodeClubBundle:Child:createChild}
-
-child_delete:
-  path: /barn/slett/{id}
-  defaults: {_controller: CodeClubBundle:Child:deleteChild}
-  requirements:
-    id: \d+
-
-#Registration
-register_user:
-  path: /registrer
-  defaults: {_controller: CodeClubBundle:User:showRegistrationOptions}
-
-participant_registration:
-  path: /registrer/deltaker
-  defaults: {_controller: CodeClubBundle:User:registerParticipant}
-
-parent_registration:
-  path: /registrer/foresatt
-  defaults: {_controller: CodeClubBundle:User:registerParent}
-
-tutor_registration:
-  path: /registrer/veileder
-  defaults: {_controller: CodeClubBundle:User:registerTutor}
-
 api_get_course_classes_by_week:
   path: /api/kurs/uke/{week}
   defaults: {_controller: CourseBundle:Course:getCourseClasses}

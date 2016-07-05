@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeClubBundle\Controller;
+namespace UserBundle\Controller;
 
-use CodeClubBundle\Entity\Child;
-use CodeClubBundle\Form\ChildType;
+use UserBundle\Entity\Child;
+use UserBundle\Form\ChildType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,7 +28,7 @@ class ChildController extends Controller
     {
         //A parent can only delete their own children
         if ($child->getParent()->getId() == $this->getUser()->getId()) {
-            $childParticipants = $this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('child' => $child));
+            $childParticipants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('child' => $child));
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($child);
             //Remove all child participation

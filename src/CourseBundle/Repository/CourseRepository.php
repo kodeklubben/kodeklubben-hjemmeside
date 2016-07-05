@@ -5,7 +5,7 @@ namespace CourseBundle\Repository;
 
 use CourseBundle\Entity\Course;
 use CodeClubBundle\Entity\Semester;
-use CodeClubBundle\Entity\User;
+use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 /**
