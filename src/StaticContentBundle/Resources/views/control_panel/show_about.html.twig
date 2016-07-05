@@ -8,10 +8,10 @@
     </section>
 
     <section class="content">
-        {% include '@CodeClubAdmin/static_content/form_textarea.html.twig' with {'label': labelParticipant, 'buttonId': buttonIdParticipant, 'idString': idStringParticipant, 'buttonLabel': buttonLabelParticipant, 'rows': rowsParticipant} %}
+        {% include '@StaticContent/control_panel/form_textarea.html.twig' with {'label': labelParticipant, 'buttonId': buttonIdParticipant, 'idString': idStringParticipant, 'buttonLabel': buttonLabelParticipant, 'rows': rowsParticipant} %}
         <br>
         <br>
-        {% include '@CodeClubAdmin/static_content/form_textarea.html.twig' with {'label': labelTutor, 'buttonId': buttonIdTutor, 'idString': idStringTutor, 'buttonLabel': buttonLabelTutor, 'rows': rowsTutor} %}
+        {% include '@StaticContent/control_panel/form_textarea.html.twig' with {'label': labelTutor, 'buttonId': buttonIdTutor, 'idString': idStringTutor, 'buttonLabel': buttonLabelTutor, 'rows': rowsTutor} %}
     </section>
 {% endblock %}
 {% block javascripts %}

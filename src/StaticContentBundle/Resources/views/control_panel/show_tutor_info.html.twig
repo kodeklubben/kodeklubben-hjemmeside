@@ -1,15 +1,15 @@
 {% extends '@CodeClubAdmin/_base/admin_base.html.twig' %}
 
-{% set label, buttonId, idString, buttonLabel, rows = 'Header', 'submitHeader', 'header', 'Endre Header', 5 %}
+{% set label, buttonId, idString, buttonLabel, rows = 'Veilederinfo', 'submitTutor', 'tutor_info', 'Endre Veilederinfo', 10 %}
 
 {% block body %}
     <section class="content-header">
-        <h1>Statisk innhold: Header</h1>
+        <h1>Statisk innhold: Veileder</h1>
         <hr>
     </section>
 
     <section class="content">
-        {% include '@CodeClubAdmin/static_content/form_textarea.html.twig' with {'label': label, 'buttonId': buttonId, 'idString': idString, 'buttonLabel': buttonLabel, 'rows': rows} %}
+        {% include '@StaticContent/control_panel/form_textarea.html.twig' with {'label': label, 'buttonId': buttonId, 'idString': idString, 'buttonLabel': buttonLabel, 'rows': rows} %}
     </section>
 {% endblock %}
 {% block javascripts %}

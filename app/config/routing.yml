@@ -4,6 +4,9 @@ user:
 course:
     resource: "@CourseBundle/Resources/config/routing.yml"
 
+static_content:
+    resource: "@StaticContentBundle/Resources/config/routing.yml"
+
 code_club_generator:
     resource: "@CodeClubGeneratorBundle/Resources/config/routing.yml"
     prefix:   /generator

@@ -1,16 +1,17 @@
 <?php
 
-namespace CodeClubAdminBundle\Controller;
+namespace StaticContentBundle\Controller;
 
 use StaticContentBundle\Entity\StaticContent;
 use StaticContentBundle\Form\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class StaticContentController extends Controller
+class AdminStaticContentController extends Controller
 {
     public function showInfoAction(){
-        return $this->render('@CodeClubAdmin/static_content/show_info.html.twig', array(
+        return $this->render('@StaticContent/control_panel/show_info.html.twig', array(
         ));
     }
 
@@ -57,8 +58,41 @@ class StaticContentController extends Controller
             $manager->flush();
             return $this->redirectToRoute('cp_sc_' . $idString);
         }
-        return $this->render('@CodeClubAdmin/static_content/show_' . $idString . '.html.twig', array(
+        return $this->render('@StaticContent/control_panel/show_' . $idString . '.html.twig', array(
             'form' => $form->createView(),
         ));
     }
+
+    public function updateAction(Request $request)
+    {
+        $idString = $request->request->get('idString');
+        $content = $request->request->get('content');
+        if(is_null($idString) || is_null($content))return $this->_createErrorResponse('Invalid POST parameters');
+
+        $staticContent = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneBy(array('idString' => $idString));
+        if(is_null($staticContent))return $this->_createErrorResponse('Static Content not found');
+
+        $staticContent->setContent($content);
+        $staticContent->setLastEdited(new \DateTime());
+        $staticContent->setLastEditedBy($this->getUser());
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($staticContent);
+        $manager->flush();
+
+        return $this->_createSuccessResponse();
+    }
+
+    private function _createErrorResponse($error){
+        $response = new Response(json_encode(array('success' => false, 'error' => $error)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    private function _createSuccessResponse(){
+        $response = new Response(json_encode(array('success' => true, 'error' => false)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
 }

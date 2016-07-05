@@ -17,37 +17,6 @@ cp_delete_message:
   requirements:
     id: \d+
 
-cp_sc_header:
-  path: /statisk_innhold/header
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showHeader}
-
-cp_sc_tagline:
-  path: /statisk_innhold/tagline
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showTagline}
-
-cp_sc_participant_info:
-  path: /statisk_innhold/deltaker
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showParticipant}
-
-cp_sc_tutor_info:
-  path: /statisk_innhold/veileder
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showTutor}
-
-cp_sc_about:
-  path: /statisk_innhold/om
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showAbout}
-
-cp_update_static_content:
-  path: /statisk_innhold
-  defaults: {_controller: StaticContentBundle:StaticContent:update}
-  methods: [POST]
-  options:
-    expose: true
-
-cp_info:
-  path: /info
-  defaults: {_controller: CodeClubAdminBundle:StaticContent:showInfo}
-
 cp_tutors:
   path: /veiledere
   defaults: {_controller: CodeClubAdminBundle:ControlPanel:showTutors}

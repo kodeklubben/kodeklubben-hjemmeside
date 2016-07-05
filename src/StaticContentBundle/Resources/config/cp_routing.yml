@@ -1,0 +1,31 @@
+#Static content
+cp_sc_header:
+  path: /statisk_innhold/header
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showHeader}
+
+cp_sc_tagline:
+  path: /statisk_innhold/tagline
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showTagline}
+
+cp_sc_participant_info:
+  path: /statisk_innhold/deltaker
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showParticipant}
+
+cp_sc_tutor_info:
+  path: /statisk_innhold/veileder
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showTutor}
+
+cp_sc_about:
+  path: /statisk_innhold/om
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showAbout}
+
+cp_update_static_content:
+  path: /statisk_innhold
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:update}
+  methods: [POST]
+  options:
+    expose: true
+
+cp_info:
+  path: /info
+  defaults: {_controller: StaticContentBundle:AdminStaticContent:showInfo}
