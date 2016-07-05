@@ -1,7 +1,10 @@
 <?php
 
-namespace CodeClubBundle\Entity;
+namespace CourseBundle\Entity;
 
+use CodeClubBundle\Entity\Participant;
+use CodeClubBundle\Entity\Semester;
+use CodeClubBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Course
  *
  * @ORM\Table(name="course")
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\CourseRepository")
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseRepository")
  */
 class Course
 {
@@ -39,7 +42,7 @@ class Course
     /**
      * @var Semester
      *
-     * @ORM\ManyToOne(targetEntity="Semester")
+     * @ORM\ManyToOne(targetEntity="CodeClubBundle\Entity\Semester")
      * @ORM\JoinColumn(name="semester_id", referencedColumnName="id")
      */
     private $semester;
@@ -62,7 +65,7 @@ class Course
     /**
      * @var User[]
      *
-     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\ManyToMany(targetEntity="CodeClubBundle\Entity\User")
      * @ORM\JoinTable(name="tutor",
      *    joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -73,7 +76,7 @@ class Course
     /**
      * @var Participant[]
      *
-     * @ORM\OneToMany(targetEntity="Participant", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="CodeClubBundle\Entity\Participant", mappedBy="course")
      */
     private $participants;
 

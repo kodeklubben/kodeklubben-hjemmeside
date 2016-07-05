@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new CodeClubAdminBundle\CodeClubAdminBundle(),
             new CodeClubGeneratorBundle\CodeClubGeneratorBundle(),
             new StaticContentBundle\StaticContentBundle(),
+            new CourseBundle\CourseBundle(),
+            new UserBundle\UserBundle(),
         );
 
         // Some bundles are only used while developing the application or during

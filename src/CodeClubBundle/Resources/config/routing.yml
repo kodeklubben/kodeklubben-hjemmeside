@@ -7,16 +7,6 @@ home:
   path: /
   defaults: {_controller: CodeClubBundle:Home:show}
 
-courses:
-  path: /kurs
-  defaults: {_controller: CodeClubBundle:Course:show}
-
-course_info:
-  path: /kurs/{id}
-  defaults: {_controller: CodeClubBundle:Course:showCourseInfo}
-  requirements:
-    id: \d+
-
 about:
   path: /om
   defaults: {_controller: CodeClubBundle:About:show}
@@ -29,38 +19,6 @@ child_create:
 child_delete:
   path: /barn/slett/{id}
   defaults: {_controller: CodeClubBundle:Child:deleteChild}
-  requirements:
-    id: \d+
-
-#Sign up
-sign_up:
-  path: /pamelding
-  defaults: {_controller: CodeClubBundle:SignUp:show}
-
-sign_up_course:
-  path: /pamelding/{id}
-  defaults: {_controller: CodeClubBundle:SignUp:signUp}
-  requirements:
-    id: \d+
-
-sign_up_course_child:
-  path: /pamelding/barn/{id}/{child}
-  defaults: {_controller: CodeClubBundle:SignUp:signUpChild}
-  requirements:
-    id: \d+
-  options:
-    expose: true
-
-withdraw_from_course_tutor:
-  path: /pamelding/veileder/meldav/{courseId}/{tutorId}
-  defaults: {_controller: CodeClubBundle:SignUp:withdrawTutor, tutorId: null}
-  requirements:
-    courseId: \d+
-    tutorId: \d+
-
-withdraw_from_course_participant:
-  path: /pamelding/deltaker/meldav/{id}
-  defaults: {_controller: CodeClubBundle:SignUp:withdrawParticipant}
   requirements:
     id: \d+
 
@@ -83,7 +41,7 @@ tutor_registration:
 
 api_get_course_classes_by_week:
   path: /api/kurs/uke/{week}
-  defaults: {_controller: CodeClubBundle:Course:getCourseClasses}
+  defaults: {_controller: CourseBundle:Course:getCourseClasses}
   requirements:
     week: \d+
 

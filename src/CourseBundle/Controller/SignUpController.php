@@ -1,10 +1,10 @@
 <?php
 
-namespace CodeClubBundle\Controller;
+namespace CourseBundle\Controller;
 
 use CodeClubBundle\Entity\Child;
-use CodeClubBundle\Entity\Course;
-use CodeClubBundle\Entity\CourseType;
+use CourseBundle\Entity\Course;
+use CourseBundle\Entity\CourseType;
 use CodeClubBundle\Entity\Participant;
 use CodeClubBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +15,7 @@ class SignUpController extends Controller
     public function showAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CodeClubBundle:CourseType')->findAll();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
         $parameters = array(
@@ -36,7 +36,7 @@ class SignUpController extends Controller
                 'participants' => $participants,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
-            $tutoringCourses = $this->getDoctrine()->getRepository('CodeClubBundle:Course')->findByTutor($user);
+            $tutoringCourses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutor($user);
             return $this->render('@CodeClub/sign_up/tutor.html.twig', array_merge($parameters,array(
                 'tutoringCourses' => $tutoringCourses
             )));
@@ -74,7 +74,7 @@ class SignUpController extends Controller
         $user = $this->getUser();
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CodeClubBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CodeClubBundle:Course')->findByTutorAndCourse($user, $course)) > 0;
+        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorAndCourse($user, $course)) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) return $this->redirectToRoute('sign_up');
 
@@ -109,10 +109,10 @@ class SignUpController extends Controller
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         $tutorId = $request->get('tutorId');
         $tutor = $isAdmin && !is_null($tutorId) ? $userRepo->find($tutorId) : $this->getUser();
-        $course = $this->getDoctrine()->getRepository('CodeClubBundle:Course')->find($request->get('courseId'));
+        $course = $this->getDoctrine()->getRepository('CourseBundle:Course')->find($request->get('courseId'));
         
         // Check if user is already signed up to the course
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CodeClubBundle:Course')->findByTutorAndCourse($tutor, $course)) > 0;
+        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorAndCourse($tutor, $course)) > 0;
         if ($isAlreadyTutor) {
             $course->removeTutor($tutor);
             $manager = $this->getDoctrine()->getManager();

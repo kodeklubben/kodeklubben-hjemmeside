@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeClubBundle\Repository;
+namespace CourseBundle\Repository;
 
-use CodeClubBundle\Entity\CourseClass;
 use CodeClubBundle\Entity\Semester;
+use CourseBundle\Entity\CourseClass;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -35,7 +35,7 @@ class CourseClassRepository extends EntityRepository
     /**
      * @param int $week
      * @param Semester $semester
-     * @return \CodeClubBundle\Entity\CourseClass[]
+     * @return CourseClass[]
      */
     public function findByWeek($week, Semester $semester)
     {

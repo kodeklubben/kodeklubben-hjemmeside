@@ -1,18 +1,18 @@
 <?php
 
-namespace CodeClubAdminBundle\Controller;
+namespace CourseBundle\Controller;
 
-use CodeClubAdminBundle\Form\CourseTypeType;
-use CodeClubBundle\Entity\CourseType;
+use CourseBundle\Form\CourseTypeType;
+use CourseBundle\Entity\CourseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class CourseTypeController extends Controller
+class AdminCourseTypeController extends Controller
 {
     public function showAction()
     {
-        $courses = $this->getDoctrine()->getRepository('CodeClubBundle:CourseType')->findAll();
-        return $this->render('@CodeClubAdmin/course/show_course_type.html.twig', array(
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        return $this->render('@Course/control_panel/show_course_type.html.twig', array(
             'courses' => $courses,
         ));
     }
@@ -29,7 +29,7 @@ class CourseTypeController extends Controller
             $manager->flush();
             return $this->redirectToRoute('cp_course_type');
         }
-        return $this->render('@CodeClubAdmin/course/show_edit_course_type.html.twig', array(
+        return $this->render('@Course/control_panel/show_edit_course_type.html.twig', array(
             'courseType' => $courseType,
             'form' => $form->createView()
         ));

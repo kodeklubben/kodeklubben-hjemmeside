@@ -164,7 +164,7 @@ class UserController extends Controller
     {
         //Remove tutor from all courses this and future semesters
         $manager = $this->getDoctrine()->getManager();
-        $courses = $this->getDoctrine()->getRepository('CodeClubBundle:Course')->findByTutorThisAndLaterSemesters($user);
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorThisAndLaterSemesters($user);
         foreach ($courses as $course) {
             $course->removeTutor($user);
             $manager->persist($course);
@@ -186,7 +186,7 @@ class UserController extends Controller
     private function removeTutors($user)
     {
         $manager = $this->getDoctrine()->getManager();
-        $courses = $this->getDoctrine()->getRepository('CodeClubBundle:Course')->findByTutor($user);
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutor($user);
         foreach ($courses as $course) {
             $course->removeTutor($user);
             $manager->persist($course);

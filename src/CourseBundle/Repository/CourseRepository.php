@@ -1,9 +1,9 @@
 <?php
 
 
-namespace CodeClubBundle\Repository;
+namespace CourseBundle\Repository;
 
-use CodeClubBundle\Entity\Course;
+use CourseBundle\Entity\Course;
 use CodeClubBundle\Entity\Semester;
 use CodeClubBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;

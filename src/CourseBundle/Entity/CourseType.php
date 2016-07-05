@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\Entity;
+namespace CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Course
  *
  * @ORM\Table(name="course_type")
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\CourseTypeRepository")
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseTypeRepository")
  */
 class CourseType
 {
@@ -96,7 +96,7 @@ class CourseType
      *
      * @param string $name
      *
-     * @return Course
+     * @return \CourseBundle\Entity\Course
      */
     public function setName($name)
     {

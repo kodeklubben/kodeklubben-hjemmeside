@@ -2,6 +2,7 @@
 
 namespace CodeClubBundle\Entity;
 
+use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -58,7 +59,7 @@ class Participant
     /**
      * @var Course
      *
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="participants")
+     * @ORM\ManyToOne(targetEntity="CourseBundle\Entity\Course", inversedBy="participants")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      */
     private $course;

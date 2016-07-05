@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubAdminBundle\Form;
+namespace CourseBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

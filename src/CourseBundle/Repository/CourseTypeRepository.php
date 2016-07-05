@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CodeClubBundle\Repository;
+namespace CourseBundle\Repository;
 
 use CodeClubBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;

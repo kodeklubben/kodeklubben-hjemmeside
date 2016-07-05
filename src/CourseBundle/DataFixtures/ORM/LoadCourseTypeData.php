@@ -2,7 +2,7 @@
 
 namespace CodeClubBundle\DataFixtures\ORM;
 
-use CodeClubBundle\Entity\CourseType;
+use CourseBundle\Entity\CourseType;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

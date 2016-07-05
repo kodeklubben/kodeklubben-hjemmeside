@@ -1,15 +1,15 @@
 <?php
 
-namespace CodeClubAdminBundle\Controller;
+namespace CourseBundle\Controller;
 
-use CodeClubBundle\Entity\Course;
-use CodeClubBundle\Entity\CourseClass;
-use CodeClubAdminBundle\Form\CourseFormType;
-use CodeClubAdminBundle\Form\CourseClassType;
+use CourseBundle\Entity\Course;
+use CourseBundle\Entity\CourseClass;
+use CourseBundle\Form\CourseClassType;
+use CourseBundle\Form\CourseFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class CourseController extends Controller
+class AdminCourseController extends Controller
 {
     public function showAction(Request $request)
     {
@@ -22,8 +22,8 @@ class CourseController extends Controller
             $semester = $semesterRepo->findCurrentSemester();
         }
         $semesters = $semesterRepo->findAll();
-        $courses = $this->getDoctrine()->getRepository('CodeClubBundle:Course')->findBySemester($semester);
-        return $this->render('@CodeClubAdmin/course/show.html.twig', array(
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester);
+        return $this->render('@Course/control_panel/show.html.twig', array(
             'courses' => $courses,
             'semester' => $semester,
             'semesters' => $semesters
@@ -43,7 +43,7 @@ class CourseController extends Controller
             $manager->flush();
             return $this->redirectToRoute('cp_course');
         }
-        return $this->render('@CodeClubAdmin/course/show_create_course.html.twig', array(
+        return $this->render('@Course/control_panel/show_create_course.html.twig', array(
             'course' => $course,
             'form' => $form->createView()
         ));
@@ -52,7 +52,7 @@ class CourseController extends Controller
     public function editTimeTableAction(Request $request, Course $course)
     {
         $courseClass = new CourseClass();
-        $latestCourseClass = $this->getDoctrine()->getRepository('CodeClubBundle:CourseClass')->findOneBy(array('course' => $course), array('time' => 'DESC'), 1);
+        $latestCourseClass = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findOneBy(array('course' => $course), array('time' => 'DESC'), 1);
 
         //Set default time to one week after last class
         if (!is_null($latestCourseClass)) {
@@ -74,7 +74,7 @@ class CourseController extends Controller
 
             return $this->redirectToRoute('cp_course_time_table', array('id' => $course->getId()));
         }
-        return $this->render('@CodeClubAdmin/course/show_time_table.html.twig', array(
+        return $this->render('@Course/control_panel/show_time_table.html.twig', array(
             'course' => $course,
             'form' => $form->createView()
         ));
@@ -91,17 +91,17 @@ class CourseController extends Controller
 
     public function showParticipantsAction(Course $course)
     {
-        return $this->render('@CodeClubAdmin/course/show_course_participants.html.twig', array('course' => $course));
+        return $this->render('@Course/control_panel/show_course_participants.html.twig', array('course' => $course));
     }
 
     public function showTutorsAction(Course $course)
     {
-        return $this->render('@CodeClubAdmin/course/show_course_tutors.html.twig', array('course' => $course));
+        return $this->render('@Course/control_panel/show_course_tutors.html.twig', array('course' => $course));
     }
 
     public function deleteCourseClassAction($id){
         $manager = $this->getDoctrine()->getManager();
-        $courseClass = $manager->getRepository('CodeClubBundle:CourseClass')->find($id);
+        $courseClass = $manager->getRepository('CourseBundle:CourseClass')->find($id);
         if(!is_null($courseClass)){
             $manager->remove($courseClass);
             $manager->flush();

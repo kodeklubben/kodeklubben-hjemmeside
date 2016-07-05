@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubAdminBundle\Form;
+namespace CourseBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -35,7 +35,7 @@ class CourseFormType extends AbstractType
             ))
             ->add('courseType', 'entity', array(
                 'label' => 'Kurstype',
-                'class' => 'CodeClubBundle\Entity\CourseType',
+                'class' => 'CourseBundle\Entity\CourseType',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->select('ct')

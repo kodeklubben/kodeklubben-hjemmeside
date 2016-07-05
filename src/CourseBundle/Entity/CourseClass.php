@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\Entity;
+namespace CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class
  *
  * @ORM\Table(name="course_class")
- * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\CourseClassRepository")
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseClassRepository")
  */
 class CourseClass implements \JsonSerializable
 {
@@ -36,9 +36,9 @@ class CourseClass implements \JsonSerializable
     private $place;
 
     /**
-     * @var Course
+     * @var \CourseBundle\Entity\Course
      *
-     * @ORM\ManyToOne(targetEntity="Course", inversedBy="classes")
+     * @ORM\ManyToOne(targetEntity="CourseBundle\Entity\Course", inversedBy="classes")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $course;
@@ -58,14 +58,10 @@ class CourseClass implements \JsonSerializable
      * Set time
      *
      * @param \DateTime $time
-     *
-     * @return Class
      */
     public function setTime($time)
     {
         $this->time = $time;
-
-        return $this;
     }
 
     /**
@@ -82,14 +78,10 @@ class CourseClass implements \JsonSerializable
      * Set place
      *
      * @param string $place
-     *
-     * @return Class
      */
     public function setPlace($place)
     {
         $this->place = $place;
-
-        return $this;
     }
 
     /**
