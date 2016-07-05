@@ -12,7 +12,7 @@ code_club_generator:
     prefix:   /generator
 
 code_club_admin:
-    resource: "@CodeClubAdminBundle/Resources/config/routing.yml"
+    resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /kontrollpanel
 
 code_club:

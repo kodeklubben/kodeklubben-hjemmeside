@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeClubAdminBundle\Controller;
+namespace AdminBundle\Controller;
 
-use CodeClubAdminBundle\Form\MessageType;
+use AdminBundle\Form\MessageType;
 use CodeClubBundle\Entity\Message;
 use CodeClubBundle\Entity\Semester;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,13 +12,13 @@ class ControlPanelController extends Controller
 {
     public function showAction()
     {
-        return $this->render('@CodeClubAdmin/show.html.twig', array(
+        return $this->render('@Admin/show.html.twig', array(
             // ...
         ));
     }
 
     public function showEmailAction(){
-        return $this->render('@CodeClubAdmin/email/show.html.twig');
+        return $this->render('@Admin/email/show.html.twig');
     }
 
     public function showMessageAction(Request $request){
@@ -34,7 +34,7 @@ class ControlPanelController extends Controller
 
             return $this->redirectToRoute('cp_message');
         }
-        return $this->render('@CodeClubAdmin/message/show_message.html.twig',array(
+        return $this->render('@Admin/message/show_message.html.twig',array(
             'messages' => $messages,
             'form' => $form->createView(),
         ));
@@ -52,13 +52,13 @@ class ControlPanelController extends Controller
     
     public function showTutorsAction(Request $request)
     {
-        return $this->renderCourseUsers($request, "@CodeClubAdmin/tutor/show_tutors.html.twig");
+        return $this->renderCourseUsers($request, "@Admin/tutor/show_tutors.html.twig");
     }
 
 
     public function showParticipantsAction(Request $request)
     {
-        return $this->renderCourseUsers($request, "@CodeClubAdmin/participant/show_participants.html.twig");
+        return $this->renderCourseUsers($request, "@Admin/participant/show_participants.html.twig");
 
     }
 

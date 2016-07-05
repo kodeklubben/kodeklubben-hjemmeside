@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeClubAdminBundle\Controller;
+namespace AdminBundle\Controller;
 
-use CodeClubAdminBundle\Form\MessageType;
+use AdminBundle\Form\MessageType;
 use CodeClubBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ class MessageController extends Controller
 
             return $this->redirectToRoute('cp_message');
         }
-        return $this->render('@CodeClubAdmin/message/show_message.html.twig',array(
+        return $this->render('@Admin/message/show_message.html.twig',array(
             'messages' => $messages,
             'form' => $form->createView(),
         ));
