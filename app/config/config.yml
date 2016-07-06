@@ -10,9 +10,11 @@ imports:
     - { resource: services.yml }
     - { resource: "@ApiBundle/Resources/config/services.yml" }
     - { resource: "@CodeClubBundle/Resources/config/services.yml" }
-    - { resource: "@CodeClubAdminBundle/Resources/config/services.yml" }
+    - { resource: "@AdminBundle/Resources/config/services.yml" }
     - { resource: "@CodeClubGeneratorBundle/Resources/config/services.yml" }
     - { resource: "@StaticContentBundle/Resources/config/services.yml" }
+    - { resource: "@CourseBundle/Resources/config/services.yml" }
+    - { resource: "@UserBundle/Resources/config/services.yml" }
 
 # These are the configuration parameters that define the application's behavior
 # and which are independent from the underlying technical infrastructure

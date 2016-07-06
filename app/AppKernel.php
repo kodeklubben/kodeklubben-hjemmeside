@@ -25,9 +25,11 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new ApiBundle\ApiBundle(),
             new CodeClubBundle\CodeClubBundle(),
-            new CodeClubAdminBundle\CodeClubAdminBundle(),
+            new AdminBundle\AdminBundle(),
             new CodeClubGeneratorBundle\CodeClubGeneratorBundle(),
             new StaticContentBundle\StaticContentBundle(),
+            new CourseBundle\CourseBundle(),
+            new UserBundle\UserBundle(),
         );
 
         // Some bundles are only used while developing the application or during

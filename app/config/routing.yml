@@ -1,9 +1,18 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+
+course:
+    resource: "@CourseBundle/Resources/config/routing.yml"
+
+static_content:
+    resource: "@StaticContentBundle/Resources/config/routing.yml"
+
 code_club_generator:
     resource: "@CodeClubGeneratorBundle/Resources/config/routing.yml"
     prefix:   /generator
 
 code_club_admin:
-    resource: "@CodeClubAdminBundle/Resources/config/routing.yml"
+    resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /kontrollpanel
 
 code_club:
@@ -32,8 +41,8 @@ security_logout:
 
 password_reset:
   path: /reset_passord
-  defaults: {_controller: CodeClubBundle:PasswordReset:show}
+  defaults: {_controller: UserBundle:PasswordReset:show}
 
 password_new:
   path: /reset_passord/{code}
-  defaults: {_controller: CodeClubBundle:PasswordReset:resetPassword}
+  defaults: {_controller: UserBundle:PasswordReset:resetPassword}

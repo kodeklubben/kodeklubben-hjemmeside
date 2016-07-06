@@ -9,6 +9,8 @@ class HomeController extends Controller
 {
     public function showAction()
     {
+        $session = $this->get('session');
+        $session->clear();
         return $this->render('@CodeClub/home/show.html.twig');
     }
 
@@ -22,7 +24,7 @@ class HomeController extends Controller
 
     public function showCourseTypesAction(){
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
-        $courseTypes = $this->getDoctrine()->getRepository('CodeClubBundle:CourseType')->findNotHiddenBySemester($currentSemester);
+        $courseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findNotHiddenBySemester($currentSemester);
 
         return $this->render('@CodeClub/home/course.html.twig', array('courseTypes' => $courseTypes));
     }
@@ -30,7 +32,7 @@ class HomeController extends Controller
     public function showTimeTableAction($week = null){
         if(is_null($week))$week = (new \DateTime())->format('W');
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
-        $courseClasses = $this->getDoctrine()->getRepository('CodeClubBundle:CourseClass')->findByWeek($week, $currentSemester);
+        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester);
         return $this->render('@CodeClub/home/time_table.html.twig',array(
             'courseClasses' => $courseClasses,
             'week' => $week,

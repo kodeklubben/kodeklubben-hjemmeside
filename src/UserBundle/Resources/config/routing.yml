@@ -1,0 +1,31 @@
+control_panel_user:
+    resource: "./cp_routing.yml"
+    prefix: /kontrollpanel
+
+#Child
+child_create:
+  path: /barn/ny
+  defaults: {_controller: UserBundle:Child:createChild}
+
+child_delete:
+  path: /barn/slett/{id}
+  defaults: {_controller: UserBundle:Child:deleteChild}
+  requirements:
+    id: \d+
+
+#Registration
+register_user:
+  path: /registrer
+  defaults: {_controller: UserBundle:User:showRegistrationOptions}
+
+participant_registration:
+  path: /registrer/deltaker
+  defaults: {_controller: UserBundle:User:registerParticipant}
+
+parent_registration:
+  path: /registrer/foresatt
+  defaults: {_controller: UserBundle:User:registerParent}
+
+tutor_registration:
+  path: /registrer/veileder
+  defaults: {_controller: UserBundle:User:registerTutor}
