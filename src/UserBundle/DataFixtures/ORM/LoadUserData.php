@@ -13,6 +13,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $user1 = new User();
+        $user1->setClub($this->getReference('club-trondheim'));
         $user1->setFirstName('Admin');
         $user1->setLastName('Adminsen');
         $user1->setPhone('12345678');
@@ -23,6 +24,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($user1);
 
         $user2 = new User();
+        $user2->setClub($this->getReference('club-trondheim'));
         $user2->setFirstName('Participant');
         $user2->setLastName('Participant');
         $user2->setPhone('12345678');
@@ -33,6 +35,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($user2);
 
         $userParent = new User();
+        $userParent->setClub($this->getReference('club-trondheim'));
         $userParent->setFirstName('Parent');
         $userParent->setLastName('Parent');
         $userParent->setPhone('12345678');
@@ -43,6 +46,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($userParent);
 
         $user3 = new User();
+        $user3->setClub($this->getReference('club-trondheim'));
         $user3->setFirstName('Tutor');
         $user3->setLastName('Tutor');
         $user3->setPhone('12345678');

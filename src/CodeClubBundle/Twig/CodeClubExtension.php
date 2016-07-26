@@ -1,6 +1,8 @@
 <?php
 
 namespace CodeClubBundle\Twig;
+use CodeClubBundle\Service\ClubFinder;
+
 class CodeClubExtension extends \Twig_Extension {
     protected $doctrine;
     protected $router;
@@ -17,11 +19,7 @@ class CodeClubExtension extends \Twig_Extension {
         );
     }
     public function getClub(){
-        $host = $this->router->getContext()->getHost();
-        $subdomain = substr($host, 0, strpos($host, '.'));
-        $club = $this->doctrine
-            ->getRepository('CodeClubBundle:Club')
-            ->findBySubdomain($subdomain);
-        return $club;
+        $clubFinder = new ClubFinder($this->doctrine, $this->router);
+        return $clubFinder->getCurrentClub();
     }
 }

@@ -22,6 +22,13 @@ class Message
     private $id;
 
     /**
+     * @var Club
+     *
+     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     */
+    private $club;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="message", type="text")
@@ -61,6 +68,22 @@ class Message
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Club
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * @param Club $club
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
     }
 
     /**

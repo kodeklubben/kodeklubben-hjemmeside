@@ -1,6 +1,6 @@
-#code_club_homepage:
-#    path:     /
-#    defaults: { _controller: CodeClubBundle:Default:index }
+control_panel_code_club:
+    resource: "./cp_routing.yml"
+    prefix: /kontrollpanel
 
 #Pages
 home:
@@ -16,9 +16,3 @@ api_get_course_classes_by_week:
   defaults: {_controller: CourseBundle:Course:getCourseClasses}
   requirements:
     week: \d+
-
-
-
-
-
-

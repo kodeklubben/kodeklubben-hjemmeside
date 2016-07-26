@@ -1,0 +1,19 @@
+{% extends '@Admin/_base/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Info Kodeklubben</h1>
+        <hr>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary btn-flat btn-sm onclick-disable" type="submit">Oppdater</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

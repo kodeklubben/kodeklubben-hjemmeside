@@ -2,6 +2,7 @@
 
 namespace CourseBundle\Entity;
 
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,6 +21,13 @@ class CourseType
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var Club
+     * 
+     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     */
+    private $club;
 
     /**
      * @var string
@@ -89,6 +97,22 @@ class CourseType
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Club
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * @param Club $club
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
     }
 
     /**
