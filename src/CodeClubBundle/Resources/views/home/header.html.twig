@@ -4,7 +4,7 @@
     </div>
     <!-- /.col-md-8 -->
     <div class="col-md-4">
-        <h1>Kodeklubben {{ get_content('region') }}</h1>
+        <h1>{{ get_club().getName() }}</h1>
         <p>{{ get_content('header') }}</p>
         <a class="btn btn-primary btn-lg" href="{{ path('sign_up') }}">Meld deg på!</a>
     </div>

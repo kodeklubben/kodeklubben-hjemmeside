@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -11,8 +12,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
- * @ORM\Table(name="user")
- * @UniqueEntity("email")
+ * @ORM\Table(name="user", uniqueConstraints= {
+ *      @ORM\UniqueConstraint(name="club_email_idx", columns={"club_id", "email"})
+ * })
+ * @UniqueEntity({"club", "email"})
  *
  * Defines the properties of the User entity to represent the application users.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -26,6 +29,13 @@ class User implements UserInterface, EquatableInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var Club
+     *
+     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     */
+    private $club;
 
     /**
      * @ORM\Column(type="string", unique=true)
@@ -93,6 +103,22 @@ class User implements UserInterface, EquatableInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Club
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * @param Club $club
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace StaticContentBundle\Entity;
 
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -22,6 +23,13 @@ class StaticContent
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var Club
+     * 
+     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     */
+    private $club;
 
 
     /**
@@ -70,6 +78,22 @@ class StaticContent
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Club
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+
+    /**
+     * @param Club $club
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
     }
 
     /**

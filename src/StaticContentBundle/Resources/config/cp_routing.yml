@@ -25,7 +25,3 @@ cp_update_static_content:
   methods: [POST]
   options:
     expose: true
-
-cp_info:
-  path: /info
-  defaults: {_controller: StaticContentBundle:AdminStaticContent:showInfo}

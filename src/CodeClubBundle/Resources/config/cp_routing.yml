@@ -1,0 +1,3 @@
+cp_info:
+  path: /info
+  defaults: {_controller: CodeClubBundle:AdminClub:show}

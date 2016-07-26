@@ -6,3 +6,8 @@ services:
         container: "@router"
       tags:
         - { name: twig.extension }
+  app.club_finder:
+        class: CodeClubBundle\Service\ClubFinder
+        arguments:
+          doctrine: "@doctrine"
+          container: "@router"

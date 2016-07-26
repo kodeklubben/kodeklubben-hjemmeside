@@ -13,6 +13,7 @@ class LoadCourseTypeData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager)
     {
         $courseType1 = new CourseType();
+        $courseType1->setClub($this->getReference('club-trondheim'));
         $courseType1->setName('Scratch');
         $courseType1->setDescription('Dette kurset er for nybegynnere og er anbefalt fra 4. klasse og oppover. Et flott kurs å starte på for å få følelsen av hva programmering går ut på. Scratch er et blokkbasert programmeringsspråk hvor vi kommer til å fokusere på å lage enkle spill.
 
@@ -23,6 +24,7 @@ Scratch er et gratis visuelt programmeringsspråk, som kan bli brukt av elever, 
 
 
         $courseType2 = new CourseType();
+        $courseType2->setClub($this->getReference('club-trondheim'));
         $courseType2->setName('Python');
         $courseType2->setDescription('Python er et tekstbasert programmeringsspråk som er svært nyttig å lære. Dette kurset vil fokusere på de grunnleggende elementene i Python ved hjelp av blant annet noe som heter Turtle. Dette kurset er anbefalt for de som er ferdig med Scratch-kurset eller går på ungdomsskolen og oppover.
 
@@ -36,6 +38,7 @@ Python har en lettlest og klar syntaks. I Python deles koden opp etter innrykk, 
         $manager->persist($courseType2);
 
         $courseType3 = new CourseType();
+        $courseType3->setClub($this->getReference('club-trondheim'));
         $courseType3->setName('Minecraft');
         $courseType3->setDescription('I dette kurset skal vi bli kjent med å lage plugins til Minecraft ved hjelp av programmering i Python. Vi kommer til å starte med gjennomgang og undervisning i hva man kan gjøre med Python i Minecraft også kommer vi til å legge opp til egne prosjekter hvor man kan jobbe sammen. For å ta dette kurset må du ha hatt Python 1 og føle du har kontroll på programmering i Python. Dette er ikke et nybegynnerkurs i Python og kan derfor være litt vanskelig. Anbefalt for 7. klasse og oppover.
 
@@ -47,6 +50,7 @@ Minecraft er utviklet av Mojang AB, men startet som et fritidsprosjekt av Markus
         $manager->persist($courseType3);
 
         $courseType4 = new CourseType();
+        $courseType4->setClub($this->getReference('club-trondheim'));
         $courseType4->setName('Java');
         $courseType4->setDescription('Java er et populært og nyttig tekstbasert programmeringsspråk. Her vil du lære objektsorientert programmering ved å lage diverse spill og andre grafiske programmer. Dette er det mest avanserte kurset vi har og derfor anbefaler vi at du har god forståelse av Python før du tar dette kurset.
 
