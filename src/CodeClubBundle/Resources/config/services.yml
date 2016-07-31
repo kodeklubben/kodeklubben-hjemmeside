@@ -3,7 +3,7 @@ services:
       class: CodeClubBundle\Twig\CodeClubExtension
       arguments:
         doctrine: "@doctrine"
-        container: "@router"
+        clubFinder: "@app.club_finder"
       tags:
         - { name: twig.extension }
   app.club_finder:

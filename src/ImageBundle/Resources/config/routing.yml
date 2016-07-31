@@ -1,0 +1,3 @@
+image_upload:
+  path: kontrollpanel/bilde/last_opp/{name}
+  defaults: {_controller: ImageBundle:Image:uploadImage}

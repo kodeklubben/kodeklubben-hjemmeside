@@ -9,8 +9,6 @@ class HomeController extends Controller
 {
     public function showAction()
     {
-        $session = $this->get('session');
-        $session->clear();
         return $this->render('@CodeClub/home/show.html.twig');
     }
 

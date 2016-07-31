@@ -1,0 +1,13 @@
+services:
+  app.twig_image_extension:
+    class: ImageBundle\Twig\ImageExtension
+    arguments:
+      doctrine: "@doctrine"
+      clubFinder: "@app.club_finder"
+    tags:
+      - { name: twig.extension }
+  app.image_uploader:
+        class: ImageBundle\Service\ImageUploader
+        arguments:
+          doctrine: "@doctrine"
+          imageDir: "%image_directory%"

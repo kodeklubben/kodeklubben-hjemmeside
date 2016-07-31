@@ -4,11 +4,17 @@ namespace CourseBundle\Entity;
 
 use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Course
  *
- * @ORM\Table(name="course_type")
+ * @ORM\Table(name="course_type", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="course_type_name_idx", columns={"name"})
+ * })
+ * @UniqueEntity("name")
+ * 
  * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseTypeRepository")
  */
 class CourseType

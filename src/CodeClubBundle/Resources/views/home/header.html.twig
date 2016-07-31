@@ -1,6 +1,8 @@
 <div class="row hero-spacer top-header">
     <div class="col-md-8">
-        <img class="img-rounded header-img" src="{{ asset('img/header.jpg') }}">
+        {% if get_image('header') %}
+            {% include '@Image/editable_image_template.html.twig' with {'image': get_image('header')} %}
+        {% endif %}
     </div>
     <!-- /.col-md-8 -->
     <div class="col-md-4">

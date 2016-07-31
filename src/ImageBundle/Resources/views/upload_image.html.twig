@@ -1,0 +1,27 @@
+{% extends '_base/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Endre Bilde</h1>
+            {{ form_start(form) }}
+                {{ form_row(form.file) }}
+            <hr>
+            <button type="submit" class="btn btn-primary btn-flat btn-md onclick-disable">Last opp</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-8">
+            <h2>Forhåndsvisning</h2>
+            <img id="preview" class="img-responsive" src="{{ image.filePath }}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var previewImage = function(event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+{% endblock %}

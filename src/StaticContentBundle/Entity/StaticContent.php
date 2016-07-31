@@ -4,14 +4,18 @@ namespace StaticContentBundle\Entity;
 
 use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class
  *
- * @ORM\Table(name="static_content")
- * @ORM\Entity(repositoryClass="StaticContentBundle\Repository\StaticContentRepository")
+ * @ORM\Table(name="static_content", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="static_content_string_idx", columns={"id_string"})
+ * })
  * @UniqueEntity("idString")
+ * 
+ * @ORM\Entity(repositoryClass="StaticContentBundle\Repository\StaticContentRepository")
  */
 class StaticContent
 {

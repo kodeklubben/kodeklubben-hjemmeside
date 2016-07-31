@@ -2,12 +2,12 @@
 
 {% block body %}
     <div class="row container">
-        <h1>Om Kodeklubben {{ get_content('region') }}</h1>
+        <h1>Om {{ get_club().name }}</h1>
         <hr>
         <div class="row">
 
             <div class="col-md-4">
-                <img class="img-responsive" src="{{ asset('img/about.jpg') }}" alt="Om Kodeklubben">
+                {% include '@Image/editable_image_template.html.twig' with {'image': get_image('about')} %}
             </div>
             <div class="col-md-8">
                 <h2>For Deltakere</h2>
@@ -24,7 +24,7 @@
                 <p><a href="{{ path('courses') }}">Les mer om kursene våre -></a></p>
             </div>
             <div class="col-md-4">
-                <img class="img-responsive" src="{{ asset('img/about_social.jpg') }}" alt="Om Kodeklubben">
+                {% include '@Image/editable_image_template.html.twig' with {'image': get_image('about_social')} %}
             </div>
 
         </div>

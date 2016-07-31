@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new StaticContentBundle\StaticContentBundle(),
             new CourseBundle\CourseBundle(),
             new UserBundle\UserBundle(),
+            new ImageBundle\ImageBundle(),
         );
 
         // Some bundles are only used while developing the application or during
