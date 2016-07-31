@@ -9,14 +9,11 @@
         <div class="row">
             <div class="col-md-6">
                 {{ form_start(form) }}
-                {{ form_label(form.name) }}
-                {{ form_widget(form.name) }}
+                {{ form_row(form.name) }}
                 <br>
-                {{ form_label(form.description) }}
-                {{ form_widget(form.description, {'attr': {'rows': 15}}) }}
+                {{ form_row(form.description, {'attr': {'rows': 15}}) }}
                 <br>
-                {{ form_label(form.challengesUrl) }}
-                {{ form_widget(form.challengesUrl) }}
+                {{ form_row(form.challengesUrl) }}
                 <br>
                 {{ form_row(form.hideOnHomepage) }}
                 <br>

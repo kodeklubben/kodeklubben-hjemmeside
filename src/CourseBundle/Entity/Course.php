@@ -7,6 +7,7 @@ use CodeClubBundle\Entity\Semester;
 use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Course
@@ -29,6 +30,7 @@ class Course
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -36,6 +38,7 @@ class Course
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -44,6 +47,7 @@ class Course
      *
      * @ORM\ManyToOne(targetEntity="CodeClubBundle\Entity\Semester")
      * @ORM\JoinColumn(name="semester_id", referencedColumnName="id")
+     * @Assert\Valid
      */
     private $semester;
 
@@ -52,6 +56,7 @@ class Course
      *
      * @ORM\ManyToOne(targetEntity="CourseType", inversedBy="courses")
      * @ORM\JoinColumn(name="course_type_id", referencedColumnName="id")
+     * @Assert\Valid
      */
     private $courseType;
 
@@ -59,6 +64,7 @@ class Course
      * @var int
      *
      * @ORM\Column(name="participant_limit", type="integer")
+     * @Assert\NotBlank()
      */
     private $participantLimit;
 
@@ -70,6 +76,7 @@ class Course
      *    joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id")},
      *    inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *    )
+     * @Assert\Valid
      */
     private $tutors;
 
@@ -77,6 +84,7 @@ class Course
      * @var Participant[]
      *
      * @ORM\OneToMany(targetEntity="UserBundle\Entity\Participant", mappedBy="course")
+     * @Assert\Valid
      */
     private $participants;
 
@@ -84,6 +92,7 @@ class Course
      * @var CourseClass[]
      *
      * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="course")
+     * @Assert\Valid
      */
     private $classes;
 
@@ -103,7 +112,6 @@ class Course
         $this->tutors = new ArrayCollection();
         $this->deleted = false;
     }
-
 
     /**
      * Get id

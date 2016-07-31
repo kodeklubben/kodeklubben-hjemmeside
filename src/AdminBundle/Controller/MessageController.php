@@ -14,6 +14,8 @@ class MessageController extends Controller
         $messages = $this->getDoctrine()->getRepository('CodeClubBundle:Message')->findLatestMessages();
 
         $message = new Message();
+        $message->setClub($this->get('app.club_finder')->getCurrentClub());
+        
         $form = $this->createForm(new MessageType(), $message);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){

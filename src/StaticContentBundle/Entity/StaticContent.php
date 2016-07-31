@@ -11,9 +11,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Class
  *
  * @ORM\Table(name="static_content", uniqueConstraints={
- *      @ORM\UniqueConstraint(name="static_content_string_idx", columns={"id_string"})
+ *      @ORM\UniqueConstraint(name="static_content_string_idx", columns={"id_string", "club_id"})
  * })
- * @UniqueEntity("idString")
+ * @UniqueEntity({"idString", "club"})
  * 
  * @ORM\Entity(repositoryClass="StaticContentBundle\Repository\StaticContentRepository")
  */
@@ -32,6 +32,7 @@ class StaticContent
      * @var Club
      * 
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @Assert\Valid
      */
     private $club;
 
@@ -39,7 +40,8 @@ class StaticContent
     /**
      * @var string
      *
-     * @ORM\Column(name="id_string", type="string", unique=true)
+     * @ORM\Column(name="id_string", type="string")
+     * @Assert\NotBlank()
      */
     private $idString;
 
@@ -47,6 +49,7 @@ class StaticContent
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -54,6 +57,7 @@ class StaticContent
      * @var \DateTime
      *
      * @ORM\Column(name="last_edited", type="datetime")
+     * @Assert\DateTime()
      */
     private $lastEdited;
 
@@ -62,6 +66,7 @@ class StaticContent
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(name="last_edited_by_user_id", referencedColumnName="id")
+     * @Assert\Valid
      */
     private $lastEditedBy;
 

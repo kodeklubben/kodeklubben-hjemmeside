@@ -3,6 +3,7 @@
 namespace CodeClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Club
@@ -25,6 +26,7 @@ class Club
      * @var string
      * 
      * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -32,6 +34,7 @@ class Club
      * @var string
      * 
      * @ORM\Column(name="subdomain", type="string")
+     * @Assert\NotBlank()
      */
     private $subdomain;
 
@@ -39,6 +42,10 @@ class Club
      * @var string
      *
      * @ORM\Column(name="email", type="string")
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message="'{{ value }}' er ikke en gyldig e-postadresse"
+     * )
      */
     private $email;
 
@@ -46,6 +53,7 @@ class Club
      * @var string
      *
      * @ORM\Column(name="region", type="string")
+     * @Assert\NotBlank()
      */
     private $region;
 

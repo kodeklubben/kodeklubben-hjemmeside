@@ -122,7 +122,7 @@ class SignUpController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function withdrawParticipantAction(Request $request, Participant $participant)
+    public function withdrawParticipantAction(Participant $participant)
     {
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         if ($isAdmin || ($participant->getUser()->getId() == $this->getUser()->getId())) {
@@ -130,7 +130,7 @@ class SignUpController extends Controller
             $manager->remove($participant);
             $manager->flush();
         }
-        return $this->redirect($request->headers->get('referer'));
+        return $this->redirectToRoute('sign_up');
 
     }
 

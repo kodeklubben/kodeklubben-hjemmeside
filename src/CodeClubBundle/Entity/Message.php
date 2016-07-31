@@ -3,6 +3,7 @@
 namespace CodeClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -25,6 +26,7 @@ class Message
      * @var Club
      *
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @Assert\Valid
      */
     private $club;
 
@@ -32,6 +34,7 @@ class Message
      * @var string
      *
      * @ORM\Column(name="message", type="text")
+     * @Assert\NotBlank()
      */
     private $message;
 
@@ -39,6 +42,7 @@ class Message
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetime")
+     * @Assert\NotBlank()
      */
     private $timestamp;
 
@@ -46,6 +50,7 @@ class Message
      * @var \DateTime
      *
      * @ORM\Column(name="expireDate", type="datetime")
+     * @Assert\NotBlank()
      */
     private $expireDate;
 

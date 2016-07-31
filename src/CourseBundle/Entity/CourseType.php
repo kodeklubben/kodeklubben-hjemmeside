@@ -33,6 +33,7 @@ class CourseType
      * @var Club
      * 
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @Assert\Valid
      */
     private $club;
 
@@ -40,6 +41,7 @@ class CourseType
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -47,6 +49,7 @@ class CourseType
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -54,6 +57,7 @@ class CourseType
      * @var Image
      *
      * @ORM\ManyToOne(targetEntity="ImageBundle\Entity\Image")
+     * @Assert\Valid
      */
     private $image;
 
@@ -82,6 +86,7 @@ class CourseType
      * @var Course[]
      *
      * @ORM\OneToMany(targetEntity="Course", mappedBy="courseType")
+     * @Assert\Valid
      */
     private $courses;
 

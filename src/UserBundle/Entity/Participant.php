@@ -6,6 +6,7 @@ use UserBundle\Entity\User;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class
@@ -31,6 +32,7 @@ class Participant
      * @var string
      *
      * @ORM\Column(name="first_name", type="string")
+     * @Assert\NotBlank()
      */
     private $firstName;
 
@@ -38,6 +40,7 @@ class Participant
      * @var string
      *
      * @ORM\Column(name="last_name", type="string")
+     * @Assert\NotBlank()
      */
     private $lastName;
 
@@ -54,6 +57,7 @@ class Participant
      *
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\Valid
      */
     private $user;
 
@@ -62,6 +66,7 @@ class Participant
      *
      * @ORM\ManyToOne(targetEntity="CourseBundle\Entity\Course", inversedBy="participants")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @Assert\Valid
      */
     private $course;
 

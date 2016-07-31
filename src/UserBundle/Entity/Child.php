@@ -41,6 +41,7 @@ class Child
      * 
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\Valid
      */
     private $parent;
 

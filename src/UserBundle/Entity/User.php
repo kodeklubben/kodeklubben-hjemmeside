@@ -34,6 +34,7 @@ class User implements UserInterface, EquatableInterface
      * @var Club
      *
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @Assert\Valid
      */
     private $club;
 
@@ -76,12 +77,19 @@ class User implements UserInterface, EquatableInterface
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=8,
+     *     max=256,
+     *     minMessage = "Passordet må innehold minst 8 tegn",
+     *     maxMessage = "Passordet kan ikke inneholde mer enn 256 tegn"
+     * )
      */
     private $password;
 
     /**
      * @var \DateTime
      * $ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $createdDatetime;
 

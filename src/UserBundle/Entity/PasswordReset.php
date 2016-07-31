@@ -5,6 +5,7 @@ namespace UserBundle\Entity;
 
 use UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\PasswordResetRepository")
@@ -26,6 +27,8 @@ class PasswordReset
      * @var User
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * @Assert\Valid
+     * 
      */
     protected $user;
 
@@ -33,12 +36,14 @@ class PasswordReset
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     protected $hashedResetCode;
 
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     protected $resetTime;
 

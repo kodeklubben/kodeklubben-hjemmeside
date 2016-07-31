@@ -33,6 +33,7 @@ class Image
      * @var Club
      * 
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @Assert\Valid
      */
     private $club;
 

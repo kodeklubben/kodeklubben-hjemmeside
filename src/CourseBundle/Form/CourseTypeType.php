@@ -34,7 +34,8 @@ class CourseTypeType extends AbstractType
                 'label' => 'Beskrivelse'
             ))
             ->add('challengesUrl', TextType::class, array(
-                'label' => 'Link til oppgaver'
+                'label' => 'Link til oppgaver',
+                'required' => false
             ))
             ->add('hideOnHomepage', CheckboxType::class, array(
                 'label' => 'Skjul kurset på forsiden',

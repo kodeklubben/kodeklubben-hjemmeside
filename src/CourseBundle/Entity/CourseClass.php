@@ -3,6 +3,7 @@
 namespace CourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class
@@ -25,6 +26,7 @@ class CourseClass implements \JsonSerializable
      * @var \DateTime
      *
      * @ORM\Column(name="time", type="datetime")
+     * @Assert\DateTime()
      */
     private $time;
 
@@ -32,6 +34,7 @@ class CourseClass implements \JsonSerializable
      * @var string
      *
      * @ORM\Column(name="place", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $place;
 
@@ -40,6 +43,7 @@ class CourseClass implements \JsonSerializable
      *
      * @ORM\ManyToOne(targetEntity="CourseBundle\Entity\Course", inversedBy="classes")
      * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\Valid
      */
     private $course;
 

@@ -29,8 +29,13 @@ class UserType extends AbstractType
             ))
             ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
-                    'first_options' => array('label' => 'Passord'),
+                    'first_options' => array('label' => 'Passord (minst 8 tegn)'),
                     'second_options' => array('label' => 'Gjenta Password'),
+                    'options' => array(
+                        'attr' => array(
+                            'pattern' => '.{8,}',
+                        )
+                    )
                 )
             );
     }

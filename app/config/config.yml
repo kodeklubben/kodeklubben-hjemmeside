@@ -48,6 +48,7 @@ framework:
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
+    translator: { fallback: "en" }
     trusted_hosts:   ~
     trusted_proxies: ~
     session:

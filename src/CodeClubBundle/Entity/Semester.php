@@ -3,6 +3,7 @@
 namespace CodeClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class
@@ -25,6 +26,7 @@ class Semester
      * @var boolean
      *
      * @ORM\Column(name="is_spring", type="boolean")
+     * @Assert\NotNull()
      */
     private $isSpring;
 
@@ -32,6 +34,7 @@ class Semester
      * @var string
      *
      * @ORM\Column(name="year", type="integer", length=4)
+     * @Assert\NotBlank()
      */
     private $year;
 
