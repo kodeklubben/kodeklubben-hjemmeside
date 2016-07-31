@@ -43,11 +43,14 @@ class ImageUploader {
         $manager->persist($image);
         $manager->flush();
 
-        // Remove old image if it is not the default image
+        // Image directory + everything after '/img/' in oldFilePath
+        $absPathToOldFile = $this->imageDir . substr($oldFilePath, 5);
+
+        // Remove old image if it is not a default image
         $isDefaultImage = strpos($oldFilePath, 'default') !== false;
         $fs = new Filesystem();
-        if($fs->exists($oldFilePath) && !$isDefaultImage) {
-            $fs->remove($oldFilePath);
+        if($fs->exists($absPathToOldFile) && !$isDefaultImage && strlen($absPathToOldFile) > strlen($this->imageDir)) {
+            $fs->remove($absPathToOldFile);
         }
         
         return $image;

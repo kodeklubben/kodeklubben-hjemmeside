@@ -4,6 +4,7 @@ namespace CourseBundle\Entity;
 
 use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
+use ImageBundle\Entity\Image;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -50,11 +51,11 @@ class CourseType
     private $description;
 
     /**
-     * @var string
+     * @var Image
      *
-     * @ORM\Column(name="imgUrl", type="text", nullable=true)
+     * @ORM\ManyToOne(targetEntity="ImageBundle\Entity\Image")
      */
-    private $imgUrl;
+    private $image;
 
     /**
      * @var string
@@ -89,7 +90,6 @@ class CourseType
      */
     public function __construct()
     {
-        $this->imgUrl = "http://placehold.it/800x500";
         $this->deleted = false;
         $this->hideOnHomepage = false;
     }
@@ -170,32 +170,22 @@ class CourseType
     }
 
     /**
-     * Set imgUrl
-     *
-     * @param string $imgUrl
-     *
-     * @return Course
+     * @return Image
      */
-    public function setImgUrl($imgUrl)
+    public function getImage()
     {
-        $this->imgUrl = $imgUrl;
-
-        return $this;
+        return $this->image;
     }
 
     /**
-     * Get imgUrl
-     *
-     * @return string
+     * @param Image $image
      */
-    public function getImgUrl()
+    public function setImage($image)
     {
-        return $this->imgUrl;
+        $this->image = $image;
     }
 
     /**
-     * Set imgUrl
-     *
      * @param string $challengesUrl
      *
      * @return Course

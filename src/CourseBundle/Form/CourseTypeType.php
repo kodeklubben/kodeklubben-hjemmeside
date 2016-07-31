@@ -2,6 +2,7 @@
 
 namespace CourseBundle\Form;
 
+use ImageBundle\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -11,6 +12,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseTypeType extends AbstractType
 {
+    private $isCreate;
+
+    /**
+     * CourseTypeType constructor.
+     * @param $isCreate
+     */
+    public function __construct($isCreate)
+    {
+        $this->isCreate = $isCreate;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,8 +37,12 @@ class CourseTypeType extends AbstractType
                 'label' => 'Link til oppgaver'
             ))
             ->add('hideOnHomepage', CheckboxType::class, array(
-                'label' => 'Skjul på forsiden',
+                'label' => 'Skjul kurset på forsiden',
                 'required' => false
+            ))
+            ->add('image', ImageType::class, array(
+                'label' => 'Bilde',
+                'required' => $this->isCreate
             ))
         ;
     }

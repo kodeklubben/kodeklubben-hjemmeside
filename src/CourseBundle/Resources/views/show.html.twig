@@ -2,15 +2,17 @@
 
 {% block body %}
 
-    <h1>Kodeklubben {{ get_content('region') }} sine kurs</h1>
+    <h1>{{ get_club().name }} sine kurs</h1>
     <hr>
     <br>
     <br>
     {% for course in courses %}
         <div class="row" id="{{ course.name }}">
 
-            <div class="col-md-4 img-container">
-                <img src="{{ course.imgUrl }}" alt="{{ course.name }}">
+            <div class="col-md-4">
+                <div class="flex-center">
+                    <img class="img-responsive" src="{{ course.image.filePath }}" alt="{{ course.name }}">
+                </div>
             </div>
 
             <div class="col-md-8">

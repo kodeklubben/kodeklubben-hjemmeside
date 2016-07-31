@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="content-header">
-        <h1>{{ courseType.name|length ? 'Endre ' ~ courseType.name : 'Ny kurstype'}}</h1>
+        <h1>{{ courseType.name|length ? 'Endre ' ~ courseType.name : 'Ny kurstype' }}</h1>
         <hr>
     </section>
     <section class="content">
@@ -20,9 +20,21 @@
                 <br>
                 {{ form_row(form.hideOnHomepage) }}
                 <br>
+                {{ form_row(form.image) }}
+                <img id="preview" class="img-responsive" src="{{ courseType.image.filePath }}">
+                <br>
                 <button type="submit" class="btn btn-primary btn-flat onclick-disable">Lagre</button>
                 {{ form_end(form) }}
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var previewImage = function(event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 {% endblock %}
