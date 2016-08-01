@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\DataFixtures\ORM;
+namespace CourseBundle\DataFixtures\ORM;
 
 use CourseBundle\Entity\Course;
 use Doctrine\Common\DataFixtures\AbstractFixture;

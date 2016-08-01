@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\DataFixtures\ORM;
+namespace CourseBundle\DataFixtures\ORM;
 
 use CourseBundle\Entity\CourseClass;
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -16,7 +16,6 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $lastTuesday = (new \DateTime('last tuesday'))->setTime(18,15);
         $lastWednesday = (new \DateTime('last wednesday'))->setTime(18,15);
         $lastThursday = (new \DateTime('last thursday'))->setTime(18,15);
-        $lastFriday = (new \DateTime('last friday'))->setTime(18,15);
 
         /*
          * Scratch Monday
@@ -347,7 +346,6 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass->setTime(clone ($lastMonday));
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
-
 
         $manager->flush();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\DataFixtures\ORM;
+namespace UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

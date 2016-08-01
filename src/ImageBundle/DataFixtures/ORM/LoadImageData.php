@@ -34,12 +34,13 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
         $image->setName($name);
         $image->setFileName($fileName);
         $image->setFilePath('/img/club/default/' . $fileName);
+        $this->setReference('img-' . $name, $image);
 
         return $image;
     }
 
     public function getOrder()
     {
-        return 6;
+        return 1;
     }
 }
