@@ -11,16 +11,16 @@
             </div>
             <div class="col-md-8">
                 <h2>For Deltakere</h2>
-                <p>{{ get_content('about_participant') }}</p>
+                <p>{{ get_content('about_participant')|raw }}</p>
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-8">
                 <h2>For Veildere</h2>
-                <p>{{ get_content('about_tutor') }}</p>
+                <p>{{ get_content('about_tutor')|raw }}</p>
                 <br>
-                <h4>Kontakt: {{ get_content('email') }}</h4>
+                <h4>Kontakt: {{ get_club().email }}</h4>
                 <p><a href="{{ path('courses') }}">Les mer om kursene våre -></a></p>
             </div>
             <div class="col-md-4">
