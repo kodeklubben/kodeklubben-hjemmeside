@@ -146,7 +146,7 @@ class SignUpController extends Controller
         {
             foreach ($courseType->getCourses() as $course)
             {
-                if($course->getSemester()->isEqualTo($currentSemester))
+                if($course->getSemester()->isEqualTo($currentSemester) && !$course->isDeleted())
                 {
                     $courseTypeName = $courseType->getName();
                     if(!key_exists($courseTypeName,$res )) $res[$courseTypeName] = array();
