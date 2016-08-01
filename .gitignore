@@ -39,8 +39,7 @@ crashlytics-build.properties
 /composer.phar
 /vendor/
 /web/bundles/
-/web/img/club/
-!/web/img/club/default/
+/web/img/
 /web/css/
 /web/js/
 /web/fonts/
