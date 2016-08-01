@@ -1,3 +1,0 @@
-code_club_generator_homepage:
-    path:     /
-    defaults: { _controller: CodeClubGeneratorBundle:Default:index }

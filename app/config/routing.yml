@@ -11,21 +11,13 @@ course:
 static_content:
     resource: "@StaticContentBundle/Resources/config/routing.yml"
 
-code_club_generator:
-    resource: "@CodeClubGeneratorBundle/Resources/config/routing.yml"
-    prefix:   /generator
-
-code_club_admin:
+admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /kontrollpanel
 
 code_club:
     resource: "@CodeClubBundle/Resources/config/routing.yml"
     prefix:   /
-
-api:
-    resource: "@ApiBundle/Resources/config/routing.yml"
-    prefix:   /api
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
