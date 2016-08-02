@@ -12,13 +12,27 @@ class CourseController extends Controller
     public function showAction()
     {
         $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
-        return $this->render('@Course/show.html.twig', array(
+        $response = $this->render('@Course/show.html.twig', array(
             'courses' => $courses));
+
+        // Set cache expiration time to 5 minutes
+        $response->setSharedMaxAge(300);
+
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
     
     public function showCourseInfoAction(Course $course)
     {
-        return $this->render('@Course/course_info.html.twig', array('course' => $course));
+        $response = $this->render('@Course/course_info.html.twig', array('course' => $course));
+        
+        // Set cache expiration time to 5 minutes
+        $response->setSharedMaxAge(300);
+
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
     }
 
     public function getCourseClassesAction($week)
