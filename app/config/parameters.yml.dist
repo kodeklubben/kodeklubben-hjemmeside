@@ -27,6 +27,9 @@ parameters:
     # The code of the default language used by the application ('no' = Norwegian)
     locale: no
 
+    # Google Analytics https://www.google.com/analytics/
+    google_analytics_id: ~
+
     # The 'secret' value is a random string of characters, numbers and symbols
     # used internally by Symfony in several places (CSRF tokens, URI signing,
     # 'Remember Me' functionality, etc.)

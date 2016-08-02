@@ -62,6 +62,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - "bootstrap_3_layout.html.twig"
+    globals:
+        google_analytics_id: "%google_analytics_id%"
 
 # Assetic Configuration (used for managing web assets: CSS, JavaScript, Sass, etc.)
 assetic:
