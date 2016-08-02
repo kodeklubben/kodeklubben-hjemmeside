@@ -36,7 +36,7 @@
                 </div>
                 <div class="box-body">
                     {% include '@Image/editable_image_template.html.twig' with {'image': get_image('participant')} %}
-                    <div class="caption">
+                    <div class="box-text">
                         <p>{{ get_content('participant_info')|raw }}</p>
                         <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli deltaker!</a>
                     </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="box-body">
                     {% include '@Image/editable_image_template.html.twig' with {'image': get_image('tutor')} %}
-                    <div class="caption">
+                    <div class="box-text">
                         <p>{{ get_content('tutor_info')|raw }}</p>
                         <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli veileder!</a>
                     </div>
