@@ -23,17 +23,20 @@
                 {% for class in courseClasses %}
                     <tr timestamp="{{ class.time|date('U') }}">
                         <td>{{ class.dayNorwegian }}</td>
-                        <td><a href="{{ path('course_info', {id: class.course.id, subdomain: 'test'}) }}">{{ class.course.name }}</a></td>
+                        <td><a href="{{ path('course_info', {id: class.course.id}) }}">{{ class.course.name }}</a></td>
                         <td>{{ class.time|date('H:i') }}</td>
                         <td>{{ class.place }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% if (not courseClasses|length) %}<h4>Ingen kurs denne uken</h4>{% endif %}
+            {% if (not courseClasses|length) %}<h5>Ingen kurs denne uken</h5>{% endif %}
         </div>
     </div>
 </div>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
 <script>
     var week = {{ week }};
@@ -65,16 +68,21 @@
         loadTableData(week);
     }
 
+    function clearTable(){
+        var $timeTable = $('#timeTable');
+        $timeTable.find('tbody').empty();
+        $timeTable.parent().children('h5').remove();
+        $timeTable.parent().children('img').remove();
+    }
+
     function loadTableData(week) {
         //Change week number in timetable
         $('#weekNumber').html(week);
 
         var $timeTable = $('#timeTable');
-        var $tbody = $timeTable.find('tbody');
 
         //Clear table
-        $tbody.empty();
-        $timeTable.parent().children('h4').remove();
+        clearTable();
 
         //Show loading wheel
         $timeTable.parent().append($loadingWheel);
@@ -82,29 +90,34 @@
         $.get('/api/kurs/uke/' + week, function (data) {
             var $rows = $('<div></div>');
             if (data.length === 0) {
-                $timeTable.parent().append($('<h4></h4>').html('Ingen kurs denne uken'));
+                clearTable();
+                $timeTable.parent().append($('<h5></h5>').html('Ingen kurs denne uken'));
+            }else{
+                data.forEach(function (courseClass) {
+                    var $tr = $('<tr></tr>');
+                    var unixTime = new Date(courseClass['datetime'].date).getTime();
+
+                    //Add timestamp to row. Used for sorting
+                    $tr.attr('timestamp', unixTime);
+
+                    $courseLink = $('<a></a>');
+                    $courseLink.html(courseClass.course);
+                    $courseLink.attr('href', Routing.generate('course_info', {id: courseClass.courseId}));
+
+                    //Append class data to row
+                    $tr.append($('<td></td>').html(courseClass.day));
+                    $tr.append($('<td></td>').html($courseLink));
+                    $tr.append($('<td></td>').html(courseClass.time));
+                    $tr.append($('<td></td>').html(courseClass.place));
+
+                    $rows.append($tr);
+                });
+
+                clearTable();
+                $timeTable.find('tbody').append($rows.children());
+
+                sortTable();
             }
-            data.forEach(function (courseClass) {
-                var $tr = $('<tr></tr>');
-                var unixTime = new Date(courseClass['datetime'].date).getTime();
-
-                //Add timestamp to row. Used for sorting
-                $tr.attr('timestamp', unixTime);
-
-                //Append class data to row
-                $tr.append($('<td></td>').html(courseClass.day));
-                $tr.append($('<td></td>').html(courseClass.course));
-                $tr.append($('<td></td>').html(courseClass.time));
-                $tr.append($('<td></td>').html(courseClass.place));
-
-                $rows.append($tr);
-            });
-
-            //Remove loadingWheel
-            $timeTable.parent().children('img').remove();
-
-            $tbody.append($rows.children());
-            sortTable();
         })
     }
 

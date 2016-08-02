@@ -11,6 +11,8 @@ course_info:
   defaults: {_controller: CourseBundle:Course:showCourseInfo}
   requirements:
     id: \d+
+  options:
+    expose: true
 
 #Sign up
 sign_up:

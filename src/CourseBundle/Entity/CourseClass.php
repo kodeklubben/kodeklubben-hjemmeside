@@ -134,6 +134,7 @@ class CourseClass implements \JsonSerializable
             'day' => $this->getDayNorwegian(),
             'place' => $this->place,
             'course' => $this->course->getName(),
+            'courseId' => $this->course->getId(),
             'time' => $this->time->format('H:i'),
             'datetime' => $this->time
         );
