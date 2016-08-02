@@ -150,12 +150,16 @@ hr{
   margin-bottom:20px;
   max-height:250px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 .time-table{
   width:100%;
   th{
     text-align: center;
+  }
+  td, th{
+    padding: 0 5px;
   }
 }
 //COURSE END
@@ -219,12 +223,24 @@ hr{
 /*
  * UTILS
  */
+.row.is-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.is-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
 
 .table-fixed{
   table-layout: fixed;
 }
 .text-bold{
   font-weight:bold;
+}
+.text-faded{
+  opacity: 0.7;
 }
 .text-clickable{
   &:hover{

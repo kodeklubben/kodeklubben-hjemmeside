@@ -10,9 +10,11 @@
         </thead>
         <tbody>
         {% for class in course.classes %}
-            <tr class="{{ 'now'|date('W') == class.time|date('W') ? 'text-bold text-info' }}"
+            {% set week, currentWeek = class.time|date('W'), 'now'|date('W') %}
+
+            <tr class="{{ week == currentWeek ? 'text-bold text-primary' }}{{ week < currentWeek ? 'text-faded' }}"
                 timestamp="{{ class.time|date('U') }}">
-                <td>{{ class.time|date('W') }}</td>
+                <td>{{ week }}</td>
                 <td>{{ class.dayNorwegian|slice(0,3) }}</td>
                 <td>{{ class.time|date('H:i') }}</td>
                 <td>{{ class.place }}</td>
