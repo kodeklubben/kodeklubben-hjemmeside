@@ -1,12 +1,22 @@
+{% set club = get_club() %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Kodeklubben{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}{{ club.name }}{% endblock %}</title>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ app.request.uri }}"/>
+        <meta property="og:title" content="{{ block('title') }}"/>
+        <meta property="og:image" content="{% block facebookImage %}{{ app.request.getSchemeAndHttpHost() ~ get_image('header').filePath }}{% endblock %}" />
+        <meta property="og:description" content="{% block facebookDescription %}{{ get_content('header') }}{% endblock %}" />
+        <meta property="og:site_name" content="{{ club.name }}" />
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        {% block stylesheets %}{% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}" />
     </head>
     <body>

@@ -1,5 +1,6 @@
 {% extends '_base/base.html.twig' %}
-
+{% block facebookImage %}{{ app.request.getSchemeAndHttpHost() ~ get_image('about').filePath }}{% endblock %}
+{% block facebookDescription %}{{ get_content('about_participant') }}{% endblock %}
 {% block body %}
     <div class="row container">
         <h1>Om {{ get_club().name }}</h1>
