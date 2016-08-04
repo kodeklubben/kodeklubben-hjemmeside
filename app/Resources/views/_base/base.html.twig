@@ -20,7 +20,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('img/icon.png') }}" />
     </head>
     <body>
-        {% include '_base/navigation.html.twig' %}
+        {{ render_esi(controller('CodeClubBundle:Navigation:navigation')) }}
         <div class="container">
             {% block body %}{% endblock %}
         </div>
