@@ -16,7 +16,7 @@ child_delete:
 #Registration
 register_user:
   path: /registrer
-  defaults: {_controller: UserBundle:User:showRegistrationOptions}
+  defaults: {_controller: CodeClubBundle:Security:login}
 
 participant_registration:
   path: /registrer/deltaker
