@@ -28,9 +28,9 @@ class CourseController extends Controller
         $response = $this->render('@Course/course_info.html.twig', array('course' => $course));
         
         // Set cache expiration time to 5 minutes
-        $response->setSharedMaxAge(300);
+//        $response->setSharedMaxAge(300);
 
-        $response->headers->addCacheControlDirective('must-revalidate', true);
+//        $response->headers->addCacheControlDirective('must-revalidate', true);
 
         return $response;
     }
