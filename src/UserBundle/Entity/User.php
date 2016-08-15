@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="club_email_idx", columns={"club_id", "email"})
  * })
- * @UniqueEntity({"club", "email"})
+ * @UniqueEntity("email")
  *
  * Defines the properties of the User entity to represent the application users.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -86,7 +86,7 @@ class User implements UserInterface, EquatableInterface
 
     /**
      * @var \DateTime
-     *                $ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime")
      * @Assert\DateTime()
      */
     private $createdDatetime;
