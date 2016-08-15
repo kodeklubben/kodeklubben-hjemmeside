@@ -9,7 +9,6 @@ use UserBundle\Entity\User;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $user1 = new User();

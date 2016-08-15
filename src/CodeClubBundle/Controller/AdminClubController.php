@@ -14,14 +14,14 @@ class AdminClubController extends Controller
         $form = $this->createForm(new ClubType(), $club);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($club);
             $manager->flush();
         }
+
         return $this->render('@CodeClub/control_panel/club_info.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
-
 }

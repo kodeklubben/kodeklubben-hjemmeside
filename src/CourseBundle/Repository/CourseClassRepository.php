@@ -19,6 +19,7 @@ class CourseClassRepository extends EntityRepository
         $now = new \DateTime();
         $currentYear = $now->format('Y');
         $isSpring = intval($now->format('n')) <= 7;
+
         return $this->createQueryBuilder('class')
             ->select('class')
             ->join('class.course', 'course')
@@ -33,8 +34,9 @@ class CourseClassRepository extends EntityRepository
     }
 
     /**
-     * @param int $week
+     * @param int      $week
      * @param Semester $semester
+     *
      * @return CourseClass[]
      */
     public function findByWeek($week, Semester $semester)
@@ -42,6 +44,7 @@ class CourseClassRepository extends EntityRepository
         $now = new \DateTime();
         $currentYear = $now->format('Y');
         list($startOfWeek, $endOfWeek) = $this->_getStartAndEndDateOfWeek($week, $currentYear);
+
         return $this->createQueryBuilder('class')
             ->select('class')
             ->join('class.course', 'course')
@@ -58,13 +61,13 @@ class CourseClassRepository extends EntityRepository
 
     private function _getStartAndEndDateOfWeek($week, $year)
     {
-
         $time = strtotime("1 January $year", time());
         $day = date('w', $time);
-        $time += ((7*$week)+1-$day)*24*3600;
+        $time += ((7 * $week) + 1 - $day) * 24 * 3600;
         $return[0] = new \DateTime(date('Y-m-d 00:00:00', $time));
-        $time += 6*24*3600;
+        $time += 6 * 24 * 3600;
         $return[1] = new \DateTime(date('Y-m-d 23:59:59', $time));
+
         return $return;
     }
 }

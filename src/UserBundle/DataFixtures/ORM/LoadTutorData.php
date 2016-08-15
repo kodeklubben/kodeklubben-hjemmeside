@@ -9,7 +9,6 @@ use UserBundle\Entity\Tutor;
 
 class LoadTutorData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $tutor = new Tutor();
@@ -31,7 +30,6 @@ class LoadTutorData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($tutor);
 
         $manager->flush();
-
     }
 
     public function getOrder()

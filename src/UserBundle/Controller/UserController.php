@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
-    
     public function showRegistrationOptionsAction()
     {
         return $this->render('@User/registration_options.html.twig');
@@ -18,32 +17,33 @@ class UserController extends Controller
 
     public function registerParticipantAction(Request $request)
     {
-        return $this->registerUser('ROLE_PARTICIPANT','security_login_form', $request);
+        return $this->registerUser('ROLE_PARTICIPANT', 'security_login_form', $request);
     }
 
     public function registerParentAction(Request $request)
     {
-        return $this->registerUser('ROLE_PARENT','security_login_form', $request);
+        return $this->registerUser('ROLE_PARENT', 'security_login_form', $request);
     }
 
     public function registerTutorAction(Request $request)
     {
-        return $this->registerUser('ROLE_TUTOR','security_login_form', $request);
+        return $this->registerUser('ROLE_TUTOR', 'security_login_form', $request);
     }
-
 
     public function registerAdminAction(Request $request)
     {
-        return $this->registerUser('ROLE_ADMIN','control_panel', $request);
+        return $this->registerUser('ROLE_ADMIN', 'control_panel', $request);
     }
 
     /**
-     * @param string $role
-     * @param string $redirectRoute
+     * @param string  $role
+     * @param string  $redirectRoute
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function registerUser($role, $redirectRoute, Request $request){
+    private function registerUser($role, $redirectRoute, Request $request)
+    {
         $user = new User();
         $user->setRoles(array($role));
         $form = $this->createForm(new UserType(), $user);
@@ -51,6 +51,7 @@ class UserController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handleRegistrationForm($user);
+
             return $this->redirectToRoute($redirectRoute);
         }
 
@@ -58,8 +59,9 @@ class UserController extends Controller
             'ROLE_PARTICIPANT' => 'Deltaker',
             'ROLE_PARENT' => 'Foresatt',
             'ROLE_TUTOR' => 'Veileder',
-            'ROLE_ADMIN' => 'Admin'
+            'ROLE_ADMIN' => 'Admin',
         );
+
         return $this->render(
             '@User/registration.html.twig',
             array('form' => $form->createView(), 'role' => $roleTranslate[$role])
@@ -86,12 +88,14 @@ class UserController extends Controller
     {
         $userId = $request->request->get('userId');
         $role = $request->request->get('role');
-        $userRole = 'ROLE_' . strtoupper($role);
+        $userRole = 'ROLE_'.strtoupper($role);
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
         $currentUserRole = $user->getRoles()[0];
         //Check if trying to change to current role
-        if($userRole == $currentUserRole) return new JsonResponse(array('status' => 'success'));
-        
+        if ($userRole == $currentUserRole) {
+            return new JsonResponse(array('status' => 'success'));
+        }
+
         $manager = $this->getDoctrine()->getManager();
 
         switch ($currentUserRole) {
@@ -109,8 +113,7 @@ class UserController extends Controller
             case 'ROLE_ADMIN':
             case 'ROLE_TUTOR':
                 //If user is changed to Participant or Parent
-                if($userRole === 'ROLE_PARTICIPANT' || $userRole === 'ROLE_PARENT')
-                {
+                if ($userRole === 'ROLE_PARTICIPANT' || $userRole === 'ROLE_PARENT') {
                     $this->removeCurrentTutors($user);
                 }
         }
@@ -120,46 +123,45 @@ class UserController extends Controller
         $manager->persist($user);
 
         $manager->flush();
-        
+
         return new JsonResponse(array('status' => 'success'));
     }
-    
+
     public function deleteAction(Request $request)
     {
         $userId = $request->request->get('userId');
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
         $isLoggedInUser = $user->getId() === $this->getUser()->getId();
-        
+
         //Clear all connections to courses
         $this->removeTutors($user);
         $this->removeParticipants($user);
         $this->removeChildren($user);
-        
+
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($user);
         $manager->flush();
-        
-        if($isLoggedInUser)
-        {
+
+        if ($isLoggedInUser) {
             //Logout user
             $this->get('security.token_storage')->setToken(null);
             $this->get('request')->getSession()->invalidate();
         }
+
         return new JsonResponse(array('status' => 'success'));
     }
-    
+
     private function removeCurrentParticipants($user)
     {
         //Remove participation from all courses this and future semesters
         $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
         $manager = $this->getDoctrine()->getManager();
-        foreach ($participants as $participant)
-        {
+        foreach ($participants as $participant) {
             $manager->remove($participant);
         }
         $manager->flush();
     }
-    
+
     private function removeCurrentTutors($user)
     {
         //Remove tutor from all courses this and future semesters
@@ -176,13 +178,12 @@ class UserController extends Controller
     {
         $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
         $manager = $this->getDoctrine()->getManager();
-        foreach ($participants as $participant)
-        {
+        foreach ($participants as $participant) {
             $manager->remove($participant);
         }
         $manager->flush();
     }
-    
+
     private function removeTutors($user)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -193,16 +194,14 @@ class UserController extends Controller
         }
         $manager->flush();
     }
-    
+
     private function removeChildren($user)
     {
         $manager = $this->getDoctrine()->getManager();
         $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
-        foreach ($children as $child)
-        {
+        foreach ($children as $child) {
             $manager->remove($child);
         }
         $manager->flush();
     }
-    
 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class
+ * Class.
  *
  * @ORM\Table(name="course_class")
  * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseClassRepository")
@@ -47,9 +47,8 @@ class CourseClass implements \JsonSerializable
      */
     private $course;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -59,7 +58,7 @@ class CourseClass implements \JsonSerializable
     }
 
     /**
-     * Set time
+     * Set time.
      *
      * @param \DateTime $time
      */
@@ -69,7 +68,7 @@ class CourseClass implements \JsonSerializable
     }
 
     /**
-     * Get time
+     * Get time.
      *
      * @return \DateTime
      */
@@ -79,7 +78,7 @@ class CourseClass implements \JsonSerializable
     }
 
     /**
-     * Set place
+     * Set place.
      *
      * @param string $place
      */
@@ -89,7 +88,7 @@ class CourseClass implements \JsonSerializable
     }
 
     /**
-     * Get place
+     * Get place.
      *
      * @return string
      */
@@ -123,8 +122,9 @@ class CourseClass implements \JsonSerializable
             4 => 'Torsdag',
             5 => 'Fredag',
             6 => 'Lørdag',
-            7 => 'Søndag'
+            7 => 'Søndag',
         );
+
         return $norwegianWeek[$this->time->format('N')];
     }
 
@@ -136,10 +136,7 @@ class CourseClass implements \JsonSerializable
             'course' => $this->course->getName(),
             'courseId' => $this->course->getId(),
             'time' => $this->time->format('H:i'),
-            'datetime' => $this->time
+            'datetime' => $this->time,
         );
     }
-
-
 }
-

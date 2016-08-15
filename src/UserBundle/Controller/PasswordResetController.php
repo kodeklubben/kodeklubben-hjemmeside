@@ -11,18 +11,13 @@ use UserBundle\Form\PasswordResetType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Class PasswordResetController
- * @package CodeClubBundle\Controller
- *
- * PasswordResetController is the controller responsible for resetting the password, creating passwordReset entities
- * and handling the functionality when the user goes to the resetpassword page to reset password.
+ * Class PasswordResetController.
  */
 class PasswordResetController extends Controller
 {
-
-
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * Shows the request new password page
@@ -30,7 +25,7 @@ class PasswordResetController extends Controller
     public function showAction(Request $request)
     {
         // Check if user is already logged in
-        if(!is_null($this->getUser())){
+        if (!is_null($this->getUser())) {
             return $this->redirect('/');
         }
 
@@ -39,7 +34,7 @@ class PasswordResetController extends Controller
 
         //Creates new PasswordResetType Form
         $form = $this->createForm(new PasswordResetType(), $passwordReset, array(
-            'validation_groups' => array('password_reset')
+            'validation_groups' => array('password_reset'),
         ));
 
         $form->handleRequest($request);
@@ -56,8 +51,9 @@ class PasswordResetController extends Controller
     }
 
     /**
-     * @param Form $form
+     * @param Form          $form
      * @param PasswordReset $passwordReset
+     *
      * @return bool
      *
      * Creates a resetPassword field in the resetPassword entity, with a reset code, date and the user who want to reset the password.
@@ -78,6 +74,7 @@ class PasswordResetController extends Controller
         if (is_null($user)) {
             //Error message
             $this->get('session')->getFlashBag()->add('errorMessage', '<em>Ingen brukere er registrert med <span class="text-danger">'.$email.'</span></em>');
+
             return false;
         }
 
@@ -102,10 +99,9 @@ class PasswordResetController extends Controller
         $em->persist($passwordReset);
         $em->flush();
 
-
         //Sends a email with the url for resetting the password
-        /**
-         * @var \Swift_Mime_Message $emailMessage
+        /*
+         * @var \Swift_Mime_Message
          */
         $emailMessage = \Swift_Message::newInstance()
             ->setSubject('Tilbakestill passord for kodeklubben.no')
@@ -116,17 +112,17 @@ class PasswordResetController extends Controller
 
         //TODO: Remove
         $log = $this->get('logger');
-        $log->info("New resetcode for " . $user->getFirstName() . " " . $user->getLastName());
-        $log->info("Code: " . $resetCode);
-        $log->info("Mail sent: " . $emailMessage->getBody());
+        $log->info('New resetcode for '.$user->getFirstName().' '.$user->getLastName());
+        $log->info('Code: '.$resetCode);
+        $log->info('Mail sent: '.$emailMessage->getBody());
 
         return true;
-
     }
 
     /**
      * @param $code
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * This function resets stores the new password when the user goes to the url for resetting the password.
@@ -134,7 +130,7 @@ class PasswordResetController extends Controller
     public function resetPasswordAction($code, Request $request)
     {
         // Check if user is already logged in
-        if(!is_null($this->getUser())){
+        if (!is_null($this->getUser())) {
             return $this->redirect('/');
         }
 
@@ -153,7 +149,6 @@ class PasswordResetController extends Controller
         if (is_null($passwordReset)) {
             //If the resetcode that is provided does not exist in the database, the user is redirected to home
             return $this->redirect('/');
-
         }
 
         //Finds the user based on the provided reset code.
@@ -186,11 +181,9 @@ class PasswordResetController extends Controller
                 //renders the login page
                 return $this->render('@User/login.html.twig', array(
                     'last_username' => $user->getEmail(),
-                    'error' => null
+                    'error' => null,
                 ));
-
             }
-
         } //If the reset code is more than 1 day old.
         else {
             //Deletes the resetcode
@@ -202,8 +195,5 @@ class PasswordResetController extends Controller
         }
 
         return $this->render('@CodeClub/reset_password/new_password.html.twig', array('form' => $form->createView()));
-
-
     }
-
 }

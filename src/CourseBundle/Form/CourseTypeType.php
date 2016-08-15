@@ -16,6 +16,7 @@ class CourseTypeType extends AbstractType
 
     /**
      * CourseTypeType constructor.
+     *
      * @param $isCreate
      */
     public function __construct($isCreate)
@@ -23,34 +24,32 @@ class CourseTypeType extends AbstractType
         $this->isCreate = $isCreate;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Navn'
+                'label' => 'Navn',
             ))
             ->add('description', TextareaType::class, array(
-                'label' => 'Beskrivelse'
+                'label' => 'Beskrivelse',
             ))
             ->add('challengesUrl', TextType::class, array(
                 'label' => 'Link til oppgaver',
-                'required' => false
+                'required' => false,
             ))
             ->add('hideOnHomepage', CheckboxType::class, array(
                 'label' => 'Skjul kurset på forsiden',
-                'required' => false
+                'required' => false,
             ))
             ->add('image', ImageType::class, array(
                 'label' => 'Bilde',
-                'required' => $this->isCreate
+                'required' => $this->isCreate,
             ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

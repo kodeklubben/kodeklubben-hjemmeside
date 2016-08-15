@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Club
+ * Club.
  *
  * @ORM\Table(name="club")
  * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\ClubRepository")
@@ -69,11 +69,10 @@ class Club
      */
     public function __construct()
     {
-
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -161,7 +160,4 @@ class Club
     {
         $this->facebook = $facebook;
     }
-    
-    
 }
-

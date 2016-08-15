@@ -1,9 +1,7 @@
 <?php
 
-
 namespace UserBundle\Entity;
 
-use UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,10 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="UserBundle\Repository\PasswordResetRepository")
  * @ORM\Table(name="password_reset")
  */
-
 class PasswordReset
 {
-
     /**
      * @var int
      * @ORM\Id
@@ -28,10 +24,8 @@ class PasswordReset
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user", referencedColumnName="id")
      * @Assert\Valid
-     * 
      */
     protected $user;
-
 
     /**
      * @var string
@@ -55,11 +49,10 @@ class PasswordReset
         $this->resetTime = new \DateTime();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -67,9 +60,10 @@ class PasswordReset
     }
 
     /**
-     * Set hashedResetCode
+     * Set hashedResetCode.
      *
      * @param string $hashedResetCode
+     *
      * @return PasswordReset
      */
     public function setHashedResetCode($hashedResetCode)
@@ -80,7 +74,7 @@ class PasswordReset
     }
 
     /**
-     * Get hashedResetCode
+     * Get hashedResetCode.
      *
      * @return string
      */
@@ -90,9 +84,10 @@ class PasswordReset
     }
 
     /**
-     * Set resetTime
+     * Set resetTime.
      *
      * @param \DateTime $resetTime
+     *
      * @return PasswordReset
      */
     public function setResetTime($resetTime)
@@ -103,7 +98,7 @@ class PasswordReset
     }
 
     /**
-     * Get resetTime
+     * Get resetTime.
      *
      * @return \DateTime
      */
@@ -113,9 +108,10 @@ class PasswordReset
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \UserBundle\Entity\User $user
+     *
      * @return PasswordReset
      */
     public function setUser(User $user = null)
@@ -126,7 +122,7 @@ class PasswordReset
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \UserBundle\Entity\User
      */
@@ -134,5 +130,4 @@ class PasswordReset
     {
         return $this->user;
     }
-
 }

@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class SecurityController extends Controller
 {
-
     public function loginAction()
     {
         $helper = $this->get('security.authentication_utils');
@@ -27,7 +26,6 @@ class SecurityController extends Controller
      *
      * But, this will never be executed. Symfony will intercept this first
      * and handle the login automatically. See form_login in app/config/security.yml
-     *
      */
     public function loginCheckAction()
     {
@@ -39,7 +37,6 @@ class SecurityController extends Controller
      *
      * But, this will never be executed. Symfony will intercept this first
      * and handle the logout automatically. See logout in app/config/security.yml
-     *
      */
     public function logoutAction()
     {

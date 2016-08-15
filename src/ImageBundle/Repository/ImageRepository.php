@@ -7,12 +7,12 @@ use Doctrine\ORM\EntityRepository;
 use ImageBundle\Entity\Image;
 
 /**
- * ImageRepository
+ * ImageRepository.
  */
 class ImageRepository extends EntityRepository
 {
     /**
-     * @param Club $club
+     * @param Club   $club
      * @param string $name
      * 
      * @return Image

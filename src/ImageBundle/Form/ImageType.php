@@ -16,8 +16,8 @@ class ImageType extends AbstractType
                 'label' => ' ',
                 'attr' => array(
                     'accept' => 'image/png, image/jpg, image/jpeg',
-                    'onchange' => 'previewImage(event)'
-                )
+                    'onchange' => 'previewImage(event)',
+                ),
             ));
     }
 

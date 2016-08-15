@@ -9,7 +9,6 @@ use ImageBundle\Entity\Image;
 
 class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $club = $this->getReference('club-trondheim');
@@ -33,8 +32,8 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
         $image->setClub($club);
         $image->setName($name);
         $image->setFileName($fileName);
-        $image->setFilePath('/img/club/default/' . $fileName);
-        $this->setReference('img-' . $name, $image);
+        $image->setFilePath('/img/club/default/'.$fileName);
+        $this->setReference('img-'.$name, $image);
 
         return $image;
     }

@@ -12,22 +12,21 @@ class ClubType extends AbstractType
     {
         $builder
             ->add('name', 'text', array(
-            'label' => 'Navn'
+            'label' => 'Navn',
             ))
             ->add('region', 'text', array(
-                'label' => 'Region'
+                'label' => 'Region',
             ))
             ->add('email', 'email', array(
-                'label' => 'E-post'
+                'label' => 'E-post',
             ))
             ->add('facebook', 'text', array(
-                'label' => 'facbook.com/'
+                'label' => 'facbook.com/',
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

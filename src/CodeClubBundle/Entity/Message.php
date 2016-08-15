@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Message
+ * Message.
  *
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\MessageRepository")
@@ -60,13 +60,12 @@ class Message
     public function __construct()
     {
         $this->timestamp = new \DateTime();
-        $expireDate = strtotime("+14 day");
-        $this->expireDate = new \DateTime(date('Y-m-d H:m',$expireDate));
+        $expireDate = strtotime('+14 day');
+        $this->expireDate = new \DateTime(date('Y-m-d H:m', $expireDate));
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -92,7 +91,7 @@ class Message
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
      *
@@ -106,7 +105,7 @@ class Message
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -116,7 +115,7 @@ class Message
     }
 
     /**
-     * Set timestamp
+     * Set timestamp.
      *
      * @param \DateTime $timestamp
      *
@@ -130,7 +129,7 @@ class Message
     }
 
     /**
-     * Get timestamp
+     * Get timestamp.
      *
      * @return \DateTime
      */
@@ -140,7 +139,7 @@ class Message
     }
 
     /**
-     * Set expireDate
+     * Set expireDate.
      *
      * @param \DateTime $expireDate
      *
@@ -154,7 +153,7 @@ class Message
     }
 
     /**
-     * Get expireDate
+     * Get expireDate.
      *
      * @return \DateTime
      */
@@ -163,4 +162,3 @@ class Message
         return $this->expireDate;
     }
 }
-

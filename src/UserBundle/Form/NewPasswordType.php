@@ -7,9 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class NewPasswordType extends AbstractType{
-
-
+class NewPasswordType extends AbstractType
+{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

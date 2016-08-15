@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Club
+ * Club.
  *
  * @ORM\Table(name="image", uniqueConstraints= {
  *      @ORM\UniqueConstraint(name="club_name_idx", columns={"club_id", "name"})
@@ -57,16 +57,16 @@ class Image
      * @ORM\Column(type="string")
      */
     private $filePath;
-    
+
     /**
      * @var string
      * 
      * @ORM\Column(type="string")
      */
     private $name;
-    
+
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -154,6 +154,4 @@ class Image
     {
         $this->filePath = $filePath;
     }
-    
 }
-

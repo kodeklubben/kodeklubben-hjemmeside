@@ -12,13 +12,13 @@ class StaticContentType extends AbstractType
 
     /**
      * StaticContentType constructor.
+     *
      * @param string $label
      */
     public function __construct($label)
     {
         $this->label = $label;
     }
-
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,7 +29,6 @@ class StaticContentType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

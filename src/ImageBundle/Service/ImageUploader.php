@@ -6,17 +6,20 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use ImageBundle\Entity\Image;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ImageUploader {
+class ImageUploader
+{
     protected $doctrine;
     protected $imageDir;
-    
-    public function __construct(Registry $doctrine, $imageDir){
+
+    public function __construct(Registry $doctrine, $imageDir)
+    {
         $this->doctrine = $doctrine;
         $this->imageDir = $imageDir;
     }
 
     /**
      * @param Image $image
+     *
      * @return Image
      */
     public function uploadImage(Image $image)
@@ -31,12 +34,12 @@ class ImageUploader {
         $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
         // Move the file to the directory where images are stored
-        $directory = $this->imageDir . '/club/' . $image->getClub()->getId();
+        $directory = $this->imageDir.'/club/'.$image->getClub()->getId();
         $file->move($directory, $fileName);
 
         // Update image with new file properties
         $image->setFileName($fileName);
-        $image->setFilePath('/img/club/' . $image->getClub()->getId() . '/' . $fileName);
+        $image->setFilePath('/img/club/'.$image->getClub()->getId().'/'.$fileName);
 
         // Persist image to database
         $manager = $this->doctrine->getManager();
@@ -44,15 +47,15 @@ class ImageUploader {
         $manager->flush();
 
         // Image directory + everything after '/img/' in oldFilePath
-        $absPathToOldFile = $this->imageDir . substr($oldFilePath, 5);
+        $absPathToOldFile = $this->imageDir.substr($oldFilePath, 5);
 
         // Remove old image if it is not a default image
         $isDefaultImage = strpos($oldFilePath, 'default') !== false;
         $fs = new Filesystem();
-        if($fs->exists($absPathToOldFile) && !$isDefaultImage && strlen($absPathToOldFile) > strlen($this->imageDir)) {
+        if ($fs->exists($absPathToOldFile) && !$isDefaultImage && strlen($absPathToOldFile) > strlen($this->imageDir)) {
             $fs->remove($absPathToOldFile);
         }
-        
+
         return $image;
     }
 }

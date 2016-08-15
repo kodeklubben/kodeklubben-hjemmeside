@@ -3,7 +3,6 @@
 namespace CourseBundle\DataFixtures\ORM;
 
 use CourseBundle\Entity\CourseType;
-use ImageBundle\Entity\Image;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -13,7 +12,7 @@ class LoadCourseTypeData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager)
     {
         $club = $this->getReference('club-trondheim');
-        
+
         $courseType1 = new CourseType();
         $courseType1->setClub($club);
         $courseType1->setName('Scratch');
@@ -23,7 +22,6 @@ Scratch er et gratis visuelt programmeringsspråk, som kan bli brukt av elever, 
         $courseType1->setImage($this->getReference('img-scratch'));
         $courseType1->setChallengesUrl('http://kodeklubben.github.io/scratch/index.html');
         $manager->persist($courseType1);
-
 
         $courseType2 = new CourseType();
         $courseType2->setClub($club);

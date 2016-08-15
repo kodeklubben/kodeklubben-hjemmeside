@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Course
+ * Course.
  *
  * @ORM\Table(name="course_type", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="course_type_name_idx", columns={"name"})
@@ -69,14 +69,14 @@ class CourseType
     private $challengesUrl;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=true)
      */
     private $deleted;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="hide_on_homepage", type="boolean", nullable=true)
      */
@@ -99,9 +99,8 @@ class CourseType
         $this->hideOnHomepage = false;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -127,7 +126,7 @@ class CourseType
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -141,7 +140,7 @@ class CourseType
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -151,7 +150,7 @@ class CourseType
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -165,7 +164,7 @@ class CourseType
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -203,7 +202,7 @@ class CourseType
     }
 
     /**
-     * Get imgUrl
+     * Get imgUrl.
      *
      * @return string
      */
@@ -213,7 +212,7 @@ class CourseType
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isDeleted()
     {
@@ -221,7 +220,7 @@ class CourseType
     }
 
     /**
-     * @param boolean $deleted
+     * @param bool $deleted
      */
     public function setDeleted($deleted)
     {
@@ -229,14 +228,15 @@ class CourseType
     }
 
     /**
-     * Deletes the course type
+     * Deletes the course type.
      */
-    public function delete(){
+    public function delete()
+    {
         $this->deleted = true;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isHideOnHomepage()
     {
@@ -244,7 +244,7 @@ class CourseType
     }
 
     /**
-     * @param boolean $hideOnHomepage
+     * @param bool $hideOnHomepage
      */
     public function setHideOnHomepage($hideOnHomepage)
     {
@@ -271,7 +271,4 @@ class CourseType
     {
         $this->courses = $courses;
     }
-
-
 }
-

@@ -19,8 +19,10 @@ class ChildController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($child);
             $manager->flush();
+
             return $this->redirectToRoute('sign_up');
         }
+
         return $this->render('@CodeClub/sign_up/create_child.html.twig', array('form' => $form->createView()));
     }
 
@@ -32,8 +34,7 @@ class ChildController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($child);
             //Remove all child participation
-            foreach ($childParticipants as $participant)
-            {
+            foreach ($childParticipants as $participant) {
                 $manager->remove($participant);
             }
             $manager->flush();

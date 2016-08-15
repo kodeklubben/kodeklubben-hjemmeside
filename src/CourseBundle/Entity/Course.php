@@ -5,13 +5,12 @@ namespace CourseBundle\Entity;
 use UserBundle\Entity\Participant;
 use CodeClubBundle\Entity\Semester;
 use UserBundle\Entity\Tutor;
-use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Course
+ * Course.
  *
  * @ORM\Table(name="course")
  * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseRepository")
@@ -94,7 +93,7 @@ class Course
     private $classes;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="deleted", type="boolean", nullable=true)
      */
@@ -112,7 +111,7 @@ class Course
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -122,7 +121,7 @@ class Course
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -136,7 +135,7 @@ class Course
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -146,7 +145,7 @@ class Course
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -160,7 +159,7 @@ class Course
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -282,7 +281,7 @@ class Course
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isDeleted()
     {
@@ -290,7 +289,7 @@ class Course
     }
 
     /**
-     * @param boolean $deleted
+     * @param bool $deleted
      */
     public function setDeleted($deleted)
     {
@@ -298,7 +297,7 @@ class Course
     }
 
     /**
-     * Deletes the course type
+     * Deletes the course type.
      */
     public function delete()
     {
@@ -309,6 +308,4 @@ class Course
     {
         return $this->name;
     }
-
 }
-

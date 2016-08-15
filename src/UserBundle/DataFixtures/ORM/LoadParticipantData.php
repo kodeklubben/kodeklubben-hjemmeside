@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadParticipantData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $participant = new Participant();
@@ -27,7 +26,6 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($participant);
 
         $manager->flush();
-
     }
 
     public function getOrder()

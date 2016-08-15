@@ -13,6 +13,7 @@ class CourseFormType extends AbstractType
 
     /**
      * CourseFormType constructor.
+     *
      * @param $showAllSemesters
      */
     public function __construct($showAllSemesters)
@@ -20,17 +21,16 @@ class CourseFormType extends AbstractType
         $this->showAllSemesters = $showAllSemesters;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', 'text', array(
                 'label' => 'Navn',
-                'attr' => ['placeholder' => 'eks.: Scratch']
+                'attr' => ['placeholder' => 'eks.: Scratch'],
             ))
             ->add('description', 'text', array(
                 'label' => 'Kort Beskrivelse',
-                'attr' => ['placeholder' => 'eks.: Scratch Mandag kl 18.00 i R1']
+                'attr' => ['placeholder' => 'eks.: Scratch Mandag kl 18.00 i R1'],
 
             ))
             ->add('courseType', 'entity', array(
@@ -40,35 +40,33 @@ class CourseFormType extends AbstractType
                     return $er->createQueryBuilder('ct')
                         ->select('ct')
                         ->where('ct.deleted = false');
-                }
+                },
             ))
             ->add('participantLimit', 'number', array(
                 'label' => 'Maks antall deltakere',
-                'attr' => ['placeholder' => 'eks.: 20']
+                'attr' => ['placeholder' => 'eks.: 20'],
             ));
-            if($this->showAllSemesters)
-            {
-                $builder
+        if ($this->showAllSemesters) {
+            $builder
                     ->add('semester', 'entity', array(
                         'class' => 'CodeClubBundle\Entity\Semester',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->allSemestersQuery();
-                        }
+                        },
                     ));
-            }else{
-               $builder
+        } else {
+            $builder
                 ->add('semester', 'entity', array(
                     'class' => 'CodeClubBundle\Entity\Semester',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->thisAndNextSemesterQuery();
-                    }
+                    },
                 ));
-            }
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

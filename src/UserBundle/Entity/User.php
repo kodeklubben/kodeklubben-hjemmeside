@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="user", uniqueConstraints={
@@ -19,7 +18,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * Defines the properties of the User entity to represent the application users.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
- *
  */
 class User implements UserInterface, EquatableInterface
 {
@@ -88,13 +86,11 @@ class User implements UserInterface, EquatableInterface
 
     /**
      * @var \DateTime
-     * $ORM\Column(type="datetime")
+     *                $ORM\Column(type="datetime")
      * @Assert\DateTime()
      */
     private $createdDatetime;
 
-    
-    
     /**
      * @ORM\Column(type="json_array")
      */
@@ -280,17 +276,14 @@ class User implements UserInterface, EquatableInterface
     {
         $this->createdDatetime = $createdDatetime;
     }
-    
-    
 
     /**
      * @return string
      */
     public function getFullName()
     {
-        return $this->getFirstName() . " " . $this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
-
 
     /**
      * The equality comparison should neither be done by referential equality
@@ -308,14 +301,15 @@ class User implements UserInterface, EquatableInterface
      */
     public function isEqualTo(UserInterface $user)
     {
-        if ($user instanceof User) {
+        if ($user instanceof self) {
             // Check that the roles are the same, in any order
             $isEqual = count($this->getRoles()) == count($user->getRoles());
             if ($isEqual) {
-                foreach($this->getRoles() as $role) {
+                foreach ($this->getRoles() as $role) {
                     $isEqual = $isEqual && in_array($role, $user->getRoles());
                 }
             }
+
             return $isEqual;
         }
 

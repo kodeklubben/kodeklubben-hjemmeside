@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Defines the custom form field type used to manipulate datetime values across
  * Bootstrap Date\Time Picker javascript plugin.
- * See http://symfony.com/doc/current/cookbook/form/create_custom_field_type.html
+ * See http://symfony.com/doc/current/cookbook/form/create_custom_field_type.html.
  *
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
@@ -41,7 +41,7 @@ class DateTimePickerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['attr']['data-date-format'] = $this->formatConverter->convert($options['format']);;
+        $view->vars['attr']['data-date-format'] = $this->formatConverter->convert($options['format']);
         $view->vars['attr']['data-date-locale'] = \Locale::getDefault();
     }
 

@@ -13,6 +13,7 @@ class AdminCourseTypeController extends Controller
     public function showAction()
     {
         $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+
         return $this->render('@Course/control_panel/show_course_type.html.twig', array(
             'courses' => $courses,
         ));
@@ -40,7 +41,7 @@ class AdminCourseTypeController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             // Upload image
             $image = $courseType->getImage();
-            if(!is_null($image->getFile())){
+            if (!is_null($image->getFile())) {
                 $image->setName($courseType->getName());
                 $this->get('app.image_uploader')->uploadImage($image);
             }
@@ -49,11 +50,13 @@ class AdminCourseTypeController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($courseType);
             $manager->flush();
+
             return $this->redirectToRoute('cp_course_type');
         }
+
         return $this->render('@Course/control_panel/show_edit_course_type.html.twig', array(
             'courseType' => $courseType,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
     }
 
@@ -64,7 +67,7 @@ class AdminCourseTypeController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($courseType);
         $manager->flush();
+
         return $this->redirectToRoute('cp_course_type');
     }
-
 }

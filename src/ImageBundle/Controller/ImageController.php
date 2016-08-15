@@ -6,7 +6,6 @@ use ImageBundle\Entity\Image;
 use ImageBundle\Form\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageController extends Controller
 {
@@ -19,8 +18,10 @@ class ImageController extends Controller
     {
         $club = $this->get('app.club_finder')->getCurrentClub();
         $image = $this->getDoctrine()->getRepository('ImageBundle:Image')->findByClubAndName($club, $name);
-        if(is_null($image)) throw $this->createNotFoundException('Bildenavn finnes ikke');
-        
+        if (is_null($image)) {
+            throw $this->createNotFoundException('Bildenavn finnes ikke');
+        }
+
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
@@ -29,9 +30,10 @@ class ImageController extends Controller
 
             return $this->redirectToRoute('home');
         }
+
         return $this->render('ImageBundle::upload_image.html.twig', array(
             'form' => $form->createView(),
-            'image' => $image
+            'image' => $image,
         ));
     }
 }

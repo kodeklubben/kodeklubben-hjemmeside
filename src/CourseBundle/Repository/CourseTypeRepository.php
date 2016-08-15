@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CourseBundle\Repository;
 
 use CodeClubBundle\Entity\Semester;
@@ -11,7 +10,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseTypeRepository extends EntityRepository
 {
-    public function findAll(){
+    public function findAll()
+    {
         return $this->createQueryBuilder('ct')
             ->select('ct')
             ->where('ct.deleted = false')

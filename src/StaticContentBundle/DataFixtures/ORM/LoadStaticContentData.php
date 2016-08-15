@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadStaticContentData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $sc_header = new StaticContent();
@@ -71,7 +70,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laore
         $manager->persist($sc_about_tutor);
 
         $manager->flush();
-        
+
         $this->setReference('sc-header', $sc_header);
         $this->setReference('sc-tagline', $sc_tagline);
     }

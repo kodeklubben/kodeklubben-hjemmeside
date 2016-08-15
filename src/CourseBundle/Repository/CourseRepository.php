@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CourseBundle\Repository;
 
 use CourseBundle\Entity\Course;
@@ -13,7 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
-    public function findAll(){
+    public function findAll()
+    {
         return $this->createQueryBuilder('c')
             ->select('c')
             ->where('c.deleted = false')
@@ -24,9 +24,11 @@ class CourseRepository extends EntityRepository
 
     /**
      * @param User $user
+     *
      * @return Course[]
      */
-    public function findByTutor(User $user){
+    public function findByTutor(User $user)
+    {
         return $this->createQueryBuilder('c')
             ->select('c')
             ->join('c.tutors', 'tutors')
@@ -37,7 +39,8 @@ class CourseRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findByTutorAndCourse(User $user, Course $course){
+    public function findByTutorAndCourse(User $user, Course $course)
+    {
         return $this->createQueryBuilder('c')
             ->select('c')
             ->join('c.tutors', 'tutors')
@@ -64,10 +67,10 @@ class CourseRepository extends EntityRepository
             ->where('course.deleted = false')
             ->andWhere('semester.year >= :year')
             ->setParameter('year', $year);
-            if(!$isSpring)
-            {
-                $query->andWhere('semester.isSpring = false');
-            }
+        if (!$isSpring) {
+            $query->andWhere('semester.isSpring = false');
+        }
+
         return $query
             ->getQuery()
             ->getResult();
@@ -75,6 +78,7 @@ class CourseRepository extends EntityRepository
 
     /**
      * @param User $tutor
+     *
      * @return Course[]
      */
     public function findByTutorThisAndLaterSemesters(User $tutor)
@@ -91,10 +95,10 @@ class CourseRepository extends EntityRepository
             ->setParameter('user', $tutor)
             ->andWhere('semester.year >= :year')
             ->setParameter('year', $year);
-        if(!$isSpring)
-        {
+        if (!$isSpring) {
             $query->andWhere('semester.isSpring = false');
         }
+
         return $query
             ->getQuery()
             ->getResult();

@@ -2,10 +2,8 @@
 
 namespace UserBundle\Entity;
 
-use UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\ChildRepository")
@@ -106,9 +104,6 @@ class Child
      */
     public function getFullName()
     {
-        return $this->firstName . " " . $this->lastName;
+        return $this->firstName.' '.$this->lastName;
     }
-    
-    
-
 }

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Class
+ * Class.
  *
  * @ORM\Table(name="static_content", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="static_content_string_idx", columns={"id_string", "club_id"})
@@ -35,7 +35,6 @@ class StaticContent
      * @Assert\Valid
      */
     private $club;
-
 
     /**
      * @var string
@@ -78,9 +77,8 @@ class StaticContent
         $this->lastEdited = new \DateTime();
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -169,4 +167,3 @@ class StaticContent
         $this->lastEditedBy = $lastEditedBy;
     }
 }
-

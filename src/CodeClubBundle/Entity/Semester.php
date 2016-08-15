@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class
+ * Class.
  *
  * @ORM\Table(name="semester")
  * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\SemesterRepository")
@@ -23,7 +23,7 @@ class Semester
     private $id;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="is_spring", type="boolean")
      * @Assert\NotNull()
@@ -38,9 +38,8 @@ class Semester
      */
     private $year;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -50,7 +49,7 @@ class Semester
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsSpring()
     {
@@ -66,7 +65,7 @@ class Semester
     }
 
     /**
-     * @param boolean $isSpring
+     * @param bool $isSpring
      */
     public function setIsSpring($isSpring)
     {
@@ -95,7 +94,8 @@ class Semester
     public function getStartTime()
     {
         $month = $this->isSpring ? '01' : '08';
-        return new \DateTime($this->year . $month . "01 00:00:00");
+
+        return new \DateTime($this->year.$month.'01 00:00:00');
     }
 
     /**
@@ -104,22 +104,23 @@ class Semester
     public function getEndTime()
     {
         $month = $this->isSpring ? '07' : '12';
-        return new \DateTime($this->year . $month . "31 23:59:59");
+
+        return new \DateTime($this->year.$month.'31 23:59:59');
     }
 
     public function __toString()
     {
-        return ($this->isSpring ? 'Vår ' : 'Høst ') . $this->year;
+        return ($this->isSpring ? 'Vår ' : 'Høst ').$this->year;
     }
 
     public function isEqualTo(Semester $semester)
     {
-        if($semester->getYear() == $this->year)
-        {
-            if($semester->isSpring() && $this->isSpring() || !$semester->isSpring() && !$this->isSpring()) return true;
+        if ($semester->getYear() == $this->year) {
+            if ($semester->isSpring() && $this->isSpring() || !$semester->isSpring() && !$this->isSpring()) {
+                return true;
+            }
         }
+
         return false;
     }
-
 }
-

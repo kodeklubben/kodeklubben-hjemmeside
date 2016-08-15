@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $child1 = new Child();
@@ -23,7 +22,7 @@ class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
         $child2->setLastName('Child2-last');
         $child2->setParent($this->getReference('user-parent'));
         $manager->persist($child2);
-        
+
         $manager->flush();
 
         $this->setReference('child1', $child1);

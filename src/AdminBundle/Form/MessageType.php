@@ -12,16 +12,15 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('message', 'textarea', array(
-                'label' => 'Melding'
+                'label' => 'Melding',
             ))
             ->add('expireDate', 'datetime', array(
-                'label' => 'Utløpsdato'
+                'label' => 'Utløpsdato',
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

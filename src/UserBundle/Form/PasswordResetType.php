@@ -6,16 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class PasswordResetType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email', 'text', array(
                 'label' => 'E-post',
-                'mapped' => false
+                'mapped' => false,
             ));
     }
 
@@ -30,5 +28,4 @@ class PasswordResetType extends AbstractType
     {
         return 'passwordReset'; // This must be unique
     }
-
 }

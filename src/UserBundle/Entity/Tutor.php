@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class
+ * Class.
  *
  * @ORM\Table(name="tutor")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\TutorRepository")
@@ -46,7 +46,7 @@ class Tutor
     private $course;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
@@ -60,9 +60,8 @@ class Tutor
         $this->isSubstitute = false;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -120,7 +119,7 @@ class Tutor
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isIsSubstitute()
     {
@@ -128,7 +127,7 @@ class Tutor
     }
 
     /**
-     * @param boolean $isSubstitute
+     * @param bool $isSubstitute
      */
     public function setIsSubstitute($isSubstitute)
     {
@@ -140,9 +139,6 @@ class Tutor
      */
     public function getFullName()
     {
-        return $this->getFirstName() . " " . $this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
-    
-
 }
-

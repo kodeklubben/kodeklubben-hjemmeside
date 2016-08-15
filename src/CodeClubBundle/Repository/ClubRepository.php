@@ -3,10 +3,10 @@
 namespace CodeClubBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
- * ClubRepository
+ * ClubRepository.
  */
 class ClubRepository extends EntityRepository
 {
-
 }

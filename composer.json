@@ -32,7 +32,8 @@
         "doctrine/doctrine-migrations-bundle": "^1.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0"
+        "sensio/generator-bundle": "~3.0",
+        "friendsofphp/php-cs-fixer": "^1.11"
     },
     "scripts": {
         "post-install-cmd": [

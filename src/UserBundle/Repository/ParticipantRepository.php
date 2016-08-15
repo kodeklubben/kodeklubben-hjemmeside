@@ -6,11 +6,11 @@ use UserBundle\Entity\Participant;
 use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
-
 class ParticipantRepository extends EntityRepository
 {
     /**
      * @param User $user
+     *
      * @return Participant[]
      */
     public function findByUserThisAndLaterSemesters(User $user)
@@ -27,10 +27,10 @@ class ParticipantRepository extends EntityRepository
             ->setParameter('user', $user)
             ->andWhere('semester.year >= :year')
             ->setParameter('year', $year);
-        if(!$isSpring)
-        {
+        if (!$isSpring) {
             $query->andWhere('semester.isSpring = false');
         }
+
         return $query
             ->getQuery()
             ->getResult();

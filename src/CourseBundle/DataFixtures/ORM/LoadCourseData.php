@@ -9,7 +9,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $course_scratch_monday = new Course();
@@ -113,7 +112,6 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
         $this->setReference('course_python_2', $course_python_2);
         $this->setReference('course_minecraft', $course_minecraft);
         $this->setReference('course_java', $course_java);
-
     }
 
     public function getOrder()

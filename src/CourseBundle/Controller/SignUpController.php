@@ -22,24 +22,27 @@ class SignUpController extends Controller
         $parameters = array(
             'currentSemester' => $currentSemester,
             'courseTypes' => $courseTypes,
-            'user' => $user
+            'user' => $user,
         );
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
             $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
             $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
+
             return $this->render('@CodeClub/sign_up/parent.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
-                'children' => $children
+                'children' => $children,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
             $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
+
             return $this->render('@CodeClub/sign_up/participant.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
             $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
-            return $this->render('@CodeClub/sign_up/tutor.html.twig', array_merge($parameters,array(
-                'tutors' => $tutors
+
+            return $this->render('@CodeClub/sign_up/tutor.html.twig', array_merge($parameters, array(
+                'tutors' => $tutors,
             )));
         } else {
             // This should never happen
@@ -52,9 +55,13 @@ class SignUpController extends Controller
         // Check if child is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
-        if ($isAlreadyParticipant || !$isThisSemester) return $this->redirectToRoute('sign_up');
+        if ($isAlreadyParticipant || !$isThisSemester) {
+            return $this->redirectToRoute('sign_up');
+        }
         //Check if course is full
-        if (count($course->getParticipants()) >= $course->getParticipantLimit()) return $this->redirectToRoute('sign_up');
+        if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
+            return $this->redirectToRoute('sign_up');
+        }
 
         //Add user as participant to the course
         $participant = new Participant();
@@ -77,12 +84,16 @@ class SignUpController extends Controller
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
-        if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) return $this->redirectToRoute('sign_up');
+        if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) {
+            return $this->redirectToRoute('sign_up');
+        }
 
         // Sign up as a participant if the user is logged in as a participant user
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
             //Check if course is full
-            if (count($course->getParticipants()) >= $course->getParticipantLimit()) return $this->redirectToRoute('sign_up');
+            if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
+                return $this->redirectToRoute('sign_up');
+            }
 
             //Add user as participant to the course
             $participant = new Participant();
@@ -107,6 +118,7 @@ class SignUpController extends Controller
             $manager->persist($course);
             $manager->flush();
         }
+
         return $this->redirectToRoute('sign_up');
     }
 
@@ -117,9 +129,9 @@ class SignUpController extends Controller
         $tutorId = $request->get('tutorId');
         $course = $this->getDoctrine()->getRepository('CourseBundle:Course')->find($request->get('courseId'));
         $user = $this->getUser();
-        if($isAdmin && !is_null($tutorId)){
-            $tutor =  $tutorRepo->find($tutorId);
-        }else{
+        if ($isAdmin && !is_null($tutorId)) {
+            $tutor = $tutorRepo->find($tutorId);
+        } else {
             $tutor = $tutorRepo->findOneBy(array('user' => $user, 'course' => $course));
         }
 
@@ -132,6 +144,7 @@ class SignUpController extends Controller
             $manager->persist($course);
             $manager->flush();
         }
+
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -143,31 +156,31 @@ class SignUpController extends Controller
             $manager->remove($participant);
             $manager->flush();
         }
-        return $this->redirect($request->headers->get('referer'));
 
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
      * @param CourseType[] $allCourseTypes
+     *
      * @return array
      */
     private function filterActiveCourses($allCourseTypes)
     {
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
         $res = array();
-        foreach ($allCourseTypes as $courseType)
-        {
-            foreach ($courseType->getCourses() as $course)
-            {
-                if($course->getSemester()->isEqualTo($currentSemester) && !$course->isDeleted())
-                {
+        foreach ($allCourseTypes as $courseType) {
+            foreach ($courseType->getCourses() as $course) {
+                if ($course->getSemester()->isEqualTo($currentSemester) && !$course->isDeleted()) {
                     $courseTypeName = $courseType->getName();
-                    if(!key_exists($courseTypeName,$res )) $res[$courseTypeName] = array();
+                    if (!key_exists($courseTypeName, $res)) {
+                        $res[$courseTypeName] = array();
+                    }
                     $res[$courseTypeName][] = $course;
                 }
             }
         }
+
         return $res;
     }
-
 }

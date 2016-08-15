@@ -9,7 +9,9 @@ class UserRepository extends EntityRepository
 {
     /**
      * @param string $email
+     *
      * @return User
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

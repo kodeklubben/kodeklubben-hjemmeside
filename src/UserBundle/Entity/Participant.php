@@ -2,14 +2,13 @@
 
 namespace UserBundle\Entity;
 
-use UserBundle\Entity\User;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class
+ * Class.
  *
  * @ORM\Table(name="participant")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\ParticipantRepository")
@@ -71,7 +70,7 @@ class Participant
     private $course;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -165,9 +164,6 @@ class Participant
      */
     public function getFullName()
     {
-        return $this->getFirstName() . " " . $this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
-    
-
 }
-

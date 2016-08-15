@@ -15,30 +15,32 @@ class MessageController extends Controller
 
         $message = new Message();
         $message->setClub($this->get('app.club_finder')->getCurrentClub());
-        
+
         $form = $this->createForm(new MessageType(), $message);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($message);
             $manager->flush();
 
             return $this->redirectToRoute('cp_message');
         }
-        return $this->render('@Admin/message/show_message.html.twig',array(
+
+        return $this->render('@Admin/message/show_message.html.twig', array(
             'messages' => $messages,
             'form' => $form->createView(),
         ));
     }
-    
-    public function deleteMessageAction($id){
+
+    public function deleteMessageAction($id)
+    {
         $manager = $this->getDoctrine()->getManager();
         $message = $manager->getRepository('CodeClubBundle:Message')->find($id);
-        if(!is_null($message)){
+        if (!is_null($message)) {
             $manager->remove($message);
             $manager->flush();
         }
+
         return $this->redirectToRoute('cp_message');
     }
-
 }

@@ -8,12 +8,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CourseController extends Controller
 {
-
     public function showAction()
     {
         $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
         $response = $this->render('@Course/show.html.twig', array(
-            'courses' => $courses));
+            'courses' => $courses, ));
 
         // Set cache expiration time to 5 minutes
         $response->setSharedMaxAge(300);
@@ -22,11 +21,11 @@ class CourseController extends Controller
 
         return $response;
     }
-    
+
     public function showCourseInfoAction(Course $course)
     {
         $response = $this->render('@Course/course_info.html.twig', array('course' => $course));
-        
+
         // Set cache expiration time to 5 minutes
 //        $response->setSharedMaxAge(300);
 
@@ -39,8 +38,7 @@ class CourseController extends Controller
     {
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
         $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester);
+
         return new JsonResponse($courseClasses);
     }
-    
 }
-

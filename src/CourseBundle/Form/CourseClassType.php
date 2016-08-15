@@ -15,13 +15,12 @@ class CourseClassType extends AbstractType
                 'label' => 'Tid',
             ))
             ->add('place', 'text', array(
-                'label' => 'Sted'
+                'label' => 'Sted',
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
     public function getName()

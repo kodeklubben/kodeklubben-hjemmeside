@@ -9,13 +9,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     public function load(ObjectManager $manager)
     {
-        $lastMonday = (new \DateTime('last monday'))->setTime(18,15);
-        $lastTuesday = (new \DateTime('last tuesday'))->setTime(18,15);
-        $lastWednesday = (new \DateTime('last wednesday'))->setTime(18,15);
-        $lastThursday = (new \DateTime('last thursday'))->setTime(18,15);
+        $lastMonday = (new \DateTime('last monday'))->setTime(18, 15);
+        $lastTuesday = (new \DateTime('last tuesday'))->setTime(18, 15);
+        $lastWednesday = (new \DateTime('last wednesday'))->setTime(18, 15);
+        $lastThursday = (new \DateTime('last thursday'))->setTime(18, 15);
 
         /*
          * Scratch Monday
@@ -29,21 +28,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_monday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_monday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_monday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -59,21 +58,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_tuesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_tuesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_tuesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -89,21 +88,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_wednesday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_wednesday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_wednesday'));
         $courseClass->setPlace('R10');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -119,21 +118,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_thursday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_thursday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_scratch_thursday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -149,21 +148,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_monday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_monday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_monday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -179,21 +178,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_tuesday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_tuesday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_tuesday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastTuesday));
+        $courseClass->setTime(clone $lastTuesday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -209,21 +208,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_wednesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_wednesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_wednesday'));
         $courseClass->setPlace('R90');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -239,21 +238,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_thursday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_thursday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_1_thursday'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -269,21 +268,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_2'));
         $courseClass->setPlace('R93');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_2'));
         $courseClass->setPlace('R93');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_python_2'));
         $courseClass->setPlace('R93');
-        $courseClass->setTime(clone ($lastThursday));
+        $courseClass->setTime(clone $lastThursday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -299,21 +298,21 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_java'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_java'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_java'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastWednesday));
+        $courseClass->setTime(clone $lastWednesday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
@@ -329,26 +328,25 @@ class LoadCourseClassData extends AbstractFixture implements OrderedFixtureInter
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_minecraft'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('-7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_minecraft'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+7day');
         $manager->persist($courseClass);
 
         $courseClass = new CourseClass();
         $courseClass->setCourse($this->getReference('course_minecraft'));
         $courseClass->setPlace('R92');
-        $courseClass->setTime(clone ($lastMonday));
+        $courseClass->setTime(clone $lastMonday);
         $courseClass->getTime()->modify('+14day');
         $manager->persist($courseClass);
 
         $manager->flush();
-
     }
 
     public function getOrder()

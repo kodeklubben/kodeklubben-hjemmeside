@@ -22,10 +22,10 @@ class UserType extends AbstractType
                 'label' => 'Etternavn',
             ))
             ->add('email', EmailType::class, array(
-                'label' => 'E-post'
+                'label' => 'E-post',
             ))
             ->add('phone', TextType::class, array(
-                'label' => 'Telefon'
+                'label' => 'Telefon',
             ))
             ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
@@ -34,8 +34,8 @@ class UserType extends AbstractType
                     'options' => array(
                         'attr' => array(
                             'pattern' => '.{8,}',
-                        )
-                    )
+                        ),
+                    ),
                 )
             );
     }
@@ -43,7 +43,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
+            'data_class' => 'UserBundle\Entity\User',
         ));
     }
 }

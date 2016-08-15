@@ -1,11 +1,14 @@
 <?php
+
 namespace CodeClubBundle\Tests\Availability;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AvailabilityFunctionalTest extends WebTestCase
 {
     /**
      * @dataProvider publicUrlProvider
+     *
      * @param $url
      */
     public function testPublicPageIsSuccessful($url)
@@ -17,22 +20,25 @@ class AvailabilityFunctionalTest extends WebTestCase
 
     /**
      * @dataProvider participantUrlProvider
+     *
      * @param $url
      */
     public function testParticipantPageIsSuccessful($url)
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW'   => '1234',
+            'PHP_AUTH_PW' => '1234',
         ));
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
     /**
      * @dataProvider participantUrlProvider
+     *
      * @param $url
      */
-    public function testParticipantPageIsDenied($url){
+    public function testParticipantPageIsDenied($url)
+    {
         //Check if anonymous users gets denied
         $client = self::createClient();
         $client->request('GET', $url);
@@ -41,22 +47,25 @@ class AvailabilityFunctionalTest extends WebTestCase
 
     /**
      * @dataProvider tutorUrlProvider
+     *
      * @param $url
      */
     public function testTutorPageIsSuccessful($url)
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW'   => '1234',
+            'PHP_AUTH_PW' => '1234',
         ));
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
     /**
      * @dataProvider tutorUrlProvider
+     *
      * @param $url
      */
-    public function testTutorPageIsDenied($url){
+    public function testTutorPageIsDenied($url)
+    {
         //Check if anonymous users gets denied
         $client = self::createClient();
         $client->request('GET', $url);
@@ -65,22 +74,25 @@ class AvailabilityFunctionalTest extends WebTestCase
 
     /**
      * @dataProvider adminUrlProvider
+     *
      * @param $url
      */
     public function testAdminPageIsSuccessful($url)
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'admin@mail.no',
-            'PHP_AUTH_PW'   => '1234',
+            'PHP_AUTH_PW' => '1234',
         ));
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
     /**
      * @dataProvider adminUrlProvider
+     *
      * @param $url
      */
-    public function testAdminPageIsDenied($url){
+    public function testAdminPageIsDenied($url)
+    {
         //Check if anonymous users gets denied
         $client = self::createClient();
         $client->request('GET', $url);
@@ -89,7 +101,7 @@ class AvailabilityFunctionalTest extends WebTestCase
         //Check if participant gets denied
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW'   => '1234',
+            'PHP_AUTH_PW' => '1234',
         ));
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
@@ -97,7 +109,7 @@ class AvailabilityFunctionalTest extends WebTestCase
         //Check if tutor gets denied
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW'   => '1234',
+            'PHP_AUTH_PW' => '1234',
         ));
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());

@@ -17,5 +17,4 @@ class AboutController extends Controller
 
         return $response;
     }
-
 }
