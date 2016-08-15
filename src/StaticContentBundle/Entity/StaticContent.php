@@ -64,7 +64,7 @@ class StaticContent
      * @var \UserBundle\Entity\User
      *
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="last_edited_by_user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="last_edited_by_user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Assert\Valid
      */
     private $lastEditedBy;
