@@ -6,6 +6,7 @@ use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
 use UserBundle\Entity\Participant;
+use UserBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,9 +37,9 @@ class SignUpController extends Controller
                 'participants' => $participants,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
-            $tutoringCourses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutor($user);
+            $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
             return $this->render('@CodeClub/sign_up/tutor.html.twig', array_merge($parameters,array(
-                'tutoringCourses' => $tutoringCourses
+                'tutors' => $tutors
             )));
         } else {
             // This should never happen
@@ -69,12 +70,12 @@ class SignUpController extends Controller
         return $this->redirectToRoute('sign_up');
     }
 
-    public function signUpAction(Course $course)
+    public function signUpAction(Course $course, Request $request)
     {
         $user = $this->getUser();
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorAndCourse($user, $course)) > 0;
+        $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) return $this->redirectToRoute('sign_up');
 
@@ -95,8 +96,14 @@ class SignUpController extends Controller
 
             // Sign up as a tutor if the user is logged in as a tutor user
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
-            $course->addTutor($user);
+            $isSubstitute = !is_null($request->request->get('substitute'));
+            $tutor = new Tutor();
+            $tutor->setCourse($course);
+            $tutor->setUser($user);
+            $tutor->setIsSubstitute($isSubstitute);
+            $course->addTutor($tutor);
             $manager = $this->getDoctrine()->getManager();
+            $manager->persist($tutor);
             $manager->persist($course);
             $manager->flush();
         }
@@ -105,24 +112,30 @@ class SignUpController extends Controller
 
     public function withdrawTutorAction(Request $request)
     {
-        $userRepo = $this->getDoctrine()->getRepository('UserBundle:User');
+        $tutorRepo = $this->getDoctrine()->getRepository('UserBundle:Tutor');
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         $tutorId = $request->get('tutorId');
-        $tutor = $isAdmin && !is_null($tutorId) ? $userRepo->find($tutorId) : $this->getUser();
         $course = $this->getDoctrine()->getRepository('CourseBundle:Course')->find($request->get('courseId'));
-        
-        // Check if user is already signed up to the course
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorAndCourse($tutor, $course)) > 0;
+        $user = $this->getUser();
+        if($isAdmin && !is_null($tutorId)){
+            $tutor =  $tutorRepo->find($tutorId);
+        }else{
+            $tutor = $tutorRepo->findOneBy(array('user' => $user, 'course' => $course));
+        }
+
+        // Check if tutor is already signed up to the course
+        $isAlreadyTutor = $tutor->getCourse()->getId() === $course->getId();
         if ($isAlreadyTutor) {
             $course->removeTutor($tutor);
             $manager = $this->getDoctrine()->getManager();
+            $manager->remove($tutor);
             $manager->persist($course);
             $manager->flush();
         }
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function withdrawParticipantAction(Participant $participant)
+    public function withdrawParticipantAction(Participant $participant, Request $request)
     {
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         if ($isAdmin || ($participant->getUser()->getId() == $this->getUser()->getId())) {
@@ -130,7 +143,7 @@ class SignUpController extends Controller
             $manager->remove($participant);
             $manager->flush();
         }
-        return $this->redirectToRoute('sign_up');
+        return $this->redirect($request->headers->get('referer'));
 
     }
 

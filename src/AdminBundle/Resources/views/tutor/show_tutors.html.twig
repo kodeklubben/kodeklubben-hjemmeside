@@ -18,12 +18,13 @@
         <div class="box box-info">
             <div class="box-body">
                 <div class="table-responsive">
-                    <table class="table table-striped table-fixed">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>Navn</th>
                             <th>E-post</th>
                             <th>Telefon</th>
+                            <th></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -32,16 +33,24 @@
                             {% if course.tutors|length %}
                                 <tr>
                                     <td colspan="4">
-                                        <h5 class="text-bold">{{ course.name }} ({{ course.description }})</h5>
+                                        <h5 class="text-bold">{{ course.name }} ({{ course.description }}) Antall: {{ course.tutors|length }}</h5>
                                     </td>
                                 </tr>
                                 {% for tutor in course.tutors %}
                                     <tr>
-                                        <td>{{ tutor.fullName }}</td>
-                                        <td>{{ tutor.email }}</td>
-                                        <td>{{ tutor.phone }}</td>
-                                        <td><a class="text-danger no-text-decoration onclick-disable"
-                                               href="{{ path('withdraw_from_course_tutor', {courseId: course.id, tutorId: tutor.id}) }}">Fjern</a>
+                                        <td>{{ tutor.user.fullName }}</td>
+                                        <td>{{ tutor.user.email }}</td>
+                                        <td>{{ tutor.user.phone }}</td>
+                                        <td>{{ tutor.isSubstitute ?
+                                            '<span class="text-warning text-bold">Vikar</span>'
+                                            :
+                                            '<span class="text-success text-bold">Veileder</span>' }}
+                                        </td>
+                                        <td>
+                                            <form method="POST" onsubmit="return confirm('Er du sikker?')"
+                                                  action="{{ path('withdraw_from_course_tutor', {courseId: course.id, tutorId: tutor.id}) }}">
+                                                <button type="submit" class="text-danger btn-link onclick-disable">Fjern</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 {% endfor %}

@@ -4,6 +4,7 @@ namespace CourseBundle\Entity;
 
 use UserBundle\Entity\Participant;
 use CodeClubBundle\Entity\Semester;
+use UserBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -69,13 +70,9 @@ class Course
     private $participantLimit;
 
     /**
-     * @var User[]
+     * @var Tutor[]
      *
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User")
-     * @ORM\JoinTable(name="tutor",
-     *    joinColumns={@ORM\JoinColumn(name="course_id", referencedColumnName="id")},
-     *    inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     *    )
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Tutor", mappedBy="course")
      * @Assert\Valid
      */
     private $tutors;
@@ -110,6 +107,7 @@ class Course
     {
         $this->classes = new ArrayCollection();
         $this->tutors = new ArrayCollection();
+        $this->substitutes = new ArrayCollection();
         $this->deleted = false;
     }
 
@@ -220,7 +218,7 @@ class Course
     }
 
     /**
-     * @return User[]
+     * @return Tutor[]
      */
     public function getTutors()
     {
@@ -228,7 +226,7 @@ class Course
     }
 
     /**
-     * @param User[] $tutors
+     * @param Tutor[] $tutors
      */
     public function setTutors($tutors)
     {
@@ -236,19 +234,19 @@ class Course
     }
 
     /**
-     * @param User $user
+     * @param Tutor $tutor
      */
-    public function removeTutor($user)
+    public function removeTutor($tutor)
     {
-        $this->tutors->removeElement($user);
+        $this->tutors->removeElement($tutor);
     }
 
     /**
-     * @param User $user
+     * @param Tutor $tutor
      */
-    public function addTutor($user)
+    public function addTutor($tutor)
     {
-        $this->tutors[] = $user;
+        $this->tutors[] = $tutor;
     }
 
     /**

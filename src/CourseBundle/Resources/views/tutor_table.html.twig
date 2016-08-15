@@ -1,0 +1,47 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Veiledere (antall: {{ tutors|length }})</h3>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>E-post</th>
+                    <th>Telefon</th>
+                    <th></th>
+                    {% if showRemove is defined %}
+                        <th></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for tutor in tutors %}
+                    <tr>
+                        <td>{{ tutor.user.fullName }}</td>
+                        <td>{{ tutor.user.email }}</td>
+                        <td>{{ tutor.user.phone }}</td>
+                        <td>{{ tutor.isSubstitute ?
+                            '<span class="text-warning text-bold">Vikar</span>'
+                            :
+                            '<span class="text-success text-bold">Veileder</span>' }}
+                        </td>
+                        {% if showRemove is defined %}
+                            <td>
+                                <form method="POST" onsubmit="return confirm('Er du sikker?')"
+                                      action="{{ path('withdraw_from_course_tutor', {courseId: course.id, tutorId: tutor.id}) }}">
+                                    <button type="submit" class="text-danger btn-link onclick-disable">Fjern</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if (not tutors|length) %}
+                <h5 class="text-bold text-warning">Ingen veiledere på dette kurset enda</h5>
+            {% endif %}
+        </div>
+    </div>
+</div>

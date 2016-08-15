@@ -1,0 +1,41 @@
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Deltakere (antall: {{ participants|length }})</h3>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Navn</th>
+                    <th>E-post</th>
+                    <th>Telefon</th>
+                    {% if showRemove is defined %}
+                        <th></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for participant in participants %}
+                    <tr>
+                        <td>{{ participant.fullName }}</td>
+                        <td>{{ participant.user.email }}</td>
+                        <td>{{ participant.user.phone }}</td>
+                        {% if showRemove is defined %}
+                            <td>
+                                <form method="POST" onsubmit="return confirm('Er du sikker?')"
+                                      action="{{ path('withdraw_from_course_participant', {id: participant.id}) }}">
+                                    <button type="submit" class="text-danger btn-link onclick-disable">Fjern</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if (not participants|length) %}
+                <h5 class="text-bold text-warning">Ingen har meldt seg på dette kurset enda</h5>
+            {% endif %}
+        </div>
+    </div>
+</div>

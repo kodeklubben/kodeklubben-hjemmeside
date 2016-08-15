@@ -18,7 +18,6 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
         $course_scratch_monday->setName('Scratch');
         $course_scratch_monday->setParticipantLimit(25);
         $course_scratch_monday->setSemester($this->getReference('semester-1'));
-        $course_scratch_monday->addTutor($this->getReference('user-tutor'));
         $manager->persist($course_scratch_monday);
 
         $course_scratch_tuesday = new Course();

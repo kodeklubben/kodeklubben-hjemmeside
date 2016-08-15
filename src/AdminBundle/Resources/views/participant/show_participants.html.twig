@@ -32,7 +32,7 @@
                             {% if course.participants|length %}
                                 <tr>
                                     <td colspan="4">
-                                        <h5 class="text-bold text-primary">{{ course.name }} ({{ course.description }})</h5>
+                                        <h5 class="text-bold text-primary">{{ course.name }} ({{ course.description }}) Antall: {{ course.participants|length }}</h5>
                                     </td>
                                 </tr>
                                 {% for participant in course.participants %}
@@ -40,8 +40,11 @@
                                         <td>{{ participant.fullName }}</td>
                                         <td>{{ participant.user.email }}</td>
                                         <td>{{ participant.user.phone }}</td>
-                                        <td><a class="text-danger no-text-decoration onclick-disable"
-                                               href="{{ path('withdraw_from_course_participant', {id: participant.id}) }}">Fjern</a>
+                                        <td>
+                                            <form method="POST" onsubmit="return confirm('Er du sikker?')"
+                                                  action="{{ path('withdraw_from_course_participant', {id: participant.id}) }}">
+                                                <button type="submit" class="text-danger btn-link onclick-disable">Fjern</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 {% endfor %}

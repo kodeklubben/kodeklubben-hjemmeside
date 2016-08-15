@@ -31,7 +31,7 @@ class CourseRepository extends EntityRepository
             ->select('c')
             ->join('c.tutors', 'tutors')
             ->where('c.deleted = false')
-            ->andWhere('tutors = :user')
+            ->andWhere('tutors.user = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
