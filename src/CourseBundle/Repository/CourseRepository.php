@@ -104,6 +104,11 @@ class CourseRepository extends EntityRepository
             ->getResult();
     }
 
+    /**
+     * @param Semester $semester
+     *
+     * @return Course[]
+     */
     public function findBySemester(Semester $semester)
     {
         return $this->createQueryBuilder('course')

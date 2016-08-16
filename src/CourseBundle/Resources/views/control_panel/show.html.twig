@@ -36,7 +36,8 @@
                             </div>
                             <div>
                                 <h3>{{ course.name }}</h3>
-                                <p class="description">{{ course.description }}</p>
+                                <p class="description">{{ course.description }}<br>
+                                {{ course.participants|length }}/{{ course.participantLimit }} påmeldt</p>
                             </div>
                             <footer>
                                 <div class="row">
