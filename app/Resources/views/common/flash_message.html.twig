@@ -1,0 +1,6 @@
+{% for flashMessage in app.session.flashbag.get(type) %}
+    <div class="alert alert-{{ type }}">
+        {{ flashMessage }}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    </div>
+{% endfor %}

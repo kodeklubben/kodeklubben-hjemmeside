@@ -17,32 +17,26 @@ class UserController extends Controller
 
     public function registerParticipantAction(Request $request)
     {
-        return $this->registerUser('ROLE_PARTICIPANT', 'security_login_form', $request);
+        return $this->registerUser('ROLE_PARTICIPANT', $request);
     }
 
     public function registerParentAction(Request $request)
     {
-        return $this->registerUser('ROLE_PARENT', 'security_login_form', $request);
+        return $this->registerUser('ROLE_PARENT', $request);
     }
 
     public function registerTutorAction(Request $request)
     {
-        return $this->registerUser('ROLE_TUTOR', 'security_login_form', $request);
-    }
-
-    public function registerAdminAction(Request $request)
-    {
-        return $this->registerUser('ROLE_ADMIN', 'control_panel', $request);
+        return $this->registerUser('ROLE_TUTOR', $request);
     }
 
     /**
      * @param string  $role
-     * @param string  $redirectRoute
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function registerUser($role, $redirectRoute, Request $request)
+    private function registerUser($role, Request $request)
     {
         $user = new User();
         $user->setRoles(array($role));
@@ -52,7 +46,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handleRegistrationForm($user);
 
-            return $this->redirectToRoute($redirectRoute);
+            return $this->redirectToRoute('security_login_form', array('last_username' => $user->getUsername()));
         }
 
         $roleTranslate = array(

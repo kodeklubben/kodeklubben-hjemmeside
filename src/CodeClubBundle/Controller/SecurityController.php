@@ -3,19 +3,24 @@
 namespace CodeClubBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller used to manage the application security.
  */
 class SecurityController extends Controller
 {
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         $helper = $this->get('security.authentication_utils');
+        $last_username = $helper->getLastUsername();
+        if (!$last_username) {
+            $last_username = $request->get('last_username');
+        }
 
         return $this->render('@User/login.html.twig', array(
             // last username entered by the user (if any)
-            'last_username' => $helper->getLastUsername(),
+            'last_username' => $last_username,
             // last authentication error (if any)
             'error' => $helper->getLastAuthenticationError(),
         ));

@@ -24,8 +24,8 @@ fos_js_routing:
 
 #Security
 security_login_form:
-    path: /login
-    defaults: {_controller: CodeClubBundle:Security:login}
+    path: /login/{last_username}
+    defaults: {_controller: CodeClubBundle:Security:login, last_username: ''}
 
 security_login_check:
     path: /login_check

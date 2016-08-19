@@ -1,6 +1,9 @@
 {% extends '_base/base.html.twig' %}
 
 {% block body %}
+    {% include 'common/flash_message.html.twig' with {'type': 'danger'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'warning'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'success'} %}
     <h1 class="text-center">Påmelding for barn til foresatte {{ currentSemester }}</h1>
     <hr>
     <div class="row">
@@ -27,8 +30,13 @@
                                 <tr>
                                     <td>{{ child.firstName }}</td>
                                     <td>{{ child.lastName }}</td>
-                                    <td><a href="{{ path('child_delete', {'id': child.id}) }}"
-                                           class="btn btn-danger btn-xs btn-flat float-right onclick-disable">Slett</a>
+                                    <td>
+                                        <form method="POST" onsubmit="return confirm('Er du sikker på at du vil slette {{ child }}?')"
+                                              action="{{ path('child_delete', {'id': child.id}) }}">
+                                            <button type="submit" class="btn btn-danger btn-xs btn-flat float-right onclick-disable">
+                                                Slett
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}

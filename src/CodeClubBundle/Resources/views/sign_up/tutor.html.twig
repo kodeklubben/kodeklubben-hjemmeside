@@ -1,6 +1,9 @@
 {% extends '_base/base.html.twig' %}
 
 {% block body %}
+    {% include 'common/flash_message.html.twig' with {'type': 'danger'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'warning'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'success'} %}
     <h1 class="text-center">Påmelding for veiledere {{ currentSemester }}</h1>
     <hr>
     {% if tutors|length %}

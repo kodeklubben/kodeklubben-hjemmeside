@@ -106,4 +106,9 @@ class Child
     {
         return $this->firstName.' '.$this->lastName;
     }
+
+    public function __toString()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
 }
