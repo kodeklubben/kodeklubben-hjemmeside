@@ -1,4 +1,8 @@
 #Users
+cp_user:
+  path: /brukere/{id}
+  defaults: {_controller: UserBundle:AdminUser:showSpecific}
+
 cp_users:
   path: /brukere
   defaults: {_controller: UserBundle:AdminUser:show}
@@ -20,3 +24,8 @@ cp_user_delete:
 cp_user_create:
   path: /bruker/ny
   defaults: {_controller: UserBundle:AdminUser:createUser}
+
+#Child
+cp_child_create:
+  path: /barn/ny/{user}
+  defaults: {_controller: UserBundle:Child:adminCreateChild}

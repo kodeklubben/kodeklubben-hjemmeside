@@ -64,3 +64,23 @@ cp_delete_course_class:
   defaults: {_controller: CourseBundle:AdminCourse:deleteCourseClass}
   requirements:
     id: \d+
+
+#Sign up
+cp_sign_up:
+  path: /pamelding/{id}
+  defaults: {_controller: CourseBundle:AdminSignUp:show}
+
+cp_sign_up_course:
+  path: /pamelding/{course}/{user}
+  defaults: {_controller: CourseBundle:AdminSignUp:signUp}
+  requirements:
+    id: \d+
+  methods: [POST]
+
+cp_sign_up_course_child:
+  path: /pamelding/barn/{id}/{child}
+  defaults: {_controller: CourseBundle:AdminSignUp:signUpChild}
+  requirements:
+    id: \d+
+  options:
+    expose: true

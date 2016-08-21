@@ -18,6 +18,13 @@ class AdminUserController extends Controller
         ));
     }
 
+    public function showSpecificAction(User $user)
+    {
+        return $this->render('@User/control_panel/user_specific.html.twig', array(
+            'user' => $user,
+        ));
+    }
+
     public function createUserAction(Request $request)
     {
         $userRegistration = $this->get('user.registration');

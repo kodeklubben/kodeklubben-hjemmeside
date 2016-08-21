@@ -7,3 +7,10 @@ services:
     class: UserBundle\Service\UserRoles
     arguments: ['%security.role_hierarchy.roles%']
 
+  user.twig_user_role_filter:
+    class: UserBundle\Twig\UserExtension
+    public: false
+    tags:
+      - { name: twig.extension }
+
+

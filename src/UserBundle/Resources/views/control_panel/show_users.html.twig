@@ -30,10 +30,14 @@
                         </thead>
                         <tbody>
                         {% for user in users %}
-                            {% set role = user.roles[0]|replace({'ROLE_ADMIN':'Admin', 'ROLE_PARTICIPANT':'Deltaker', 'ROLE_PARENT':'Foresatt', 'ROLE_TUTOR':'Veileder'}) %}
+                            {% set role = user.roles[0]|role %}
                             <tr userid="{{ user.id }}"
                                 role="{{ role }}">
-                                <td>{{ user.fullName }}</td>
+                                <td>
+                                    <a class="no-text-decoration" href="{{ path('cp_user', {'id': user.id}) }}">
+                                        {{ user.fullName }}
+                                    </a>
+                                </td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.phone }}</td>
                                 <td>{{ user.createdDatetime|date('d.m.Y') }}</td>

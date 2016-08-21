@@ -1,0 +1,27 @@
+<div class="table-responsive time-table-wrapper">
+    <table class="time-table">
+        <thead>
+        <tr>
+            <th>Uke</th>
+            <th>Dag</th>
+            <th>Tid</th>
+            <th>Sted</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for class in course.classes %}
+            {% set week, currentWeek = class.time|date('W'), 'now'|date('W') %}
+
+            <tr class="{{ week == currentWeek ? 'text-bold text-primary' }}{{ week < currentWeek ? 'text-faded' }}"
+                timestamp="{{ class.time|date('U') }}">
+                <td>{{ week }}</td>
+                <td>{{ class.dayNorwegian|slice(0,3) }}</td>
+                <td>{{ class.time|date('H:i') }}</td>
+                <td>{{ class.place }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if (not course.classes|length) %}<h4>Ingen kurs denne
+        uken</h4>{% endif %}
+</div>
