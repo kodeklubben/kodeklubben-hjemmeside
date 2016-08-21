@@ -97,6 +97,13 @@ class User implements UserInterface, EquatableInterface
     private $roles = array();
 
     /**
+     * @var string
+     * 
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $newUserCode;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -275,6 +282,22 @@ class User implements UserInterface, EquatableInterface
     public function setCreatedDatetime($createdDatetime)
     {
         $this->createdDatetime = $createdDatetime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNewUserCode()
+    {
+        return $this->newUserCode;
+    }
+
+    /**
+     * @param string $newUserCode
+     */
+    public function setNewUserCode($newUserCode)
+    {
+        $this->newUserCode = $newUserCode;
     }
 
     /**

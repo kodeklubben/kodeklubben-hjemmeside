@@ -10,6 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+    private $roleTranslate = array(
+        'ROLE_PARTICIPANT' => 'Deltaker',
+        'ROLE_PARENT' => 'Foresatt',
+        'ROLE_TUTOR' => 'Veileder',
+        'ROLE_ADMIN' => 'Admin',
+    );
     public function showRegistrationOptionsAction()
     {
         return $this->render('@User/registration_options.html.twig');
@@ -49,16 +55,9 @@ class UserController extends Controller
             return $this->redirectToRoute('security_login_form', array('last_username' => $user->getUsername()));
         }
 
-        $roleTranslate = array(
-            'ROLE_PARTICIPANT' => 'Deltaker',
-            'ROLE_PARENT' => 'Foresatt',
-            'ROLE_TUTOR' => 'Veileder',
-            'ROLE_ADMIN' => 'Admin',
-        );
-
         return $this->render(
             '@User/registration.html.twig',
-            array('form' => $form->createView(), 'role' => $roleTranslate[$role])
+            array('form' => $form->createView(), 'role' => $this->roleTranslate[$role])
         );
     }
 
@@ -76,6 +75,38 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
+    }
+
+    public function registerWithNewUserCodeAction(Request $request)
+    {
+        $userRegistration = $this->get('user.registration');
+        $code = $request->get('code');
+        $hashedCode = $userRegistration->hashNewUserCode($code);
+        $user = $this->getDoctrine()->getRepository('UserBundle:User')->findOneBy(array('newUserCode' => $hashedCode));
+        if (!$user) {
+            return $this->render('_base/error.html.twig', array(
+            'error' => 'Ugyldig kode eller brukeren er allerede opprettet',
+            ));
+        } else {
+            // Force user to create new password
+            $user->setPassword(null);
+        }
+
+        $form = $this->createForm(new UserType(), $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setNewUserCode(null);
+            $user->setPassword($userRegistration->encodePassword($user, $form['password']->getData()));
+            $userRegistration->persistUser($user);
+
+            return $this->redirectToRoute('security_login_form');
+        }
+
+        return $this->render('@User/registration.html.twig', array(
+            'form' => $form->createView(),
+            'role' => $this->roleTranslate[$user->getRoles()[0]],
+        ));
     }
 
     public function changeUserTypeAction(Request $request)

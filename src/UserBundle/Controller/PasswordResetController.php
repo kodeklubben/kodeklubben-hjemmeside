@@ -110,12 +110,6 @@ class PasswordResetController extends Controller
             ->setBody($this->renderView('@CodeClub/reset_password/new_password_email.txt.twig', array('reseturl' => $this->generateUrl('password_new', array('code' => $resetCode), UrlGeneratorInterface::ABSOLUTE_URL))));
         $this->get('mailer')->send($emailMessage);
 
-        //TODO: Remove
-        $log = $this->get('logger');
-        $log->info('New resetcode for '.$user->getFirstName().' '.$user->getLastName());
-        $log->info('Code: '.$resetCode);
-        $log->info('Mail sent: '.$emailMessage->getBody());
-
         return true;
     }
 

@@ -16,3 +16,7 @@ cp_user_delete:
   methods: [POST]
   options:
     expose: true
+
+cp_user_create:
+  path: /bruker/ny
+  defaults: {_controller: UserBundle:AdminUser:createUser}

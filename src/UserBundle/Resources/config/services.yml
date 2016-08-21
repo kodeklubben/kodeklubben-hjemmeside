@@ -1,4 +1,9 @@
 services:
-#    user.example:
-#        class: UserBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+  user.registration:
+    class: UserBundle\Service\UserRegistration
+    arguments: ['@security.password_encoder', '@doctrine', '@app.club_finder', '@twig', '@mailer']
+
+  user.roles:
+    class: UserBundle\Service\UserRoles
+    arguments: ['%security.role_hierarchy.roles%']
+

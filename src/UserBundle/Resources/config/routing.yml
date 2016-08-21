@@ -29,3 +29,7 @@ parent_registration:
 tutor_registration:
   path: /registrer/veileder
   defaults: {_controller: UserBundle:User:registerTutor}
+
+registration_new_user_code:
+  path: /registrer/{code}
+  defaults: {_controller: UserBundle:User:registerWithNewUserCode}

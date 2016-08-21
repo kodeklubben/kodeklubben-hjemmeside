@@ -1,0 +1,21 @@
+{% extends '@Admin/_base/admin_base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1 class="text-center">Lag ny bruker</h1>
+            {{ form_start(form) }}
+            {{ form_row(form.role) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            <button class="btn btn-primary onclick-disable" type="submit">Registrer</button>
+            {{ form_end(form) }}
+            <br>
+            <p><span class="text-danger">Obs!</span> Brukeren vil få en e-post der han/hun kan fullføre registreringen.
+                Det vil fortsatt være mulig for admins å melde brukeren på kurs selv om registreringen ikke er fullført.</p>
+        </div>
+    </div>
+{% endblock %}
