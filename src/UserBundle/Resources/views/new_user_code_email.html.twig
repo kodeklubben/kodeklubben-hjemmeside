@@ -6,7 +6,7 @@ Hei, {{ user.firstName }}.
 
 En admin fra {{ clubName }} har opprettet en bruker for deg.
 Følg lenken under for å fullføre registreringen.
-Code: {{ app.request.getSchemeAndHttpHost() ~ path('registration_new_user_code', {'code': code}) }}
+{{ app.request.getSchemeAndHttpHost() ~ path('registration_new_user_code', {'code': code}) }}
 
 Mvh. {{ clubName }}
 -------------------------------------------------------------------
@@ -15,6 +15,6 @@ Hi, {{ user.firstName }}.
 
 An admin from {{ clubName }} has created an user account for you.
 To complete the registration please follow the link below.
-Code: {{ app.request.getSchemeAndHttpHost() ~ path('registration_new_user_code', {'code': code}) }}
+{{ app.request.getSchemeAndHttpHost() ~ path('registration_new_user_code', {'code': code}) }}
 
 Regards, {{ clubName }}
