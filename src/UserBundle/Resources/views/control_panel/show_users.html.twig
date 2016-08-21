@@ -123,6 +123,7 @@
         }
         function addOnClickDelete($ele) {
             $ele.click(function () {
+                if(!confirm('Er du sikker?')) return;
                 $(this).html(getLoadingWheel);
                 var $tableRow = $(this).closest('tr');
                 var postData = {
