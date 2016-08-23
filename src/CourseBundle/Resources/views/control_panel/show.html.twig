@@ -37,22 +37,20 @@
                             <div>
                                 <h3>{{ course.name }}</h3>
                                 <p class="description">{{ course.description }}<br>
-                                    {% if course.participantFullTimeTutorRatio < 15 %}
-                                    <span class="text-success">
-                                    {% else %}
-                                    <span class="text-danger">
-                                    {% endif %}
-                                    {{ course.participants | length }}/{{ course.participantLimit }} deltagere <br/>
-                                    {{ course.fullTimeTutors | length }} veiledere <br/>
+                                    <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
+                                        {{ course.participants | length }}/{{ course.participantLimit }} deltagere <br/>
+                                        {{ course.fullTimeTutors | length }} veiledere <br/>
                                     </span>
                                     {{ course.substitutes | length }} vikarer <br/>
                                 </p>
                             </div>
                             <footer>
                                 <div class="row">
-                                    <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
-                                    <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
-                                    <a href="{{ path('cp_delete_course', {'id': course.id}) }}" class="btn btn-danger btn-flat onclick-disable">Slett</a>
+                                    <form method="POST" action="{{ path('cp_delete_course', {'id': course.id}) }}" onsubmit="return confirm('Er du sikker?')">
+                                        <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
+                                        <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
+                                        <button type="submit" class="btn btn-danger btn-flat onclick-disable">Slett</button>
+                                    </form>
                                 </div>
                                 <div class="row">
                                     <a href="{{ path('cp_course_participants', {'id': course.id}) }}" class="btn btn-info btn-flat">Deltakere</a>
