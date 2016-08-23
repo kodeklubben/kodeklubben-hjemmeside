@@ -72,7 +72,6 @@ class Course
      * @var Tutor[]
      *
      * @ORM\OneToMany(targetEntity="UserBundle\Entity\Tutor", mappedBy="course")
-     * @Assert\Valid
      */
     private $tutors;
 
@@ -80,7 +79,6 @@ class Course
      * @var Participant[]
      *
      * @ORM\OneToMany(targetEntity="UserBundle\Entity\Participant", mappedBy="course")
-     * @Assert\Valid
      */
     private $participants;
 
@@ -88,7 +86,6 @@ class Course
      * @var CourseClass[]
      *
      * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="course")
-     * @Assert\Valid
      */
     private $classes;
 
