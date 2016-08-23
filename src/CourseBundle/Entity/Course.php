@@ -304,6 +304,49 @@ class Course
         $this->deleted = true;
     }
 
+    /**
+     * @return Tutor[]
+     */
+    public function getSubstitutes()
+    {
+        $substitutes = array();
+        foreach ($this->tutors as $tutor) {
+            if ($tutor->isIsSubstitute()) {
+                $substitutes[] = $tutor;
+            }
+        }
+
+        return $substitutes;
+    }
+
+    /**
+     * @return Tutor[]
+     */
+    public function getFullTimeTutors()
+    {
+        $tutors = array();
+        foreach ($this->tutors as $tutor) {
+            if (!$tutor->isIsSubstitute()) {
+                $tutors[] = $tutor;
+            }
+        }
+
+        return $tutors;
+    }
+
+    /*
+     * @return float
+     */
+    public function getParticipantFullTimeTutorRatio()
+    {
+        $tutor_count = count($this->getFullTimeTutors());
+        if ($tutor_count == 0) {
+            return INF;
+        }
+
+        return count($this->participants) / floatval($tutor_count);
+    }
+
     public function __toString()
     {
         return $this->name;

@@ -37,7 +37,16 @@
                             <div>
                                 <h3>{{ course.name }}</h3>
                                 <p class="description">{{ course.description }}<br>
-                                {{ course.participants|length }}/{{ course.participantLimit }} påmeldt</p>
+                                    {% if course.participantFullTimeTutorRatio < 15 %}
+                                    <span class="text-success">
+                                    {% else %}
+                                    <span class="text-danger">
+                                    {% endif %}
+                                    {{ course.participants | length }}/{{ course.participantLimit }} deltagere <br/>
+                                    {{ course.fullTimeTutors | length }} veiledere <br/>
+                                    </span>
+                                    {{ course.substitutes | length }} vikarer <br/>
+                                </p>
                             </div>
                             <footer>
                                 <div class="row">
