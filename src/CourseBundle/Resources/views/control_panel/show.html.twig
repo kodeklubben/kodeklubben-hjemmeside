@@ -37,8 +37,19 @@
                             <div>
                                 <h3>{{ course.name }}</h3>
                                 <p class="description">{{ course.description }}<br>
-                                    <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
+                                    {% set courseAvailability = course.participantLimit-course.participants|length %}
+                                    {% if courseAvailability == 0 %}
+                                        {% set courseAvailabilityClass = 'text-danger' %}
+                                    {% elseif courseAvailability <= 5 %}
+                                        {% set courseAvailabilityClass = 'text-warning' %}
+                                    {% else %}
+                                        {% set courseAvailabilityClass = 'text-success' %}
+                                    {% endif %}
+
+                                    <span class="{{ courseAvailabilityClass }}">
                                         {{ course.participants | length }}/{{ course.participantLimit }} deltagere <br/>
+                                    </span>
+                                    <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
                                         {{ course.fullTimeTutors | length }} veiledere <br/>
                                     </span>
                                     {{ course.substitutes | length }} vikarer <br/>
