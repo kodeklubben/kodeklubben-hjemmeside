@@ -12,7 +12,9 @@
                 <p>E-post: {{ user.email }}</p>
                 <p>Tlf: {{ user.phone }}</p>
                 <p>Registrert: {{ user.createdDatetime|date('d.m.Y') }}</p>
-                <p><a href="{{ path('cp_sign_up', {'id': user.id}) }}">Meld på kurs >></a></p>
+                {% if 'ROLE_ADMIN' in user.roles == false %}
+                    <p><a href="{{ path('cp_sign_up', {'id': user.id}) }}">Meld på kurs >></a></p>
+                {% endif %}
             </div>
         </div>
     </section>

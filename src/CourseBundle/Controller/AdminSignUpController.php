@@ -56,8 +56,7 @@ class AdminSignUpController extends Controller
                 'tutors' => $tutors,
             )));
         } else {
-            // This should never happen
-            return $this->createAccessDeniedException();
+            return $this->redirectToRoute('cp_users');
         }
     }
 
