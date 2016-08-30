@@ -9,9 +9,15 @@ use UserBundle\Entity\Participant;
 use UserBundle\Entity\Tutor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class SignUpController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @Route("/pamelding", name="sign_up")
+     */
     public function showAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
@@ -49,6 +55,18 @@ class SignUpController extends Controller
         }
     }
 
+    /**
+     * @param Course $course
+     * @param Child  $child
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/pamelding/barn/{id}/{child}",
+     *     options={"expose"=true},
+     *     requirements={"id"="\d+"},
+     *     name="sign_up_course_child"
+     * )
+     */
     public function signUpChildAction(Course $course, Child $child)
     {
         // Check if child is already signed up to the course or the course is set for another semester
@@ -87,6 +105,14 @@ class SignUpController extends Controller
         return $this->redirectToRoute('sign_up');
     }
 
+    /**
+     * @param Course  $course
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/pamelding/{id}", name="sign_up_course", requirements={"id"="\d+"})
+     */
     public function signUpAction(Course $course, Request $request)
     {
         $user = $this->getUser();
@@ -143,6 +169,17 @@ class SignUpController extends Controller
         return $this->redirectToRoute('sign_up');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/pamelding/veileder/meldav/{courseId}/{tutorId}",
+     *     requirements={"courseId" = "\d+", "tutorId" = "\d+"},
+     *     defaults={"tutorId" = null},
+     *     name="withdraw_from_course_tutor"
+     * )
+     */
     public function withdrawTutorAction(Request $request)
     {
         $tutorRepo = $this->getDoctrine()->getRepository('UserBundle:Tutor');
@@ -180,6 +217,17 @@ class SignUpController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * @param Participant $participant
+     * @param Request     $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @Route("/pamelding/deltaker/meldav/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="withdraw_from_course_participant"
+     * )
+     */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');

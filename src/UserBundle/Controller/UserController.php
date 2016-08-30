@@ -7,6 +7,8 @@ use UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class UserController extends Controller
 {
@@ -21,16 +23,37 @@ class UserController extends Controller
         return $this->render('@User/registration_options.html.twig');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/registrer/deltaker", name="participant_registration")
+     */
     public function registerParticipantAction(Request $request)
     {
         return $this->registerUser('ROLE_PARTICIPANT', $request);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/registrer/foresatt", name="parent_registration")
+     */
     public function registerParentAction(Request $request)
     {
         return $this->registerUser('ROLE_PARENT', $request);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/registrer/veileder", name="tutor_registration")
+     */
     public function registerTutorAction(Request $request)
     {
         return $this->registerUser('ROLE_TUTOR', $request);
@@ -77,6 +100,13 @@ class UserController extends Controller
         $em->flush();
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/registrer/{code}", name="registration_new_user_code")
+     */
     public function registerWithNewUserCodeAction(Request $request)
     {
         $userRegistration = $this->get('user.registration');
@@ -109,6 +139,17 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     * 
+     * @Route("/kontrollpanel/bruker/type", 
+     *     options = { "expose" = true },
+     *     name="cp_change_user_type"
+     * )
+     * @Method({"POST"})
+     */
     public function changeUserTypeAction(Request $request)
     {
         $userId = $request->request->get('userId');
@@ -152,6 +193,17 @@ class UserController extends Controller
         return new JsonResponse(array('status' => 'success'));
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     * 
+     * @Route("/kontrollpanel/buker/slett",
+     *     options = { "expose" = true },
+     *     name="cp_user_delete"
+     * )
+     * @Method({"POST"})
+     */
     public function deleteAction(Request $request)
     {
         $userId = $request->request->get('userId');

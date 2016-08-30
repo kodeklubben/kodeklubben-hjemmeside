@@ -7,9 +7,20 @@ use CodeClubBundle\Entity\Message;
 use CodeClubBundle\Entity\Semester;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class ControlPanelController.
+ * 
+ * @Route("/kontrollpanel")
+ */
 class ControlPanelController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/", name="control_panel")
+     */
     public function showAction()
     {
         return $this->render('@Admin/show.html.twig', array(
@@ -17,6 +28,11 @@ class ControlPanelController extends Controller
         ));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/epost", name="cp_email")
+     */
     public function showEmailAction()
     {
         return $this->render('@Admin/email/show.html.twig');
@@ -55,11 +71,25 @@ class ControlPanelController extends Controller
         return $this->redirectToRoute('cp_message');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/veiledere", name="cp_tutors")
+     */
     public function showTutorsAction(Request $request)
     {
         return $this->renderCourseUsers($request, '@Admin/tutor/show_tutors.html.twig');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/deltakere", name="cp_participants")
+     */
     public function showParticipantsAction(Request $request)
     {
         return $this->renderCourseUsers($request, '@Admin/participant/show_participants.html.twig');

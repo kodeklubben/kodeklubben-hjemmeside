@@ -6,9 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Form\AdminUserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AdminUserController.
+ *
+ * @Route("/kontrollpanel")
+ */
 class AdminUserController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/brukere", name="cp_users")
+     */
     public function showAction()
     {
         $users = $this->getDoctrine()->getRepository('UserBundle:User')->findAll();
@@ -18,6 +29,13 @@ class AdminUserController extends Controller
         ));
     }
 
+    /**
+     * @param User $user
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/brukere/{id}", name="cp_user")
+     */
     public function showSpecificAction(User $user)
     {
         return $this->render('@User/control_panel/user_specific.html.twig', array(
@@ -25,6 +43,13 @@ class AdminUserController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/bruker/ny", name="cp_user_create")
+     */
     public function createUserAction(Request $request)
     {
         $userRegistration = $this->get('user.registration');

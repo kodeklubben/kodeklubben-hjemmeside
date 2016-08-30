@@ -1,23 +1,26 @@
 image:
-    resource: "@ImageBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: '@ImageBundle/Controller/'
+    type:     annotation
 
 user:
-    resource: "@UserBundle/Resources/config/routing.yml"
+    resource: '@UserBundle/Controller/'
+    type:     annotation
 
 course:
-    resource: "@CourseBundle/Resources/config/routing.yml"
+    resource: '@CourseBundle/Controller/'
+    type:     annotation
 
 static_content:
-    resource: "@StaticContentBundle/Resources/config/routing.yml"
+    resource: '@StaticContentBundle/Controller/'
+    type:     annotation
 
 admin:
-    resource: "@AdminBundle/Resources/config/routing.yml"
-    prefix:   /kontrollpanel
+    resource: '@AdminBundle/Controller/'
+    type:     annotation
 
 code_club:
-    resource: "@CodeClubBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: '@CodeClubBundle/Controller/'
+    type:     annotation
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

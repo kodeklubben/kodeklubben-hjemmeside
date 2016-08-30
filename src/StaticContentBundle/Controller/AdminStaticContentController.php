@@ -7,7 +7,14 @@ use StaticContentBundle\Form\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+/**
+ * Class AdminStaticContentController.
+ *
+ * @Route("/kontrollpanel")
+ */
 class AdminStaticContentController extends Controller
 {
     public function showInfoAction()
@@ -16,26 +23,61 @@ class AdminStaticContentController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/header", name="cp_sc_header")
+     */
     public function showHeaderAction(Request $request)
     {
         return $this->_renderForm($request, 'header', 'Header');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/tagline", name="cp_sc_tagline")
+     */
     public function showTaglineAction(Request $request)
     {
         return $this->_renderForm($request, 'tagline', 'Tagline');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/deltaker", name="cp_sc_participant_info")
+     */
     public function showParticipantAction(Request $request)
     {
         return $this->_renderForm($request, 'participant_info', 'Deltaker');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/veileder", name="cp_sc_tutor_info")
+     */
     public function showTutorAction(Request $request)
     {
         return $this->_renderForm($request, 'tutor_info', 'Veileder');
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/om", name="cp_sc_about")
+     */
     public function showAboutAction(Request $request)
     {
         return $this->_renderForm($request, 'about', 'Om oss');
@@ -66,6 +108,17 @@ class AdminStaticContentController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @Route("/statisk_innhold",
+     *     options = { "expose" = true },
+     *     name="cp_update_static_content"
+     * )
+     * @Method({"POST"})
+     */
     public function updateAction(Request $request)
     {
         $idString = $request->request->get('idString');

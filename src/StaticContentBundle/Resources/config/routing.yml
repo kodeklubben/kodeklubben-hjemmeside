@@ -1,3 +1,0 @@
-control_panel_static_content:
-    resource: "./cp_routing.yml"
-    prefix: /kontrollpanel

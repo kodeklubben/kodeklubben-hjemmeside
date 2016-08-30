@@ -10,9 +10,21 @@ use UserBundle\Entity\Tutor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class AdminSignUpController extends Controller
 {
+    /**
+     * @param User $user
+     *
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * 
+     * @Route("/pamelding/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="cp_sign_up"
+     * )
+     */
     public function showAction(User $user)
     {
         $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
@@ -49,6 +61,19 @@ class AdminSignUpController extends Controller
         }
     }
 
+    /**
+     * @param Course  $course
+     * @param Child   $child
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @Route("/pamelding/barn/{id}/{child}",
+     *     requirements={"id" = "\d+", "child" = "\d+"},
+     *     options={"expose" = true},
+     *     name="cp_sign_up_course_child"
+     * )
+     */
     public function signUpChildAction(Course $course, Child $child, Request $request)
     {
         // Check if child is already signed up to the course or the course is set for another semester
@@ -87,6 +112,19 @@ class AdminSignUpController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * @param Course  $course
+     * @param User    $user
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @Route("/pamelding/{course}/{user}",
+     *     requirements={"user" = "\d+"},
+     *     name="cp_sign_up_course"
+     * )
+     * @Method({"POST"})
+     */
     public function signUpAction(Course $course, User $user, Request $request)
     {
         // Check if user is already signed up to the course or the course is set for another semester

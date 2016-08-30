@@ -8,9 +8,22 @@ use CourseBundle\Form\CourseClassType;
 use CourseBundle\Form\CourseFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AdminCourseController.
+ * 
+ * @Route("/kontrollpanel")
+ */
 class AdminCourseController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kurs", name="cp_course")
+     */
     public function showAction(Request $request)
     {
         $semesterId = $request->query->get('semester');
@@ -30,6 +43,15 @@ class AdminCourseController extends Controller
         ));
     }
 
+    /**
+     * @param Request     $request
+     * @param Course|null $course
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kurs/ny", name="cp_create_course")
+     * @Route("/kurs/{id}", name="cp_edit_course", requirements={"id" = "\d+"})
+     */
     public function editCourseAction(Request $request, Course $course = null)
     {
         $isCreateAction = is_null($course);
@@ -53,6 +75,17 @@ class AdminCourseController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param Course  $course
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kurs/timeplan/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="cp_course_time_table"
+     * )
+     */
     public function editTimeTableAction(Request $request, Course $course)
     {
         $courseClass = new CourseClass();
@@ -85,6 +118,16 @@ class AdminCourseController extends Controller
         ));
     }
 
+    /**
+     * @param Course $course
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @Route("/kurs/slett/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="cp_delete_course"
+     * )
+     */
     public function deleteCourseAction(Course $course)
     {
         $course->delete();
@@ -95,16 +138,46 @@ class AdminCourseController extends Controller
         return $this->redirectToRoute('cp_course');
     }
 
+    /**
+     * @param Course $course
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kurs/deltakere/{id}", 
+     *     requirements={"id" = "\d+"},
+     *     name="cp_course_participants"
+     * )
+     */
     public function showParticipantsAction(Course $course)
     {
         return $this->render('@Course/control_panel/show_course_participants.html.twig', array('course' => $course));
     }
 
+    /**
+     * @param Course $course
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kurs/veiledere/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="cp_course_tutors"
+     * )
+     */
     public function showTutorsAction(Course $course)
     {
         return $this->render('@Course/control_panel/show_course_tutors.html.twig', array('course' => $course));
     }
 
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @Route("/kontrollpanel/kursdag/slett/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="cp_delete_course_class"
+     * )
+     */
     public function deleteCourseClassAction($id)
     {
         $manager = $this->getDoctrine()->getManager();

@@ -6,14 +6,18 @@ use ImageBundle\Entity\Image;
 use ImageBundle\Form\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ImageController extends Controller
 {
-    public function indexAction($name)
-    {
-        return $this->render('', array('name' => $name));
-    }
-
+    /**
+     * @param Request $request
+     * @param $name
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("kontrollpanel/bilde/last_opp/{name}", name="image_upload")
+     */
     public function uploadImageAction(Request $request, $name)
     {
         $club = $this->get('app.club_finder')->getCurrentClub();

@@ -7,9 +7,17 @@ use UserBundle\Entity\User;
 use UserBundle\Form\ChildType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ChildController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/barn/ny", name="child_create")
+     */
     public function createChildAction(Request $request)
     {
         $child = new Child();
@@ -27,6 +35,14 @@ class ChildController extends Controller
         return $this->render('@CodeClub/sign_up/create_child.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * @param User    $user
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/kontrollpanel/barn/ny/{user}", name="cp_child_create")
+     */
     public function adminCreateChildAction(User $user, Request $request)
     {
         $child = new Child();
@@ -47,6 +63,17 @@ class ChildController extends Controller
         ));
     }
 
+    /**
+     * @param Child   $child
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/barn/slett/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="child_delete"
+     * )
+     */
     public function deleteChildAction(Child $child, Request $request)
     {
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');

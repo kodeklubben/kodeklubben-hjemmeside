@@ -4,9 +4,15 @@ namespace CodeClubBundle\Controller;
 
 use CodeClubBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class HomeController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Route("/", name="home")
+     */
     public function showAction()
     {
         $response = $this->render('@CodeClub/home/show.html.twig');

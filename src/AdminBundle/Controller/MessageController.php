@@ -6,9 +6,22 @@ use AdminBundle\Form\MessageType;
 use CodeClubBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class MessageController.
+ *
+ * @Route("/kontrollpanel")
+ */
 class MessageController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/melding", name="cp_message")
+     */
     public function showAction(Request $request)
     {
         $messages = $this->getDoctrine()->getRepository('CodeClubBundle:Message')->findLatestMessages();
@@ -32,6 +45,16 @@ class MessageController extends Controller
         ));
     }
 
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/melding/slett/{id}",
+     *     name="cp_delete_message",
+     *     requirements={"id" = "\d+"}
+     * )
+     */
     public function deleteMessageAction($id)
     {
         $manager = $this->getDoctrine()->getManager();
