@@ -20,8 +20,19 @@
     "gulp-plumber": "^1.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cs": "./bin/php-cs-fixer fix src/ -vv"
+    "test": "./bin/phpunit --configuration app/phpunit.xml.dist",
+    "test:win": ".\\bin\\phpunit --configuration app/phpunit.xml.dist",
+    "setup": "php ./composer.phar install -n && npm install && ./node_modules/.bin/gulp build:dev && php app/console doctrine:schema:create --env=dev && php app/console doctrine:fixtures:load --env=dev -n",
+    "setup:win": "php .\\composer.phar install -n && npm install && .\\node_modules\\.bin\\gulp build:dev && php app/console doctrine:schema:create --env=dev && php app/console doctrine:fixtures:load --env=dev -n",
+    "start": "php app/console server:run --docroot=web & npm run watch",
+    "watch": "gulp",
+    "reload-db": "php app/console doctrine:fixtures:load --env=dev",
+    "build": "gulp build:dev",
+    "build:prod": "gulp build:prod",
+    "code-style": "./bin/php-cs-fixer fix src/ --dry-run --diff -vv",
+    "code-style:win": ".\\bin\\php-cs-fixer fix src/ --dry-run --diff -vv",
+    "cs": "./bin/php-cs-fixer fix src/ -vv",
+    "cs:win": ".\\bin\\php-cs-fixer fix src/ -vv"
   },
   "author": "",
   "license": "",
