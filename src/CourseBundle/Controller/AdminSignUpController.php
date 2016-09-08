@@ -13,6 +13,11 @@ use UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+/**
+ * Class AdminSignUpController.
+ *
+ * @Route("/kontrollpanel")
+ */
 class AdminSignUpController extends Controller
 {
     /**
