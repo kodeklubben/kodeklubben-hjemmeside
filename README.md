@@ -1,22 +1,53 @@
-# Generic website for Kodeklubben
+## Set up development environment
+### Requirements
+- [PHP](http://php.net/downloads.php) version >= 7.0
+- [Node](https://nodejs.org/en/) version >= 4
 
-## Requirements
-- [PHP](http://php.net/)
-- [Composer](https://getcomposer.org/)
-- [Node.js](https://nodejs.org/en/)
+#### UNIX:
+`npm run setup`
+#### Windows:
+`npm run setup:win`
 
-## Install
-`composer install`
+### Start server on [http://localhost:8000](http://localhost:8000)
+`npm start`
 
-`composer build`
+## Code style
+Code style should follow a certain set of rules. Make sure your code 
+adheres to these rules before opening a PR. 
 
-### Build problems
-Try deleting `node_modules` before running `composer build`.
+### Fix style
+Automatically fixes styling errors
+##### UNIX/LINUX:
+`npm run -s cs`
+##### Windows:
+`npm run -s cs:win`
 
-Windows has issues with long filenames which may prevent you from deleting the `node_modules` directory. To solve this, run
+## Testing
+Tests should be run before opening a PR.
+##### UNIX/LINUX:
+`npm run test`
+##### Windows:
+`npm run test:win`
 
-`npm install -g rimraf`
+## Users
+| Username             | Password |       Role       |
+| -------------------- |:--------:|:----------------:|
+| participant@mail.no  |   1234   | ROLE_PARTICIPANT |
+| parent@mail.no       |   1234   |    ROLE_PARENT   |
+| tutor@mail.no        |   1234   |    ROLE_TUTOR    |
+| admin@mail.no        |   1234   |    ROLE_ADMIN    |
 
-and then remove by executing
+### Build static files
+When adding new images or other non-code files, you can run
 
-`rimraf node_modules`
+`npm run build`
+
+so that the files are put in the correct places. (this is automatically
+done when doing `npm start`)
+
+## Database
+### Reload database
+`npm run db:reload`
+
+### Add new entities to the database
+`npm run db:update`
