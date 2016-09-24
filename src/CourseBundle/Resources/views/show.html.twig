@@ -17,7 +17,7 @@
 
             <div class="col-md-8">
                 <h2>{{ course.name }}</h2>
-                <p>{{ course.description|replace({'\n':'<br>'})|raw }}</p>
+                <p>{{ course.description|replace({'\n':'<br>'})|safe_html }}</p>
                 <p>
                     <a href="{{ path('sign_up') }}#{{ course.name }}" class="btn btn-primary">Meld deg på {{ course.name }}</a>
                     {% if not course.challengesUrl is null %}<a href="{{ course.challengesUrl }}" class="btn btn-default">Oppgaver</a>{% endif %}

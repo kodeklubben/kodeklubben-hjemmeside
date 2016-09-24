@@ -7,7 +7,7 @@
     <!-- /.col-md-8 -->
     <div class="col-md-4">
         <h1>{{ get_club().getName() }}</h1>
-        <p>{{ get_content('header')|raw }}</p>
+        <p>{{ get_content('header')|safe_html }}</p>
         <a class="btn btn-primary btn-lg" href="{{ path('sign_up') }}">Meld deg på!</a>
     </div>
     <!-- /.col-md-4 -->
