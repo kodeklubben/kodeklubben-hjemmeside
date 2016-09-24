@@ -1,30 +1,31 @@
 <?php
 
-namespace AppBundle\Form;
+namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MessageType extends AbstractType
+class PasswordResetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message', 'textarea', array(
-                'label' => 'Melding',
-            ))
-            ->add('expireDate', 'datetime', array(
-                'label' => 'Utløpsdato',
+            ->add('email', 'text', array(
+                'label' => 'E-post',
+                'mapped' => false,
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(array(
+            'data_class' => 'UserBundle\Entity\PasswordReset',
+        ));
     }
 
     public function getName()
     {
-        return 'app_bundle_message_type';
+        return 'passwordReset'; // This must be unique
     }
 }

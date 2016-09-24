@@ -2,7 +2,7 @@
 
 namespace CourseBundle\Controller;
 
-use CourseBundle\Form\CourseTypeType;
+use CourseBundle\Form\Type\CourseTypeType;
 use CourseBundle\Entity\CourseType;
 use ImageBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

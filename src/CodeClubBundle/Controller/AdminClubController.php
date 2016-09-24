@@ -2,7 +2,7 @@
 
 namespace CodeClubBundle\Controller;
 
-use CodeClubBundle\Form\ClubType;
+use CodeClubBundle\Form\Type\ClubType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

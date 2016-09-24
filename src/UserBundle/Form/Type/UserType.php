@@ -1,30 +1,20 @@
 <?php
 
-namespace UserBundle\Form;
+namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class AdminUserType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('role', ChoiceType::class, array(
-                'choices' => array(
-                    'ROLE_PARENT' => 'Foresatt',
-                    'ROLE_PARTICIPANT' => 'Deltaker',
-                    'ROLE_TUTOR' => 'Veileder',
-                    'ROLE_ADMIN' => 'Admin',
-                    ),
-                'label' => 'Brukertype',
-                'multiple' => false,
-                'mapped' => false,
-            ))
             ->add('firstName', TextType::class, array(
                 'label' => 'Fornavn',
             ))
@@ -36,8 +26,18 @@ class AdminUserType extends AbstractType
             ))
             ->add('phone', TextType::class, array(
                 'label' => 'Telefon',
-                'data' => '-',
-            ));
+            ))
+            ->add('password', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options' => array('label' => 'Passord (minst 8 tegn)'),
+                    'second_options' => array('label' => 'Gjenta Password'),
+                    'options' => array(
+                        'attr' => array(
+                            'pattern' => '.{8,}',
+                        ),
+                    ),
+                )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

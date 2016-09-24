@@ -5,7 +5,7 @@ namespace UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
-use UserBundle\Form\AdminUserType;
+use UserBundle\Form\Type\AdminUserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**

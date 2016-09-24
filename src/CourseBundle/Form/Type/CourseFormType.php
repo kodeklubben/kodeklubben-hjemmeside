@@ -1,6 +1,6 @@
 <?php
 
-namespace CourseBundle\Form;
+namespace CourseBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;

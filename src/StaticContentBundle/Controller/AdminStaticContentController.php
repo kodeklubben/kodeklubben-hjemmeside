@@ -3,7 +3,7 @@
 namespace StaticContentBundle\Controller;
 
 use StaticContentBundle\Entity\StaticContent;
-use StaticContentBundle\Form\StaticContentType;
+use StaticContentBundle\Form\Type\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,12 +2,12 @@
 
 namespace UserBundle\Controller;
 
-use UserBundle\Form\NewPasswordType;
+use UserBundle\Form\Type\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\PasswordReset;
-use UserBundle\Form\PasswordResetType;
+use UserBundle\Form\Type\PasswordResetType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**

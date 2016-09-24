@@ -1,8 +1,8 @@
 <?php
 
-namespace CourseBundle\Form;
+namespace CourseBundle\Form\Type;
 
-use ImageBundle\Form\ImageType;
+use ImageBundle\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

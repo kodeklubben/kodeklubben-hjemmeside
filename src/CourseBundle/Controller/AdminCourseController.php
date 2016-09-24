@@ -4,8 +4,8 @@ namespace CourseBundle\Controller;
 
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseClass;
-use CourseBundle\Form\CourseClassType;
-use CourseBundle\Form\CourseFormType;
+use CourseBundle\Form\Type\CourseClassType;
+use CourseBundle\Form\Type\CourseFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

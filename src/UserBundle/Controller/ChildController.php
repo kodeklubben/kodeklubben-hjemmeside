@@ -4,7 +4,7 @@ namespace UserBundle\Controller;
 
 use UserBundle\Entity\Child;
 use UserBundle\Entity\User;
-use UserBundle\Form\ChildType;
+use UserBundle\Form\Type\ChildType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
