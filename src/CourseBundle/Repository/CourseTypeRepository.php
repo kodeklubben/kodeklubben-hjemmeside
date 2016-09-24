@@ -2,7 +2,7 @@
 
 namespace CourseBundle\Repository;
 
-use CodeClubBundle\Entity\Semester;
+use AppBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;
 
 /**

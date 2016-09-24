@@ -3,7 +3,7 @@
 namespace CourseBundle\Repository;
 
 use CourseBundle\Entity\Course;
-use CodeClubBundle\Entity\Semester;
+use AppBundle\Entity\Semester;
 use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 

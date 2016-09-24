@@ -20,7 +20,7 @@ class SignUpController extends Controller
      */
     public function showAction()
     {
-        $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
@@ -33,20 +33,20 @@ class SignUpController extends Controller
             $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
             $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
 
-            return $this->render('@CodeClub/sign_up/parent.html.twig', array_merge($parameters, array(
+            return $this->render('@Course/sign_up/parent.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
                 'children' => $children,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
             $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
 
-            return $this->render('@CodeClub/sign_up/participant.html.twig', array_merge($parameters, array(
+            return $this->render('@Course/sign_up/participant.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
             )));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
             $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
 
-            return $this->render('@CodeClub/sign_up/tutor.html.twig', array_merge($parameters, array(
+            return $this->render('@Course/sign_up/tutor.html.twig', array_merge($parameters, array(
                 'tutors' => $tutors,
             )));
         } else {
@@ -71,7 +71,7 @@ class SignUpController extends Controller
     {
         // Check if child is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
-        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || !$isThisSemester) {
             if ($isAlreadyParticipant) {
                 $this->addFlash('warning', $child.' er allerede påmeldt '.$course->getName().'. Ingen handling har blitt utført');
@@ -119,7 +119,7 @@ class SignUpController extends Controller
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) {
             $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
 
@@ -257,7 +257,7 @@ class SignUpController extends Controller
      */
     private function filterActiveCourses($allCourseTypes)
     {
-        $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $res = array();
         foreach ($allCourseTypes as $courseType) {
             foreach ($courseType->getCourses() as $course) {

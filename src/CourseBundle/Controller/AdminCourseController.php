@@ -27,7 +27,7 @@ class AdminCourseController extends Controller
     public function showAction(Request $request)
     {
         $semesterId = $request->query->get('semester');
-        $semesterRepo = $this->getDoctrine()->getRepository('CodeClubBundle:Semester');
+        $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
         if (!is_null($semesterId)) {
             $semester = $semesterRepo->find($semesterId);
         } else {
@@ -189,6 +189,45 @@ class AdminCourseController extends Controller
 
         return $this->redirectToRoute('cp_course_time_table', array(
             'id' => $courseClass->getCourse()->getId(),
+        ));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/veiledere", name="cp_tutors")
+     */
+    public function showAllTutorsAction(Request $request)
+    {
+        return $this->renderCourseUsers($request, '@Course/control_panel/show_tutors.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/deltakere", name="cp_participants")
+     */
+    public function showAllParticipantsAction(Request $request)
+    {
+        return $this->renderCourseUsers($request, '@Course/control_panel/show_participants.html.twig');
+    }
+
+    private function renderCourseUsers(Request $request, $template)
+    {
+        $semesterId = $request->query->get('semester');
+        $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
+        $semester = is_null($semesterId) ? $semesterRepo->findCurrentSemester() : $semesterRepo->find($semesterId);
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester);
+        $semesters = $semesterRepo->findAll();
+
+        return $this->render($template, array(
+            'courses' => $courses,
+            'semester' => $semester,
+            'semesters' => $semesters,
         ));
     }
 }

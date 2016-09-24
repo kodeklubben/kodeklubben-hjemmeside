@@ -63,7 +63,7 @@ class CourseController extends Controller
      */
     public function getCourseClassesAction($week)
     {
-        $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester);
 
         return new JsonResponse($courseClasses);

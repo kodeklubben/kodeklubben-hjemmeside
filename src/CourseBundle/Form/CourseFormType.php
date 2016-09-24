@@ -49,7 +49,7 @@ class CourseFormType extends AbstractType
         if ($this->showAllSemesters) {
             $builder
                     ->add('semester', 'entity', array(
-                        'class' => 'CodeClubBundle\Entity\Semester',
+                        'class' => 'AppBundle\Entity\Semester',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->allSemestersQuery();
                         },
@@ -57,7 +57,7 @@ class CourseFormType extends AbstractType
         } else {
             $builder
                 ->add('semester', 'entity', array(
-                    'class' => 'CodeClubBundle\Entity\Semester',
+                    'class' => 'AppBundle\Entity\Semester',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->thisAndNextSemesterQuery();
                     },

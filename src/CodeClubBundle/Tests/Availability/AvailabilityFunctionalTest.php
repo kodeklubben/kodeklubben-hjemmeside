@@ -120,9 +120,11 @@ class AvailabilityFunctionalTest extends WebTestCase
             array('/'),
             array('/om'),
             array('/kurs'),
+            array('/kurs/1'),
             array('/login'),
             array('/registrer/deltaker'),
             array('/registrer/veileder'),
+            array('/registrer/foresatt'),
         );
     }
     public function participantUrlProvider()
@@ -141,10 +143,21 @@ class AvailabilityFunctionalTest extends WebTestCase
     {
         return array(
             array('/kontrollpanel/'),
+            array('/kontrollpanel/brukere'),
+            array('/kontrollpanel/brukere/2'),
+            array('/kontrollpanel/bruker/ny'),
+            array('/kontrollpanel/pamelding/2'),
             array('/kontrollpanel/kurs'),
             array('/kontrollpanel/kurs/ny'),
+            array('/kontrollpanel/kurs/1'),
+            array('/kontrollpanel/kurs/timeplan/1'),
+            array('/kontrollpanel/kurs/deltakere/1'),
+            array('/kontrollpanel/kurs/veiledere/1'),
             array('/kontrollpanel/kurs/type'),
             array('/kontrollpanel/kurs/type/ny'),
+            array('/kontrollpanel/kurs/type/1'),
+            array('/kontrollpanel/veiledere'),
+            array('/kontrollpanel/deltakere'),
             array('/kontrollpanel/epost'),
             array('/kontrollpanel/melding'),
             array('/kontrollpanel/info'),

@@ -32,7 +32,7 @@ class AdminSignUpController extends Controller
      */
     public function showAction(User $user)
     {
-        $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $parameters = array(
@@ -82,7 +82,7 @@ class AdminSignUpController extends Controller
     {
         // Check if child is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
-        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || !$isThisSemester) {
             if ($isAlreadyParticipant) {
                 $this->addFlash('warning', $child.' er allerede påmeldt '.$course->getName().'. Ingen handling har blitt utført');
@@ -134,7 +134,7 @@ class AdminSignUpController extends Controller
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester());
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) {
             $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
 
@@ -191,7 +191,7 @@ class AdminSignUpController extends Controller
      */
     private function filterActiveCourses($allCourseTypes)
     {
-        $currentSemester = $this->getDoctrine()->getRepository('CodeClubBundle:Semester')->findCurrentSemester();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $res = array();
         foreach ($allCourseTypes as $courseType) {
             foreach ($courseType->getCourses() as $course) {

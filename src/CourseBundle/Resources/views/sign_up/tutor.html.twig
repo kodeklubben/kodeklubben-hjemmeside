@@ -1,0 +1,112 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    {% include 'common/flash_message.html.twig' with {'type': 'danger'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'warning'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'success'} %}
+    <h1 class="text-center">Påmelding for veiledere {{ currentSemester }}</h1>
+    <hr>
+    {% if tutors|length %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h4>Du har meldt deg på følgende kurs:</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Kurs</th>
+                                    <th>Beskrivelse</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tutor in tutors %}
+                                    <tr>
+                                        <td>{{ tutor.course.name }}</td>
+                                        <td>{{ tutor.course.description }}</td>
+                                        <td>{{ tutor.isSubstitute ?
+                                            '<span class="text-warning text-bold">Vikar</span>'
+                                            :
+                                            '<span class="text-success text-bold">Veileder</span>' }}
+                                        </td>
+                                        <td>
+                                            <form method="POST" action="{{ path('withdraw_from_course_tutor', {'courseId': tutor.course.id}) }}">
+                                                <button type="submit" class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
+                                                    Meld av
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for courseTypeName in courseTypes|keys %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 id="{{ courseTypeName }}">{{ courseTypeName }}</h3>
+
+                <div class="row is-flex text-center">
+                    {% for course in courseTypes[courseTypeName] %}
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="box box-primary">
+                                <div class="box-body">
+                                    <div>
+                                        <h4><b>{{ course.name }}</b></h4>
+                                        <p class="description">{{ course.description }}</p>
+                                        {% include '@Course/sign_up/course_time_table.html.twig' with {'course': course} %}
+                                    </div>
+                                    <div class="pull-down">
+                                        <footer>
+                                            {% set alreadySignedUp = false %}
+                                            {% for tutor in tutors %}
+                                                {% if tutor.course == course %}
+                                                    {% set alreadySignedUp = true %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <hr>
+                                            <form action="{{ path('sign_up_course', {'id': course.id}) }}" method="POST">
+                                                <label>
+                                                    <input type="checkbox" name="substitute">
+                                                    Kun som vikar
+                                                </label>
+                                                <br>
+                                                <button type="submit" {{ alreadySignedUp ? 'disabled' }}
+                                                   class="btn btn-primary btn-sm btn-sign-up onclick-disable">
+                                                    {{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}
+                                                </button>
+                                                <a href="{{ path('course_info', {id: course.id}) }}"
+                                                   class="btn btn-sm btn-default">Mer
+                                                    info</a>
+                                            </form>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var $timeTables = $('.time-table');
+            $timeTables.each(function () {
+                sortTableByAttribute($(this), 'timestamp', true);
+            })
+        })
+    </script>
+{% endblock %}

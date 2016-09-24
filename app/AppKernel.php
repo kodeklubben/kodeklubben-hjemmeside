@@ -25,11 +25,11 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new CodeClubBundle\CodeClubBundle(),
-            new AdminBundle\AdminBundle(),
             new StaticContentBundle\StaticContentBundle(),
             new CourseBundle\CourseBundle(),
             new UserBundle\UserBundle(),
             new ImageBundle\ImageBundle(),
+            new AppBundle\AppBundle(),
         );
 
         // Some bundles are only used while developing the application or during

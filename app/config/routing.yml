@@ -1,3 +1,8 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 image:
     resource: '@ImageBundle/Controller/'
     type:     annotation
@@ -14,10 +19,6 @@ static_content:
     resource: '@StaticContentBundle/Controller/'
     type:     annotation
 
-admin:
-    resource: '@AdminBundle/Controller/'
-    type:     annotation
-
 code_club:
     resource: '@CodeClubBundle/Controller/'
     type:     annotation
@@ -28,15 +29,15 @@ fos_js_routing:
 #Security
 security_login_form:
     path: /login/{last_username}
-    defaults: {_controller: CodeClubBundle:Security:login, last_username: ''}
+    defaults: {_controller: UserBundle:Security:login, last_username: ''}
 
 security_login_check:
     path: /login_check
-    defaults: {_controller: CodeClubBundle:Security:loginCheck}
+    defaults: {_controller: UserBundle:Security:loginCheck}
 
 security_logout:
     path: /logout
-    defaults: {_controller: CodeClubBundle:Security:logout}
+    defaults: {_controller: UserBundle:Security:logout}
 
 password_reset:
   path: /reset_passord

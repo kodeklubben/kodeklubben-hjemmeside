@@ -3,7 +3,7 @@
 namespace CourseBundle\Entity;
 
 use UserBundle\Entity\Participant;
-use CodeClubBundle\Entity\Semester;
+use AppBundle\Entity\Semester;
 use UserBundle\Entity\Tutor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,7 +45,7 @@ class Course
     /**
      * @var Semester
      *
-     * @ORM\ManyToOne(targetEntity="CodeClubBundle\Entity\Semester")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Semester")
      * @ORM\JoinColumn(name="semester_id", referencedColumnName="id")
      * @Assert\Valid
      */

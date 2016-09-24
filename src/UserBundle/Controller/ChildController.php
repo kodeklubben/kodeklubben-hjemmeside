@@ -32,7 +32,7 @@ class ChildController extends Controller
             return $this->redirectToRoute('sign_up');
         }
 
-        return $this->render('@CodeClub/sign_up/create_child.html.twig', array('form' => $form->createView()));
+        return $this->render('@Course/sign_up/create_child.html.twig', array('form' => $form->createView()));
     }
 
     /**

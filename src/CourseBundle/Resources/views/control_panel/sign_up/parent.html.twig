@@ -1,4 +1,4 @@
-{% extends '@Admin/_base/admin_base.html.twig' %}
+{% extends 'base/control_panel/admin_base.html.twig' %}
 
 {% block body %}
     <header class="content-header">
@@ -104,7 +104,7 @@
                                         <div>
                                             <h4><b>{{ course.name }}</b></h4>
                                             <p class="description">{{ course.description }}</p>
-                                            {% include '@CodeClub/sign_up/course_time_table.html.twig' with {'course': course} %}
+                                            {% include '@Course/sign_up/course_time_table.html.twig' with {'course': course} %}
                                         </div>
                                         <div class="pull-down">
                                             <footer>

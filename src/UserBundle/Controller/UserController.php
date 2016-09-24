@@ -114,7 +114,7 @@ class UserController extends Controller
         $hashedCode = $userRegistration->hashNewUserCode($code);
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->findOneBy(array('newUserCode' => $hashedCode));
         if (!$user) {
-            return $this->render('_base/error.html.twig', array(
+            return $this->render('base/error.html.twig', array(
             'error' => 'Ugyldig kode eller brukeren er allerede opprettet',
             ));
         } else {
