@@ -13,52 +13,52 @@ class LoadSemesterData extends AbstractFixture implements OrderedFixtureInterfac
     {
         $now = new \DateTime();
         $semester = new Semester();
-        $semester->setIsSpring(intval($now->format('n')) <= 7);
+        $semester->setSpring(intval($now->format('n')) <= 7);
         $semester->setYear($now->format('Y'));
         $manager->persist($semester);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setSpring(intval($now->format('n')) > 7);
         $semester2->setYear(intval($now->format('Y')));
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setSpring(intval($now->format('n')) <= 7);
         $semester2->setYear(intval($now->format('Y')) + 1);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setSpring(intval($now->format('n')) > 7);
         $semester2->setYear(intval($now->format('Y')) + 1);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setSpring(intval($now->format('n')) <= 7);
         $semester2->setYear(intval($now->format('Y')) + 2);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setSpring(intval($now->format('n')) > 7);
         $semester2->setYear(intval($now->format('Y')) + 2);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setSpring(intval($now->format('n')) <= 7);
         $semester2->setYear(intval($now->format('Y')) - 1);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setSpring(intval($now->format('n')) > 7);
         $semester2->setYear(intval($now->format('Y')) - 1);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) <= 7);
+        $semester2->setSpring(intval($now->format('n')) <= 7);
         $semester2->setYear(intval($now->format('Y')) - 2);
         $manager->persist($semester2);
 
         $semester2 = new Semester();
-        $semester2->setIsSpring(intval($now->format('n')) > 7);
+        $semester2->setSpring(intval($now->format('n')) > 7);
         $semester2->setYear(intval($now->format('Y')) - 2);
         $manager->persist($semester2);
 

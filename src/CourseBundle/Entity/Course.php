@@ -308,7 +308,7 @@ class Course
     {
         $substitutes = array();
         foreach ($this->tutors as $tutor) {
-            if ($tutor->isIsSubstitute()) {
+            if ($tutor->isSubstitute()) {
                 $substitutes[] = $tutor;
             }
         }
@@ -323,7 +323,7 @@ class Course
     {
         $tutors = array();
         foreach ($this->tutors as $tutor) {
-            if (!$tutor->isIsSubstitute()) {
+            if (!$tutor->isSubstitute()) {
                 $tutors[] = $tutor;
             }
         }

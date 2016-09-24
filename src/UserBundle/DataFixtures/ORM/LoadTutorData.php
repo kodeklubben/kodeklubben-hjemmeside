@@ -14,19 +14,19 @@ class LoadTutorData extends AbstractFixture implements OrderedFixtureInterface
         $tutor = new Tutor();
         $tutor->setCourse($this->getReference('course_scratch_monday'));
         $tutor->setUser($this->getReference('user-tutor'));
-        $tutor->setIsSubstitute(false);
+        $tutor->setSubstitute(false);
         $manager->persist($tutor);
 
         $tutor = new Tutor();
         $tutor->setCourse($this->getReference('course_java'));
         $tutor->setUser($this->getReference('user-tutor'));
-        $tutor->setIsSubstitute(true);
+        $tutor->setSubstitute(true);
         $manager->persist($tutor);
 
         $tutor = new Tutor();
         $tutor->setCourse($this->getReference('course_scratch_tuesday'));
         $tutor->setUser($this->getReference('user-admin'));
-        $tutor->setIsSubstitute(false);
+        $tutor->setSubstitute(false);
         $manager->persist($tutor);
 
         $manager->flush();

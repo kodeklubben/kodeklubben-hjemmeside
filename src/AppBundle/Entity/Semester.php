@@ -51,14 +51,6 @@ class Semester
     /**
      * @return bool
      */
-    public function getIsSpring()
-    {
-        return $this->isSpring;
-    }
-
-    /**
-     * @return bool
-     */
     public function isSpring()
     {
         return $this->isSpring;
@@ -67,7 +59,7 @@ class Semester
     /**
      * @param bool $isSpring
      */
-    public function setIsSpring($isSpring)
+    public function setSpring($isSpring)
     {
         $this->isSpring = $isSpring;
     }

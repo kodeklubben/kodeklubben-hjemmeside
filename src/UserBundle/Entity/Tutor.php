@@ -75,7 +75,7 @@ class Tutor
      */
     public function getFirstName()
     {
-        return $this->user->setFirstName();
+        return $this->user->getFirstName();
     }
 
     /**
@@ -121,7 +121,7 @@ class Tutor
     /**
      * @return bool
      */
-    public function isIsSubstitute()
+    public function isSubstitute()
     {
         return $this->isSubstitute;
     }
@@ -129,7 +129,7 @@ class Tutor
     /**
      * @param bool $isSubstitute
      */
-    public function setIsSubstitute($isSubstitute)
+    public function setSubstitute($isSubstitute)
     {
         $this->isSubstitute = $isSubstitute;
     }

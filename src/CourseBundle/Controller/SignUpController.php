@@ -153,7 +153,7 @@ class SignUpController extends Controller
             $tutor = new Tutor();
             $tutor->setCourse($course);
             $tutor->setUser($user);
-            $tutor->setIsSubstitute($isSubstitute);
+            $tutor->setSubstitute($isSubstitute);
             $course->addTutor($tutor);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($tutor);
