@@ -2,6 +2,8 @@
 
 namespace UserBundle\Repository;
 
+use CourseBundle\Entity\Course;
+use UserBundle\Entity\Child;
 use UserBundle\Entity\Participant;
 use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
@@ -34,5 +36,38 @@ class ParticipantRepository extends EntityRepository
         return $query
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return Participant[]
+     */
+    public function findByUser(User $user)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->where('participant.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Course $course
+     * @param Child  $child
+     *
+     * @return Participant | null
+     */
+    public function findByCourseAndChild(Course $course, Child $child)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->where('participant.course = :course')
+            ->andWhere('participant.child = :child')
+            ->setParameter('course', $course)
+            ->setParameter('child', $child)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

@@ -10,6 +10,12 @@ parameters:
     database_user: root
     database_password: ~
 
+    database_dev_user: root
+    database_dev_password: ~
+
+    database_test_user: test
+    database_test_password: ~
+
     # You can even create the database and load the sample data from the command line:
     #
     # $ cd symfony-demo/

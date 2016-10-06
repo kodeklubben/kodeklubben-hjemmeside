@@ -14,15 +14,11 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $participant = new Participant();
         $participant->setCourse($this->getReference('course_scratch_monday'));
         $participant->setUser($this->getReference('user-participant'));
-        $participant->setFirstName($participant->getUser()->getFirstName());
-        $participant->setLastName($participant->getUser()->getLastName());
         $manager->persist($participant);
 
         $participant = new Participant();
         $participant->setCourse($this->getReference('course_java'));
         $participant->setUser($this->getReference('user-participant'));
-        $participant->setFirstName($participant->getUser()->getFirstName());
-        $participant->setLastName($participant->getUser()->getLastName());
         $manager->persist($participant);
 
         $manager->flush();

@@ -1,0 +1,33 @@
+<div class="box box-success">
+    <div class="box-header">
+        <h4>Du har meldt deg på følgende kurs:</h4>
+    </div>
+    <div class="box-body">
+        <table class="table table-striped table-fixed">
+            <thead>
+            <tr>
+                <th>Kurs</th>
+                <th>Beskrivelse</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for participant in participants %}
+                <tr>
+                    <td>{{ participant.course.name }}</td>
+                    <td>{{ participant.course.description }}</td>
+                    <td>
+                        <form action="{{ path(isAdmin is defined and isAdmin ? 'course_admin_withdraw_participant' : 'withdraw_from_course_participant', {'id': participant.id}) }}"
+                              method="POST">
+                            <button type="submit"
+                                    class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
+                                Meld av
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

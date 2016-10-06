@@ -30,7 +30,7 @@
                         {% if showRemove is defined %}
                             <td>
                                 <form method="POST" onsubmit="return confirm('Er du sikker?')"
-                                      action="{{ path('withdraw_from_course_tutor', {courseId: course.id, tutorId: tutor.id}) }}">
+                                      action="{{ path('course_admin_withdraw_tutor', {id: tutor.id}) }}">
                                     <button type="submit" class="text-danger btn-link onclick-disable">Fjern</button>
                                 </form>
                             </td>

@@ -2,6 +2,8 @@
 
 namespace CourseBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
@@ -10,77 +12,129 @@ use UserBundle\Entity\Tutor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class SignUpController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/pamelding", name="sign_up")
+     * @Method("GET")
      */
     public function showAction()
+    {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
+            return $this->showParentAction();
+        } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
+            return $this->showParticipantAction();
+        } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
+            return $this->showTutorAction();
+        } else {
+            // This should never happen
+            throw new AccessDeniedException();
+        }
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function showParticipantAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
-        $parameters = array(
+        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
+
+        return $this->render('@Course/sign_up/participant.html.twig', array(
             'currentSemester' => $currentSemester,
             'courseTypes' => $courseTypes,
             'user' => $user,
-        );
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
-            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
-            $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
-
-            return $this->render('@Course/sign_up/parent.html.twig', array_merge($parameters, array(
-                'participants' => $participants,
-                'children' => $children,
-            )));
-        } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
-            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
-
-            return $this->render('@Course/sign_up/participant.html.twig', array_merge($parameters, array(
-                'participants' => $participants,
-            )));
-        } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
-            $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
-
-            return $this->render('@Course/sign_up/tutor.html.twig', array_merge($parameters, array(
-                'tutors' => $tutors,
-            )));
-        } else {
-            // This should never happen
-            return $this->createAccessDeniedException();
-        }
+            'participants' => $participants,
+        ));
     }
 
     /**
-     * @param Course $course
-     * @param Child  $child
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function showParentAction()
+    {
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $courseTypes = $this->filterActiveCourses($allCourseTypes);
+        $user = $this->getUser();
+
+        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUser($user);
+        $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findByParent($user);
+
+        return $this->render('@Course/sign_up/parent.html.twig', array(
+            'currentSemester' => $currentSemester,
+            'courseTypes' => $courseTypes,
+            'user' => $user,
+            'participants' => $participants,
+            'children' => $children,
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    private function showTutorAction()
+    {
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $courseTypes = $this->filterActiveCourses($allCourseTypes);
+        $user = $this->getUser();
+        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
+
+        return $this->render('@Course/sign_up/tutor.html.twig', array(
+            'currentSemester' => $currentSemester,
+            'courseTypes' => $courseTypes,
+            'user' => $user,
+            'tutors' => $tutors,
+        ));
+    }
+
+    /**
+     * @param Course  $course
+     * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/pamelding/barn/{id}/{child}",
+     * @internal param Child $child
+     *
+     * @Route("/pamelding/barn/{id}",
      *     options={"expose"=true},
      *     requirements={"id"="\d+"},
      *     name="sign_up_course_child"
      * )
+     * @Method("POST")
      */
-    public function signUpChildAction(Course $course, Child $child)
+    public function signUpChildAction(Course $course, Request $request)
     {
+        $childId = $request->get('child');
+        if ($childId === null) {
+            throw new NotFoundHttpException();
+        }
+        $child = $this->getDoctrine()->getRepository('UserBundle:Child')->find($childId);
+        if (!$child->getParent() === $this->getUser()) {
+            throw new AccessDeniedException();
+        }
+
         // Check if child is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
+        $isAlreadyParticipant = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByCourseAndChild($course, $child) !== null;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
-        if ($isAlreadyParticipant || !$isThisSemester) {
-            if ($isAlreadyParticipant) {
-                $this->addFlash('warning', $child.' er allerede påmeldt '.$course->getName().'. Ingen handling har blitt utført');
-            } elseif (!$isThisSemester) {
-                $this->addFlash('danger', 'Det har skjedd en feil, vennligst prøv igjen. Kontakt oss hvis problemet vedvarer');
-            }
+        if ($isAlreadyParticipant) {
+            $this->addFlash('warning', $child.' er allerede påmeldt '.$course->getName().'. Ingen handling har blitt utført');
+
+            return $this->redirectToRoute('sign_up');
+        } elseif (!$isThisSemester) {
+            $this->addFlash('danger', 'Det har skjedd en feil, vennligst prøv igjen. Kontakt oss hvis problemet vedvarer');
 
             return $this->redirectToRoute('sign_up');
         }
+
         //Check if course is full
         if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
             $this->addFlash('warning', $course->getName().' er fullt. '.$child.' har IKKE blitt påmeldt');
@@ -88,19 +142,13 @@ class SignUpController extends Controller
             return $this->redirectToRoute('sign_up');
         }
 
-        //Add user as participant to the course
-        $participant = new Participant();
-        $participant->setUser($child->getParent());
-        $participant->setCourse($course);
-        $participant->setFirstName($child->getFirstName());
-        $participant->setLastName($child->getLastName());
-        $participant->setChild($child);
+        //Add child as participant to the course
+        $participant = $this->get('course.sign_up')->createParticipant($course, $child->getParent(), $child);
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($participant);
         $manager->flush();
 
-        $flashMessage = 'Du har meldt '.$child->getFirstName().' '.$child->getLastName().' på '.$course->getName();
-        $this->addFlash('success', $flashMessage);
+        $this->addFlash('success', 'Du har meldt '.$child->getFirstName().' '.$child->getLastName().' på '.$course->getName());
 
         return $this->redirectToRoute('sign_up');
     }
@@ -112,56 +160,14 @@ class SignUpController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/pamelding/{id}", name="sign_up_course", requirements={"id"="\d+"})
+     * @Method("POST")
      */
     public function signUpAction(Course $course, Request $request)
     {
-        $user = $this->getUser();
-        // Check if user is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
-        if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) {
-            $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
-
-            return $this->redirectToRoute('sign_up');
-        }
-
-        // Sign up as a participant if the user is logged in as a participant user
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
-            //Check if course is full
-            if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
-                $this->addFlash('warning', $course->getName().' er fullt. Du har derfor IKKE blitt påmeldt.');
-
-                return $this->redirectToRoute('sign_up');
-            }
-
-            //Add user as participant to the course
-            $participant = new Participant();
-            $participant->setUser($user);
-            $participant->setCourse($course);
-            $participant->setFirstName($user->getFirstName());
-            $participant->setLastName($user->getLastName());
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($participant);
-            $manager->flush();
-
-            $this->addFlash('success', 'Du har meldt deg på '.$course->getName());
-
-            // Sign up as a tutor if the user is logged in as a tutor user
+            return $this->signUpParticipantAction($course);
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
-            $isSubstitute = !is_null($request->request->get('substitute'));
-            $tutor = new Tutor();
-            $tutor->setCourse($course);
-            $tutor->setUser($user);
-            $tutor->setSubstitute($isSubstitute);
-            $course->addTutor($tutor);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($tutor);
-            $manager->persist($course);
-            $manager->flush();
-
-            $role = $isSubstitute ? 'vikar' : 'veileder';
-            $this->addFlash('success', 'Du har meldt deg på '.$course->getName().' som '.$role);
+            return $this->signUpTutorAction($course, $request);
         } else {
             $this->addFlash('danger', 'Det har skjedd en feil! Vennligst prøv igjen.');
         }
@@ -170,48 +176,99 @@ class SignUpController extends Controller
     }
 
     /**
+     * @param Course $course
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function signUpParticipantAction(Course $course)
+    {
+        $user = $this->getUser();
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')  || !$isThisSemester) {
+            throw new AccessDeniedException();
+        }
+        // Check if user is already signed up to the course or the course is set for another semester
+        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
+        if ($isAlreadyParticipant) {
+            $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
+
+        //Check if course is full
+        } elseif (count($course->getParticipants()) >= $course->getParticipantLimit()) {
+            $this->addFlash('warning', $course->getName().' er fullt. Du har derfor IKKE blitt påmeldt.');
+
+        //Add user as participant to the course
+        } else {
+            $participant = $this->get('course.sign_up')->createParticipant($course, $user);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($participant);
+            $manager->flush();
+
+            $this->addFlash('success', 'Du har meldt deg på '.$course->getName());
+        }
+
+        return $this->redirectToRoute('sign_up');
+    }
+
+    /**
+     * @param Course  $course
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function signUpTutorAction(Course $course, Request $request)
+    {
+        $user = $this->getUser();
+        $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')  || !$isThisSemester) {
+            throw new AccessDeniedException();
+        }
+        // Check if user is already signed up to the course
+        $isAlreadyTutor = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByCourseAndUser($course, $user) !== null;
+        if ($isAlreadyTutor) {
+            $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
+        } else {
+            $isSubstitute = $request->request->get('substitute') !== null;
+            $tutor = $this->get('course.sign_up')->createTutor($course, $user, $isSubstitute);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($tutor);
+            $manager->flush();
+
+            $role = $isSubstitute ? 'vikar' : 'veileder';
+            $this->addFlash('success', 'Du har meldt deg på '.$course->getName().' som '.$role);
+        }
+
+        return $this->redirectToRoute('sign_up');
+    }
+
+    /**
+     * @param Course  $course
+     * @param Request $request
      *
-     * @Route("/pamelding/veileder/meldav/{courseId}/{tutorId}",
-     *     requirements={"courseId" = "\d+", "tutorId" = "\d+"},
-     *     defaults={"tutorId" = null},
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/pamelding/veileder/meldav/{id}",
+     *     requirements={"id" = "\d+"},
      *     name="withdraw_from_course_tutor"
      * )
+     * @Method("POST")
      */
-    public function withdrawTutorAction(Request $request)
+    public function withdrawTutorAction(Course $course, Request $request)
     {
         $tutorRepo = $this->getDoctrine()->getRepository('UserBundle:Tutor');
-        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
-        $tutorId = $request->get('tutorId');
-        $isAdminDeletingTutor = $isAdmin && !is_null($tutorId);
-        $course = $this->getDoctrine()->getRepository('CourseBundle:Course')->find($request->get('courseId'));
         $user = $this->getUser();
 
-        if ($isAdminDeletingTutor) {
-            $tutor = $tutorRepo->find($tutorId);
-        } else {
-            $tutor = $tutorRepo->findOneBy(array('user' => $user, 'course' => $course));
-        }
+        $tutor = $tutorRepo->findOneBy(array('user' => $user, 'course' => $course));
 
         // Check if tutor is already signed up to the course
         $isAlreadyTutor = $tutor->getCourse()->getId() === $course->getId();
         if ($isAlreadyTutor) {
-            $course->removeTutor($tutor);
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($tutor);
-            $manager->persist($course);
             $manager->flush();
 
-            if (!$isAdminDeletingTutor) {
-                $this->addFlash('success', 'Du har meldt deg av '.$course->getName());
-            }
+            $this->addFlash('success', 'Du har meldt deg av '.$course->getName());
         } else {
-            if (!$isAdminDeletingTutor) {
-                $this->addFlash('danger', 'Det skjedde en feil da vi prøvde å melde deg av '.
-                    $course->getName().' vennligst prøv igjen');
-            }
+            $this->addFlash('danger', 'Det skjedde en feil da vi prøvde å melde deg av '.
+                $course->getName().'. vennligst prøv igjen');
         }
 
         return $this->redirect($request->headers->get('referer'));
@@ -227,11 +284,11 @@ class SignUpController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="withdraw_from_course_participant"
      * )
+     * @Method("POST")
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
-        $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
-        if ($isAdmin || ($participant->getUser()->getId() == $this->getUser()->getId())) {
+        if ($participant->getUser()->getId() == $this->getUser()->getId()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($participant);
             $manager->flush();

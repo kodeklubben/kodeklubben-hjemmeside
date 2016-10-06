@@ -99,13 +99,7 @@ class AdminSignUpController extends Controller
             return $this->redirect($request->headers->get('referer'));
         }
 
-        //Add user as participant to the course
-        $participant = new Participant();
-        $participant->setUser($child->getParent());
-        $participant->setCourse($course);
-        $participant->setFirstName($child->getFirstName());
-        $participant->setLastName($child->getLastName());
-        $participant->setChild($child);
+        $participant = $this->get('course.sign_up')->createParticipant($course, $child->getParent(), $child);
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($participant);
         $manager->flush();
@@ -143,43 +137,103 @@ class AdminSignUpController extends Controller
 
         // Sign up as a participant if the user is logged in as a participant user
         if (in_array('ROLE_PARTICIPANT', $user->getRoles())) {
-            //Check if course is full
-            if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
-                $this->addFlash('warning', $course->getName().' er fullt. '.$user->getFullName().' har derfor IKKE blitt påmeldt.');
+            return $this->signUpParticipant($request, $course, $user);
 
-                return $this->redirect($request->headers->get('referer'));
-            }
-
-            //Add user as participant to the course
-            $participant = new Participant();
-            $participant->setUser($user);
-            $participant->setCourse($course);
-            $participant->setFirstName($user->getFirstName());
-            $participant->setLastName($user->getLastName());
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($participant);
-            $manager->flush();
-
-            $this->addFlash('success', 'Du har meldt '.$user->getFullName().' på '.$course->getName());
-
-            // Sign up as a tutor if the user is logged in as a tutor user
+        // Sign up as a tutor if the user is logged in as a tutor user
         } elseif (in_array('ROLE_TUTOR', $user->getRoles())) {
-            $isSubstitute = !is_null($request->request->get('substitute'));
-            $tutor = new Tutor();
-            $tutor->setCourse($course);
-            $tutor->setUser($user);
-            $tutor->setSubstitute($isSubstitute);
-            $course->addTutor($tutor);
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($tutor);
-            $manager->persist($course);
-            $manager->flush();
-
-            $role = $isSubstitute ? 'vikar' : 'veileder';
-            $this->addFlash('success', 'Du har meldt '.$user->getFullName().' på '.$course->getName().' som '.$role);
+            return $this->signUpTutor($request, $course, $user);
         } else {
             $this->addFlash('danger', 'Det har skjedd en feil! Vennligst prøv igjen.');
         }
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param Request $request
+     * @param Course  $course
+     * @param User    $user
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    private function signUpParticipant(Request $request, Course $course, User $user)
+    {
+        //Check if course is full
+        if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
+            $this->addFlash('warning', $course->getName().' er fullt. '.$user->getFullName().' har derfor IKKE blitt påmeldt.');
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        //Add user as participant to the course
+        $participant = $this->get('course.sign_up')->createParticipant($course, $user);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($participant);
+        $manager->flush();
+
+        $this->addFlash('success', 'Du har meldt '.$user->getFullName().' på '.$course->getName());
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    private function signUpTutor(Request $request, Course $course, User $user)
+    {
+        $isSubstitute = !is_null($request->request->get('substitute'));
+        $tutor = $this->get('course.sign_up')->createTutor($course, $user, $isSubstitute);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($tutor);
+        $manager->flush();
+
+        $role = $isSubstitute ? 'vikar' : 'veileder';
+        $this->addFlash('success', 'Du har meldt '.$user->getFullName().' på '.$course->getName().' som '.$role);
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param Participant $participant
+     * @param Request     $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/pamelding/deltaker/meldav/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="course_admin_withdraw_participant"
+     * )
+     * @Method("POST")
+     */
+    public function withdrawParticipantAction(Participant $participant, Request $request)
+    {
+        $name = $participant->getChild() === null ? $participant->getFullName() : $participant->getChild()->getFullName();
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($participant);
+        $manager->flush();
+
+        $this->addFlash('success', 'Du har meldt '.$name.' av '.$participant->getCourse()->getName());
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @param Tutor   $tutor
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/pamelding/veileder/meldav/{id}",
+     *     requirements={"id" = "\d+"},
+     *     name="course_admin_withdraw_tutor"
+     * )
+     * @Method("POST")
+     */
+    public function withdrawTutorAction(Tutor $tutor, Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($tutor);
+        $manager->flush();
+
+        $this->addFlash('success', 'Du har meldt '.$tutor->getFullName().' av '.$tutor->getCourse()->getName());
 
         return $this->redirect($request->headers->get('referer'));
     }

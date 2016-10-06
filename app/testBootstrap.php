@@ -15,8 +15,6 @@ AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 $kernel = new AppKernel('test', true); // create a "test" kernel
 $kernel->boot();
 
-ini_set('memory_limit', '268435456');
-
 $application = new Application($kernel);
 $application->setAutoExit(false);
 

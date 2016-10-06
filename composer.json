@@ -1,6 +1,6 @@
 {
-    "name": "kodeklubben-hjemmeside",
-    "license": "",
+    "name": "kodeklubben/kodeklubben-hjemmeside",
+    "license": "proprietary",
     "type": "project",
     "description": "Utviklingsprosjekt for kodeklubben som sikter mot å lage en generisk hjemmeside som kan brukes av alle landets kodeklubber.",
     "autoload": {
@@ -9,7 +9,6 @@
     },
     "require": {
         "php"                                  : ">=7.0",
-        "ext-pdo_sqlite"                       : "*",
         "doctrine/doctrine-bundle"             : "~1.5",
         "doctrine/doctrine-fixtures-bundle"    : "~2.2",
         "doctrine/orm"                         : "~2.4",
@@ -27,14 +26,15 @@
         "symfony/swiftmailer-bundle"           : "~2.3",
         "symfony/symfony"                      : "~2.8",
         "twig/extensions"                      : "~1.2",
-        "friendsofsymfony/jsrouting-bundle": "^1.6",
-        "symfony/filesystem": "^2.8",
-        "doctrine/doctrine-migrations-bundle": "^1.0",
-        "phpunit/phpunit": "^5.5"
+        "friendsofsymfony/jsrouting-bundle"    : "^1.6",
+        "symfony/filesystem"                   : "^2.8",
+        "doctrine/doctrine-migrations-bundle"  : "^1.0",
+        "phpunit/phpunit"                      : "^5.5"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
-        "friendsofphp/php-cs-fixer": "^1.11"
+        "ext-pdo_sqlite"                       : "*",
+        "sensio/generator-bundle"              : "~3.0",
+        "friendsofphp/php-cs-fixer"            : "^1.11"
     },
     "scripts": {
         "post-install-cmd": [

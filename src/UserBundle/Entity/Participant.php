@@ -28,22 +28,6 @@ class Participant
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="first_name", type="string")
-     * @Assert\NotBlank()
-     */
-    private $firstName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="last_name", type="string")
-     * @Assert\NotBlank()
-     */
-    private $lastName;
-
-    /**
      * @var Child
      * 
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\Child")
@@ -84,15 +68,7 @@ class Participant
      */
     public function getFirstName()
     {
-        return $this->firstName;
-    }
-
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
+        return $this->user->getFirstName();
     }
 
     /**
@@ -100,15 +76,7 @@ class Participant
      */
     public function getLastName()
     {
-        return $this->lastName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+        return $this->user->getLastName();
     }
 
     /**
@@ -164,6 +132,18 @@ class Participant
      */
     public function getFullName()
     {
-        return $this->getFirstName().' '.$this->getLastName();
+        return $this->user->getFullName();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if ($this->child === null) {
+            return $this->child->getFullName();
+        } else {
+            return $this->user->getFullName();
+        }
     }
 }

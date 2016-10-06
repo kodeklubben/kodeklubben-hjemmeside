@@ -1,0 +1,40 @@
+<div class="box box-success">
+    <div class="box-header">
+        <h4>Du har meldt deg på følgende kurs:</h4>
+    </div>
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Kurs</th>
+                    <th>Beskrivelse</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tutor in tutors %}
+                    <tr>
+                        <td>{{ tutor.course.name }}</td>
+                        <td>{{ tutor.course.description }}</td>
+                        <td>{{ tutor.isSubstitute ?
+                            '<span class="text-warning text-bold">Vikar</span>'
+                            :
+                            '<span class="text-success text-bold">Veileder</span>' }}
+                        </td>
+                        <td>
+                            <form method="POST"
+                                  action="{{ path(isAdmin is defined and isAdmin ? 'course_admin_withdraw_tutor' : 'withdraw_from_course_tutor', {'id': tutor.id}) }}">
+                                <button type="submit"
+                                        class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
+                                    Meld av
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

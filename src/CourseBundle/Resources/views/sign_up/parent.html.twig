@@ -31,9 +31,11 @@
                                     <td>{{ child.firstName }}</td>
                                     <td>{{ child.lastName }}</td>
                                     <td>
-                                        <form method="POST" onsubmit="return confirm('Er du sikker på at du vil slette {{ child }}?')"
+                                        <form method="POST"
+                                              onsubmit="return confirm('Er du sikker på at du vil slette {{ child }}?')"
                                               action="{{ path('child_delete', {'id': child.id}) }}">
-                                            <button type="submit" class="btn btn-danger btn-xs btn-flat float-right onclick-disable">
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-xs btn-flat float-right onclick-disable">
                                                 Slett
                                             </button>
                                         </form>
@@ -49,35 +51,7 @@
 
         {% if participants|length %}
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h4>Du har meldt dine barn på følgende kurs:</h4>
-                    </div>
-                    <div class="box-body">
-                        <table class="table table-striped table-fixed">
-                            <thead>
-                            <tr>
-                                <th>Barn</th>
-                                <th>Kurs</th>
-                                <th>Beskrivelse</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for participant in participants %}
-                                <tr>
-                                    <td>{{ participant.firstName }} {{ participant.lastName }}</td>
-                                    <td>{{ participant.course.name }}</td>
-                                    <td>{{ participant.course.description }}</td>
-                                    <td><a href="{{ path('withdraw_from_course_participant', {'id': participant.id}) }}"
-                                           class="btn btn-warning btn-xs btn-flat float-right onclick-disable">Meld
-                                            av</a></td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                {% include '@Course/sign_up/signed_up_children.html.twig' %}
             </div>
         {% endif %}
 
@@ -100,40 +74,45 @@
                                     </div>
                                     <div class="pull-down">
                                         <footer>
-                                            <div class="form-group">
-                                                <label for="">Velg barn</label>
-                                                <select courseId="{{ course.id }}" class="form-control">
-                                                    {% if children|length == 0 %}
-                                                        <option>Ingen barn</option>
-                                                    {% endif %}
-                                                    {% for child in children %}
-                                                        <option value="{{ child.id }}">{{ child.fullName }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
+                                            <form action="{{ path('sign_up_course_child', {id: course.id}) }}"
+                                                  method="POST">
+                                                <div class="form-group">
+                                                    <label for="child">Velg barn</label>
+                                                    <select name="child" id="child" class="form-control">
+                                                        {% if children|length == 0 %}
+                                                            <option>Ingen barn</option>
+                                                        {% endif %}
+                                                        {% for child in children %}
+                                                            <option value="{{ child.id }}">{{ child.fullName }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
 
-                                            {% set placesLeft = course.participantLimit-course.participants|length %}
-                                            {% if placesLeft == 0 %}
-                                                {% set placesLeftClass = 'text-danger' %}
-                                            {% elseif placesLeft <= 5 %}
-                                                {% set placesLeftClass = 'text-warning' %}
-                                            {% else %}
-                                                {% set placesLeftClass = 'text-success' %}
-                                            {% endif %}
-
-                                            <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
-
-                                            <div class="form-group">
-                                                {% if placesLeft <= 0 %}
-                                                    <button disabled class="btn btn-primary btn-sm">Fullt</button>
+                                                {% set placesLeft = course.participantLimit-course.participants|length %}
+                                                {% if placesLeft == 0 %}
+                                                    {% set placesLeftClass = 'text-danger' %}
+                                                {% elseif placesLeft <= 5 %}
+                                                    {% set placesLeftClass = 'text-warning' %}
                                                 {% else %}
-                                                    <button {{ children|length == 0 ? 'disabled' }}
-                                                            class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
+                                                    {% set placesLeftClass = 'text-success' %}
                                                 {% endif %}
-                                                <a href="{{ path('course_info', {id: course.id}) }}"
-                                                   class="btn btn-sm btn-default">Mer
-                                                    info</a>
-                                            </div>
+
+                                                <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+
+                                                <div class="form-group">
+                                                    {% if placesLeft <= 0 %}
+                                                        <button type="button" disabled class="btn btn-primary btn-sm">
+                                                            Fullt
+                                                        </button>
+                                                    {% else %}
+                                                        <button {{ children|length == 0 ? 'type="button" disabled' : 'type="submit"' }}
+                                                                class="btn btn-primary btn-sm onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
+                                                    {% endif %}
+                                                    <a href="{{ path('course_info', {id: course.id}) }}"
+                                                       class="btn btn-sm btn-default">Mer
+                                                        info</a>
+                                                </div>
+                                            </form>
                                         </footer>
                                     </div>
                                 </div>
@@ -158,16 +137,6 @@
             var $timeTables = $('.time-table');
             $timeTables.each(function () {
                 sortTableByAttribute($(this), 'timestamp', true);
-            });
-
-            //Sign child up to course when sign up button is clicked
-            $('.btn-sign-up').each(function () {
-                $(this).on('click', function () {
-                    var $select = $(this).closest('footer').find('select').first();
-                    var childId = $select.val();
-                    var courseId = $select.attr('courseId');
-                    window.location = Routing.generate('sign_up_course_child', {id: courseId, child: childId});
-                })
             });
         })
     </script>

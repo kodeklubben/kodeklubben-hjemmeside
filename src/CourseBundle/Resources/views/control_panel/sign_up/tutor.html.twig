@@ -14,46 +14,7 @@
         {% if tutors|length %}
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                    <div class="box box-success">
-                        <div class="box-header">
-                            <h4>{{ user.fullName }} er påmeldt følgende kurs:</h4>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Kurs</th>
-                                        <th>Beskrivelse</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for tutor in tutors %}
-                                        <tr>
-                                            <td>{{ tutor.course.name }}</td>
-                                            <td>{{ tutor.course.description }}</td>
-                                            <td>{{ tutor.isSubstitute ?
-                                                '<span class="text-warning text-bold">Vikar</span>'
-                                                :
-                                                '<span class="text-success text-bold">Veileder</span>' }}
-                                            </td>
-                                            <td>
-                                                <form method="POST"
-                                                      action="{{ path('withdraw_from_course_tutor', {'courseId': tutor.course.id, 'tutorId': tutor.id}) }}">
-                                                    <button type="submit"
-                                                            class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
-                                                        Meld av
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    {% include '@Course/sign_up/signed_up_tutor.html.twig' with {isAdmin: true} %}
                 </div>
             </div>
         {% endif %}

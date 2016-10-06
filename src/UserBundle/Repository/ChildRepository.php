@@ -3,13 +3,26 @@
 namespace UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use UserBundle\Entity\Child;
+use UserBundle\Entity\User;
 
 /**
- * This custom Doctrine repository is empty because so far we don't need any custom
- * method to query for application user information. But it's always a good practice
- * to define a custom repository that will be used when the application grows.
- * See http://symfony.com/doc/current/book/doctrine.html#custom-repository-classes.
+ * Child repository.
  */
 class ChildRepository extends EntityRepository
 {
+    /**
+     * @param User $user
+     *
+     * @return Child[]
+     */
+    public function findByParent(User $user)
+    {
+        return $this->createQueryBuilder('child')
+            ->select('child')
+            ->where('child.parent = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }
