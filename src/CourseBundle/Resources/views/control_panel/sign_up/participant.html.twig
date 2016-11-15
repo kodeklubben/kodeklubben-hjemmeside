@@ -58,8 +58,7 @@
                                                 {% else %}
                                                     <form method="POST" action="{{ path('cp_sign_up_course', {'course': course.id, 'user': user.id}) }}">
                                                     <button type="submit" {{ alreadySignedUp ? 'disabled' }}
-                                                       class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld
-                                                på' }}</button>
+                                                       class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}</button>
                                                 {% endif %}
                                                 <a href="{{ path('course_info', {id: course.id}) }}"
                                                    class="btn btn-sm btn-default">Mer

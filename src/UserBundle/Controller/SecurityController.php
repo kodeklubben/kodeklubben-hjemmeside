@@ -12,6 +12,11 @@ class SecurityController extends Controller
 {
     public function loginAction(Request $request)
     {
+        // Already logged in
+        if ($this->getUser() !== null) {
+            return $this->redirectToRoute('home');
+        }
+
         $helper = $this->get('security.authentication_utils');
         $last_username = $helper->getLastUsername();
         if (!$last_username) {

@@ -54,8 +54,7 @@
                                                 <button disabled class="btn btn-primary btn-sm">Fullt</button>
                                             {% else %}
                                                     <button {{ alreadySignedUp ? 'type="button" disabled' : 'type="submit"' }}
-                                                            class="btn btn-primary btn-sm onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld
-                                                på' }}</button>
+                                                            class="btn btn-primary btn-sm onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}</button>
                                             {% endif %}
                                             <a href="{{ path('course_info', {id: course.id}) }}"
                                                class="btn btn-sm btn-default">Mer

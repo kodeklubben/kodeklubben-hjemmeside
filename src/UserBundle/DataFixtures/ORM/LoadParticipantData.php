@@ -21,6 +21,18 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $participant->setUser($this->getReference('user-participant'));
         $manager->persist($participant);
 
+        $participant = new Participant();
+        $participant->setCourse($this->getReference('course_java'));
+        $participant->setUser($this->getReference('user-parent'));
+        $participant->setChild($this->getReference('child1'));
+        $manager->persist($participant);
+
+        $participant = new Participant();
+        $participant->setCourse($this->getReference('course_python_1_monday'));
+        $participant->setUser($this->getReference('user-parent'));
+        $participant->setChild($this->getReference('child2'));
+        $manager->persist($participant);
+
         $manager->flush();
     }
 
