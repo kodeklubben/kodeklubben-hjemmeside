@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
             new CodeClubBundle\CodeClubBundle(),
             new StaticContentBundle\StaticContentBundle(),
             new CourseBundle\CourseBundle(),

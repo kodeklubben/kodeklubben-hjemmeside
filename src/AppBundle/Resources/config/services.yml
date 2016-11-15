@@ -1,6 +1,2 @@
-services:
-    app.twig_extension:
-        class: AppBundle\TwigExtensions\HTMLFilterExtension
-        public: false
-        tags:
-          - { name: twig.extension }
+#services:
+

@@ -3,7 +3,7 @@
         <form>
             <div class="form-group">
                 <label class="control-label required" for="{{ idString }}Content" >{{ label }}</label>
-                <textarea rows="{{ rows }}" id="{{ idString }}Content" required="required" class="form-control">{{ get_content(idString)|replace({'<br>':'\n'})|safe_html }}</textarea>
+                <textarea rows="{{ rows }}" id="{{ idString }}Content" required="required" class="form-control">{{ get_content(idString)|replace({'<br>':'\n'})|purify }}</textarea>
             </div>
 
             <button type="button" class="btn btn-primary btn-sm btn-flat" id="{{ buttonId }}">{{ buttonLabel }}</button>

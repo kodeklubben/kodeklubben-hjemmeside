@@ -14,7 +14,7 @@
     <section class="row">
         <div class="col-xs-12">
             <h3>Beskrivelse</h3>
-            <p>{{ course.courseType.description|safe_html }}</p>
+            <p>{{ course.courseType.description|purify }}</p>
         </div>
     </section>
     <hr>

@@ -5,7 +5,7 @@
     <div class="row row-home">
         <div class="col-lg-12">
             <div class="well text-center">
-                {{ get_content('tagline')|safe_html }}
+                {{ get_content('tagline')|purify }}
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <div class="box-body">
                     {% include '@Image/editable_image_template.html.twig' with {'image': get_image('participant')} %}
                     <div class="box-text">
-                        <p>{{ get_content('participant_info')|safe_html }}</p>
+                        <p>{{ get_content('participant_info')|purify }}</p>
                         <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli deltaker!</a>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="box-body">
                     {% include '@Image/editable_image_template.html.twig' with {'image': get_image('tutor')} %}
                     <div class="box-text">
-                        <p>{{ get_content('tutor_info')|safe_html }}</p>
+                        <p>{{ get_content('tutor_info')|purify }}</p>
                         <a class="btn btn-primary" href="{{ path('sign_up') }}">Bli veileder!</a>
                     </div>
                 </div>
