@@ -79,8 +79,11 @@
     }
 
     function thisWeek() {
-        week = (new Date()).getWeekNumber();
-        loadTableData(week);
+        var weekNumber = (new Date()).getWeekNumber();
+        if (weekNumber !== week) {
+            week = weekNumber;
+            loadTableData(week);
+        }
     }
 
     function clearTable(){
