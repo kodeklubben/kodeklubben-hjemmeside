@@ -2,6 +2,49 @@
 
 {% block body %}
     <section class="content-header">
-        <h1>E-post</h1>
+        <h1>E-post kurs {{ semester }}</h1>
+    </section>
+    <section class="content">
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-fixed">
+                        <tbody>
+                        {% for course in courses if course.participants|length or course.tutors|length%}
+                            <tr>
+                                <td>
+                                    <h5 class="text-bold text-primary">{{ course.name }} ({{ course.description }})</h5>
+                                </td>
+                            </tr>
+                            {% if course.participants|length %}
+                                <tr>
+                                    <td>
+                                        <span class="text-blue">Deltakere</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {% for participant in course.participants %}{{ participant.user.email }}{{ loop.last ? '' : ';' }}{% endfor %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if course.tutors|length %}
+                                <tr>
+                                    <td>
+                                        <span class="text-success">Veiledere</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {% for participant in course.tutors %}{{ participant.user.email }}{{ loop.last ? '' : ';' }}{% endfor %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </section>
 {% endblock %}
