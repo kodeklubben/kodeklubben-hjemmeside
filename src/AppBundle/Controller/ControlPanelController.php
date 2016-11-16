@@ -19,7 +19,27 @@ class ControlPanelController extends Controller
      */
     public function showAction()
     {
-        return $this->render('@App/control_panel/show.html.twig', array(// ...
+        $doctrine = $this->getDoctrine();
+        $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
+        $userCount = count($doctrine->getRepository('UserBundle:User')->findAll());
+        $newUsersCurrentSemesterCount = count($doctrine->getRepository('UserBundle:User')->findNewUsersBySemester($currentSemester));
+        $participantCount = count($doctrine->getRepository('UserBundle:Participant')->findAll());
+        $participantCountCurrentSemester = count($doctrine->getRepository('UserBundle:Participant')->findBySemester($currentSemester));
+        $tutorCount = count($doctrine->getRepository('UserBundle:Tutor')->findAll());
+        $tutorCountCurrentSemester = count($doctrine->getRepository('UserBundle:Tutor')->findBySemester($currentSemester));
+        $courseCount = count($doctrine->getRepository('CourseBundle:Course')->findAll());
+        $courseCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Course')->findBySemester($currentSemester));
+
+        return $this->render('@App/control_panel/show.html.twig', array(
+            'userCount' => $userCount,
+            'newUserCount' => $newUsersCurrentSemesterCount,
+            'participantCount' => $participantCount,
+            'newParticipantCount' => $participantCountCurrentSemester,
+            'tutorCount' => $tutorCount,
+            'newTutorCount' => $tutorCountCurrentSemester,
+            'courseCount' => $courseCount,
+            'newCourseCount' => $courseCountCurrentSemester,
+            'currentSemester' => $currentSemester,
         ));
     }
 

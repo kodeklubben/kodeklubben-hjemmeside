@@ -2,6 +2,7 @@
 
 namespace UserBundle\Repository;
 
+use AppBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\User;
 
@@ -23,5 +24,22 @@ class UserRepository extends EntityRepository
             ->setParameter('email', $email)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Semester $semester
+     *
+     * @return User[]
+     */
+    public function findNewUsersBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->where('user.createdDatetime >= :semesterStart')
+            ->andWhere('user.createdDatetime < :semesterEnd')
+            ->setParameter('semesterStart', $semester->getStartTime())
+            ->setParameter('semesterEnd', $semester->getEndTime())
+            ->getQuery()
+            ->getResult();
     }
 }

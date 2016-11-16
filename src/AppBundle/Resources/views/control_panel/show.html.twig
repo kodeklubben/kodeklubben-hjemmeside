@@ -10,7 +10,70 @@
     <section class="content">
         <!-- Info boxes -->
         <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path('cp_users') }}" class="info-link">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Brukere</span>
+                            <span class="info-box-number">{{ userCount }}</span>
+                            {% if newUserCount > 0 %}
+                                <p><span class="text-success">+{{ newUserCount }}</span> {{ currentSemester }}</p>
+                            {% endif %}
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path('cp_course') }}" class="info-link">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-line-chart"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Kurs</span>
+                            <span class="info-box-number">{{ courseCount }}</span>
+                            {% if newCourseCount > 0 %}
+                                <p><span class="text-success">+{{ newCourseCount }}</span> {{ currentSemester }}</p>
+                            {% endif %}
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path('cp_participants') }}" class="info-link">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Kursdeltakere</span>
+                            <span class="info-box-number">{{ participantCount }}</span>
+                            {% if newParticipantCount > 0 %}
+                                <p><span class="text-success">+{{ newParticipantCount }}</span> {{ currentSemester }}
+                                </p>
+                            {% endif %}
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path('cp_tutors') }}" class="info-link">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-user-secret"></i></span>
 
+                        <div class="info-box-content">
+                            <span class="info-box-text">Kursveiledere</span>
+                            <span class="info-box-number">{{ tutorCount }}</span>
+                            {% if newTutorCount > 0 %}
+                                <p><span class="text-success">+{{ newTutorCount }}</span> {{ currentSemester }}</p>
+                            {% endif %}
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </a>
+            </div>
         </div><!-- /.row -->
     </section><!-- /.content -->
 {% endblock %}

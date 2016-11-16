@@ -2,6 +2,7 @@
 
 namespace UserBundle\Repository;
 
+use AppBundle\Entity\Semester;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\Tutor;
@@ -25,5 +26,21 @@ class TutorRepository extends EntityRepository
             ->setParameter('user', $user)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Semester $semester
+     *
+     * @return Tutor[]
+     */
+    public function findBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('tutor')
+            ->select('tutor')
+            ->join('tutor.course', 'course')
+            ->where('course.semester = :semester')
+            ->setParameter('semester', $semester)
+            ->getQuery()
+            ->getResult();
     }
 }

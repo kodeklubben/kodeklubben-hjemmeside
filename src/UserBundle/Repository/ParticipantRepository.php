@@ -2,6 +2,7 @@
 
 namespace UserBundle\Repository;
 
+use AppBundle\Entity\Semester;
 use CourseBundle\Entity\Course;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\Participant;
@@ -69,5 +70,21 @@ class ParticipantRepository extends EntityRepository
             ->setParameter('child', $child)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Semester $semester
+     *
+     * @return Participant[]
+     */
+    public function findBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->join('participant.course', 'course')
+            ->where('course.semester = :semester')
+            ->setParameter('semester', $semester)
+            ->getQuery()
+            ->getResult();
     }
 }
