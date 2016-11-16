@@ -243,17 +243,16 @@ class UserController extends Controller
     {
         //Remove tutor from all courses this and future semesters
         $manager = $this->getDoctrine()->getManager();
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutorThisAndLaterSemesters($user);
-        foreach ($courses as $course) {
-            $course->removeTutor($user);
-            $manager->persist($course);
+        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUserThisAndLaterSemesters($user);
+        foreach ($tutors as $tutor) {
+            $manager->remove($tutor);
         }
         $manager->flush();
     }
 
     private function removeParticipants($user)
     {
-        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
+        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUser($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
             $manager->remove($participant);
@@ -263,11 +262,10 @@ class UserController extends Controller
 
     private function removeTutors($user)
     {
+        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUser($user);
         $manager = $this->getDoctrine()->getManager();
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findByTutor($user);
-        foreach ($courses as $course) {
-            $course->removeTutor($user);
-            $manager->persist($course);
+        foreach ($tutors as $tutor) {
+            $manager->remove($tutor);
         }
         $manager->flush();
     }

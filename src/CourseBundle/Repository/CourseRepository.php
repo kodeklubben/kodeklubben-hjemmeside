@@ -74,34 +74,6 @@ class CourseRepository extends EntityRepository
     }
 
     /**
-     * @param User $tutor
-     *
-     * @return Course[]
-     */
-    public function findByTutorThisAndLaterSemesters(User $tutor)
-    {
-        $now = new \DateTime();
-        $year = $now->format('Y');
-        $isSpring = intval($now->format('m')) <= 7;
-        $query = $this->createQueryBuilder('course')
-            ->select('course')
-            ->join('course.semester', 'semester')
-            ->join('course.tutors', 'tutors')
-            ->where('tutors = :user')
-            ->andWhere('course.deleted = false')
-            ->setParameter('user', $tutor)
-            ->andWhere('semester.year >= :year')
-            ->setParameter('year', $year);
-        if (!$isSpring) {
-            $query->andWhere('semester.isSpring = false');
-        }
-
-        return $query
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
      * @param Semester $semester
      *
      * @return Course[]
