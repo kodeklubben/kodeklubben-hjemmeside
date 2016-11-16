@@ -14,7 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="course_type", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="course_type_name_idx", columns={"name"})
  * })
- * @UniqueEntity("name")
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     message="Navnet er allerede i bruk"
+ * )
  * 
  * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseTypeRepository")
  */
