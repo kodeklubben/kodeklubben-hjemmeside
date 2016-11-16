@@ -16,7 +16,7 @@
                         </div>
                         <div>
                             <h3>{{ courseType.name }}</h3>
-                            <p class="description">{{ courseType.description|purify }}</p>
+                            <p class="description">{{ courseType.description|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') }}</p>
                         </div>
                         <div class="pull-down">
                             <footer>

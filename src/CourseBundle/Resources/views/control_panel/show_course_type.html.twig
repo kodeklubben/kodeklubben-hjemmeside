@@ -24,7 +24,7 @@
                             </div>
                             <div>
                                 <h3>{{ course.name }}</h3>
-                                <p class="description">{{ course.description }}</p>
+                                <p class="description">{{ course.description|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') }}</p>
                             </div>
                             <div class="pull-down">
                                 <footer>

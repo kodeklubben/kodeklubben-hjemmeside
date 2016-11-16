@@ -5,7 +5,6 @@ namespace CourseBundle\Form\Type;
 use ImageBundle\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,8 +29,11 @@ class CourseTypeType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Navn',
             ))
-            ->add('description', TextareaType::class, array(
+            ->add('description', 'ckeditor', array(
                 'label' => 'Beskrivelse',
+                'config' => array(
+                    'height' => 350,
+                ),
             ))
             ->add('challengesUrl', TextType::class, array(
                 'label' => 'Link til oppgaver',
