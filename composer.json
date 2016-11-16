@@ -30,7 +30,8 @@
         "symfony/filesystem"                   : "^2.8",
         "doctrine/doctrine-migrations-bundle"  : "^1.0",
         "phpunit/phpunit"                      : "^5.5",
-        "exercise/htmlpurifier-bundle": "^0.2.3"
+        "exercise/htmlpurifier-bundle"         : "^0.2.3",
+        "egeloen/ckeditor-bundle"              : "^4.0"
     },
     "require-dev": {
         "ext-pdo_sqlite"                       : "*",

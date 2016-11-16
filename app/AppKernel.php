@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new CodeClubBundle\CodeClubBundle(),
             new StaticContentBundle\StaticContentBundle(),
             new CourseBundle\CourseBundle(),

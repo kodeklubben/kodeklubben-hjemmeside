@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminStaticContentController.
@@ -17,12 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class AdminStaticContentController extends Controller
 {
-    public function showInfoAction()
-    {
-        return $this->render('@StaticContent/control_panel/show_info.html.twig', array(
-        ));
-    }
-
     /**
      * @param Request $request
      *
@@ -32,7 +25,7 @@ class AdminStaticContentController extends Controller
      */
     public function showHeaderAction(Request $request)
     {
-        return $this->_renderForm($request, 'header', 'Header');
+        return $this->renderForm($request, 'header', 'Header');
     }
 
     /**
@@ -44,7 +37,7 @@ class AdminStaticContentController extends Controller
      */
     public function showTaglineAction(Request $request)
     {
-        return $this->_renderForm($request, 'tagline', 'Tagline');
+        return $this->renderForm($request, 'tagline', 'Tagline');
     }
 
     /**
@@ -56,7 +49,7 @@ class AdminStaticContentController extends Controller
      */
     public function showParticipantAction(Request $request)
     {
-        return $this->_renderForm($request, 'participant_info', 'Deltaker');
+        return $this->renderForm($request, 'participant_info', 'Deltaker');
     }
 
     /**
@@ -68,7 +61,7 @@ class AdminStaticContentController extends Controller
      */
     public function showTutorAction(Request $request)
     {
-        return $this->_renderForm($request, 'tutor_info', 'Veileder');
+        return $this->renderForm($request, 'tutor_info', 'Veileder');
     }
 
     /**
@@ -80,10 +73,10 @@ class AdminStaticContentController extends Controller
      */
     public function showAboutAction(Request $request)
     {
-        return $this->_renderForm($request, 'about', 'Om oss');
+        return $this->renderForm($request, 'about', 'Om oss');
     }
 
-    private function _renderForm(Request $request, $idString, $label)
+    private function renderForm(Request $request, $idString, $label)
     {
         $content = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneBy(array('idString' => $idString));
         if (is_null($content)) {
@@ -103,59 +96,9 @@ class AdminStaticContentController extends Controller
             return $this->redirectToRoute('cp_sc_'.$idString);
         }
 
-        return $this->render('@StaticContent/control_panel/show_'.$idString.'.html.twig', array(
+        return $this->render('@StaticContent/control_panel/show_form.html.twig', array(
             'form' => $form->createView(),
+            'name' => $label,
         ));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     *
-     * @Route("/statisk_innhold",
-     *     options = { "expose" = true },
-     *     name="cp_update_static_content"
-     * )
-     * @Method({"POST"})
-     */
-    public function updateAction(Request $request)
-    {
-        $idString = $request->request->get('idString');
-        $content = $request->request->get('content');
-        if (is_null($idString) || is_null($content)) {
-            return $this->_createErrorResponse('Invalid POST parameters');
-        }
-
-        $staticContent = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneBy(array('idString' => $idString));
-        if (is_null($staticContent)) {
-            return $this->_createErrorResponse('Static Content not found');
-        }
-
-        $staticContent->setContent($content);
-        $staticContent->setLastEdited(new \DateTime());
-        $staticContent->setLastEditedBy($this->getUser());
-
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($staticContent);
-        $manager->flush();
-
-        return $this->_createSuccessResponse();
-    }
-
-    private function _createErrorResponse($error)
-    {
-        $response = new Response(json_encode(array('success' => false, 'error' => $error)));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    private function _createSuccessResponse()
-    {
-        $response = new Response(json_encode(array('success' => true, 'error' => false)));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
     }
 }

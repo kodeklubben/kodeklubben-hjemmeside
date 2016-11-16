@@ -26,7 +26,7 @@ gulp.task('stylesProd', function () {
         .pipe(gulp.dest(dest))
 });
 
-gulp.task('scriptsProd', ['bootstrapJS', 'jquery'], function () {
+gulp.task('scriptsProd', function () {
     var dest = path.dist + 'js/';
     gulp.src(path.src + 'js/**/*.js')
         .pipe(plumber())
@@ -58,13 +58,23 @@ gulp.task('stylesDev', function () {
         .pipe(gulp.dest(dest))
 });
 
-gulp.task('scriptsDev', ['bootstrapJS', 'jquery'], function () {
+gulp.task('scriptsDev', function () {
     var dest = path.dist + 'js/';
     gulp.src(path.src + 'js/**/*.js')
         .pipe(plumber())
         .pipe(changed(dest))
-        .pipe(gulp.dest(path.dist + 'js/'))
         .pipe(gulp.dest(dest))
+});
+
+gulp.task('vendor', function () {
+    gulp.src('node_modules/ckeditor/**/*')
+        .pipe(gulp.dest('web/js/vendor/ckeditor/'));
+    gulp.src('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+        .pipe(gulp.dest('web/js/'));
+    gulp.src('node_modules/jquery/dist/jquery.min.js')
+        .pipe(gulp.dest('web/js/'));
+    gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
+        .pipe(gulp.dest('web/fonts/bootstrap'));
 });
 
 gulp.task('imagesDev', function () {
@@ -87,26 +97,16 @@ gulp.task('compressImages', function(){
         .pipe(gulp.dest(dest))
 });
 
-gulp.task('bootstrapJS', function(){
-    gulp.src('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
-        .pipe(gulp.dest('web/js/'))
-});
-
-gulp.task('jquery', function(){
-    gulp.src('node_modules/jquery/dist/jquery.min.js')
-        .pipe(gulp.dest('web/js/'))
-});
-
-gulp.task('bootstrapFonts', function(){
-    gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
-        .pipe(gulp.dest('web/fonts/bootstrap'))
+gulp.task('config', function(){
+    gulp.src('app/Resources/config/ckeditor.js')
+        .pipe(concat('config.js'))
+        .pipe(gulp.dest('web/bundles/ivoryckeditor/'));
 });
 
 gulp.task('files', function(){
     gulp.src(path.src + 'files/*')
         .pipe(gulp.dest('web/files/'))
 });
-
 
 gulp.task('watch', function () {
     gulp.watch(path.src + 'scss/**/*.scss', ['stylesDev']);
@@ -115,6 +115,6 @@ gulp.task('watch', function () {
 });
 
 
-gulp.task('build:prod', ['stylesProd', 'scriptsProd', 'imagesProd', 'files', 'bootstrapFonts']);
-gulp.task('build:dev', ['stylesDev', 'scriptsDev', 'imagesDev', 'files', 'bootstrapFonts']);
+gulp.task('build:prod', ['stylesProd', 'scriptsProd', 'imagesProd', 'files', 'vendor', 'config']);
+gulp.task('build:dev', ['stylesDev', 'scriptsDev', 'imagesDev', 'files', 'vendor', 'config']);
 gulp.task('default', ['build:dev', 'watch']);

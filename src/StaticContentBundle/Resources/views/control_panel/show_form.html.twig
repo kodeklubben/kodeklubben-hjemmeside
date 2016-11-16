@@ -1,0 +1,15 @@
+{% extends 'base/control_panel/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Statisk innhold: {{ name }}</h1>
+        <hr>
+    </section>
+
+    <section class="content">
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        <button type="submit" class="onclick-disable">Lagre</button>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

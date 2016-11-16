@@ -22,8 +22,13 @@ class StaticContentType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content', 'textarea', array(
+        $builder->add('content', 'ckeditor', array(
+            'required' => false,
+            'config' => array(
+                'height' => 250,
+                ),
             'label' => $this->label,
+            'attr' => array('class' => 'hide'), // Graceful loading, hides the textarea that is replaced by ckeditor
         ));
     }
 
