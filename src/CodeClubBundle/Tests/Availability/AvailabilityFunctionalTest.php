@@ -165,7 +165,8 @@ class AvailabilityFunctionalTest extends WebTestCase
             array('/kontrollpanel/statisk_innhold/tagline'),
             array('/kontrollpanel/statisk_innhold/deltaker'),
             array('/kontrollpanel/statisk_innhold/veileder'),
-            array('/kontrollpanel/statisk_innhold/om'),
+            array('/kontrollpanel/statisk_innhold/om_deltakere'),
+            array('/kontrollpanel/statisk_innhold/om_veiledere'),
         );
     }
 }

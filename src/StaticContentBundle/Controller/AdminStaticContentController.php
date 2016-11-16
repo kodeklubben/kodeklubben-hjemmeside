@@ -69,11 +69,23 @@ class AdminStaticContentController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
-     * @Route("/statisk_innhold/om", name="cp_sc_about")
+     * @Route("/statisk_innhold/om_deltakere", name="cp_sc_about_participant")
      */
-    public function showAboutAction(Request $request)
+    public function showAboutParticipantAction(Request $request)
     {
-        return $this->renderForm($request, 'about', 'Om oss');
+        return $this->renderForm($request, 'about_participant', 'Om oss - For Deltakere');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @Route("/statisk_innhold/om_veiledere", name="cp_sc_about_tutor")
+     */
+    public function showAboutTutorAction(Request $request)
+    {
+        return $this->renderForm($request, 'about_tutor', 'Om oss - For Veiledere');
     }
 
     private function renderForm(Request $request, $idString, $label)
