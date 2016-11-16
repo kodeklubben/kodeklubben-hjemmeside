@@ -13,7 +13,7 @@ class AdminClubController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kontrollpanel/info", name="cp_info")
      */
     public function showAction(Request $request)

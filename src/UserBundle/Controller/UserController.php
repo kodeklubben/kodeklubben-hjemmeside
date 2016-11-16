@@ -27,7 +27,7 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/registrer/deltaker", name="participant_registration")
      */
     public function registerParticipantAction(Request $request)
@@ -39,7 +39,7 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/registrer/foresatt", name="parent_registration")
      */
     public function registerParentAction(Request $request)
@@ -51,7 +51,7 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/registrer/veileder", name="tutor_registration")
      */
     public function registerTutorAction(Request $request)
@@ -86,7 +86,7 @@ class UserController extends Controller
 
     /**
      * @param User $user
-     * 
+     *
      * Encrypts password and persists user to database
      */
     private function handleRegistrationForm(User $user)
@@ -104,7 +104,7 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/registrer/{code}", name="registration_new_user_code")
      */
     public function registerWithNewUserCodeAction(Request $request)
@@ -143,8 +143,8 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return JsonResponse
-     * 
-     * @Route("/kontrollpanel/bruker/type", 
+     *
+     * @Route("/kontrollpanel/bruker/type",
      *     options = { "expose" = true },
      *     name="cp_change_user_type"
      * )
@@ -197,7 +197,7 @@ class UserController extends Controller
      * @param Request $request
      *
      * @return JsonResponse
-     * 
+     *
      * @Route("/kontrollpanel/buker/slett",
      *     options = { "expose" = true },
      *     name="cp_user_delete"

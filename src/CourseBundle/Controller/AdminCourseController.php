@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class AdminCourseController.
- * 
+ *
  * @Route("/kontrollpanel")
  */
 class AdminCourseController extends Controller
@@ -21,7 +21,7 @@ class AdminCourseController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs", name="cp_course")
      */
     public function showAction(Request $request)
@@ -48,7 +48,7 @@ class AdminCourseController extends Controller
      * @param Course|null $course
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs/ny", name="cp_create_course")
      * @Route("/kurs/{id}", name="cp_edit_course", requirements={"id" = "\d+"})
      */
@@ -80,7 +80,7 @@ class AdminCourseController extends Controller
      * @param Course  $course
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs/timeplan/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_course_time_table"
@@ -122,7 +122,7 @@ class AdminCourseController extends Controller
      * @param Course $course
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @Route("/kurs/slett/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_delete_course"
@@ -142,8 +142,8 @@ class AdminCourseController extends Controller
      * @param Course $course
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
-     * @Route("/kurs/deltakere/{id}", 
+     *
+     * @Route("/kurs/deltakere/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_course_participants"
      * )
@@ -157,7 +157,7 @@ class AdminCourseController extends Controller
      * @param Course $course
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs/veiledere/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_course_tutors"
@@ -172,7 +172,7 @@ class AdminCourseController extends Controller
      * @param $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @Route("/kontrollpanel/kursdag/slett/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_delete_course_class"

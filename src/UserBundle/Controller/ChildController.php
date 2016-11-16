@@ -40,7 +40,7 @@ class ChildController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kontrollpanel/barn/ny/{user}", name="cp_child_create")
      */
     public function adminCreateChildAction(User $user, Request $request)

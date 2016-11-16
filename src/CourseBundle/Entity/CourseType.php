@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     fields={"name"},
  *     message="Navnet er allerede i bruk"
  * )
- * 
+ *
  * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseTypeRepository")
  */
 class CourseType
@@ -34,7 +34,7 @@ class CourseType
 
     /**
      * @var Club
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
      * @Assert\Valid
      */

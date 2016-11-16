@@ -24,7 +24,7 @@ class Club
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="name", type="string")
      * @Assert\NotBlank()
      */
@@ -32,7 +32,7 @@ class Club
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="subdomain", type="string")
      * @Assert\NotBlank()
      */

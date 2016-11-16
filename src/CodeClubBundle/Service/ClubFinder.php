@@ -22,7 +22,7 @@ class ClubFinder
     {
         //        $host = $this->router->getContext()->getHost();
 //        $subdomain = substr($host, 0, strpos($host, '.'));
-        $subdomain = 'trondheim';//TODO use subdomain from host
+        $subdomain = 'trondheim'; //TODO use subdomain from host
         $club = $this->doctrine
             ->getRepository('CodeClubBundle:Club')
             ->findOneBySubdomain($subdomain);

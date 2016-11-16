@@ -6,9 +6,6 @@ use AppBundle\Entity\Semester;
 use CourseBundle\Entity\CourseClass;
 use Doctrine\ORM\EntityRepository;
 
-/**
- *
- */
 class CourseClassRepository extends EntityRepository
 {
     /**

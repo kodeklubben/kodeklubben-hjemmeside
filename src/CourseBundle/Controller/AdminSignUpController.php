@@ -24,7 +24,7 @@ class AdminSignUpController extends Controller
      * @param User $user
      *
      * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * 
+     *
      * @Route("/pamelding/{id}",
      *     requirements={"id" = "\d+"},
      *     name="cp_sign_up"
@@ -71,7 +71,7 @@ class AdminSignUpController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @Route("/pamelding/barn/{id}/{child}",
      *     requirements={"id" = "\d+", "child" = "\d+"},
      *     options={"expose" = true},
@@ -116,7 +116,7 @@ class AdminSignUpController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @Route("/pamelding/{course}/{user}",
      *     requirements={"user" = "\d+"},
      *     name="cp_sign_up_course"

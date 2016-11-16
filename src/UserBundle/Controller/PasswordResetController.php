@@ -57,7 +57,7 @@ class PasswordResetController extends Controller
      * @return bool
      *
      * Creates a resetPassword field in the resetPassword entity, with a reset code, date and the user who want to reset the password.
-     * The function sends an email with an url to the user where the user can reset the password.
+     * The function sends an email with an url to the user where the user can reset the password
      */
     private function createResetPasswordEntity(Form $form, PasswordReset $passwordReset)
     {
@@ -119,7 +119,7 @@ class PasswordResetController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * This function resets stores the new password when the user goes to the url for resetting the password.
+     * This function resets stores the new password when the user goes to the url for resetting the password
      */
     public function resetPasswordAction($code, Request $request)
     {

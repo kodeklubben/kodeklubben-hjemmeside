@@ -11,7 +11,7 @@ class CourseController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs", name="courses")
      */
     public function showAction()
@@ -32,7 +32,7 @@ class CourseController extends Controller
      * @param Course $course
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/kurs/{id}",
      *     options={"expose"=true},
      *     requirements={"id"="\d+"},
@@ -55,7 +55,7 @@ class CourseController extends Controller
      * @param $week
      *
      * @return JsonResponse
-     * 
+     *
      * @Route("/api/kurs/uke/{week}",
      *     name="api_get_course_classes_by_week",
      *     requirements={"id" = "\d+"}

@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      @ORM\UniqueConstraint(name="club_name_idx", columns={"club_id", "name"})
  * })
  * @UniqueEntity({"club", "name"})
- * 
+ *
  * @ORM\Entity(repositoryClass="ImageBundle\Repository\ImageRepository")
  */
 class Image
@@ -31,7 +31,7 @@ class Image
 
     /**
      * @var Club
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
      * @Assert\Valid
      */
@@ -60,7 +60,7 @@ class Image
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string")
      */
     private $name;

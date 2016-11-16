@@ -5,9 +5,6 @@ namespace CourseBundle\Repository;
 use AppBundle\Entity\Semester;
 use Doctrine\ORM\EntityRepository;
 
-/**
- *
- */
 class CourseTypeRepository extends EntityRepository
 {
     public function findAll()

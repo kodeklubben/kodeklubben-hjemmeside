@@ -98,7 +98,7 @@ class User implements UserInterface, EquatableInterface
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(type="string", nullable=true)
      */
     private $newUserCode;

@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      @ORM\UniqueConstraint(name="static_content_string_idx", columns={"id_string", "club_id"})
  * })
  * @UniqueEntity({"idString", "club"})
- * 
+ *
  * @ORM\Entity(repositoryClass="StaticContentBundle\Repository\StaticContentRepository")
  */
 class StaticContent
@@ -30,7 +30,7 @@ class StaticContent
 
     /**
      * @var Club
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
      * @Assert\Valid
      */

@@ -7,9 +7,6 @@ use AppBundle\Entity\Semester;
 use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
-/**
- *
- */
 class CourseRepository extends EntityRepository
 {
     public function findAll()

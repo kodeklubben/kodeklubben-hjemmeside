@@ -184,7 +184,7 @@ class SignUpController extends Controller
     {
         $user = $this->getUser();
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')  || !$isThisSemester) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT') || !$isThisSemester) {
             throw new AccessDeniedException();
         }
         // Check if user is already signed up to the course or the course is set for another semester
@@ -219,7 +219,7 @@ class SignUpController extends Controller
     {
         $user = $this->getUser();
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')  || !$isThisSemester) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_TUTOR') || !$isThisSemester) {
             throw new AccessDeniedException();
         }
         // Check if user is already signed up to the course
@@ -279,7 +279,7 @@ class SignUpController extends Controller
      * @param Request     $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @Route("/pamelding/deltaker/meldav/{id}",
      *     requirements={"id" = "\d+"},
      *     name="withdraw_from_course_participant"

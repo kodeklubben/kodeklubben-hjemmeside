@@ -14,7 +14,7 @@ class ImageRepository extends EntityRepository
     /**
      * @param Club   $club
      * @param string $name
-     * 
+     *
      * @return Image
      */
     public function findByClubAndName(Club $club, $name)

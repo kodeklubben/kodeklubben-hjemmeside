@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/", name="home")
      */
     public function showAction()

@@ -47,7 +47,7 @@ class AdminUserController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("/bruker/ny", name="cp_user_create")
      */
     public function createUserAction(Request $request)

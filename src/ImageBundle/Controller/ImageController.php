@@ -15,7 +15,7 @@ class ImageController extends Controller
      * @param $name
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * 
+     *
      * @Route("kontrollpanel/bilde/last_opp/{name}", name="image_upload")
      */
     public function uploadImageAction(Request $request, $name)

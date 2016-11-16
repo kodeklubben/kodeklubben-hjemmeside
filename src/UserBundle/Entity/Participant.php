@@ -29,7 +29,7 @@ class Participant
 
     /**
      * @var Child
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\Child")
      * @ORM\JoinColumn(name="child_id", referencedColumnName="id", nullable=true)
      */
