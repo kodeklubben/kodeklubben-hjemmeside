@@ -8,6 +8,7 @@ use ImageBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminCourseTypeController.
@@ -92,10 +93,12 @@ class AdminCourseTypeController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_delete_course_type"
      * )
+     *
+     * @Method({"POST"})
      */
     public function deleteCourseTypeAction(CourseType $courseType)
     {
-        // Soft delte CourseType
+        // Soft delete CourseType
         $courseType->delete();
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($courseType);

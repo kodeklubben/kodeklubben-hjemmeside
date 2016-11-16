@@ -7,6 +7,7 @@ use AppBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class MessageController.
@@ -54,6 +55,8 @@ class MessageController extends Controller
      *     name="cp_delete_message",
      *     requirements={"id" = "\d+"}
      * )
+     *
+     * @Method({"POST"})
      */
     public function deleteMessageAction($id)
     {

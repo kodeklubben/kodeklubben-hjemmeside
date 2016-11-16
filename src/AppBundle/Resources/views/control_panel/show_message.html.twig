@@ -30,7 +30,14 @@
                                         <td>{{ message.message }}</td>
                                         <td>{{ message.timestamp|date('d/m/Y H:i') }}</td>
                                         <td>{{ message.expireDate|date('d/m/Y H:i') }}</td>
-                                        <td><a href="{{ path('cp_delete_message', {'id': message.id}) }}" class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash-o"></i></a></td>
+                                        <td>
+                                            <form action="{{ path('cp_delete_message', {'id': message.id}) }}" method="POST"
+                                            onsubmit="return confirm('Er du sikker?')">
+                                                <button type="submit" class="btn btn-danger btn-sm onclick-disable">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
