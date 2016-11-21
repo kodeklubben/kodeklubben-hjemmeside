@@ -4349,3 +4349,20 @@ table.text-center th {
   color: inherit;
   text-decoration: inherit;
 }
+
+.underline{
+  text-decoration: underline;
+}
+
+.box-tools a, .box-tools button {
+  &:hover {
+    i {
+      font-size: 215%;
+    }
+  }
+  &:active {
+    i {
+      font-size: 200%;
+    }
+  }
+}

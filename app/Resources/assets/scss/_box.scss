@@ -340,3 +340,19 @@
   font-weight: 400;
   font-size: 12px;
 }
+
+.box-course-admin {
+  height: 320px;
+  .description {
+    font-size: 16px;
+  }
+  .img-container {
+    min-height:150px;
+    height: 150px;
+    position: relative;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}

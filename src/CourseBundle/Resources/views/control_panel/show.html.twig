@@ -10,68 +10,92 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="dropdown">
-                    <button class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button" data-toggle="dropdown">{{ semester }}
+                    <button class="btn btn-primary btn-flat btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown">{{ semester }}
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         {% for sem in semesters %}
                             <li><a href="{{ path('cp_course', {'semester':sem.id}) }}">{{ sem }}</a></li>
                         {% endfor %}
                     </ul>
-                    <a class="btn btn-success btn-sm btn-flat" href="{{ path('cp_create_course') }}">Nytt kurs <i class="fa fa-plus"></i></a>
+                    <a class="btn btn-success btn-sm btn-flat" href="{{ path('cp_create_course') }}">Nytt kurs <i
+                                class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
         <br>
-        <div class="row text-center">
-            {% if not courses|length %}
-                <h3>Det finnes ingen kurs dette semesteret</h3>
-                <a href="{{ path('cp_create_course') }}"><h4>Opprett nytt kurs</h4></a>
-            {% endif %}
-            {% for course in courses %}
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="box box-warning">
-                        <div class="box-body course">
-                            <div class="img-container">
-                                <img src="{{ course.courseType.image.filePath }}" alt="{{ course.name }}">
+        <div class="row">
+            <div class="max-1200">
+                {% if not courses|length %}
+                    <div class="text-center">
+                        <h3>Det finnes ingen kurs dette semesteret</h3>
+                        <a href="{{ path('cp_create_course') }}"><h4>Opprett nytt kurs</h4></a>
+                    </div>
+                {% endif %}
+                {% for course in courses %}
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="box box-warning">
+                            <div class="box-header with-border">
+                                <h3 class="box-title text-bold">{{ course.name }}</h3>
+                                <div class="box-tools pull-right">
+                                    <form method="POST" action="{{ path('cp_delete_course', {'id': course.id}) }}"
+                                          onsubmit="return confirm('Er du sikker?')">
+                                        <a href="{{ path('cp_course_time_table', {'id': course.id}) }}"
+                                           class="btn btn-box-tool"><i
+                                                    class="text-success fa fa-table fa-2x"></i></a>
+                                        <a href="{{ path('cp_edit_course', {'id': course.id}) }}"
+                                           class="btn btn-box-tool"><i class="text-info fa fa-pencil fa-2x"></i></a>
+                                        <button type="submit" class="btn btn-box-tool onclick-disable"><i
+                                                    class="text-danger fa fa-trash fa-2x"></i></button>
+                                    </form>
+                                </div>
                             </div>
-                            <div>
-                                <h3>{{ course.name }}</h3>
-                                <p class="description">{{ course.description }}<br>
+                            <div class="box-body box-course-admin text-center">
+                                <div class="img-container">
+                                    <img src="{{ course.courseType.image.filePath }}" alt="{{ course.name }}">
+                                </div>
+                                <br>
+                                <div>
+                                    <p class="description">{{ course.description }}</p>
                                     {% set courseAvailability = course.participantLimit-course.participants|length %}
                                     {% if courseAvailability == 0 %}
+                                        {% set courseAvailabilityClass = 'text-info' %}
+                                    {% elseif course.participants|length == 0 %}
                                         {% set courseAvailabilityClass = 'text-danger' %}
-                                    {% elseif courseAvailability <= 5 %}
+                                    {% elseif courseAvailability > 5 and course.participants|length < 5 %}
                                         {% set courseAvailabilityClass = 'text-warning' %}
                                     {% else %}
                                         {% set courseAvailabilityClass = 'text-success' %}
                                     {% endif %}
 
                                     <span class="{{ courseAvailabilityClass }}">
-                                        {{ course.participants | length }}/{{ course.participantLimit }} deltagere <br/>
-                                    </span>
+                                    {% if course.participants | length > 0 %}
+                                        <a href="{{ path('cp_course_participants', {'id': course.id}) }}"
+                                           class="info-link underline">
+                                            {{ course.participants | length }}/{{ course.participantLimit }}
+                                            deltakere</a>
+                                    {% else %}
+                                        {{ course.participants | length }}/{{ course.participantLimit }} deltakere
+                                    {% endif %}
+                                </span>
+                                    <br>
                                     <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
-                                        {{ course.fullTimeTutors | length }} veiledere <br/>
-                                    </span>
+                                    {% if course.fullTimeTutors | length > 0 %}
+                                        <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
+                                           class="info-link underline">
+                                            {{ course.fullTimeTutors | length }} veiledere</a>
+                                    {% else %}
+                                        {{ course.fullTimeTutors | length }} veiledere
+                                    {% endif %}
+                                </span>
+                                    <br>
                                     {{ course.substitutes | length }} vikarer <br/>
-                                </p>
-                            </div>
-                            <footer>
-                                <div class="row">
-                                    <form method="POST" action="{{ path('cp_delete_course', {'id': course.id}) }}" onsubmit="return confirm('Er du sikker?')">
-                                        <a href="{{ path('cp_course_time_table', {'id': course.id}) }}" class="btn btn-success btn-flat">Timeplan</a>
-                                        <a href="{{ path('cp_edit_course', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
-                                        <button type="submit" class="btn btn-danger btn-flat onclick-disable">Slett</button>
-                                    </form>
                                 </div>
-                                <div class="row">
-                                    <a href="{{ path('cp_course_participants', {'id': course.id}) }}" class="btn btn-info btn-flat">Deltakere</a>
-                                    <a href="{{ path('cp_course_tutors', {'id': course.id}) }}" class="btn btn-info btn-flat">Veiledere</a>
-                                </div>
-                            </footer>
                             </div>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}

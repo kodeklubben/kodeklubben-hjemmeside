@@ -132,7 +132,7 @@ hr{
   .img-container {
     min-height:150px;
     height: 150px;
-    position: relative;;
+    position: relative;
     img {
       max-height: 100%;
       max-width: 100%;
@@ -273,5 +273,9 @@ hr{
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.max-1200{
+  max-width: 1200px;
 }
 //UTILS END

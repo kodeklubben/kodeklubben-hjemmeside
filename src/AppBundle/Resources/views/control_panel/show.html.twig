@@ -18,7 +18,7 @@
                             <span class="info-box-text">Brukere</span>
                             <span class="info-box-number">{{ userCount }}</span>
                             {% if newUserCount > 0 %}
-                                <p><span class="text-success">+{{ newUserCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span class="text-success">+{{ newUserCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->
@@ -33,7 +33,7 @@
                             <span class="info-box-text">Kurs</span>
                             <span class="info-box-number">{{ courseCount }}</span>
                             {% if newCourseCount > 0 %}
-                                <p><span class="text-success">+{{ newCourseCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span class="text-success">+{{ newCourseCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->
@@ -49,7 +49,7 @@
                             <span class="info-box-text">Kursdeltakere</span>
                             <span class="info-box-number">{{ participantCount }}</span>
                             {% if newParticipantCount > 0 %}
-                                <p><span class="text-success">+{{ newParticipantCount }}</span> {{ currentSemester }}
+                                <p class="text-faded"><span class="text-success">+{{ newParticipantCount }}</span> {{ currentSemester }}
                                 </p>
                             {% endif %}
                         </div>
@@ -66,7 +66,7 @@
                             <span class="info-box-text">Kursveiledere</span>
                             <span class="info-box-number">{{ tutorCount }}</span>
                             {% if newTutorCount > 0 %}
-                                <p><span class="text-success">+{{ newTutorCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span class="text-success">+{{ newTutorCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->

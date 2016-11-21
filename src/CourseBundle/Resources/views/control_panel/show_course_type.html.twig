@@ -10,35 +10,41 @@
         <!-- Courses -->
         <div class="row">
             <div class="col-xs-12">
-                <a href="{{ path('cp_create_course_type') }}" class="btn btn-flat btn-sm btn-success">Ny kurstype <i class="fa fa-plus"></i></a>
+                <a href="{{ path('cp_create_course_type') }}" class="btn btn-flat btn-sm btn-success">Ny kurstype <i
+                            class="fa fa-plus"></i></a>
             </div>
         </div>
         <br>
-        <div class="row text-center">
-            {% for course in courses %}
-                <div class="col-md-3 col-sm-6">
-                    <div class="box box-primary">
-                        <div class="box-body course">
-                            <div class="img-container">
-                                <img src="{{ course.image.filePath }}" alt="{{ course.name }}">
-                            </div>
-                            <div>
-                                <h3>{{ course.name }}</h3>
-                                <p class="description">{{ course.description|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') }}</p>
-                            </div>
-                            <div class="pull-down">
-                                <footer>
-                                    <form action="{{ path('cp_delete_course_type', {'id': course.id}) }}" method="POST"
-                                    onsubmit="return confirm('Er du sikker på at du vil slette {{ course.name }}?')">
-                                        <a href="{{ path('cp_edit_course_type', {'id': course.id}) }}" class="btn btn-primary btn-flat">Endre</a>
-                                        <button type="submit" class="btn btn-danger btn-flat onclick-disable">Slett</button>
+        <div class="row">
+            <div class="max-1200">
+                {% for course in courses %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title text-bold">{{ course.name }}</h3>
+                                <div class="box-tools pull-right">
+                                    <form method="POST" action="{{ path('cp_delete_course_type', {'id': course.id}) }}"
+                                          onsubmit="return confirm('Er du sikker?')">
+                                        <a href="{{ path('cp_edit_course_type', {'id': course.id}) }}"
+                                           class="btn btn-box-tool"><i class="text-info fa fa-pencil fa-2x"></i></a>
+                                        <button type="submit" class="btn btn-box-tool onclick-disable"><i
+                                                    class="text-danger fa fa-trash fa-2x"></i></button>
                                     </form>
-                                </footer>
+                                </div>
+                            </div>
+                            <div class="box-body course text-center">
+                                <div class="img-container">
+                                    <img src="{{ course.image.filePath }}" alt="{{ course.name }}">
+                                </div>
+                                <div>
+                                    <h3>{{ course.name }}</h3>
+                                    <p class="description">{{ course.description|striptags|convert_encoding('UTF-8', 'HTML-ENTITIES') }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}
