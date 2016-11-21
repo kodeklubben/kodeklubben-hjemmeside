@@ -75,6 +75,8 @@ gulp.task('vendor', function () {
         .pipe(gulp.dest('web/js/'));
     gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
         .pipe(gulp.dest('web/fonts/bootstrap'));
+    gulp.src('node_modules/font-awesome/fonts/*')
+        .pipe(gulp.dest('web/fonts/'));
 });
 
 gulp.task('imagesDev', function () {
