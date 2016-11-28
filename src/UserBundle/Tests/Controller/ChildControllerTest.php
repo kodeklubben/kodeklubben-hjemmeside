@@ -29,7 +29,7 @@ class ChildControllerTest extends CodeClubWebTestCase
         $this->assertEquals(1, $crawler->filter('td:contains("TestChildFirst")')->count());
         $this->assertEquals(1, $crawler->filter('td:contains("TestChildLast")')->count());
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testDeleteChild()
@@ -53,6 +53,6 @@ class ChildControllerTest extends CodeClubWebTestCase
 
         $this->assertEquals(1, $childrenCountBefore - $childrenCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 }

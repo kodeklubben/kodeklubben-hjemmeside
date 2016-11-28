@@ -24,7 +24,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupTutor()
@@ -45,7 +45,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupChild()
@@ -75,7 +75,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(2, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupChildSameCourseTwice()
@@ -105,7 +105,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawParticipant()
@@ -126,7 +126,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawTutor()
@@ -147,7 +147,7 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawChild()
@@ -168,6 +168,6 @@ class SignupControllerTest extends CodeClubWebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 }

@@ -24,7 +24,7 @@ class UserControllerTest extends CodeClubWebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testRegisterParent()
@@ -45,7 +45,7 @@ class UserControllerTest extends CodeClubWebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testRegisterTutor()
@@ -66,7 +66,7 @@ class UserControllerTest extends CodeClubWebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testUniqueEmail()
@@ -94,7 +94,7 @@ class UserControllerTest extends CodeClubWebTestCase
 
         $this->assertFalse($client->getResponse()->isRedirection());
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     private function fillForm(\Symfony\Component\DomCrawler\Form $form, $email, $password)
