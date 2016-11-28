@@ -2,17 +2,17 @@
 
 namespace ImageBundle\Twig;
 
-use CodeClubBundle\Service\ClubFinder;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use CodeClubBundle\Service\ClubManager;
+use Doctrine\ORM\EntityManager;
 
 class ImageExtension extends \Twig_Extension
 {
     protected $doctrine;
-    protected $clubFinder;
-    public function __construct(Registry $doctrine, ClubFinder $clubFinder)
+    protected $clubManager;
+    public function __construct(EntityManager $manager, ClubManager $clubManager)
     {
-        $this->doctrine = $doctrine;
-        $this->clubFinder = $clubFinder;
+        $this->doctrine = $manager;
+        $this->clubManager = $clubManager;
     }
 
     /**
@@ -31,8 +31,12 @@ class ImageExtension extends \Twig_Extension
     }
     public function getImage($name)
     {
-        $club = $this->clubFinder->getCurrentClub();
+        $club = $this->clubManager->getCurrentClub();
         $image = $this->doctrine->getRepository('ImageBundle:Image')->findByClubAndName($club, $name);
+        if (!$image) {
+            $defaultClub = $this->clubManager->getDefaultClub();
+            $image = $this->doctrine->getRepository('ImageBundle:Image')->findByClubAndName($defaultClub, $name);
+        }
 
         return $image;
     }

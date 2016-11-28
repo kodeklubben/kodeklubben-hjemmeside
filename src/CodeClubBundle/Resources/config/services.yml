@@ -1,13 +1,21 @@
 services:
-  app.twig_code_club_extension:
-      class: CodeClubBundle\Twig\CodeClubExtension
-      arguments:
-        doctrine: "@doctrine"
-        clubFinder: "@app.club_finder"
-      tags:
-        - { name: twig.extension }
-  app.club_finder:
-        class: CodeClubBundle\Service\ClubFinder
+    app.twig_code_club_extension:
+        class: CodeClubBundle\Twig\CodeClubExtension
         arguments:
-          doctrine: "@doctrine"
-          container: "@router"
+            - "@club_manager"
+        tags:
+            - { name: twig.extension }
+    club_manager:
+        class: CodeClubBundle\Service\ClubManager
+    current_club_listener:
+        class: CodeClubBundle\EventListener\CurrentClubListener
+        arguments:
+            - "@club_manager"
+            - "@doctrine.orm.default_entity_manager"
+            - "%base_host%"
+            - "@logger"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest

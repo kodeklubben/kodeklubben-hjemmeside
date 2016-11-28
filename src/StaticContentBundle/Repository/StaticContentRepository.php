@@ -2,6 +2,7 @@
 
 namespace StaticContentBundle\Repository;
 
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\EntityRepository;
 use StaticContentBundle\Entity\StaticContent;
 
@@ -15,17 +16,18 @@ class StaticContentRepository extends EntityRepository
 {
     /**
      * @param string $stringId
+     * @param Club   $club
      *
      * @return StaticContent
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByStringId($stringId)
+    public function findOneByStringId($stringId, Club $club)
     {
         return $this->createQueryBuilder('sc')
             ->select('sc')
             ->where('sc.idString = :stringId')
+            ->andWhere('sc.club = :club')
             ->setParameter('stringId', $stringId)
+            ->setParameter('club', $club)
             ->getQuery()
             ->getOneOrNullResult();
     }

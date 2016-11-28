@@ -2,14 +2,19 @@
 
 namespace StaticContentBundle\Twig;
 
+use CodeClubBundle\Service\ClubManager;
+use Doctrine\ORM\EntityManager;
 use StaticContentBundle\Entity\StaticContent;
 
 class StaticContentExtension extends \Twig_Extension
 {
-    protected $doctrine;
-    public function __construct($doctrine)
+    protected $manager;
+    private $clubManager;
+
+    public function __construct(EntityManager $manager, ClubManager $clubManager)
     {
-        $this->doctrine = $doctrine;
+        $this->manager = $manager;
+        $this->clubManager = $clubManager;
     }
     public function getName()
     {
@@ -23,18 +28,24 @@ class StaticContentExtension extends \Twig_Extension
     }
     public function getContent($stringId)
     {
-        $staticContent = $this->doctrine
-            ->getEntityManager()
+        $club = $this->clubManager->getCurrentClub();
+        $staticContent = $this->manager
             ->getRepository('StaticContentBundle:StaticContent')
-            ->findOneByStringId($stringId);
+            ->findOneByStringId($stringId, $club);
+        if (!$staticContent) {
+            $club = $this->clubManager->getDefaultClub();
+            $staticContent = $this->manager
+                ->getRepository('StaticContentBundle:StaticContent')
+                ->findOneByStringId($stringId, $club);
+        }
         if (!$staticContent) {
             //Makes new record for requested htmlID
             $newStaticContent = new StaticContent();
             $newStaticContent->setIdString($stringId);
             $newStaticContent->setContent('Dette er en ny statisk tekst for: '.$stringId);
-            $em = $this->doctrine->getEntityManager();
-            $em->persist($newStaticContent);
-            $em->flush();
+            $newStaticContent->setClub($club);
+            $this->manager->persist($newStaticContent);
+            $this->manager->flush();
 
             return 'Dette er en ny statisk tekst for: '.$stringId;
         }

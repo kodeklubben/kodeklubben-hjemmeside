@@ -11,17 +11,35 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $club = new Club();
-        $club->setEmail('trondheim@kodeklubben.no');
-        $club->setFacebook('kodeklubbentrondheim');
-        $club->setName('Kodeklubben Trondheim');
-        $club->setRegion('Trondheim');
-        $club->setSubdomain('trondheim');
+        $clubTrondheim = new Club();
+        $clubTrondheim->setEmail('trondheim@kodeklubben.no');
+        $clubTrondheim->setFacebook('kodeklubbentrondheim');
+        $clubTrondheim->setName('Kodeklubben Trondheim');
+        $clubTrondheim->setRegion('Trondheim');
+        $clubTrondheim->setSubdomain('trondheim');
+        $manager->persist($clubTrondheim);
 
-        $manager->persist($club);
+        $clubOslo = new Club();
+        $clubOslo->setEmail('oslo@kodeklubben.no');
+        $clubOslo->setFacebook('kodeklubbenoslo');
+        $clubOslo->setName('Kodeklubben Oslo');
+        $clubOslo->setRegion('Oslo');
+        $clubOslo->setSubdomain('oslo');
+        $manager->persist($clubOslo);
+
+        $clubDefault = new Club();
+        $clubDefault->setEmail('default@kodeklubben.no');
+        $clubDefault->setFacebook('kodeklubbendefault');
+        $clubDefault->setName('Kodeklubben Default');
+        $clubDefault->setRegion('Default');
+        $clubDefault->setSubdomain('default');
+        $manager->persist($clubDefault);
+
         $manager->flush();
 
-        $this->setReference('club-trondheim', $club);
+        $this->setReference('club-trondheim', $clubTrondheim);
+        $this->setReference('club-oslo', $clubOslo);
+        $this->setReference('club-default', $clubDefault);
     }
 
     public function getOrder()

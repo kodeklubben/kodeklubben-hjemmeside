@@ -1,6 +1,3 @@
 services:
   course.sign_up:
     class: CourseBundle\Service\SignUp
-    arguments:
-#      doctrine: "@doctrine"
-#      container: "@router"

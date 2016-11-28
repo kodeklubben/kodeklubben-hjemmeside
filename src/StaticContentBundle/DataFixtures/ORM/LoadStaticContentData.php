@@ -14,7 +14,7 @@ class LoadStaticContentData extends AbstractFixture implements OrderedFixtureInt
         $sc_header = new StaticContent();
         $sc_header->setClub($this->getReference('club-trondheim'));
         $sc_header->setIdString('header');
-        $sc_header->setContent('Påmeldingen er åpen og det er nå mulig å melde seg som deltakere, veiledere og reserve på de forskjellige kursene. Under er mer detaljer over de forskjellige kursene. Alle kursene blir holdt på Realfagsbygget ved NTNU fra klokken 1815-2000.');
+        $sc_header->setContent('<p>Påmeldingen er åpen og det er nå mulig å melde seg som deltakere, veiledere og reserve på de forskjellige kursene. Under er mer detaljer over de forskjellige kursene. Alle kursene blir holdt på Realfagsbygget ved NTNU fra klokken 1815-2000.</p>');
         $sc_header->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_header);
@@ -30,9 +30,9 @@ class LoadStaticContentData extends AbstractFixture implements OrderedFixtureInt
         $sc_participant_info = new StaticContent();
         $sc_participant_info->setClub($this->getReference('club-trondheim'));
         $sc_participant_info->setIdString('participant_info');
-        $sc_participant_info->setContent('Tekst om deltaker.
+        $sc_participant_info->setContent('<p>Tekst om deltaker.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.');
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
         $sc_participant_info->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_participant_info);
@@ -40,21 +40,19 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laore
         $sc_tutor_info = new StaticContent();
         $sc_tutor_info->setClub($this->getReference('club-trondheim'));
         $sc_tutor_info->setIdString('tutor_info');
-        $sc_tutor_info->setContent('Tekst om veileder.
+        $sc_tutor_info->setContent('<p>Tekst om veileder.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.');
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
         $sc_tutor_info->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_tutor_info);
 
-        $manager->flush();
-
         $sc_about_participant = new StaticContent();
         $sc_about_participant->setClub($this->getReference('club-trondheim'));
         $sc_about_participant->setIdString('about_participant');
-        $sc_about_participant->setContent('Tekst om deltakere.
+        $sc_about_participant->setContent('<p>Tekst om deltakere.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.');
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
         $sc_about_participant->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_about_participant);
@@ -62,9 +60,65 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laore
         $sc_about_tutor = new StaticContent();
         $sc_about_tutor->setClub($this->getReference('club-trondheim'));
         $sc_about_tutor->setIdString('about_tutor');
-        $sc_about_tutor->setContent('Tekst om veiledere.
+        $sc_about_tutor->setContent('<p>Tekst om veiledere.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.');
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
+        $sc_about_tutor->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_about_tutor);
+
+        $sc_participant_info = new StaticContent();
+        $sc_participant_info->setClub($this->getReference('club-default'));
+        $sc_participant_info->setIdString('participant_info');
+        $sc_participant_info->setContent('<p>Tekst om deltaker.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
+        $sc_participant_info->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_participant_info);
+
+        $sc_tagline = new StaticContent();
+        $sc_tagline->setClub($this->getReference('club-default'));
+        $sc_tagline->setIdString('tagline');
+        $sc_tagline->setContent('Lær programmering med artige oppgaver fra Kodeklubben Trondheim!');
+        $sc_tagline->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_tagline);
+
+        $sc_header = new StaticContent();
+        $sc_header->setClub($this->getReference('club-default'));
+        $sc_header->setIdString('header');
+        $sc_header->setContent('<p>Påmeldingen er åpen og det er nå mulig å melde seg som deltakere, veiledere og reserve på de forskjellige kursene. Under er mer detaljer over de forskjellige kursene. Alle kursene blir holdt på Realfagsbygget ved NTNU fra klokken 1815-2000.</p>');
+        $sc_header->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_header);
+
+        $sc_tutor_info = new StaticContent();
+        $sc_tutor_info->setClub($this->getReference('club-default'));
+        $sc_tutor_info->setIdString('tutor_info');
+        $sc_tutor_info->setContent('<p>Tekst om veileder.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
+        $sc_tutor_info->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_tutor_info);
+
+        $sc_about_participant = new StaticContent();
+        $sc_about_participant->setClub($this->getReference('club-default'));
+        $sc_about_participant->setIdString('about_participant');
+        $sc_about_participant->setContent('<p>Tekst om deltakere.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
+        $sc_about_participant->setLastEditedBy($this->getReference('user-admin'));
+
+        $manager->persist($sc_about_participant);
+
+        $sc_about_tutor = new StaticContent();
+        $sc_about_tutor->setClub($this->getReference('club-default'));
+        $sc_about_tutor->setIdString('about_tutor');
+        $sc_about_tutor->setContent('<p>Tekst om veiledere.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laoreet sem tempor tincidunt id non enim. Mauris finibus imperdiet tempor. Fusce non ex in sapien tincidunt faucibus sit amet id nulla. Vivamus eget finibus libero, sed tincidunt turpis. Aenean ac est id lorem dignissim scelerisque vel aliquam mi. Pellentesque hendrerit porttitor quam, quis fermentum nisl accumsan varius. Etiam ultricies lectus at augue bibendum, sit amet suscipit libero dictum. In ut arcu enim. Praesent bibendum massa justo, ut eleifend nibh facilisis at. Fusce nec est imperdiet, accumsan nulla eget, lacinia ante. Suspendisse eros ipsum, congue ac facilisis sit amet, euismod in turpis. Quisque mattis vehicula est quis pellentesque. Proin sit amet finibus felis. Vivamus id porta mauris.</p>');
         $sc_about_tutor->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_about_tutor);
