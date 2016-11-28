@@ -1,0 +1,12 @@
+{% if participants|length %}
+    <tr>
+        <td>
+            <span class="text-{{ label == 'Deltakere' ? 'blue' : 'success' }}">{{ label }}</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="email-list">
+            {% for participant in participants %}{{ participant.user.email }}{{ loop.last ? '' : ';' }}{% endfor %}
+        </td>
+    </tr>
+{% endif %}

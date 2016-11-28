@@ -16,30 +16,8 @@
                                     <h5 class="text-bold text-primary">{{ course.name }} ({{ course.description }})</h5>
                                 </td>
                             </tr>
-                            {% if course.participants|length %}
-                                <tr>
-                                    <td>
-                                        <span class="text-blue">Deltakere</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {% for participant in course.participants %}{{ participant.user.email }}{{ loop.last ? '' : ';' }}{% endfor %}
-                                    </td>
-                                </tr>
-                            {% endif %}
-                            {% if course.tutors|length %}
-                                <tr>
-                                    <td>
-                                        <span class="text-success">Veiledere</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {% for participant in course.tutors %}{{ participant.user.email }}{{ loop.last ? '' : ';' }}{% endfor %}
-                                    </td>
-                                </tr>
-                            {% endif %}
+                            {% include '@App/control_panel/email_list_row.html.twig' with {'participants': course.participants, 'label': 'Deltakere'} %}
+                            {% include '@App/control_panel/email_list_row.html.twig' with {'participants': course.tutors, 'label': 'Veiledere'} %}
                         {% endfor %}
                         </tbody>
                     </table>
