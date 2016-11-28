@@ -80,7 +80,7 @@
                                 </span>
                                     <br>
                                     <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
-                                    {% if course.fullTimeTutors | length > 0 %}
+                                    {% if course.fullTimeTutors| length > 0 %}
                                         <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
                                            class="info-link underline">
                                             {{ course.fullTimeTutors | length }} veiledere</a>
@@ -89,7 +89,14 @@
                                     {% endif %}
                                 </span>
                                     <br>
-                                    {{ course.substitutes | length }} vikarer <br/>
+                                    {% if course.fullTimeTutors| length == 0 and course.substitutes|length > 0 %}
+                                        <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
+                                           class="info-link underline">
+                                            {{ course.substitutes | length }} vikarer </a>
+                                    {% else %}
+                                        {{ course.substitutes | length }} vikarer
+                                    {% endif %}
+                                    <br/>
                                 </div>
                             </div>
                         </div>

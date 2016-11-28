@@ -140,7 +140,7 @@ class Participant
      */
     public function __toString()
     {
-        if ($this->child === null) {
+        if ($this->child !== null) {
             return $this->child->getFullName();
         } else {
             return $this->user->getFullName();

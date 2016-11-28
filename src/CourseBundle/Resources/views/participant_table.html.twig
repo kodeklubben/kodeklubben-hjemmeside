@@ -18,7 +18,7 @@
                 <tbody>
                 {% for participant in participants %}
                     <tr>
-                        <td>{{ participant.fullName }}</td>
+                        <td>{{ participant }}</td>
                         <td>{{ participant.user.email }}</td>
                         <td>{{ participant.user.phone }}</td>
                         {% if showRemove is defined %}

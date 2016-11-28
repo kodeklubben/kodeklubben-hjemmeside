@@ -356,10 +356,10 @@
     }
   }
 }
-.box-tools i {
-  font-size: 1.5em;
-}
 .box-tools a, .box-tools button {
+  i {
+    font-size: 1.5em;
+  }
   &:hover {
   padding: 0.3em;
     i {
