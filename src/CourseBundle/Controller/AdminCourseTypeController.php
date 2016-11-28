@@ -24,7 +24,8 @@ class AdminCourseTypeController extends Controller
      */
     public function showAction()
     {
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
 
         return $this->render('@Course/control_panel/show_course_type.html.twig', array(
             'courses' => $courses,
@@ -48,7 +49,7 @@ class AdminCourseTypeController extends Controller
         // Check if this is a create or edit
         $isCreate = is_null($courseType);
         if ($isCreate) {
-            $club = $this->get('app.club_finder')->getCurrentClub();
+            $club = $this->get('club_manager')->getCurrentClub();
 
             // Initialize a new CourseType with a new image
             $image = new Image();

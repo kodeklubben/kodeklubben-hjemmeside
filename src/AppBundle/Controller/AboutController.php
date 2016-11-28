@@ -16,11 +16,6 @@ class AboutController extends Controller
     {
         $response = $this->render('@App/about/show.html.twig');
 
-        // Set cache expiration time to 5 minutes
-//        $response->setSharedMaxAge(300);
-
-//        $response->headers->addCacheControlDirective('must-revalidate', true);
-
         return $response;
     }
 }

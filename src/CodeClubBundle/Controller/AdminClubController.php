@@ -18,7 +18,7 @@ class AdminClubController extends Controller
      */
     public function showAction(Request $request)
     {
-        $club = $this->get('app.club_finder')->getCurrentClub();
+        $club = $this->get('club_manager')->getCurrentClub();
         $form = $this->createForm(new ClubType(), $club);
         $form->handleRequest($request);
 

@@ -3,6 +3,7 @@
 namespace CourseBundle\Repository;
 
 use AppBundle\Entity\Semester;
+use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\CourseClass;
 use Doctrine\ORM\EntityRepository;
 
@@ -33,10 +34,11 @@ class CourseClassRepository extends EntityRepository
     /**
      * @param int      $week
      * @param Semester $semester
+     * @param Club     $club
      *
-     * @return CourseClass[]
+     * @return \CourseBundle\Entity\CourseClass[]
      */
-    public function findByWeek($week, Semester $semester)
+    public function findByWeek($week, Semester $semester, Club $club)
     {
         $now = new \DateTime();
         $currentYear = $now->format('Y');
@@ -45,13 +47,16 @@ class CourseClassRepository extends EntityRepository
         return $this->createQueryBuilder('class')
             ->select('class')
             ->join('class.course', 'course')
+            ->join('course.courseType', 'courseType')
             ->where('course.deleted = false')
             ->andWhere('class.time > :startOfWeek')
             ->andWhere('class.time < :endOfWeek')
             ->andWhere('course.semester = :semester')
+            ->andWhere('courseType.club = :club')
             ->setParameter('startOfWeek', $startOfWeek)
             ->setParameter('endOfWeek', $endOfWeek)
             ->setParameter('semester', $semester)
+            ->setParameter('club', $club)
             ->getQuery()
             ->getResult();
     }

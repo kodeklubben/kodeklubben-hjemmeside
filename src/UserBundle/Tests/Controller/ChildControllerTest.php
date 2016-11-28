@@ -1,16 +1,14 @@
 <?php
 
-//namespace UserBundle\Tests\Controller;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace UserBundle\Tests\Controller;
 
-class ChildControllerTest extends WebTestCase
+use CodeClubBundle\Tests\CodeClubWebTestCase;
+
+class ChildControllerTest extends CodeClubWebTestCase
 {
     public function testCreateChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -36,10 +34,7 @@ class ChildControllerTest extends WebTestCase
 
     public function testDeleteChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());

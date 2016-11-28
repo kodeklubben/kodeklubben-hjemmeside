@@ -33,7 +33,8 @@ class AdminSignUpController extends Controller
     public function showAction(User $user)
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $parameters = array(
             'currentSemester' => $currentSemester,

@@ -25,10 +25,11 @@ class MessageController extends Controller
      */
     public function showAction(Request $request)
     {
-        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages($club);
 
         $message = new Message();
-        $message->setClub($this->get('app.club_finder')->getCurrentClub());
+        $message->setClub($club);
 
         $form = $this->createForm(new MessageType(), $message);
         $form->handleRequest($request);

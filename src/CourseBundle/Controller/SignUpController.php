@@ -42,7 +42,8 @@ class SignUpController extends Controller
     private function showParticipantAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
         $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
@@ -61,7 +62,8 @@ class SignUpController extends Controller
     private function showParentAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
 
@@ -83,7 +85,8 @@ class SignUpController extends Controller
     private function showTutorAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
         $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));

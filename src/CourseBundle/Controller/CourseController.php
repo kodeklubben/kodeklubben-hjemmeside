@@ -16,14 +16,10 @@ class CourseController extends Controller
      */
     public function showAction()
     {
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $response = $this->render('@Course/show.html.twig', array(
             'courses' => $courses, ));
-
-        // Set cache expiration time to 5 minutes
-        $response->setSharedMaxAge(300);
-
-        $response->headers->addCacheControlDirective('must-revalidate', true);
 
         return $response;
     }
@@ -64,7 +60,8 @@ class CourseController extends Controller
     public function getCourseClassesAction($week)
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
 
         return new JsonResponse($courseClasses);
     }

@@ -35,12 +35,14 @@ class CurrentClubListener
     {
         $request = $event->getRequest();
         $host = $request->getHost();
+        $this->logger->info('Host: '.$host);
         $baseHost = $this->baseHost;
         if ($host === $baseHost) {
             throw new NotFoundHttpException('Main page not implemented yet');
         }
 
         $subdomain = str_replace('.'.$baseHost, '', $host);
+        $this->logger->info('Subdomain: '.$subdomain);
         $club = $this->em->getRepository('CodeClubBundle:Club')->findOneBySubdomain($subdomain);
         if (!$club) {
             throw new NotFoundHttpException('Cannot find subdomain '.$subdomain);

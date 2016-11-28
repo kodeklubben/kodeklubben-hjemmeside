@@ -3,15 +3,16 @@
 namespace UserBundle\Service;
 
 use CodeClubBundle\Service\ClubFinder;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use CodeClubBundle\Service\ClubManager;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use UserBundle\Entity\User;
 
 class UserRegistration
 {
     private $passwordEncoder;
-    private $doctrine;
-    private $clubFinder;
+    private $manager;
+    private $clubManager;
     private $twig;
     private $mailer;
 
@@ -19,17 +20,19 @@ class UserRegistration
      * UserRegistration constructor.
      *
      * @param UserPasswordEncoder $passwordEncoder
-     * @param Registry            $doctrine
-     * @param ClubFinder          $clubFinder
+     * @param EntityManager       $manager
+     * @param ClubManager         $clubManager
      * @param \Twig_Environment   $twig
      * @param \Swift_Mailer       $mailer
+     *
+     * @internal param ClubFinder $clubFinder
      */
-    public function __construct(UserPasswordEncoder $passwordEncoder, Registry $doctrine, ClubFinder $clubFinder,
+    public function __construct(UserPasswordEncoder $passwordEncoder, EntityManager $manager, ClubManager $clubManager,
                                 \Twig_Environment $twig, \Swift_Mailer $mailer)
     {
         $this->passwordEncoder = $passwordEncoder;
-        $this->doctrine = $doctrine;
-        $this->clubFinder = $clubFinder;
+        $this->doctrine = $manager;
+        $this->clubManager = $clubManager;
         $this->twig = $twig;
         $this->mailer = $mailer;
     }
@@ -39,9 +42,8 @@ class UserRegistration
      */
     public function persistUser(User $user)
     {
-        $manager = $this->doctrine->getManager();
-        $manager->persist($user);
-        $manager->flush();
+        $this->manager->persist($user);
+        $this->manager->flush();
     }
 
     /**
@@ -140,7 +142,7 @@ class UserRegistration
     public function newUser()
     {
         $user = new User();
-        $user->setClub($this->clubFinder->getCurrentClub());
+        $user->setClub($this->clubManager->getCurrentClub());
 
         return $user;
     }

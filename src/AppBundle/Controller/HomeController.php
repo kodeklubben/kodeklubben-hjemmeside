@@ -27,7 +27,8 @@ class HomeController extends Controller
 
     public function showMessagesAction()
     {
-        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages($club);
 
         return $this->render('@App/home/messages.html.twig', array('messages' => $messages));
     }
@@ -35,7 +36,8 @@ class HomeController extends Controller
     public function showCourseTypesAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $courseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findNotHiddenBySemester($currentSemester);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findNotHiddenBySemester($currentSemester, $club);
 
         return $this->render('@App/home/course.html.twig', array('courseTypes' => $courseTypes));
     }
@@ -46,7 +48,8 @@ class HomeController extends Controller
             $week = (new \DateTime())->format('W');
         }
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
 
         return $this->render('@App/home/time_table.html.twig', array(
             'courseClasses' => $courseClasses,

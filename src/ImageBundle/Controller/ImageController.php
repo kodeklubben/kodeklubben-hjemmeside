@@ -20,7 +20,7 @@ class ImageController extends Controller
      */
     public function uploadImageAction(Request $request, $name)
     {
-        $club = $this->get('app.club_finder')->getCurrentClub();
+        $club = $this->get('club_manager')->getCurrentClub();
         $image = $this->getDoctrine()->getRepository('ImageBundle:Image')->findByClubAndName($club, $name);
         if (is_null($image)) {
             throw $this->createNotFoundException('Bildenavn finnes ikke');
