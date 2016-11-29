@@ -33,7 +33,7 @@ class TestDataManager
     {
     }
 
-    public static function executeCommand($application, $command, Array $options = array()) {
+    public static function executeCommand(Application $application, $command, Array $options = array()) {
         $options["--env"] = "test";
         $options["--quiet"] = true;
         $options = array_merge($options, array('command' => $command));

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -15,14 +14,7 @@ class HomeController extends Controller
      */
     public function showAction()
     {
-        $response = $this->render('@App/home/show.html.twig');
-
-        // Set cache expiration time to 5 minutes
-//        $response->setSharedMaxAge(300);
-
-//        $response->headers->addCacheControlDirective('must-revalidate', true);
-
-        return $response;
+        return $this->render('@App/home/show.html.twig');
     }
 
     public function showMessagesAction()

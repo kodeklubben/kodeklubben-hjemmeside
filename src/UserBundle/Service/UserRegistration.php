@@ -2,7 +2,6 @@
 
 namespace UserBundle\Service;
 
-use CodeClubBundle\Service\ClubFinder;
 use CodeClubBundle\Service\ClubManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;

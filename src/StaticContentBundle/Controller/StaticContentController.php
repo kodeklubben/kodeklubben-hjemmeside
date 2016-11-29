@@ -2,7 +2,6 @@
 
 namespace StaticContentBundle\Controller;
 
-use StaticContentBundle\Entity\StaticContent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class StaticContentController extends Controller

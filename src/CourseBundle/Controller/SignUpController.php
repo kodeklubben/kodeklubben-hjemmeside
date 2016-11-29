@@ -4,11 +4,9 @@ namespace CourseBundle\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
 use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

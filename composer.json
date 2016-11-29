@@ -4,7 +4,15 @@
     "type": "project",
     "description": "Utviklingsprosjekt for kodeklubben som sikter mot å lage en generisk hjemmeside som kan brukes av alle landets kodeklubber.",
     "autoload": {
-        "psr-4": { "": "src/" },
+        "psr-4": {
+            "AppBundle\\": "src/",
+            "CodeClubBundle\\": "src/",
+            "CourseBundle\\": "src/",
+            "ImageBundle\\": "src/",
+            "StaticContentBundle\\": "src/",
+            "UserBundle\\": "src/",
+            "": "src/"
+        },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {

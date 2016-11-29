@@ -2,7 +2,6 @@
 
 namespace ImageBundle\Controller;
 
-use ImageBundle\Entity\Image;
 use ImageBundle\Form\Type\ImageType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

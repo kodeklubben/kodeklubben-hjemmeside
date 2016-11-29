@@ -8,8 +8,6 @@ class NavigationController extends Controller
 {
     public function navigationAction()
     {
-        $response = $this->render('base/navigation.html.twig');
-//        $response->setSharedMaxAge(0);
-        return $response;
+        return $this->render('base/navigation.html.twig');
     }
 }

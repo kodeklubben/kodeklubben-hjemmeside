@@ -42,7 +42,7 @@ class CourseClassRepository extends EntityRepository
     {
         $now = new \DateTime();
         $currentYear = $now->format('Y');
-        list($startOfWeek, $endOfWeek) = $this->_getStartAndEndDateOfWeek($week, $currentYear);
+        list($startOfWeek, $endOfWeek) = $this->getStartAndEndDateOfWeek($week, $currentYear);
 
         return $this->createQueryBuilder('class')
             ->select('class')
@@ -61,7 +61,7 @@ class CourseClassRepository extends EntityRepository
             ->getResult();
     }
 
-    private function _getStartAndEndDateOfWeek($week, $year)
+    private function getStartAndEndDateOfWeek($week, $year)
     {
         $time = strtotime("1 January $year", time());
         $day = date('w', $time);

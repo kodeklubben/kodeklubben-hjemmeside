@@ -18,10 +18,8 @@ class CourseController extends Controller
     {
         $club = $this->get('club_manager')->getCurrentClub();
         $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
-        $response = $this->render('@Course/show.html.twig', array(
+        return $this->render('@Course/show.html.twig', array(
             'courses' => $courses, ));
-
-        return $response;
     }
 
     /**
@@ -37,14 +35,7 @@ class CourseController extends Controller
      */
     public function showCourseInfoAction(Course $course)
     {
-        $response = $this->render('@Course/course_info.html.twig', array('course' => $course));
-
-        // Set cache expiration time to 5 minutes
-//        $response->setSharedMaxAge(300);
-
-//        $response->headers->addCacheControlDirective('must-revalidate', true);
-
-        return $response;
+        return $this->render('@Course/course_info.html.twig', array('course' => $course));
     }
 
     /**

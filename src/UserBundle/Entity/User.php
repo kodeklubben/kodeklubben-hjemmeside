@@ -217,7 +217,6 @@ class User implements UserInterface, EquatableInterface
     public function eraseCredentials()
     {
         // if you had a plainPassword property, you'd nullify it here
-        // $this->plainPassword = null;
     }
 
     /**
