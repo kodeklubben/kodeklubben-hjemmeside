@@ -48,6 +48,7 @@ class AdminCourseTypeController extends Controller
      */
     public function editCourseTypeAction(Request $request, CourseType $courseType = null)
     {
+
         // Check if this is a create or edit
         $isCreate = is_null($courseType);
         if ($isCreate) {
@@ -60,6 +61,8 @@ class AdminCourseTypeController extends Controller
             $courseType = new CourseType();
             $courseType->setClub($club);
             $courseType->setImage($image);
+        } else {
+            $this->get('club_manager')->denyIfNotCurrentClub($courseType);
         }
 
         $form = $this->createForm(new CourseTypeType($isCreate), $courseType);
@@ -101,6 +104,8 @@ class AdminCourseTypeController extends Controller
      */
     public function deleteCourseTypeAction(CourseType $courseType)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($courseType);
+
         // Soft delete CourseType
         $courseType->delete();
         $manager = $this->getDoctrine()->getManager();

@@ -97,10 +97,12 @@ class AdminStaticContentController extends Controller
 
     private function renderForm(Request $request, $idString, $label)
     {
-        $content = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneBy(array('idString' => $idString));
+        $club = $this->get('club_manager')->getCurrentClub();
+        $content = $this->getDoctrine()->getRepository('StaticContentBundle:StaticContent')->findOneByStringId($idString, $club);
         if (is_null($content)) {
             $content = new StaticContent();
             $content->setIdString($idString);
+            $content->setClub($club);
         }
 
         $form = $this->createForm(new StaticContentType($label), $content);

@@ -48,6 +48,8 @@ class ChildController extends Controller
      */
     public function adminCreateChildAction(User $user, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
+
         $child = new Child();
         $form = $this->createForm(new ChildType(), $child);
         $form->handleRequest($request);
@@ -80,6 +82,8 @@ class ChildController extends Controller
      */
     public function deleteChildAction(Child $child, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($child);
+
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         //A parent can only delete their own children
         if ($child->getParent()->getId() == $this->getUser()->getId() || $isAdmin) {

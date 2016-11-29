@@ -30,7 +30,7 @@ class UserRegistration
                                 \Twig_Environment $twig, \Swift_Mailer $mailer)
     {
         $this->passwordEncoder = $passwordEncoder;
-        $this->doctrine = $manager;
+        $this->manager = $manager;
         $this->clubManager = $clubManager;
         $this->twig = $twig;
         $this->mailer = $mailer;

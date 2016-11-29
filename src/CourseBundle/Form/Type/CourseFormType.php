@@ -2,6 +2,7 @@
 
 namespace CourseBundle\Form\Type;
 
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,15 +11,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CourseFormType extends AbstractType
 {
     private $showAllSemesters;
+    /**
+     * @var Club
+     */
+    private $club;
 
     /**
      * CourseFormType constructor.
      *
      * @param $showAllSemesters
+     * @param Club $club
      */
-    public function __construct($showAllSemesters)
+    public function __construct($showAllSemesters, Club $club)
     {
         $this->showAllSemesters = $showAllSemesters;
+        $this->club = $club;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -39,7 +46,9 @@ class CourseFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('ct')
                         ->select('ct')
-                        ->where('ct.deleted = false');
+                        ->where('ct.deleted = false')
+                        ->andWhere('ct.club = :club')
+                        ->setParameter('club', $this->club);
                 },
             ))
             ->add('participantLimit', 'number', array(

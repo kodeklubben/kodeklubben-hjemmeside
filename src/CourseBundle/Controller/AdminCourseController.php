@@ -36,7 +36,8 @@ class AdminCourseController extends Controller
             $semester = $semesterRepo->findCurrentSemester();
         }
         $semesters = $semesterRepo->findAll();
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester, $club);
 
         return $this->render('@Course/control_panel/show.html.twig', array(
             'courses' => $courses,
@@ -60,8 +61,11 @@ class AdminCourseController extends Controller
         $isCreateAction = is_null($course);
         if ($isCreateAction) {
             $course = new Course();
+        } else {
+            $this->get('club_manager')->denyIfNotCurrentClub($course);
         }
-        $form = $this->createForm(new CourseFormType(!$isCreateAction), $course);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $form = $this->createForm(new CourseFormType(!$isCreateAction, $club), $course);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,6 +96,8 @@ class AdminCourseController extends Controller
      */
     public function editTimeTableAction(Request $request, Course $course)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         $courseClass = new CourseClass();
         $latestCourseClass = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findOneBy(array('course' => $course), array('time' => 'DESC'), 1);
 
@@ -135,6 +141,8 @@ class AdminCourseController extends Controller
      */
     public function deleteCourseAction(Course $course)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         $course->delete();
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($course);
@@ -156,6 +164,8 @@ class AdminCourseController extends Controller
      */
     public function showParticipantsAction(Course $course)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         return $this->render('@Course/control_panel/show_course_participants.html.twig', array('course' => $course));
     }
 
@@ -172,6 +182,8 @@ class AdminCourseController extends Controller
      */
     public function showTutorsAction(Course $course)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         return $this->render('@Course/control_panel/show_course_tutors.html.twig', array('course' => $course));
     }
 
@@ -190,6 +202,8 @@ class AdminCourseController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
         $courseClass = $manager->getRepository('CourseBundle:CourseClass')->find($id);
+        $this->get('club_manager')->denyIfNotCurrentClub($courseClass->getCourse());
+
         if (!is_null($courseClass)) {
             $manager->remove($courseClass);
             $manager->flush();
@@ -231,7 +245,8 @@ class AdminCourseController extends Controller
         $semesterId = $request->query->get('semester');
         $semesterRepo = $this->getDoctrine()->getRepository('AppBundle:Semester');
         $semester = is_null($semesterId) ? $semesterRepo->findCurrentSemester() : $semesterRepo->find($semesterId);
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester);
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($semester, $club);
         $semesters = $semesterRepo->findAll();
 
         return $this->render($template, array(

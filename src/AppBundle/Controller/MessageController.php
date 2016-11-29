@@ -64,6 +64,8 @@ class MessageController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
         $message = $manager->getRepository('AppBundle:Message')->find($id);
+        $this->get('club_manager')->denyIfNotCurrentClub($message);
+
         if (!is_null($message)) {
             $manager->remove($message);
             $manager->flush();

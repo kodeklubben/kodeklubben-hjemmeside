@@ -5,7 +5,6 @@ namespace UserBundle\Controller;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -70,9 +69,8 @@ class UserController extends Controller
      */
     private function registerUser($role, Request $request)
     {
-        $user = new User();
+        $user = $this->get('user.registration')->newUser();
         $user->setRoles(array($role));
-        $user->setClub($this->get('club_manager')->getCurrentClub());
         $form = $this->createForm(new UserType(), $user);
 
         $form->handleRequest($request);
@@ -126,6 +124,7 @@ class UserController extends Controller
             // Force user to create new password
             $user->setPassword(null);
         }
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
 
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
@@ -142,146 +141,5 @@ class UserController extends Controller
             'form' => $form->createView(),
             'role' => $this->roleTranslate[$user->getRoles()[0]],
         ));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
-     * @Route("/kontrollpanel/bruker/type",
-     *     options = { "expose" = true },
-     *     name="cp_change_user_type"
-     * )
-     * @Method({"POST"})
-     */
-    public function changeUserTypeAction(Request $request)
-    {
-        $userId = $request->request->get('userId');
-        $role = $request->request->get('role');
-        $userRole = 'ROLE_'.strtoupper($role);
-        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
-        $currentUserRole = $user->getRoles()[0];
-        //Check if trying to change to current role
-        if ($userRole == $currentUserRole) {
-            return new JsonResponse(array('status' => 'success'));
-        }
-
-        $manager = $this->getDoctrine()->getManager();
-
-        switch ($currentUserRole) {
-            case 'ROLE_PARENT':
-                //Remove participation from all courses this and future semesters
-                $this->removeCurrentParticipants($user);
-                //Remove all children
-                $this->removeChildren($user);
-                break;
-            case 'ROLE_PARTICIPANT':
-                //Remove participation from all courses this and future semesters
-                $this->removeCurrentParticipants($user);
-                break;
-
-            case 'ROLE_ADMIN':
-            case 'ROLE_TUTOR':
-                //If user is changed to Participant or Parent
-                if ($userRole === 'ROLE_PARTICIPANT' || $userRole === 'ROLE_PARENT') {
-                    $this->removeCurrentTutors($user);
-                }
-        }
-        //Update user role
-        $user->removeRoles();
-        $user->addRole($userRole);
-        $manager->persist($user);
-
-        $manager->flush();
-
-        return new JsonResponse(array('status' => 'success'));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
-     * @Route("/kontrollpanel/buker/slett",
-     *     options = { "expose" = true },
-     *     name="cp_user_delete"
-     * )
-     * @Method({"POST"})
-     */
-    public function deleteAction(Request $request)
-    {
-        $userId = $request->request->get('userId');
-        $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
-        $isLoggedInUser = $user->getId() === $this->getUser()->getId();
-
-        //Clear all connections to courses
-        $this->removeTutors($user);
-        $this->removeParticipants($user);
-        $this->removeChildren($user);
-
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($user);
-        $manager->flush();
-
-        if ($isLoggedInUser) {
-            //Logout user
-            $this->get('security.token_storage')->setToken(null);
-            $this->get('request')->getSession()->invalidate();
-        }
-
-        return new JsonResponse(array('status' => 'success'));
-    }
-
-    private function removeCurrentParticipants($user)
-    {
-        //Remove participation from all courses this and future semesters
-        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
-        $manager = $this->getDoctrine()->getManager();
-        foreach ($participants as $participant) {
-            $manager->remove($participant);
-        }
-        $manager->flush();
-    }
-
-    private function removeCurrentTutors($user)
-    {
-        //Remove tutor from all courses this and future semesters
-        $manager = $this->getDoctrine()->getManager();
-        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUserThisAndLaterSemesters($user);
-        foreach ($tutors as $tutor) {
-            $manager->remove($tutor);
-        }
-        $manager->flush();
-    }
-
-    private function removeParticipants($user)
-    {
-        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUser($user);
-        $manager = $this->getDoctrine()->getManager();
-        foreach ($participants as $participant) {
-            $manager->remove($participant);
-        }
-        $manager->flush();
-    }
-
-    private function removeTutors($user)
-    {
-        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUser($user);
-        $manager = $this->getDoctrine()->getManager();
-        foreach ($tutors as $tutor) {
-            $manager->remove($tutor);
-        }
-        $manager->flush();
-    }
-
-    private function removeChildren($user)
-    {
-        $manager = $this->getDoctrine()->getManager();
-        $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
-        foreach ($children as $child) {
-            $manager->remove($child);
-        }
-        $manager->flush();
     }
 }

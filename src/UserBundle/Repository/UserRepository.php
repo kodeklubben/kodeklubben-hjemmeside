@@ -29,17 +29,20 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Semester $semester
+     * @param Club     $club
      *
-     * @return User[]
+     * @return \UserBundle\Entity\User[]
      */
-    public function findNewUsersBySemester(Semester $semester)
+    public function findNewUsersBySemester(Semester $semester, Club $club)
     {
         return $this->createQueryBuilder('user')
             ->select('user')
             ->where('user.createdDatetime >= :semesterStart')
             ->andWhere('user.createdDatetime < :semesterEnd')
+            ->andWhere('user.club = :club')
             ->setParameter('semesterStart', $semester->getStartTime())
             ->setParameter('semesterEnd', $semester->getEndTime())
+            ->setParameter('club', $club)
             ->getQuery()
             ->getResult();
     }
@@ -60,5 +63,20 @@ class UserRepository extends EntityRepository
             ->setParameter('club', $club)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Club $club
+     *
+     * @return User[]
+     */
+    public function findByClub(Club $club)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->where('user.club = :club')
+            ->setParameter('club', $club)
+            ->getQuery()
+            ->getResult();
     }
 }

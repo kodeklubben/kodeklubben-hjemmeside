@@ -114,11 +114,13 @@ class SignUpController extends Controller
      */
     public function signUpChildAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
         $childId = $request->get('child');
         if ($childId === null) {
             throw new NotFoundHttpException();
         }
         $child = $this->getDoctrine()->getRepository('UserBundle:Child')->find($childId);
+        $this->get('club_manager')->denyIfNotCurrentClub($child);
         if (!$child->getParent() === $this->getUser()) {
             throw new AccessDeniedException();
         }
@@ -165,6 +167,8 @@ class SignUpController extends Controller
      */
     public function signUpAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
             return $this->signUpParticipantAction($course);
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
@@ -254,6 +258,8 @@ class SignUpController extends Controller
      */
     public function withdrawTutorAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         $tutorRepo = $this->getDoctrine()->getRepository('UserBundle:Tutor');
         $user = $this->getUser();
 
@@ -289,6 +295,8 @@ class SignUpController extends Controller
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($participant);
+
         if ($participant->getUser()->getId() == $this->getUser()->getId()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($participant);

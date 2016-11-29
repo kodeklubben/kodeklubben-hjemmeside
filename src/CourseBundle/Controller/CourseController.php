@@ -39,6 +39,8 @@ class CourseController extends Controller
      */
     public function showCourseInfoAction(Course $course)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         return $this->render('@Course/course_info.html.twig', array('course' => $course));
     }
 

@@ -16,8 +16,6 @@ class AboutController extends Controller
      */
     public function showAction()
     {
-        $response = $this->render('@App/about/show.html.twig');
-
-        return $response;
+        return $this->render('@App/about/show.html.twig');
     }
 }
