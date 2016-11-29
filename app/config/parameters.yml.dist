@@ -43,3 +43,7 @@ parameters:
     google_analytics_id: ~
 
     base_host: localhost
+
+    session.name: KKSESSID
+
+    remember_me.name: KKREMEMBER

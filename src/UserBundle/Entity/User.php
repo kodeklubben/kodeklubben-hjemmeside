@@ -337,4 +337,11 @@ class User implements UserInterface, EquatableInterface
 
         return false;
     }
+
+    function __toString()
+    {
+        return $this->getFullName();
+    }
+
+
 }

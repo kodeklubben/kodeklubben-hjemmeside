@@ -40,7 +40,8 @@ security:
                 target: home
 
             remember_me:
-                secret: %secret%
+                secret: "%secret%"
+                name: "%remember_me.name%"
                 lifetime: 31536000
                 path: /
 
