@@ -3,6 +3,7 @@
 namespace CodeClubBundle\Controller;
 
 use CodeClubBundle\Form\Type\ClubType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,7 @@ class AdminClubController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kontrollpanel/info", name="cp_info")
+     * @Method({"GET", "POST"})
      */
     public function showAction(Request $request)
     {
@@ -26,6 +28,8 @@ class AdminClubController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($club);
             $manager->flush();
+
+            return $this->redirectToRoute('cp_info');
         }
 
         return $this->render('@CodeClub/control_panel/club_info.html.twig', array(

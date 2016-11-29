@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\ChildType;
@@ -17,6 +18,7 @@ class ChildController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/barn/ny", name="child_create")
+     * @Method({"GET", "POST"})
      */
     public function createChildAction(Request $request)
     {
@@ -42,6 +44,7 @@ class ChildController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kontrollpanel/barn/ny/{user}", name="cp_child_create")
+     * @Method({"GET", "POST"})
      */
     public function adminCreateChildAction(User $user, Request $request)
     {
@@ -73,6 +76,7 @@ class ChildController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="child_delete"
      * )
+     * @Method("POST")
      */
     public function deleteChildAction(Child $child, Request $request)
     {

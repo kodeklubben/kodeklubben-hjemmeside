@@ -21,6 +21,7 @@ class AdminCourseTypeController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kurs/type", name="cp_course_type")
+     * @Method("GET")
      */
     public function showAction()
     {
@@ -43,6 +44,7 @@ class AdminCourseTypeController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_edit_course_type"
      * )
+     * @Method({"GET", "POST"})
      */
     public function editCourseTypeAction(Request $request, CourseType $courseType = null)
     {

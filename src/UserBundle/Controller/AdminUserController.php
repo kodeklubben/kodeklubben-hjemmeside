@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -19,6 +20,7 @@ class AdminUserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/brukere", name="cp_users")
+     * @Method("GET")
      */
     public function showAction()
     {
@@ -35,6 +37,7 @@ class AdminUserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/brukere/{id}", name="cp_user")
+     * @Method("GET")
      */
     public function showSpecificAction(User $user)
     {
@@ -49,6 +52,7 @@ class AdminUserController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/bruker/ny", name="cp_user_create")
+     * @Method({"GET", "POST"})
      */
     public function createUserAction(Request $request)
     {

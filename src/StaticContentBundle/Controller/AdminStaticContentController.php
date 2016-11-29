@@ -2,6 +2,7 @@
 
 namespace StaticContentBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use StaticContentBundle\Entity\StaticContent;
 use StaticContentBundle\Form\Type\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +23,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/header", name="cp_sc_header")
+     * @Method({"GET", "POST"})
      */
     public function showHeaderAction(Request $request)
     {
@@ -34,6 +36,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/tagline", name="cp_sc_tagline")
+     * @Method({"GET", "POST"})
      */
     public function showTaglineAction(Request $request)
     {
@@ -46,6 +49,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/deltaker", name="cp_sc_participant_info")
+     * @Method({"GET", "POST"})
      */
     public function showParticipantAction(Request $request)
     {
@@ -58,6 +62,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/veileder", name="cp_sc_tutor_info")
+     * @Method({"GET", "POST"})
      */
     public function showTutorAction(Request $request)
     {
@@ -70,6 +75,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/om_deltakere", name="cp_sc_about_participant")
+     * @Method({"GET", "POST"})
      */
     public function showAboutParticipantAction(Request $request)
     {
@@ -82,6 +88,7 @@ class AdminStaticContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/statisk_innhold/om_veiledere", name="cp_sc_about_tutor")
+     * @Method({"GET", "POST"})
      */
     public function showAboutTutorAction(Request $request)
     {

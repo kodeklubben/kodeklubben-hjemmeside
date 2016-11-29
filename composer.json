@@ -10,8 +10,7 @@
             "CourseBundle\\": "src/",
             "ImageBundle\\": "src/",
             "StaticContentBundle\\": "src/",
-            "UserBundle\\": "src/",
-            "": "src/"
+            "UserBundle\\": "src/"
         },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },

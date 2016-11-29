@@ -6,6 +6,7 @@ use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseClass;
 use CourseBundle\Form\Type\CourseClassType;
 use CourseBundle\Form\Type\CourseFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,6 +24,7 @@ class AdminCourseController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kurs", name="cp_course")
+     * @Method("GET")
      */
     public function showAction(Request $request)
     {
@@ -51,6 +53,7 @@ class AdminCourseController extends Controller
      *
      * @Route("/kurs/ny", name="cp_create_course")
      * @Route("/kurs/{id}", name="cp_edit_course", requirements={"id" = "\d+"})
+     * @Method({"GET", "POST"})
      */
     public function editCourseAction(Request $request, Course $course = null)
     {
@@ -85,6 +88,7 @@ class AdminCourseController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_course_time_table"
      * )
+     * @Method({"GET", "POST"})
      */
     public function editTimeTableAction(Request $request, Course $course)
     {
@@ -127,6 +131,7 @@ class AdminCourseController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_delete_course"
      * )
+     * @Method("POST")
      */
     public function deleteCourseAction(Course $course)
     {
@@ -147,6 +152,7 @@ class AdminCourseController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_course_participants"
      * )
+     * @Method("GET")
      */
     public function showParticipantsAction(Course $course)
     {
@@ -162,6 +168,7 @@ class AdminCourseController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_course_tutors"
      * )
+     * @Method("GET")
      */
     public function showTutorsAction(Course $course)
     {
@@ -177,6 +184,7 @@ class AdminCourseController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_delete_course_class"
      * )
+     * @Method("POST")
      */
     public function deleteCourseClassAction($id)
     {
@@ -198,6 +206,7 @@ class AdminCourseController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/veiledere", name="cp_tutors")
+     * @Method("GET")
      */
     public function showAllTutorsAction(Request $request)
     {
@@ -210,6 +219,7 @@ class AdminCourseController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/deltakere", name="cp_participants")
+     * @Method("GET")
      */
     public function showAllParticipantsAction(Request $request)
     {

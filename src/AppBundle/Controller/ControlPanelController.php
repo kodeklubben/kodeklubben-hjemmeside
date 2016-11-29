@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -16,6 +17,7 @@ class ControlPanelController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/", name="control_panel")
+     * @Method("GET")
      */
     public function showAction()
     {
@@ -47,6 +49,7 @@ class ControlPanelController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/epost", name="cp_email")
+     * @Method("GET")
      */
     public function showEmailAction()
     {

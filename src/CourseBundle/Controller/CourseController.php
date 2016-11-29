@@ -3,6 +3,7 @@
 namespace CourseBundle\Controller;
 
 use CourseBundle\Entity\Course;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,6 +14,7 @@ class CourseController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kurs", name="courses")
+     * @Method("GET")
      */
     public function showAction()
     {
@@ -32,6 +34,7 @@ class CourseController extends Controller
      *     requirements={"id"="\d+"},
      *     name="course_info"
      * )
+     * @Method("GET")
      */
     public function showCourseInfoAction(Course $course)
     {
@@ -47,6 +50,7 @@ class CourseController extends Controller
      *     name="api_get_course_classes_by_week",
      *     requirements={"id" = "\d+"}
      * )
+     * @Method("GET")
      */
     public function getCourseClassesAction($week)
     {

@@ -29,6 +29,7 @@ class AdminSignUpController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_sign_up"
      * )
+     * @Method("GET")
      */
     public function showAction(User $user)
     {
@@ -78,6 +79,7 @@ class AdminSignUpController extends Controller
      *     options={"expose" = true},
      *     name="cp_sign_up_course_child"
      * )
+     * @Method("POST")
      */
     public function signUpChildAction(Course $course, Child $child, Request $request)
     {

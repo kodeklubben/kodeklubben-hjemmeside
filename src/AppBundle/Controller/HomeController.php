@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -11,12 +12,16 @@ class HomeController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/", name="home")
+     * @Method("GET")
      */
     public function showAction()
     {
         return $this->render('@App/home/show.html.twig');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showMessagesAction()
     {
         $club = $this->get('club_manager')->getCurrentClub();
@@ -25,6 +30,9 @@ class HomeController extends Controller
         return $this->render('@App/home/messages.html.twig', array('messages' => $messages));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showCourseTypesAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
@@ -34,6 +42,10 @@ class HomeController extends Controller
         return $this->render('@App/home/course.html.twig', array('courseTypes' => $courseTypes));
     }
 
+    /**
+     * @param null $week
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function showTimeTableAction($week = null)
     {
         if (is_null($week)) {

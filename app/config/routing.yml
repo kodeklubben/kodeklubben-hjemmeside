@@ -30,19 +30,24 @@ fos_js_routing:
 security_login_form:
     path: /login/{last_username}
     defaults: {_controller: UserBundle:Security:login, last_username: ''}
+    methods: [GET]
 
 security_login_check:
     path: /login_check
     defaults: {_controller: UserBundle:Security:loginCheck}
+    methods: [POST]
 
 security_logout:
     path: /logout
     defaults: {_controller: UserBundle:Security:logout}
+    methods: [GET]
 
 password_reset:
   path: /reset_passord
   defaults: {_controller: UserBundle:PasswordReset:show}
+  methods: [GET, POST]
 
 password_new:
   path: /reset_passord/{code}
   defaults: {_controller: UserBundle:PasswordReset:resetPassword}
+  methods: [GET, POST]

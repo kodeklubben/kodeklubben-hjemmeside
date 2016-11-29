@@ -29,6 +29,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/registrer/deltaker", name="participant_registration")
+     * @Method({"GET", "POST"})
      */
     public function registerParticipantAction(Request $request)
     {
@@ -41,6 +42,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/registrer/foresatt", name="parent_registration")
+     * @Method({"GET", "POST"})
      */
     public function registerParentAction(Request $request)
     {
@@ -53,6 +55,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/registrer/veileder", name="tutor_registration")
+     * @Method({"GET", "POST"})
      */
     public function registerTutorAction(Request $request)
     {
@@ -106,6 +109,7 @@ class UserController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/registrer/{code}", name="registration_new_user_code")
+     * @Method({"GET", "POST"})
      */
     public function registerWithNewUserCodeAction(Request $request)
     {
