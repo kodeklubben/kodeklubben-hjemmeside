@@ -25,6 +25,6 @@ class ClubRepository extends EntityRepository
             ->where('club.subdomain = :subdomain')
             ->setParameter('subdomain', $subdomain)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }

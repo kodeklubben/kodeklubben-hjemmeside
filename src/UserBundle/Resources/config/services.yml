@@ -1,31 +1,37 @@
 services:
-  user.registration:
-    class: UserBundle\Service\UserRegistration
-    arguments: ['@security.password_encoder', '@doctrine.orm.default_entity_manager', '@club_manager', '@twig', '@mailer']
+    user.provider:
+        class: UserBundle\Security\UserProvider
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@club_manager'
+    user.registration:
+        class: UserBundle\Service\UserRegistration
+        arguments: ['@security.password_encoder', '@doctrine.orm.default_entity_manager', '@club_manager', '@twig', '@mailer']
 
-  user.roles:
-    class: UserBundle\Service\UserRoles
-    arguments: ['%security.role_hierarchy.roles%']
+    user.roles:
+        class: UserBundle\Service\UserRoles
+        arguments: ['%security.role_hierarchy.roles%']
 
-  user.twig_user_role_filter:
-    class: UserBundle\Twig\UserExtension
-    public: false
-    tags:
-      - { name: twig.extension }
+    user.twig_user_role_filter:
+        class: UserBundle\Twig\UserExtension
+        public: false
+        tags:
+          - { name: twig.extension }
 
-  user.forced_logout_listener:
-      class: UserBundle\EventListener\ForcedLogoutListener
-      arguments:
-        - "@security.token_storage"
-        - "@security.authorization_checker"
-        - "@session"
-        - "@router"
-        - "@club_manager"
-        - "@logger"
-        - "%session.name%"
-        - "%remember_me.name%"
-      tags:
-          - name: kernel.event_listener
-            event: kernel.request
-            method: onKernelRequest
-            priority: 0
+    user.forced_logout_listener:
+        class: UserBundle\EventListener\ForcedLogoutListener
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+            - "@session"
+            - "@router"
+            - "@club_manager"
+            - "@logger"
+            - "%session.name%"
+            - "%remember_me.name%"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest
+                priority: 0

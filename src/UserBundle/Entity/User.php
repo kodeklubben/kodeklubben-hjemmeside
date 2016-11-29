@@ -14,7 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="club_email_idx", columns={"club_id", "email"})
  * })
- * @UniqueEntity("email")
+ * @UniqueEntity(
+ *     fields={"email", "club"},
+ *     message="E-posten er allerde i bruk."
+ * )
  *
  * Defines the properties of the User entity to represent the application users.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -37,7 +40,7 @@ class User implements UserInterface, EquatableInterface
     private $club;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      */
     private $username;
 
@@ -66,7 +69,7 @@ class User implements UserInterface, EquatableInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -338,10 +341,8 @@ class User implements UserInterface, EquatableInterface
         return false;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getFullName();
     }
-
-
 }

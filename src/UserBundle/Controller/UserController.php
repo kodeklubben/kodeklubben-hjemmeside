@@ -72,6 +72,7 @@ class UserController extends Controller
     {
         $user = new User();
         $user->setRoles(array($role));
+        $user->setClub($this->get('club_manager')->getCurrentClub());
         $form = $this->createForm(new UserType(), $user);
 
         $form->handleRequest($request);

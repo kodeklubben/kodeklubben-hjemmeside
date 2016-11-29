@@ -14,25 +14,24 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use UserBundle\Entity\User;
 
-
 class ForcedLogoutListener
 {
-    /** @var  TokenStorageInterface */
+    /** @var TokenStorageInterface */
     protected $tokenStorage;
 
-    /** @var  AuthorizationCheckerInterface */
+    /** @var AuthorizationCheckerInterface */
     protected $authChecker;
 
-    /** @var  SessionInterface */
+    /** @var SessionInterface */
     protected $session;
 
-    /** @var  RouterInterface */
+    /** @var RouterInterface */
     protected $router;
 
-    /** @var  string */
+    /** @var string */
     protected $sessionName;
 
-    /** @var  string */
+    /** @var string */
     protected $rememberMeSessionName;
 
     /** @var ClubManager */
@@ -42,16 +41,15 @@ class ForcedLogoutListener
      */
     private $logger;
 
-
     /**
-     * @param TokenStorageInterface $tokenStorage
+     * @param TokenStorageInterface         $tokenStorage
      * @param AuthorizationCheckerInterface $authChecker
-     * @param SessionInterface $session
-     * @param RouterInterface $router
-     * @param ClubManager $clubManager
-     * @param Logger $logger
-     * @param string $sessionName
-     * @param string $rememberMeSessionName
+     * @param SessionInterface              $session
+     * @param RouterInterface               $router
+     * @param ClubManager                   $clubManager
+     * @param Logger                        $logger
+     * @param string                        $sessionName
+     * @param string                        $rememberMeSessionName
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -94,7 +92,6 @@ class ForcedLogoutListener
             // Logging user out.
             $response = $this->getRedirectResponse('security_login_form');
             $this->logUserOut($response);
-
 
             // Setting redirect response.
             $event->setResponse($response);
