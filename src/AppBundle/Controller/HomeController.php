@@ -44,6 +44,7 @@ class HomeController extends Controller
 
     /**
      * @param null $week
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showTimeTableAction($week = null)

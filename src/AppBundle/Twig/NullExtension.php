@@ -1,8 +1,6 @@
 <?php
 
-
 namespace AppBundle\Twig;
-
 
 class NullExtension implements \Twig_ExtensionInterface
 {
@@ -10,7 +8,8 @@ class NullExtension implements \Twig_ExtensionInterface
      * {@inheritdoc}
      */
     public function initRuntime(\Twig_Environment $environment)
-    {}
+    {
+    }
 
     /**
      * {@inheritdoc}

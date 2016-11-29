@@ -20,6 +20,7 @@ class CourseController extends Controller
     {
         $club = $this->get('club_manager')->getCurrentClub();
         $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
+
         return $this->render('@Course/show.html.twig', array(
             'courses' => $courses, ));
     }

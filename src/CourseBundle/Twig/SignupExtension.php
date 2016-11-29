@@ -7,7 +7,6 @@ use UserBundle\Entity\Tutor;
 
 class SignupExtension extends \Twig_Extension
 {
-
     public function __construct()
     {
     }
@@ -28,16 +27,18 @@ class SignupExtension extends \Twig_Extension
 
     /**
      * @param Tutor[] $tutors
-     * @param Course $course
+     * @param Course  $course
+     *
      * @return bool
      */
     public function isInCourse(array $tutors, Course $course)
     {
-        foreach($tutors as $tutor) {
+        foreach ($tutors as $tutor) {
             if ($tutor->getCourse() === $course) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -47,9 +48,9 @@ class SignupExtension extends \Twig_Extension
         $courseAvailability = $course->getParticipantLimit() - $participantCount;
         if ($courseAvailability === 0) {
             return 'text-info';
-        } else if ($participantCount === 0) {
+        } elseif ($participantCount === 0) {
             return 'text-danger';
-        } else if ($courseAvailability > 5 && $participantCount < 5) {
+        } elseif ($courseAvailability > 5 && $participantCount < 5) {
             return 'text-warning';
         } else {
             return 'text-success';
@@ -61,7 +62,7 @@ class SignupExtension extends \Twig_Extension
         $placesLeft = $course->getParticipantLimit() - count($course->getParticipants());
         if ($placesLeft === 0) {
             return 'text-danger';
-        } else if ($placesLeft <= 5) {
+        } elseif ($placesLeft <= 5) {
             return 'text-warning';
         } else {
             return 'text-success';
