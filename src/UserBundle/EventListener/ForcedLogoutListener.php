@@ -90,10 +90,10 @@ class ForcedLogoutListener
             $this->logger->info('Force logging out '.$user);
 
             // Logging user out.
-            $response = $this->getRedirectResponse('security_login_form');
+            $response = new Response();
             $this->logUserOut($response);
 
-            // Setting redirect response.
+            // Setting response.
             $event->setResponse($response);
         }
     }
