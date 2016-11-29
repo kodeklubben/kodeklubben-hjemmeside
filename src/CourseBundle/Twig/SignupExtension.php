@@ -22,6 +22,7 @@ class SignupExtension extends \Twig_Extension
         return array(
             'is_in_course' => new \Twig_Function_Method($this, 'isInCourse'),
             'course_availability_color_class' => new \Twig_Function_Method($this, 'courseAvailabilityColorClass'),
+            'places_left_color_class' => new \Twig_Function_Method($this, 'placesLeftColorClass'),
         );
     }
 
@@ -49,6 +50,18 @@ class SignupExtension extends \Twig_Extension
         } else if ($participantCount === 0) {
             return 'text-danger';
         } else if ($courseAvailability > 5 && $participantCount < 5) {
+            return 'text-warning';
+        } else {
+            return 'text-success';
+        }
+    }
+
+    public function placesLeftColorClass(Course $course)
+    {
+        $placesLeft = $course->getParticipantLimit() - count($course->getParticipants());
+        if ($placesLeft === 0) {
+            return 'text-danger';
+        } else if ($placesLeft <= 5) {
             return 'text-warning';
         } else {
             return 'text-success';
