@@ -31,12 +31,7 @@
                                     </div>
                                     <div class="pull-down">
                                         <footer>
-                                            {% set alreadySignedUp = false %}
-                                            {% for tutor in tutors %}
-                                                {% if tutor.course == course %}
-                                                    {% set alreadySignedUp = true %}
-                                                {% endif %}
-                                            {% endfor %}
+                                            {% set alreadySignedUp = is_in_course(tutors, course) %}
                                             <hr>
                                             <form action="{{ path('sign_up_course', {'id': course.id}) }}" method="POST">
                                                 <label>

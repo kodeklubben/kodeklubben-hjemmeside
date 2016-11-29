@@ -24,7 +24,7 @@
                         </td>
                         <td>
                             <form method="POST"
-                                  action="{{ path(isAdmin is defined and isAdmin ? 'course_admin_withdraw_tutor' : 'withdraw_from_course_tutor', {'id': tutor.id}) }}">
+                                  action="{{ path(is_granted('ROLE_ADMIN') ? 'course_admin_withdraw_tutor' : 'withdraw_from_course_tutor', {'id': tutor.id}) }}">
                                 <button type="submit"
                                         class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
                                     Meld av
