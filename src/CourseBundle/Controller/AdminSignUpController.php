@@ -3,7 +3,6 @@
 namespace CourseBundle\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
 use UserBundle\Entity\Participant;
