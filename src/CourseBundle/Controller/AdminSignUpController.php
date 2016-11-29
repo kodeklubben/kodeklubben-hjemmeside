@@ -2,6 +2,7 @@
 
 namespace CourseBundle\Controller;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
@@ -69,20 +70,23 @@ class AdminSignUpController extends Controller
 
     /**
      * @param Course  $course
-     * @param Child   $child
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/pamelding/barn/{id}/{child}",
-     *     requirements={"id" = "\d+", "child" = "\d+"},
-     *     options={"expose" = true},
+     * @Route("/pamelding/barn/{id}",
+     *     requirements={"id" = "\d+"},
      *     name="cp_sign_up_course_child"
      * )
      * @Method("POST")
      */
-    public function signUpChildAction(Course $course, Child $child, Request $request)
+    public function signUpChildAction(Course $course, Request $request)
     {
+        $childId = $request->request->get('child');
+        $child = $this->getDoctrine()->getRepository('UserBundle:Child')->find($childId);
+        if ($child === null) {
+            throw new NotFoundHttpException('Child not found');
+        }
         // Check if child is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());

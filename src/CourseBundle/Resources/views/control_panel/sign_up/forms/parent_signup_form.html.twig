@@ -1,0 +1,32 @@
+<form action="{{ path('cp_sign_up_course_child', {id: course.id}) }}"
+      method="POST">
+    <div class="form-group">
+        <label for="course-{{ course.id }}-child">Velg barn</label>
+        <select name="child" id="course-{{ course.id }}-child" class="form-control">
+            {% if children|length == 0 %}
+                <option>Ingen barn</option>
+            {% endif %}
+            {% for child in children %}
+                <option value="{{ child.id }}">{{ child.fullName }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% set placesLeft = course.participantLimit-course.participants|length %}
+
+    <p class="{{ places_left_color_class(course) }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+
+    <div class="form-group">
+        {% if placesLeft <= 0 %}
+            <button type="button" disabled class="btn btn-primary btn-sm">
+                Fullt
+            </button>
+        {% else %}
+            <button {{ children|length == 0 ? 'type="button" disabled' : 'type="submit"' }}
+                    class="btn btn-primary btn-sm onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
+        {% endif %}
+        <a href="{{ path('course_info', {id: course.id}) }}"
+           class="btn btn-sm btn-default">Mer
+            info</a>
+    </div>
+</form>

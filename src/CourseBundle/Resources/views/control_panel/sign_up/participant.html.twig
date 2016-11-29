@@ -36,34 +36,7 @@
                                         </div>
                                         <div class="pull-down">
                                             <footer>
-                                                {% set alreadySignedUp = false %}
-                                                {% for participant in participants %}
-                                                    {% if participant.course == course %}
-                                                        {% set alreadySignedUp = true %}
-                                                    {% endif %}
-                                                {% endfor %}
-
-                                                {% set placesLeft = course.participantLimit-course.participants|length %}
-                                                {% if placesLeft == 0 %}
-                                                    {% set placesLeftClass = 'text-danger' %}
-                                                {% elseif placesLeft <= 5 %}
-                                                    {% set placesLeftClass = 'text-warning' %}
-                                                {% else %}
-                                                    {% set placesLeftClass = 'text-success' %}
-                                                {% endif %}
-
-                                                <p class="{{ placesLeftClass }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
-                                                {% if placesLeft <= 0 %}
-                                                    <button disabled class="btn btn-primary btn-sm">Fullt</button>
-                                                {% else %}
-                                                    <form method="POST" action="{{ path('cp_sign_up_course', {'course': course.id, 'user': user.id}) }}">
-                                                    <button type="submit" {{ alreadySignedUp ? 'disabled' }}
-                                                       class="btn btn-primary btn-sm btn-sign-up onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}</button>
-                                                {% endif %}
-                                                <a href="{{ path('course_info', {id: course.id}) }}"
-                                                   class="btn btn-sm btn-default">Mer
-                                                    info</a>
-                                                    </form>
+                                                {% include '@Course/control_panel/sign_up/forms/participant_signup_form.html.twig' %}
                                             </footer>
                                         </div>
                                     </div>
