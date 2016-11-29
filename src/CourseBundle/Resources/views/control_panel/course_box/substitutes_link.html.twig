@@ -1,0 +1,7 @@
+{% if course.fullTimeTutors| length == 0 and course.substitutes|length > 0 %}
+    <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
+       class="info-link underline">
+        {{ course.substitutes | length }} vikarer </a>
+{% else %}
+    {{ course.substitutes | length }} vikarer
+{% endif %}

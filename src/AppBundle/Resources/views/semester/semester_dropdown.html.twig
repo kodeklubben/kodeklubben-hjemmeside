@@ -1,0 +1,3 @@
+{% for semester in get_all_semesters() %}
+    <li><a href="{{ path(route, {'semester':semester.id}) }}">{{ semester }}</a></li>
+{% endfor %}

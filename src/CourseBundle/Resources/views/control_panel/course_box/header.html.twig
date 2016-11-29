@@ -1,0 +1,13 @@
+<h3 class="box-title text-bold">{{ course.name }}</h3>
+<div class="box-tools pull-right">
+    <form method="POST" action="{{ path('cp_delete_course', {'id': course.id}) }}"
+          onsubmit="return confirm('Er du sikker?')">
+        <a href="{{ path('cp_course_time_table', {'id': course.id}) }}"
+           class="btn btn-box-tool"><i
+                    class="text-success fa fa-table"></i></a>
+        <a href="{{ path('cp_edit_course', {'id': course.id}) }}"
+           class="btn btn-box-tool"><i class="text-info fa fa-pencil"></i></a>
+        <button type="submit" class="btn btn-box-tool onclick-disable"><i
+                    class="text-danger fa fa-trash"></i></button>
+    </form>
+</div>

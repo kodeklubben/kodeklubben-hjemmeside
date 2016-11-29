@@ -1,7 +1,7 @@
 services:
     course.sign_up:
         class: CourseBundle\Service\SignUp
-    course.signup_twig_extension:
+    twig.extension.sign_up:
         class: CourseBundle\Twig\SignupExtension
         tags:
             - { name: twig.extension }

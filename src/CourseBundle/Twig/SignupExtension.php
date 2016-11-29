@@ -2,7 +2,6 @@
 
 namespace CourseBundle\Twig;
 
-use CodeClubBundle\Service\ClubManager;
 use CourseBundle\Entity\Course;
 use UserBundle\Entity\Tutor;
 
@@ -22,6 +21,7 @@ class SignupExtension extends \Twig_Extension
     {
         return array(
             'is_in_course' => new \Twig_Function_Method($this, 'isInCourse'),
+            'course_availability_color_class' => new \Twig_Function_Method($this, 'courseAvailabilityColorClass'),
         );
     }
 
@@ -38,5 +38,20 @@ class SignupExtension extends \Twig_Extension
             }
         }
         return false;
+    }
+
+    public function courseAvailabilityColorClass(Course $course)
+    {
+        $participantCount = count($course->getParticipants());
+        $courseAvailability = $course->getParticipantLimit() - $participantCount;
+        if ($courseAvailability === 0) {
+            return 'text-info';
+        } else if ($participantCount === 0) {
+            return 'text-danger';
+        } else if ($courseAvailability > 5 && $participantCount < 5) {
+            return 'text-warning';
+        } else {
+            return 'text-success';
+        }
     }
 }
