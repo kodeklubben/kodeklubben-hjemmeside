@@ -4,9 +4,9 @@ namespace CodeClubBundle\Controller;
 
 use CodeClubBundle\Form\Type\ClubType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class AdminClubController extends Controller
 {
@@ -21,7 +21,7 @@ class AdminClubController extends Controller
     public function showAction(Request $request)
     {
         $club = $this->get('club_manager')->getCurrentClub();
-        $form = $this->createForm(new ClubType(), $club);
+        $form = $this->createForm(ClubType::class, $club);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

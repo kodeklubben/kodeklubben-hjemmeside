@@ -3,6 +3,7 @@
 namespace CourseBundle\Form\Type;
 
 use ImageBundle\Form\Type\ImageType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,23 +14,14 @@ class CourseTypeType extends AbstractType
 {
     private $isCreate;
 
-    /**
-     * CourseTypeType constructor.
-     *
-     * @param $isCreate
-     */
-    public function __construct($isCreate)
-    {
-        $this->isCreate = $isCreate;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->isCreate = $options['isCreate'];
         $builder
             ->add('name', TextType::class, array(
                 'label' => 'Navn',
             ))
-            ->add('description', 'ckeditor', array(
+            ->add('description', CKEditorType::class, array(
                 'label' => 'Beskrivelse',
                 'config' => array(
                     'height' => 350,
@@ -52,9 +44,13 @@ class CourseTypeType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(array(
+            'data_class' => 'CourseBundle\Entity\CourseType',
+            'isCreate' => false
+        ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_course_type';
     }

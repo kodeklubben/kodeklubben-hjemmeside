@@ -7,9 +7,9 @@ use CourseBundle\Entity\CourseClass;
 use CourseBundle\Form\Type\CourseClassType;
 use CourseBundle\Form\Type\CourseFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class AdminCourseController.
@@ -65,7 +65,10 @@ class AdminCourseController extends Controller
             $this->get('club_manager')->denyIfNotCurrentClub($course);
         }
         $club = $this->get('club_manager')->getCurrentClub();
-        $form = $this->createForm(new CourseFormType(!$isCreateAction, $club), $course);
+        $form = $this->createForm(CourseFormType::class, $course, array(
+            'showAllSemesters' => !$isCreateAction,
+            'club' => $club
+        ));
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -110,7 +113,7 @@ class AdminCourseController extends Controller
             $courseClass->setTime(new \DateTime());
         }
 
-        $form = $this->createForm(new CourseClassType(), $courseClass);
+        $form = $this->createForm(CourseClassType::class, $courseClass);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

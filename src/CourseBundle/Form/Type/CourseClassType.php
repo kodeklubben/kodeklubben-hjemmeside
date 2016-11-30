@@ -3,6 +3,8 @@
 namespace CourseBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,10 +13,10 @@ class CourseClassType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('time', 'datetime', array(
+            ->add('time', DateTimeType::class, array(
                 'label' => 'Tid',
             ))
-            ->add('place', 'text', array(
+            ->add('place', TextType::class, array(
                 'label' => 'Sted',
             ));
     }
@@ -23,7 +25,7 @@ class CourseClassType extends AbstractType
     {
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_course_class_type';
     }

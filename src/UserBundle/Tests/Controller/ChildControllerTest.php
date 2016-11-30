@@ -19,8 +19,8 @@ class ChildControllerTest extends CodeClubWebTestCase
         $this->assertEquals(1, $crawler->filter('h3:contains("Nytt Barn")')->count());
 
         $form = $crawler->selectButton('Lagre')->form();
-        $form['app_bundlecreate_child_type[firstName]']->setValue('TestChildFirst');
-        $form['app_bundlecreate_child_type[lastName]']->setValue('TestChildLast');
+        $form['app_bundle_create_child_type[firstName]']->setValue('TestChildFirst');
+        $form['app_bundle_create_child_type[lastName]']->setValue('TestChildLast');
         $client->submit($form);
 
         $this->assertTrue($client->getResponse()->isRedirect('/pamelding'));

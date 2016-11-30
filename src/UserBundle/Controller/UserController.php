@@ -2,12 +2,12 @@
 
 namespace UserBundle\Controller;
 
-use UserBundle\Entity\User;
-use UserBundle\Form\Type\UserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use UserBundle\Entity\User;
+use UserBundle\Form\Type\UserType;
 
 class UserController extends Controller
 {
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $user = $this->get('user.registration')->newUser();
         $user->setRoles(array($role));
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,7 +126,7 @@ class UserController extends Controller
         }
         $this->get('club_manager')->denyIfNotCurrentClub($user);
 
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

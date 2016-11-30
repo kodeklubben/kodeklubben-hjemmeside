@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\MessageType;
 use AppBundle\Entity\Message;
+use AppBundle\Form\Type\MessageType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class MessageController.
@@ -32,7 +32,7 @@ class MessageController extends Controller
         $message = new Message();
         $message->setClub($club);
 
-        $form = $this->createForm(new MessageType(), $message);
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();

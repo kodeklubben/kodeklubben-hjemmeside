@@ -3,12 +3,12 @@
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\ChildType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ChildController extends Controller
 {
@@ -23,7 +23,7 @@ class ChildController extends Controller
     public function createChildAction(Request $request)
     {
         $child = new Child();
-        $form = $this->createForm(new ChildType(), $child);
+        $form = $this->createForm(ChildType::class, $child);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $child->setParent($this->getUser());
@@ -51,7 +51,7 @@ class ChildController extends Controller
         $this->get('club_manager')->denyIfNotCurrentClub($user);
 
         $child = new Child();
-        $form = $this->createForm(new ChildType(), $child);
+        $form = $this->createForm(ChildType::class, $child);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $child->setParent($user);

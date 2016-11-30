@@ -2,10 +2,10 @@
 
 namespace StaticContentBundle\DataFixtures\ORM;
 
-use StaticContentBundle\Entity\StaticContent;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use StaticContentBundle\Entity\StaticContent;
 
 class LoadStaticContentData extends AbstractFixture implements OrderedFixtureInterface
 {

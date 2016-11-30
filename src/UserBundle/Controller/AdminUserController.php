@@ -3,12 +3,12 @@
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\AdminUserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class AdminUserController.
@@ -65,7 +65,7 @@ class AdminUserController extends Controller
 
         $userRegistration->setRandomEncodedPassword($user);
 
-        $form = $this->createForm(new AdminUserType(), $user);
+        $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -2,13 +2,13 @@
 
 namespace CourseBundle\Controller;
 
-use CourseBundle\Form\Type\CourseTypeType;
 use CourseBundle\Entity\CourseType;
+use CourseBundle\Form\Type\CourseTypeType;
 use ImageBundle\Entity\Image;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminCourseTypeController.
@@ -65,7 +65,9 @@ class AdminCourseTypeController extends Controller
             $this->get('club_manager')->denyIfNotCurrentClub($courseType);
         }
 
-        $form = $this->createForm(new CourseTypeType($isCreate), $courseType);
+        $form = $this->createForm(CourseTypeType::class, $courseType, array(
+            'isCreate' => $isCreate
+        ));
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

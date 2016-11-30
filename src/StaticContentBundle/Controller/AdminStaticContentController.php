@@ -3,12 +3,12 @@
 namespace StaticContentBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use StaticContentBundle\Entity\StaticContent;
 use StaticContentBundle\Form\Type\StaticContentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class AdminStaticContentController.
@@ -105,7 +105,9 @@ class AdminStaticContentController extends Controller
             $content->setClub($club);
         }
 
-        $form = $this->createForm(new StaticContentType($label), $content);
+        $form = $this->createForm(StaticContentType::class, $content, array(
+            'label' => $label
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $content->setLastEditedBy($this->getUser());

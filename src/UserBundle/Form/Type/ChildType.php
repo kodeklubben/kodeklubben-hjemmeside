@@ -22,10 +22,13 @@ class ChildType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(array(
+            'data_class' => 'UserBundle\Entity\Child',
+        ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
-        return 'app_bundlecreate_child_type';
+        return 'app_bundle_create_child_type';
     }
 }

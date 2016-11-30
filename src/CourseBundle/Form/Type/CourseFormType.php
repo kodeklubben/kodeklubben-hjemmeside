@@ -4,7 +4,10 @@ namespace CourseBundle\Form\Type;
 
 use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,31 +19,21 @@ class CourseFormType extends AbstractType
      */
     private $club;
 
-    /**
-     * CourseFormType constructor.
-     *
-     * @param $showAllSemesters
-     * @param Club $club
-     */
-    public function __construct($showAllSemesters, Club $club)
-    {
-        $this->showAllSemesters = $showAllSemesters;
-        $this->club = $club;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->showAllSemesters = $options['showAllSemesters'];
+        $this->club = $options['club'];
         $builder
-            ->add('name', 'text', array(
+            ->add('name', TextType::class, array(
                 'label' => 'Navn',
                 'attr' => ['placeholder' => 'eks.: Scratch'],
             ))
-            ->add('description', 'text', array(
+            ->add('description', TextType::class, array(
                 'label' => 'Kort Beskrivelse',
                 'attr' => ['placeholder' => 'eks.: Scratch Mandag kl 18.00 i R1'],
 
             ))
-            ->add('courseType', 'entity', array(
+            ->add('courseType', EntityType::class, array(
                 'label' => 'Kurstype',
                 'class' => 'CourseBundle\Entity\CourseType',
                 'query_builder' => function (EntityRepository $er) {
@@ -51,13 +44,13 @@ class CourseFormType extends AbstractType
                         ->setParameter('club', $this->club);
                 },
             ))
-            ->add('participantLimit', 'number', array(
+            ->add('participantLimit', NumberType::class, array(
                 'label' => 'Maks antall deltakere',
                 'attr' => ['placeholder' => 'eks.: 20'],
             ));
         if ($this->showAllSemesters) {
             $builder
-                    ->add('semester', 'entity', array(
+                    ->add('semester', EntityType::class, array(
                         'class' => 'AppBundle\Entity\Semester',
                         'query_builder' => function (EntityRepository $er) {
                             return $er->allSemestersQuery();
@@ -65,7 +58,7 @@ class CourseFormType extends AbstractType
                     ));
         } else {
             $builder
-                ->add('semester', 'entity', array(
+                ->add('semester', EntityType::class, array(
                     'class' => 'AppBundle\Entity\Semester',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->thisAndNextSemesterQuery();
@@ -76,9 +69,14 @@ class CourseFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(array(
+            'data_class' => 'CourseBundle\Entity\Course',
+            'club' => null,
+            'showAllSemesters' => false
+        ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_course_series_type';
     }

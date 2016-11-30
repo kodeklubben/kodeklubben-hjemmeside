@@ -28,7 +28,7 @@ class ImageType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'image_bundle_image_type';
     }

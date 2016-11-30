@@ -5,10 +5,10 @@ namespace UserBundle\Repository;
 use AppBundle\Entity\Semester;
 use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\Course;
+use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\Participant;
 use UserBundle\Entity\User;
-use Doctrine\ORM\EntityRepository;
 
 class ParticipantRepository extends EntityRepository
 {

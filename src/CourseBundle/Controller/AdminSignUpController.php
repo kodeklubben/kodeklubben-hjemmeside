@@ -2,16 +2,16 @@
 
 namespace CourseBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UserBundle\Entity\Participant;
+use UserBundle\Entity\Tutor;
 use UserBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminSignUpController.

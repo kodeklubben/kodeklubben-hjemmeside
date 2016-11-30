@@ -2,11 +2,11 @@
 
 namespace CourseBundle\Repository;
 
+use AppBundle\Entity\Semester;
 use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\Course;
-use AppBundle\Entity\Semester;
-use UserBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
+use UserBundle\Entity\User;
 
 class CourseRepository extends EntityRepository
 {

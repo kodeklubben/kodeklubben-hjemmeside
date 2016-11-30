@@ -3,6 +3,8 @@
 namespace CodeClubBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,16 +13,16 @@ class ClubType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
+            ->add('name', TextType::class, array(
             'label' => 'Navn',
             ))
-            ->add('region', 'text', array(
+            ->add('region', TextType::class, array(
                 'label' => 'Region',
             ))
-            ->add('email', 'email', array(
+            ->add('email', EmailType::class, array(
                 'label' => 'E-post',
             ))
-            ->add('facebook', 'text', array(
+            ->add('facebook', TextType::class, array(
                 'label' => 'facbook.com/',
             ));
     }
@@ -29,7 +31,7 @@ class ClubType extends AbstractType
     {
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'code_club_bundle_club_type';
     }

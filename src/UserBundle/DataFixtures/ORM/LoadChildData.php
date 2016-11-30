@@ -2,10 +2,10 @@
 
 namespace UserBundle\DataFixtures\ORM;
 
-use UserBundle\Entity\Child;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use UserBundle\Entity\Child;
 
 class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
 {
