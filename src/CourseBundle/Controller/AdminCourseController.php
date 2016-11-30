@@ -67,7 +67,7 @@ class AdminCourseController extends Controller
         $club = $this->get('club_manager')->getCurrentClub();
         $form = $this->createForm(CourseFormType::class, $course, array(
             'showAllSemesters' => !$isCreateAction,
-            'club' => $club
+            'club' => $club,
         ));
 
         $form->handleRequest($request);

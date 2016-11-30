@@ -72,7 +72,7 @@ class CourseFormType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'CourseBundle\Entity\Course',
             'club' => null,
-            'showAllSemesters' => false
+            'showAllSemesters' => false,
         ));
     }
 

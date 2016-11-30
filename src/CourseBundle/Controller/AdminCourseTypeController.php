@@ -66,7 +66,7 @@ class AdminCourseTypeController extends Controller
         }
 
         $form = $this->createForm(CourseTypeType::class, $courseType, array(
-            'isCreate' => $isCreate
+            'isCreate' => $isCreate,
         ));
 
         $form->handleRequest($request);

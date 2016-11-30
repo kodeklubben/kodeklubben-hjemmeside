@@ -106,7 +106,7 @@ class AdminStaticContentController extends Controller
         }
 
         $form = $this->createForm(StaticContentType::class, $content, array(
-            'label' => $label
+            'label' => $label,
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

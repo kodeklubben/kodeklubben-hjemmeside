@@ -46,7 +46,7 @@ class CourseTypeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'CourseBundle\Entity\CourseType',
-            'isCreate' => false
+            'isCreate' => false,
         ));
     }
 
