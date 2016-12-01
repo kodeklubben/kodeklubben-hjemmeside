@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new ImageBundle\ImageBundle(),
             new AppBundle\AppBundle(),
+            new ClubManagerBundle\ClubManagerBundle(),
         );
 
         // Some bundles are only used while developing the application or during

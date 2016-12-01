@@ -7,3 +7,8 @@ services:
         arguments: ["@doctrine.orm.default_entity_manager"]
         tags:
             - { name: twig.extension }
+    twig.extensions.domain:
+        class: AppBundle\Twig\DomainExtension
+        arguments: ["%base_host%"]
+        tags:
+            - { name: twig.extension }

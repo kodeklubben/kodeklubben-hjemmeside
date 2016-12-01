@@ -38,7 +38,7 @@ class CurrentClubListener
         $this->logger->info('Host: '.$host);
         $baseHost = $this->baseHost;
         if ($host === $baseHost) {
-            throw new NotFoundHttpException('Main page not implemented yet');
+            return;
         }
 
         $subdomain = str_replace('.'.$baseHost, '', $host);

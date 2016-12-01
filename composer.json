@@ -6,6 +6,7 @@
     "autoload": {
         "psr-4": {
             "AppBundle\\": "src/AppBundle",
+            "ClubManagerBundle\\": "src/ClubManagerBundle",
             "CodeClubBundle\\": "src/CodeClubBundle",
             "CourseBundle\\": "src/CourseBundle",
             "ImageBundle\\": "src/ImageBundle",

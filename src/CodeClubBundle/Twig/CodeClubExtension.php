@@ -21,7 +21,7 @@ class CodeClubExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'get_club' => new \Twig_Function_Method($this, 'getClub'),
+            new \Twig_SimpleFunction('get_club', array($this, 'getClub')),
         );
     }
 

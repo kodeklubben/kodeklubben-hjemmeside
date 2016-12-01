@@ -1,0 +1,9 @@
+{% extends '@ClubManager/base.html.twig' %}
+{% block body %}
+    {% set isPort80 = app.request.port == '80' %}
+    {% set port = isPort80 ? null : ':' ~ app.request.port %}
+    <h4>
+        <a href="{{ app.request.scheme ~ '://' ~ club.subdomain ~ '.' ~ base_host ~ port }}">{{ club.name }}</a> ble opprettet.
+    </h4>
+    <h5>Brukernavn og passord til adminbruker blir sendt på epost: <span class="text-info">{{ club.email }}</span>.</h5>
+{% endblock %}

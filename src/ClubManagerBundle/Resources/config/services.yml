@@ -1,0 +1,13 @@
+services:
+    club_manager_redirecter:
+        class: ClubManagerBundle\EventListener\ClubManagerPathListener
+        arguments:
+            - "@club_manager"
+            - "@router"
+            - "@logger"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest
+                priority: 10

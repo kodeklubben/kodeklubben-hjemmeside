@@ -7,6 +7,14 @@ services:
             - { name: twig.extension }
     club_manager:
         class: CodeClubBundle\Service\ClubManager
+        arguments:
+            - "@request_stack"
+    club_registration:
+        class: CodeClubBundle\Service\ClubRegistration
+        arguments:
+            - "@mailer"
+            - "@user.registration"
+            - "%base_host%"
     current_club_listener:
         class: CodeClubBundle\EventListener\CurrentClubListener
         arguments:
@@ -19,4 +27,4 @@ services:
                 name: kernel.event_listener
                 event: kernel.request
                 method: onKernelRequest
-                priority: 10
+                priority: 11

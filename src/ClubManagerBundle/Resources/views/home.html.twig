@@ -1,0 +1,26 @@
+{% extends '@ClubManager/base.html.twig' %}
+{% block body %}
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <h2>Kodeklubber</h2>
+            {% set isPort80 = app.request.port == '80' %}
+            {% set port = isPort80 ? null : ':' ~ app.request.port %}
+            {% for club in clubs %}
+                <p>
+                    <a href="{{ app.request.scheme ~ '://' ~ club.subdomain ~ '.' ~ base_host ~ port }}">{{ club.name }}</a>
+                </p>
+            {% endfor %}
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <h2>Opprett ny kodeklubb</h2>
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.region) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.facebook) }}
+            <button type="submit" class="btn btn-success">Opprett</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

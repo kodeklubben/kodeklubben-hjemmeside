@@ -1,7 +1,11 @@
+club_manager:
+    resource: "@ClubManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /klubber
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-    prefix:   /
 
 image:
     resource: '@ImageBundle/Controller/'

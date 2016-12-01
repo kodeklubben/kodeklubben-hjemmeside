@@ -24,6 +24,7 @@ class ClubType extends AbstractType
             ))
             ->add('facebook', TextType::class, array(
                 'label' => 'facbook.com/',
+                'required' => false,
             ));
     }
 

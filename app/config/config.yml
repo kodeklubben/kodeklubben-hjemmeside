@@ -14,6 +14,7 @@ imports:
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@ImageBundle/Resources/config/services.yml" }
     - { resource: "@AppBundle/Resources/config/services.yml" }
+    - { resource: "@ClubManagerBundle/Resources/config/services.yml" }
 
 # These are the configuration parameters that define the application's behavior
 # and which are independent from the underlying technical infrastructure
@@ -65,6 +66,7 @@ twig:
         - "bootstrap_3_layout.html.twig"
     globals:
         google_analytics_id: "%google_analytics_id%"
+        base_host: "%base_host%"
 
 # Assetic Configuration (used for managing web assets: CSS, JavaScript, Sass, etc.)
 assetic:

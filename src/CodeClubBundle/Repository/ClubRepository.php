@@ -27,4 +27,31 @@ class ClubRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @return Club[]
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder('club')
+            ->select('club')
+            ->where('club.subdomain != :default')
+            ->setParameter('default', 'default')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Club[]
+     */
+    public function findAllSorted()
+    {
+        return $this->createQueryBuilder('club')
+            ->select('club')
+            ->where('club.subdomain != :default')
+            ->setParameter('default', 'default')
+            ->orderBy('club.name')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace UserBundle\Service;
 
+use CodeClubBundle\Entity\Club;
 use CodeClubBundle\Service\ClubManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
@@ -117,11 +118,16 @@ class UserRegistration
 
     /**
      * @param User $user
+     *
+     * @return string
      */
     public function setRandomEncodedPassword(User $user)
     {
-        $password = $this->encodePassword($user, $this->generateRandomPassword(16));
-        $user->setPassword($password);
+        $plainPassword = $this->generateRandomPassword(16);
+        $encodedPassword = $this->encodePassword($user, $plainPassword);
+        $user->setPassword($encodedPassword);
+
+        return $plainPassword;
     }
 
     /**
@@ -136,12 +142,14 @@ class UserRegistration
     }
 
     /**
+     * @param Club $club
+     *
      * @return User
      */
-    public function newUser()
+    public function newUser(Club $club = null)
     {
         $user = new User();
-        $user->setClub($this->clubManager->getCurrentClub());
+        $user->setClub($club !== null ? $club : $this->clubManager->getCurrentClub());
 
         return $user;
     }
