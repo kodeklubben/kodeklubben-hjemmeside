@@ -14,16 +14,16 @@ class ClubType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-            'label' => 'Navn',
+            'label' => 'Navn på kodeklubb',
             ))
             ->add('region', TextType::class, array(
                 'label' => 'Region',
             ))
             ->add('email', EmailType::class, array(
-                'label' => 'E-post',
+                'label' => 'E-post til kodeklubb',
             ))
             ->add('facebook', TextType::class, array(
-                'label' => 'facbook.com/',
+                'label' => '(Valgfri) facbook.com/',
                 'required' => false,
             ));
     }

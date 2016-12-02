@@ -2,8 +2,34 @@
 {% block body %}
     <br>
     <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <h1>Kodeklubben - nettsider <span class="text-danger" style="font-size: 16px;">beta</span></h1>
+                <p>Et konsept for enkel opprettelse av nettsider til kodeklubber</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
         <div class="col-xs-12 col-md-6">
             <h2>Kodeklubber</h2>
+            <p>
+                Hos <a href="{{ path('home_w_domain', {subdomain: 'trondheim'}) }}">Kodeklubben Trondheim</a> ligger det
+                litt testdata. <br>
+                Der kan du logge deg inn med adminbruker:
+            </p>
+            <li><strong>E-post</strong>: admin@mail.no</li>
+            <li><strong>Passord</strong>: 1234 <br></li>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <hr>
+                </div>
+            </div>
+
+            <p>Alle kodeklubber som har blitt opprettet:</p>
+            <p></p>
             {% for club in clubs %}
                 <p>
                     <a href="{{ path('home_w_domain', {subdomain: club.subdomain}) }}">{{ club.name }}</a>
@@ -12,13 +38,16 @@
         </div>
         <div class="col-xs-12 col-md-6">
             <h2>Opprett ny kodeklubb</h2>
+            <p>Her kan du opprette din egen kodeklubbnettside, <span class="text-info">&lt;region&gt;.webandresen.no</span>.</p>
             {{ form_start(form) }}
             {{ form_row(form.name) }}
             {{ form_row(form.region) }}
             {{ form_row(form.email) }}
             {{ form_row(form.facebook) }}
+            <p>Brukernavn/passord til adminbruker blir sendt på e-post</p>
             <button type="submit" class="btn btn-success">Opprett</button>
             {{ form_end(form) }}
         </div>
     </div>
+    <br>
 {% endblock %}

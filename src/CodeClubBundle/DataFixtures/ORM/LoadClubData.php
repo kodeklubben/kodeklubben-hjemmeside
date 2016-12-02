@@ -16,7 +16,6 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
         $clubTrondheim->setFacebook('kodeklubbentrondheim');
         $clubTrondheim->setName('Kodeklubben Trondheim');
         $clubTrondheim->setRegion('Trondheim');
-        $clubTrondheim->setSubdomain('trondheim');
         $manager->persist($clubTrondheim);
 
         $clubOslo = new Club();
@@ -24,7 +23,6 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
         $clubOslo->setFacebook('kodeklubbenoslo');
         $clubOslo->setName('Kodeklubben Oslo');
         $clubOslo->setRegion('Oslo');
-        $clubOslo->setSubdomain('oslo');
         $manager->persist($clubOslo);
 
         $clubDefault = new Club();
@@ -32,7 +30,6 @@ class LoadClubData extends AbstractFixture implements OrderedFixtureInterface
         $clubDefault->setFacebook('kodeklubbendefault');
         $clubDefault->setName('Kodeklubben Default');
         $clubDefault->setRegion('Default');
-        $clubDefault->setSubdomain('default');
         $manager->persist($clubDefault);
 
         $manager->flush();

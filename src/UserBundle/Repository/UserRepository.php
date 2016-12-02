@@ -57,7 +57,7 @@ class UserRepository extends EntityRepository
     {
         return $this->createQueryBuilder('user')
             ->select('user')
-            ->where('user.username = :username')
+            ->where('lower(user.username) = lower(:username)')
             ->andWhere('user.club = :club')
             ->setParameter('username', $username)
             ->setParameter('club', $club)

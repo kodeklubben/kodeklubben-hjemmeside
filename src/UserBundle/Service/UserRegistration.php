@@ -113,7 +113,9 @@ class UserRegistration
      */
     public function generateRandomPassword($length)
     {
-        return substr(hash('sha512', rand()), 0, $length);
+        $password = base64_encode(random_bytes($length));
+
+        return substr($password, 0, strlen($password) - 2);
     }
 
     /**
@@ -123,7 +125,7 @@ class UserRegistration
      */
     public function setRandomEncodedPassword(User $user)
     {
-        $plainPassword = $this->generateRandomPassword(16);
+        $plainPassword = $this->generateRandomPassword(10);
         $encodedPassword = $this->encodePassword($user, $plainPassword);
         $user->setPassword($encodedPassword);
 

@@ -153,8 +153,8 @@ class User implements UserInterface, EquatableInterface
     }
     public function setEmail($email)
     {
-        $this->email = $email;
-        $this->username = $email;
+        $this->email = strtolower($email);
+        $this->username = strtolower($email);
     }
 
     /**

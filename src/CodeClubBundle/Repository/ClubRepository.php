@@ -22,7 +22,7 @@ class ClubRepository extends EntityRepository
     {
         return $this->createQueryBuilder('club')
             ->select('club')
-            ->where('club.subdomain = :subdomain')
+            ->where('lower(club.subdomain) = lower(:subdomain)')
             ->setParameter('subdomain', $subdomain)
             ->getQuery()
             ->getOneOrNullResult();
