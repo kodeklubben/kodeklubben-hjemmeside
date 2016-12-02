@@ -15,9 +15,9 @@ class ClubRegistration
     /**
      * ClubRegistration constructor.
      *
-     * @param \Swift_Mailer $mailer
+     * @param \Swift_Mailer    $mailer
      * @param UserRegistration $userRegistration
-     * @param string $baseHost
+     * @param string           $baseHost
      * @param $mail
      */
     public function __construct(\Swift_Mailer $mailer, UserRegistration $userRegistration, $baseHost, $mail)

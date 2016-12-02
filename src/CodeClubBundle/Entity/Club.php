@@ -117,7 +117,7 @@ class Club
      */
     public function setSubdomain($subdomain)
     {
-        $this->subdomain = $subdomain;
+        strtolower($this->subdomain = $subdomain);
     }
 
     /**
