@@ -78,7 +78,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non felis laore
         $sc_tagline = new StaticContent();
         $sc_tagline->setClub($this->getReference('club-default'));
         $sc_tagline->setIdString('tagline');
-        $sc_tagline->setContent('Lær programmering med artige oppgaver fra Kodeklubben Trondheim! [<a href="kontrollpanel/statisk_innhold/tagline">Endre</a>]');
+        $sc_tagline->setContent('Lær programmering med artige oppgaver fra Kodeklubben! [<a href="kontrollpanel/statisk_innhold/tagline">Endre</a>]');
         $sc_tagline->setLastEditedBy($this->getReference('user-admin'));
 
         $manager->persist($sc_tagline);
