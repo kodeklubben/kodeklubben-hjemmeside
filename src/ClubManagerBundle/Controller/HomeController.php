@@ -15,7 +15,7 @@ class HomeController extends Controller
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/", name="clubs")
+     * @Route("/", name="base_clubs")
      * @Method({"GET", "POST"})
      */
     public function homeAction(Request $request)

@@ -21,6 +21,23 @@ class HomeController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route(
+     *     "/",
+     *     name="home_w_domain",
+     *     host="{subdomain}.{domain}",
+     *     defaults={"subdomain"="", "domain"="%base_host%"},
+     *     requirements={"subdomain"="\w+", "domain"="%base_host%"}
+     *     )
+     * @Method("GET")
+     */
+    public function showWithDomainAction()
+    {
+        return $this->showAction();
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showMessagesAction()
     {
