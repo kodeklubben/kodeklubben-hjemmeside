@@ -19,9 +19,9 @@ class SignupExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_in_course' => new \Twig_Function_Method($this, 'isInCourse'),
-            'course_availability_color_class' => new \Twig_Function_Method($this, 'courseAvailabilityColorClass'),
-            'places_left_color_class' => new \Twig_Function_Method($this, 'placesLeftColorClass'),
+            new \Twig_SimpleFunction('is_in_course', array($this, 'isInCourse')),
+            new \Twig_SimpleFunction('course_availability_color_class', array($this, 'courseAvailabilityColorClass')),
+            new \Twig_SimpleFunction('places_left_color_class', array($this, 'placesLeftColorClass')),
         );
     }
 

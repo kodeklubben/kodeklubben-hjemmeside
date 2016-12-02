@@ -22,9 +22,9 @@ class ClubManagerPathListener
     /**
      * CurrentClubListener constructor.
      *
-     * @param ClubManager $clubManager
+     * @param ClubManager     $clubManager
      * @param RouterInterface $router
-     * @param Logger $logger
+     * @param Logger          $logger
      */
     public function __construct(ClubManager $clubManager, RouterInterface $router, Logger $logger)
     {
@@ -46,9 +46,9 @@ class ClubManagerPathListener
                 $event->setResponse($response);
                 // _profiler and _wdt is used for debugging in dev
             } elseif (!$this->isBaseRoute() && $this->getRouteName() !== '_profiler' && $this->getRouteName() !== '_wdt') {
-                 // No subdomain and route is pointing to a code club page
+                // No subdomain and route is pointing to a code club page
                  throw new NotFoundHttpException();
-             }
+            }
         } else {
             if ($this->isBaseRoute()) {
                 // Remove subdomain if trying to go to a non-club page
@@ -65,6 +65,7 @@ class ClubManagerPathListener
     private function isBaseRoute()
     {
         $routeName = $this->getRouteName();
+
         return strlen($routeName) > 5 && substr($routeName, 0, 5) === 'base_';
     }
 

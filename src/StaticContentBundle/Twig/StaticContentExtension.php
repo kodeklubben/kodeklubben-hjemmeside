@@ -23,7 +23,7 @@ class StaticContentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'get_content' => new \Twig_Function_Method($this, 'getContent'),
+            new \Twig_SimpleFunction('get_content', array($this, 'getContent')),
         );
     }
     public function getContent($stringId)

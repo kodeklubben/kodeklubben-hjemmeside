@@ -26,7 +26,7 @@ class ImageExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'get_image' => new \Twig_Function_Method($this, 'getImage'),
+            new \Twig_SimpleFunction('get_image', array($this, 'getImage')),
         );
     }
     public function getImage($name)

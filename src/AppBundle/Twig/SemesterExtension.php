@@ -11,6 +11,8 @@ class SemesterExtension extends \Twig_Extension
 
     /**
      * SemesterExtension constructor.
+     *
+     * @param EntityManager $manager
      */
     public function __construct(EntityManager $manager)
     {
@@ -25,7 +27,7 @@ class SemesterExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'get_all_semesters' => new \Twig_Function_Method($this, 'getAllSemesters'),
+            new \Twig_SimpleFunction('get_all_semesters', array($this, 'getAllSemesters')),
         );
     }
 
