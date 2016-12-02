@@ -2,6 +2,7 @@
 
 namespace ImageBundle\Controller;
 
+use ImageBundle\Entity\Image;
 use ImageBundle\Form\Type\ImageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,8 +24,11 @@ class ImageController extends Controller
     {
         $club = $this->get('club_manager')->getCurrentClub();
         $image = $this->getDoctrine()->getRepository('ImageBundle:Image')->findByClubAndName($club, $name);
-        if (is_null($image)) {
-            throw $this->createNotFoundException('Bildenavn finnes ikke');
+
+        if ($image === null) {
+            $image = new Image();
+            $image->setClub($club);
+            $image->setName($name);
         }
 
         $form = $this->createForm(ImageType::class, $image);
