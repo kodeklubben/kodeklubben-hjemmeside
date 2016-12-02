@@ -13,6 +13,7 @@ services:
         class: CodeClubBundle\Service\ClubRegistration
         arguments:
             - "@mailer"
+            - "@router"
             - "@user.registration"
             - "%base_host%"
             - "%default_mail%"
