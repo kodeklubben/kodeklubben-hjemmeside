@@ -10,19 +10,22 @@ class ClubRegistration
     private $mailer;
     private $userRegistration;
     private $baseHost;
+    private $mail;
 
     /**
      * ClubRegistration constructor.
      *
-     * @param \Swift_Mailer    $mailer
+     * @param \Swift_Mailer $mailer
      * @param UserRegistration $userRegistration
-     * @param string           $baseHost
+     * @param string $baseHost
+     * @param $mail
      */
-    public function __construct(\Swift_Mailer $mailer, UserRegistration $userRegistration, $baseHost)
+    public function __construct(\Swift_Mailer $mailer, UserRegistration $userRegistration, $baseHost, $mail)
     {
         $this->mailer = $mailer;
         $this->userRegistration = $userRegistration;
         $this->baseHost = $baseHost;
+        $this->mail = $mail;
     }
 
     /**
@@ -44,7 +47,7 @@ class ClubRegistration
         /*@var \Swift_Mime_Message*/
         $emailMessage = \Swift_Message::newInstance()
             ->setSubject('Ny kodeklubb - '.$club->getName())
-            ->setFrom(array($club->getEmail() => $club->getName()))
+            ->setFrom(array($this->mail => $this->baseHost))
             ->setTo($club->getEmail())
             ->setBody("
             {$club->getName()} har blitt opprettet på http://{$club->getSubdomain()}.{$this->baseHost}\r\n

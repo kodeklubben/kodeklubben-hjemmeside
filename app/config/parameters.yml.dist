@@ -27,6 +27,7 @@ parameters:
     # see http://symfony.com/doc/current/cookbook/email/gmail.html
     mailer_transport:  gmail
     mailer_host: ~
+    mailer_port: ~
     mailer_user: ~
     mailer_password: ~
 
@@ -47,3 +48,5 @@ parameters:
     session.name: KKSESSID
 
     remember_me.name: KKREMEMBER
+
+    default_mail: ~

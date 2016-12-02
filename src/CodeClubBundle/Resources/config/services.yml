@@ -15,6 +15,7 @@ services:
             - "@mailer"
             - "@user.registration"
             - "%base_host%"
+            - "%default_mail%"
     current_club_listener:
         class: CodeClubBundle\EventListener\CurrentClubListener
         arguments:
