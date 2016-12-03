@@ -41,6 +41,7 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $this->createParticipants(0, 2, 'course_python_1_thursday');
         $this->createParticipants(13, 23, 'course_minecraft');
         $this->createParticipants(14, 16, 'course_java');
+        $this->createParticipants(0, 30, 'course_java_past');
 
         $manager->flush();
     }

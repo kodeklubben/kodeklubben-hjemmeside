@@ -131,6 +131,42 @@ class LoadTutorData extends AbstractFixture implements OrderedFixtureInterface
         $tutor->setSubstitute(true);
         $manager->persist($tutor);
 
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor'));
+        $tutor->setSubstitute(true);
+        $manager->persist($tutor);
+
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor-15'));
+        $tutor->setSubstitute(true);
+        $manager->persist($tutor);
+
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor-16'));
+        $tutor->setSubstitute(false);
+        $manager->persist($tutor);
+
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor-17'));
+        $tutor->setSubstitute(false);
+        $manager->persist($tutor);
+
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor-18'));
+        $tutor->setSubstitute(false);
+        $manager->persist($tutor);
+
+        $tutor = new Tutor();
+        $tutor->setCourse($this->getReference('course_java_past'));
+        $tutor->setUser($this->getReference('user-tutor-19'));
+        $tutor->setSubstitute(false);
+        $manager->persist($tutor);
+
         $manager->flush();
     }
 

@@ -11,6 +11,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $lastYear = new \DateTime();
+        $lastYear->modify('-1 year');
+
         $user1 = new User();
         $user1->setClub($this->getReference('club-trondheim'));
         $user1->setFirstName('Admin');
@@ -57,6 +60,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i = 0; $i < 20; ++$i) {
             $participant = new User();
+            if ($i % 4 == 0) {
+                $participant->setCreatedDatetime($lastYear);
+            }
             $participant->setClub($this->getReference('club-trondheim'));
             $participant->setFirstName('Participant');
             $participant->setLastName($i);
@@ -70,6 +76,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i = 0; $i < 30; ++$i) {
             $parent = new User();
+            if ($i % 4 == 0) {
+                $parent->setCreatedDatetime($lastYear);
+            }
             $parent->setClub($this->getReference('club-trondheim'));
             $parent->setFirstName('Parent');
             $parent->setLastName($i);
@@ -83,6 +92,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i = 0; $i < 20; ++$i) {
             $tutor = new User();
+            if ($i % 4 == 0) {
+                $tutor->setCreatedDatetime($lastYear);
+            }
             $tutor->setClub($this->getReference('club-trondheim'));
             $tutor->setFirstName('Tutor');
             $tutor->setLastName($i);
