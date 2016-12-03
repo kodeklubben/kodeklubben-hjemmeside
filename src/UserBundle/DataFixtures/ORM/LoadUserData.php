@@ -55,6 +55,45 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $user3->setRoles(array('ROLE_TUTOR'));
         $manager->persist($user3);
 
+        for ($i = 0; $i < 20; ++$i) {
+            $participant = new User();
+            $participant->setClub($this->getReference('club-trondheim'));
+            $participant->setFirstName('Participant');
+            $participant->setLastName($i);
+            $participant->setPhone('12345678');
+            $participant->setEmail("particpipant{$i}@mail.no");
+            $participant->setPassword('secret');
+            $participant->setRoles(array('ROLE_PARTICIPANT'));
+            $manager->persist($participant);
+            $this->setReference('user-participant-'.$i, $participant);
+        }
+
+        for ($i = 0; $i < 30; ++$i) {
+            $parent = new User();
+            $parent->setClub($this->getReference('club-trondheim'));
+            $parent->setFirstName('Parent');
+            $parent->setLastName($i);
+            $parent->setPhone('12345678');
+            $parent->setEmail("parent{$i}@mail.no");
+            $parent->setPassword('secret');
+            $parent->setRoles(array('ROLE_PARENT'));
+            $manager->persist($parent);
+            $this->setReference('user-parent-'.$i, $parent);
+        }
+
+        for ($i = 0; $i < 20; ++$i) {
+            $tutor = new User();
+            $tutor->setClub($this->getReference('club-trondheim'));
+            $tutor->setFirstName('Tutor');
+            $tutor->setLastName($i);
+            $tutor->setPhone('12345678');
+            $tutor->setEmail("tutor{$i}@mail.no");
+            $tutor->setPassword('secret');
+            $tutor->setRoles(array('ROLE_TUTOR'));
+            $manager->persist($tutor);
+            $this->setReference('user-tutor-'.$i, $tutor);
+        }
+
         $manager->flush();
 
         $this->setReference('user-admin', $user1);

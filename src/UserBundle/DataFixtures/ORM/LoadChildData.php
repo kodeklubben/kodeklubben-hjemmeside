@@ -23,6 +23,16 @@ class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
         $child2->setParent($this->getReference('user-parent'));
         $manager->persist($child2);
 
+        for ($i = 0; $i < 50; ++$i) {
+            $child = new Child();
+            $child->setFirstName('Child');
+            $child->setLastName($i);
+            $parent = 'user-parent-'.intdiv($i, 2);
+            $child->setParent($this->getReference($parent));
+            $this->setReference('child-'.$i, $child);
+            $manager->persist($child);
+        }
+
         $manager->flush();
 
         $this->setReference('child1', $child1);
