@@ -44,7 +44,12 @@
                                 <td class="user-role">
                                     {{ role }} (<span class="text-clickable text-warning change-user-type">Endre</span>)
                                 </td>
-                                <td><span class="text-clickable text-danger delete-user">Slett bruker</span>
+                                <td>
+                                    {% if user != app.user %}
+                                        <span class="text-clickable text-danger delete-user">Slett bruker</span>
+                                    {% else %}
+                                        <span class="text-gray">Kan ikke slette deg selv</span>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

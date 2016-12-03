@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\AdminUserType;
 
@@ -156,7 +157,9 @@ class AdminUserController extends Controller
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
         $this->get('club_manager')->denyIfNotCurrentClub($user);
 
-        $isLoggedInUser = $user->getId() === $this->getUser()->getId();
+        if ($user === $this->getUser()) {
+            throw new AccessDeniedException('It\'s illegal to kill yourself');
+        }
 
         //Clear all connections to courses
         $this->removeTutors($user);
@@ -166,12 +169,6 @@ class AdminUserController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($user);
         $manager->flush();
-
-        if ($isLoggedInUser) {
-            //Logout user
-            $this->get('security.token_storage')->setToken(null);
-            $this->get('request')->getSession()->invalidate();
-        }
 
         return new JsonResponse(array('status' => 'success'));
     }
