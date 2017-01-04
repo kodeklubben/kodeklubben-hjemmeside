@@ -2,12 +2,12 @@
 
 namespace CourseBundle\Entity;
 
-use UserBundle\Entity\Participant;
 use AppBundle\Entity\Semester;
-use UserBundle\Entity\Tutor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\Participant;
+use UserBundle\Entity\Tutor;
 
 /**
  * Course.

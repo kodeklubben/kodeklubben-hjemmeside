@@ -14,7 +14,7 @@
         {% if tutors|length %}
             <div class="row">
                 <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                    {% include '@Course/sign_up/signed_up_tutor.html.twig' with {isAdmin: true} %}
+                    {% include '@Course/sign_up/signed_up_tutor.html.twig' %}
                 </div>
             </div>
         {% endif %}
@@ -36,12 +36,7 @@
                                         </div>
                                         <div class="pull-down">
                                             <footer>
-                                                {% set alreadySignedUp = false %}
-                                                {% for tutor in tutors %}
-                                                    {% if tutor.course == course %}
-                                                        {% set alreadySignedUp = true %}
-                                                    {% endif %}
-                                                {% endfor %}
+                                                {% set alreadySignedUp = is_in_course(tutors, course) %}
                                                 <hr>
                                                 <form action="{{ path('cp_sign_up_course', {'course': course.id, 'user': user.id}) }}"
                                                       method="POST">

@@ -2,12 +2,13 @@
 
 namespace UserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\ChildType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ChildController extends Controller
 {
@@ -17,11 +18,12 @@ class ChildController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/barn/ny", name="child_create")
+     * @Method({"GET", "POST"})
      */
     public function createChildAction(Request $request)
     {
         $child = new Child();
-        $form = $this->createForm(new ChildType(), $child);
+        $form = $this->createForm(ChildType::class, $child);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $child->setParent($this->getUser());
@@ -42,11 +44,14 @@ class ChildController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kontrollpanel/barn/ny/{user}", name="cp_child_create")
+     * @Method({"GET", "POST"})
      */
     public function adminCreateChildAction(User $user, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
+
         $child = new Child();
-        $form = $this->createForm(new ChildType(), $child);
+        $form = $this->createForm(ChildType::class, $child);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $child->setParent($user);
@@ -73,9 +78,12 @@ class ChildController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="child_delete"
      * )
+     * @Method("POST")
      */
     public function deleteChildAction(Child $child, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($child);
+
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         //A parent can only delete their own children
         if ($child->getParent()->getId() == $this->getUser()->getId() || $isAdmin) {

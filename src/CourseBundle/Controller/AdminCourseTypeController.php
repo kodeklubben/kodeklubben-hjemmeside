@@ -2,13 +2,13 @@
 
 namespace CourseBundle\Controller;
 
-use CourseBundle\Form\Type\CourseTypeType;
 use CourseBundle\Entity\CourseType;
+use CourseBundle\Form\Type\CourseTypeType;
 use ImageBundle\Entity\Image;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminCourseTypeController.
@@ -21,10 +21,12 @@ class AdminCourseTypeController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/kurs/type", name="cp_course_type")
+     * @Method("GET")
      */
     public function showAction()
     {
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $courses = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
 
         return $this->render('@Course/control_panel/show_course_type.html.twig', array(
             'courses' => $courses,
@@ -42,13 +44,15 @@ class AdminCourseTypeController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_edit_course_type"
      * )
+     * @Method({"GET", "POST"})
      */
     public function editCourseTypeAction(Request $request, CourseType $courseType = null)
     {
+
         // Check if this is a create or edit
         $isCreate = is_null($courseType);
         if ($isCreate) {
-            $club = $this->get('app.club_finder')->getCurrentClub();
+            $club = $this->get('club_manager')->getCurrentClub();
 
             // Initialize a new CourseType with a new image
             $image = new Image();
@@ -57,9 +61,13 @@ class AdminCourseTypeController extends Controller
             $courseType = new CourseType();
             $courseType->setClub($club);
             $courseType->setImage($image);
+        } else {
+            $this->get('club_manager')->denyIfNotCurrentClub($courseType);
         }
 
-        $form = $this->createForm(new CourseTypeType($isCreate), $courseType);
+        $form = $this->createForm(CourseTypeType::class, $courseType, array(
+            'isCreate' => $isCreate,
+        ));
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -98,6 +106,8 @@ class AdminCourseTypeController extends Controller
      */
     public function deleteCourseTypeAction(CourseType $courseType)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($courseType);
+
         // Soft delete CourseType
         $courseType->delete();
         $manager = $this->getDoctrine()->getManager();

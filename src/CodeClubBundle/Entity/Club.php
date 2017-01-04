@@ -3,12 +3,19 @@
 namespace CodeClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Club.
  *
- * @ORM\Table(name="club")
+ * @ORM\Table(name="club", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="club_region", columns={"region"})
+ * })
+ * @UniqueEntity(
+ *     fields={"region"},
+ *     message="Det finnes en kodeklubb for denne regionen allerede."
+ * )
  * @ORM\Entity(repositoryClass="CodeClubBundle\Repository\ClubRepository")
  */
 class Club
@@ -60,7 +67,7 @@ class Club
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook", type="string")
+     * @ORM\Column(name="facebook", type="string", nullable=true)
      */
     private $facebook;
 
@@ -108,9 +115,9 @@ class Club
     /**
      * @param string $subdomain
      */
-    public function setSubdomain($subdomain)
+    private function setSubdomain($subdomain)
     {
-        $this->subdomain = $subdomain;
+        $this->subdomain = strtolower($subdomain);
     }
 
     /**
@@ -143,6 +150,7 @@ class Club
     public function setRegion($region)
     {
         $this->region = $region;
+        $this->setSubdomain($region);
     }
 
     /**

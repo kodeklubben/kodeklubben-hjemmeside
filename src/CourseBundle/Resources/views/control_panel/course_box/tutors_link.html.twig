@@ -1,0 +1,9 @@
+<span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
+    {% if course.fullTimeTutors| length > 0 %}
+        <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
+           class="info-link underline">
+            {{ course.fullTimeTutors | length }} veiledere</a>
+    {% else %}
+        {{ course.fullTimeTutors | length }} veiledere
+    {% endif %}
+</span>

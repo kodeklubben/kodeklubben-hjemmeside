@@ -1,0 +1,21 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    {% include 'common/flash_messages.html.twig' with {timeout: 2000, animationType: 'fadeOut'} %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="text-center">Endre kontoinformasjon</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
+            {{ form_start(form) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            <button type="submit" class="btn btn-info onclick-disable">Lagre</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

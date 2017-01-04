@@ -2,16 +2,16 @@
 
 namespace CourseBundle\Controller;
 
-use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use UserBundle\Entity\Participant;
+use UserBundle\Entity\Tutor;
 use UserBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class AdminSignUpController.
@@ -29,11 +29,14 @@ class AdminSignUpController extends Controller
      *     requirements={"id" = "\d+"},
      *     name="cp_sign_up"
      * )
+     * @Method("GET")
      */
     public function showAction(User $user)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $parameters = array(
             'currentSemester' => $currentSemester,
@@ -67,19 +70,26 @@ class AdminSignUpController extends Controller
 
     /**
      * @param Course  $course
-     * @param Child   $child
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/pamelding/barn/{id}/{child}",
-     *     requirements={"id" = "\d+", "child" = "\d+"},
-     *     options={"expose" = true},
+     * @Route("/pamelding/barn/{id}",
+     *     requirements={"id" = "\d+"},
      *     name="cp_sign_up_course_child"
      * )
+     * @Method("POST")
      */
-    public function signUpChildAction(Course $course, Child $child, Request $request)
+    public function signUpChildAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
+        $childId = $request->request->get('child');
+        $child = $this->getDoctrine()->getRepository('UserBundle:Child')->find($childId);
+        $this->get('club_manager')->denyIfNotCurrentClub($child);
+        if ($child === null) {
+            throw new NotFoundHttpException('Child not found');
+        }
         // Check if child is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
@@ -125,6 +135,8 @@ class AdminSignUpController extends Controller
      */
     public function signUpAction(Course $course, User $user, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
@@ -158,6 +170,9 @@ class AdminSignUpController extends Controller
      */
     private function signUpParticipant(Request $request, Course $course, User $user)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
+
         //Check if course is full
         if (count($course->getParticipants()) >= $course->getParticipantLimit()) {
             $this->addFlash('warning', $course->getName().' er fullt. '.$user->getFullName().' har derfor IKKE blitt påmeldt.');
@@ -178,6 +193,9 @@ class AdminSignUpController extends Controller
 
     private function signUpTutor(Request $request, Course $course, User $user)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+        $this->get('club_manager')->denyIfNotCurrentClub($user);
+
         $isSubstitute = !is_null($request->request->get('substitute'));
         $tutor = $this->get('course.sign_up')->createTutor($course, $user, $isSubstitute);
         $manager = $this->getDoctrine()->getManager();
@@ -204,6 +222,8 @@ class AdminSignUpController extends Controller
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($participant);
+
         $name = $participant->getChild() === null ? $participant->getFullName() : $participant->getChild()->getFullName();
 
         $manager = $this->getDoctrine()->getManager();
@@ -229,6 +249,8 @@ class AdminSignUpController extends Controller
      */
     public function withdrawTutorAction(Tutor $tutor, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($tutor);
+
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($tutor);
         $manager->flush();

@@ -4,17 +4,20 @@ namespace UserBundle\Entity;
 
 use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="user", uniqueConstraints={
  *      @ORM\UniqueConstraint(name="club_email_idx", columns={"club_id", "email"})
  * })
- * @UniqueEntity("email")
+ * @UniqueEntity(
+ *     fields={"email", "club"},
+ *     message="E-posten er allerde i bruk."
+ * )
  *
  * Defines the properties of the User entity to represent the application users.
  * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -37,7 +40,7 @@ class User implements UserInterface, EquatableInterface
     private $club;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      */
     private $username;
 
@@ -66,7 +69,7 @@ class User implements UserInterface, EquatableInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -150,8 +153,8 @@ class User implements UserInterface, EquatableInterface
     }
     public function setEmail($email)
     {
-        $this->email = $email;
-        $this->username = $email;
+        $this->email = strtolower($email);
+        $this->username = strtolower($email);
     }
 
     /**
@@ -217,7 +220,6 @@ class User implements UserInterface, EquatableInterface
     public function eraseCredentials()
     {
         // if you had a plainPassword property, you'd nullify it here
-        // $this->plainPassword = null;
     }
 
     /**
@@ -337,5 +339,10 @@ class User implements UserInterface, EquatableInterface
         }
 
         return false;
+    }
+
+    public function __toString()
+    {
+        return $this->getFullName();
     }
 }

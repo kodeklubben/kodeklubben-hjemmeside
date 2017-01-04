@@ -2,13 +2,13 @@
 
 namespace UserBundle\Controller;
 
-use UserBundle\Form\Type\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use UserBundle\Entity\PasswordReset;
-use UserBundle\Form\Type\PasswordResetType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use UserBundle\Entity\PasswordReset;
+use UserBundle\Form\Type\NewPasswordType;
+use UserBundle\Form\Type\PasswordResetType;
 
 /**
  * Class PasswordResetController.
@@ -33,7 +33,7 @@ class PasswordResetController extends Controller
         $passwordReset = new PasswordReset();
 
         //Creates new PasswordResetType Form
-        $form = $this->createForm(new PasswordResetType(), $passwordReset, array(
+        $form = $this->createForm(PasswordResetType::class, $passwordReset, array(
             'validation_groups' => array('password_reset'),
         ));
 
@@ -149,7 +149,7 @@ class PasswordResetController extends Controller
         $user = $passwordReset->getUser();
 
         //Creates a new newPasswordType form, and send in user so that it is the password for the correct user that is changed.
-        $form = $this->createForm(new NewPasswordType(), $user);
+        $form = $this->createForm(NewPasswordType::class);
 
         //Handles the request from the form
         $form->handleRequest($request);
@@ -163,8 +163,8 @@ class PasswordResetController extends Controller
             if ($form->isValid()) {
                 //Deletes the resetcode, so it can only be used one time.
                 $repositoryPasswordReset->deletePasswordResetByHashedResetCode($hashedResetCode);
-                $plainPassword = $user->getPassword();
-                $encoder = $this->container->get('security.password_encoder');
+                $plainPassword = $form->get('password')->getData();
+                $encoder = $this->get('security.password_encoder');
                 $hashedPassword = $encoder->encodePassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
                 //Updates the database

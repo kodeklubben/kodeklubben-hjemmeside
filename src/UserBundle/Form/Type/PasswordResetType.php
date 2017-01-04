@@ -3,6 +3,7 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,7 +12,7 @@ class PasswordResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'text', array(
+            ->add('email', TextType::class, array(
                 'label' => 'E-post',
                 'mapped' => false,
             ));
@@ -24,7 +25,7 @@ class PasswordResetType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'passwordReset'; // This must be unique
     }

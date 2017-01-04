@@ -2,10 +2,14 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md-4">
+                <p>E-post: {{ get_club().getEmail() }}</p>
                 <p>Følg oss på <a href="https://www.facebook.com/{{ get_club().getFacebook() }}" target="_blank">Facebook!</a></p>
             </div>
-            <div class="col-md-4"><p>{{ get_club().getName() }} &copy;{{ "now"|date('Y') }}</p></div>
-            <div class="col-md-4"><p>E-post: {{ get_club().getEmail() }}</p></div>
+            <div class="col-md-4">
+                <p>Bidra til utviklingen av denne nettsiden?</p>
+                <p><a href="https://github.com/kodeklubben/kodeklubben-hjemmeside">GitHub</a></p>
+            </div>
+            <div class="col-md-4"><p>Nettsiden er utviklet av <br> <a href="https://github.com/kristandre">Kristoffer R. Andresen</a></p></div>
         </div>
     </div>
 </footer>

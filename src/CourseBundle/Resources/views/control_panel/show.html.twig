@@ -14,9 +14,7 @@
                             data-toggle="dropdown">{{ semester }}
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        {% for sem in semesters %}
-                            <li><a href="{{ path('cp_course', {'semester':sem.id}) }}">{{ sem }}</a></li>
-                        {% endfor %}
+                        {% include '@App/semester/semester_dropdown.html.twig' with {'route': 'cp_course'} %}
                     </ul>
                     <a class="btn btn-success btn-sm btn-flat" href="{{ path('cp_create_course') }}">Nytt kurs <i
                                 class="fa fa-plus"></i></a>
@@ -33,74 +31,7 @@
                     </div>
                 {% endif %}
                 {% for course in courses %}
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title text-bold">{{ course.name }}</h3>
-                                <div class="box-tools pull-right">
-                                    <form method="POST" action="{{ path('cp_delete_course', {'id': course.id}) }}"
-                                          onsubmit="return confirm('Er du sikker?')">
-                                        <a href="{{ path('cp_course_time_table', {'id': course.id}) }}"
-                                           class="btn btn-box-tool"><i
-                                                    class="text-success fa fa-table"></i></a>
-                                        <a href="{{ path('cp_edit_course', {'id': course.id}) }}"
-                                           class="btn btn-box-tool"><i class="text-info fa fa-pencil"></i></a>
-                                        <button type="submit" class="btn btn-box-tool onclick-disable"><i
-                                                    class="text-danger fa fa-trash"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="box-body box-course-admin text-center">
-                                <div class="img-container">
-                                    <img src="{{ course.courseType.image.filePath }}" alt="{{ course.name }}">
-                                </div>
-                                <br>
-                                <div>
-                                    <p class="description">{{ course.description }}</p>
-                                    {% set courseAvailability = course.participantLimit-course.participants|length %}
-                                    {% if courseAvailability == 0 %}
-                                        {% set courseAvailabilityClass = 'text-info' %}
-                                    {% elseif course.participants|length == 0 %}
-                                        {% set courseAvailabilityClass = 'text-danger' %}
-                                    {% elseif courseAvailability > 5 and course.participants|length < 5 %}
-                                        {% set courseAvailabilityClass = 'text-warning' %}
-                                    {% else %}
-                                        {% set courseAvailabilityClass = 'text-success' %}
-                                    {% endif %}
-
-                                    <span class="{{ courseAvailabilityClass }}">
-                                    {% if course.participants | length > 0 %}
-                                        <a href="{{ path('cp_course_participants', {'id': course.id}) }}"
-                                           class="info-link underline">
-                                            {{ course.participants | length }}/{{ course.participantLimit }}
-                                            deltakere</a>
-                                    {% else %}
-                                        {{ course.participants | length }}/{{ course.participantLimit }} deltakere
-                                    {% endif %}
-                                </span>
-                                    <br>
-                                    <span class="text-{{ course.participantFullTimeTutorRatio < 15 ? 'success' : 'danger' }}">
-                                    {% if course.fullTimeTutors| length > 0 %}
-                                        <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
-                                           class="info-link underline">
-                                            {{ course.fullTimeTutors | length }} veiledere</a>
-                                    {% else %}
-                                        {{ course.fullTimeTutors | length }} veiledere
-                                    {% endif %}
-                                </span>
-                                    <br>
-                                    {% if course.fullTimeTutors| length == 0 and course.substitutes|length > 0 %}
-                                        <a href="{{ path('cp_course_tutors', {'id': course.id}) }}"
-                                           class="info-link underline">
-                                            {{ course.substitutes | length }} vikarer </a>
-                                    {% else %}
-                                        {{ course.substitutes | length }} vikarer
-                                    {% endif %}
-                                    <br/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% include '@Course/control_panel/course_box/course_box.html.twig' with {'course': course} %}
                 {% endfor %}
             </div>
         </div>

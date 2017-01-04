@@ -3,11 +3,12 @@
 namespace UserBundle\Repository;
 
 use AppBundle\Entity\Semester;
+use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\Course;
+use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\Child;
 use UserBundle\Entity\Participant;
 use UserBundle\Entity\User;
-use Doctrine\ORM\EntityRepository;
 
 class ParticipantRepository extends EntityRepository
 {
@@ -74,16 +75,41 @@ class ParticipantRepository extends EntityRepository
 
     /**
      * @param Semester $semester
+     * @param Club     $club
      *
-     * @return Participant[]
+     * @return \UserBundle\Entity\Participant[]
      */
-    public function findBySemester(Semester $semester)
+    public function findBySemester(Semester $semester, Club $club)
     {
         return $this->createQueryBuilder('participant')
             ->select('participant')
             ->join('participant.course', 'course')
+            ->join('course.courseType', 'courseType')
             ->where('course.semester = :semester')
+            ->andWhere('course.deleted = false')
+            ->andWhere('courseType.deleted = false')
+            ->andWhere('courseType.club = :club')
             ->setParameter('semester', $semester)
+            ->setParameter('club', $club)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Club $club
+     *
+     * @return Participant[]
+     */
+    public function findByClub(Club $club)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->join('participant.course', 'course')
+            ->join('course.courseType', 'courseType')
+            ->where('courseType.club = :club')
+            ->andWhere('course.deleted = false')
+            ->andWhere('courseType.deleted = false')
+            ->setParameter('club', $club)
             ->getQuery()
             ->getResult();
     }

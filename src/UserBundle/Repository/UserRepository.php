@@ -3,6 +3,7 @@
 namespace UserBundle\Repository;
 
 use AppBundle\Entity\Semester;
+use CodeClubBundle\Entity\Club;
 use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\User;
 
@@ -28,17 +29,53 @@ class UserRepository extends EntityRepository
 
     /**
      * @param Semester $semester
+     * @param Club     $club
      *
-     * @return User[]
+     * @return \UserBundle\Entity\User[]
      */
-    public function findNewUsersBySemester(Semester $semester)
+    public function findNewUsersBySemester(Semester $semester, Club $club)
     {
         return $this->createQueryBuilder('user')
             ->select('user')
             ->where('user.createdDatetime >= :semesterStart')
             ->andWhere('user.createdDatetime < :semesterEnd')
+            ->andWhere('user.club = :club')
             ->setParameter('semesterStart', $semester->getStartTime())
             ->setParameter('semesterEnd', $semester->getEndTime())
+            ->setParameter('club', $club)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param string $username
+     * @param Club   $club
+     *
+     * @return User|null
+     */
+    public function findByUsernameAndClub(string $username, Club $club)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->where('lower(user.username) = lower(:username)')
+            ->andWhere('user.club = :club')
+            ->setParameter('username', $username)
+            ->setParameter('club', $club)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param Club $club
+     *
+     * @return User[]
+     */
+    public function findByClub(Club $club)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->where('user.club = :club')
+            ->setParameter('club', $club)
             ->getQuery()
             ->getResult();
     }

@@ -2,18 +2,18 @@
 
 namespace ImageBundle\Service;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManager;
 use ImageBundle\Entity\Image;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ImageUploader
 {
-    protected $doctrine;
+    protected $manager;
     protected $imageDir;
 
-    public function __construct(Registry $doctrine, $imageDir)
+    public function __construct(EntityManager $manager, $imageDir)
     {
-        $this->doctrine = $doctrine;
+        $this->manager = $manager;
         $this->imageDir = $imageDir;
     }
 
@@ -42,9 +42,8 @@ class ImageUploader
         $image->setFilePath('/img/club/'.$image->getClub()->getId().'/'.$fileName);
 
         // Persist image to database
-        $manager = $this->doctrine->getManager();
-        $manager->persist($image);
-        $manager->flush();
+        $this->manager->persist($image);
+        $this->manager->flush();
 
         // Image directory + everything after '/img/' in oldFilePath
         $absPathToOldFile = $this->imageDir.substr($oldFilePath, 5);

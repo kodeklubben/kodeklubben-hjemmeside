@@ -37,7 +37,7 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
 
         $course_scratch_thursday = new Course();
         $course_scratch_thursday->setCourseType($this->getReference('courseType-scratch'));
-        $course_scratch_thursday->setDescription('Scratch Mandag R90');
+        $course_scratch_thursday->setDescription('Scratch Torsdag R90');
         $course_scratch_thursday->setName('Scratch');
         $course_scratch_thursday->setParticipantLimit(25);
         $course_scratch_thursday->setSemester($this->getReference('semester-1'));
@@ -99,6 +99,14 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
         $course_java->setSemester($this->getReference('semester-1'));
         $manager->persist($course_java);
 
+        $course_java_past = new Course();
+        $course_java_past->setCourseType($this->getReference('courseType-java'));
+        $course_java_past->setDescription('Java i gamledager R92');
+        $course_java_past->setName('Java');
+        $course_java_past->setParticipantLimit(50);
+        $course_java_past->setSemester($this->getReference('semester-past'));
+        $manager->persist($course_java_past);
+
         $manager->flush();
 
         $this->setReference('course_scratch_monday', $course_scratch_monday);
@@ -112,6 +120,7 @@ class LoadCourseData extends AbstractFixture implements OrderedFixtureInterface
         $this->setReference('course_python_2', $course_python_2);
         $this->setReference('course_minecraft', $course_minecraft);
         $this->setReference('course_java', $course_java);
+        $this->setReference('course_java_past', $course_java_past);
     }
 
     public function getOrder()

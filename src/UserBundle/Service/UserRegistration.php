@@ -2,16 +2,17 @@
 
 namespace UserBundle\Service;
 
-use CodeClubBundle\Service\ClubFinder;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use CodeClubBundle\Entity\Club;
+use CodeClubBundle\Service\ClubManager;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use UserBundle\Entity\User;
 
 class UserRegistration
 {
     private $passwordEncoder;
-    private $doctrine;
-    private $clubFinder;
+    private $manager;
+    private $clubManager;
     private $twig;
     private $mailer;
 
@@ -19,17 +20,19 @@ class UserRegistration
      * UserRegistration constructor.
      *
      * @param UserPasswordEncoder $passwordEncoder
-     * @param Registry            $doctrine
-     * @param ClubFinder          $clubFinder
+     * @param EntityManager       $manager
+     * @param ClubManager         $clubManager
      * @param \Twig_Environment   $twig
      * @param \Swift_Mailer       $mailer
+     *
+     * @internal param ClubFinder $clubFinder
      */
-    public function __construct(UserPasswordEncoder $passwordEncoder, Registry $doctrine, ClubFinder $clubFinder,
+    public function __construct(UserPasswordEncoder $passwordEncoder, EntityManager $manager, ClubManager $clubManager,
                                 \Twig_Environment $twig, \Swift_Mailer $mailer)
     {
         $this->passwordEncoder = $passwordEncoder;
-        $this->doctrine = $doctrine;
-        $this->clubFinder = $clubFinder;
+        $this->manager = $manager;
+        $this->clubManager = $clubManager;
         $this->twig = $twig;
         $this->mailer = $mailer;
     }
@@ -39,9 +42,8 @@ class UserRegistration
      */
     public function persistUser(User $user)
     {
-        $manager = $this->doctrine->getManager();
-        $manager->persist($user);
-        $manager->flush();
+        $this->manager->persist($user);
+        $this->manager->flush();
     }
 
     /**
@@ -111,16 +113,23 @@ class UserRegistration
      */
     public function generateRandomPassword($length)
     {
-        return substr(hash('sha512', rand()), 0, $length);
+        $password = base64_encode(random_bytes($length));
+
+        return substr($password, 0, strlen($password) - 2);
     }
 
     /**
      * @param User $user
+     *
+     * @return string
      */
     public function setRandomEncodedPassword(User $user)
     {
-        $password = $this->encodePassword($user, $this->generateRandomPassword(16));
-        $user->setPassword($password);
+        $plainPassword = $this->generateRandomPassword(10);
+        $encodedPassword = $this->encodePassword($user, $plainPassword);
+        $user->setPassword($encodedPassword);
+
+        return $plainPassword;
     }
 
     /**
@@ -135,12 +144,14 @@ class UserRegistration
     }
 
     /**
+     * @param Club $club
+     *
      * @return User
      */
-    public function newUser()
+    public function newUser(Club $club = null)
     {
         $user = new User();
-        $user->setClub($this->clubFinder->getCurrentClub());
+        $user->setClub($club !== null ? $club : $this->clubManager->getCurrentClub());
 
         return $user;
     }

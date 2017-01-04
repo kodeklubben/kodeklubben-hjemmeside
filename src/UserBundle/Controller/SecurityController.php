@@ -39,7 +39,8 @@ class SecurityController extends Controller
      */
     public function loginCheckAction()
     {
-        throw new \Exception('This should never be reached!');
+        // This should never be reached!
+        return $this->redirectToRoute('home');
     }
 
     /**

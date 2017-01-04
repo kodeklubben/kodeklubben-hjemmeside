@@ -14,19 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../app/bootstrap.php.cache';
 
-// If your web server provides APC support for PHP applications, uncomment these
-// lines to use APC for class autoloading. This can improve application performance
-// very significantly. See http://symfony.com/doc/current/components/class_loader/cache_class_loader.html#apcclassloader
-//
-// NOTE: The first argument of ApcClassLoader() is the prefix used to prevent
-// cache key conflicts. In a real Symfony application, make sure to change
-// it to a value that it's unique in the web server. A common practice is to use
-// the domain name associated to the Symfony application (e.g. 'example_com').
-//
-// $apcLoader = new Symfony\Component\ClassLoader\ApcClassLoader(sha1(__FILE__), $loader);
-// $loader->unregister();
-// $apcLoader->register(true);
-
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
 

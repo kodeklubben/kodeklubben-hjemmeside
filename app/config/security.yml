@@ -8,8 +8,10 @@ security:
         # in this example, users are stored via Doctrine in the database
         # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
         # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
-        database_users:
-            entity: { class: UserBundle:User, property: username }
+        code_club_users:
+            id: user.provider
+#        database_users:
+#            entity: { class: UserBundle:User, property: username }
 
     # http://symfony.com/doc/current/book/security.html#firewalls-authentication
     firewalls:
@@ -40,7 +42,8 @@ security:
                 target: home
 
             remember_me:
-                secret: %secret%
+                secret: "%secret%"
+                name: "%remember_me.name%"
                 lifetime: 31536000
                 path: /
 
@@ -57,3 +60,4 @@ security:
         - { path: ^/pamelding, roles: [ROLE_PARTICIPANT, ROLE_TUTOR] }
         - { path: ^/pamelding/veileder/meldav, roles: [ROLE_TUTOR] }
         - { path: ^/pamelding/deltaker/meldav, roles: [ROLE_PARTICIPANT] }
+        - { path: ^/bruker, roles: IS_AUTHENTICATED_REMEMBERED }

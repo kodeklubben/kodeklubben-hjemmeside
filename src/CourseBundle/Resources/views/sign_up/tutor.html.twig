@@ -31,27 +31,9 @@
                                     </div>
                                     <div class="pull-down">
                                         <footer>
-                                            {% set alreadySignedUp = false %}
-                                            {% for tutor in tutors %}
-                                                {% if tutor.course == course %}
-                                                    {% set alreadySignedUp = true %}
-                                                {% endif %}
-                                            {% endfor %}
+                                            {% set alreadySignedUp = is_in_course(tutors, course) %}
                                             <hr>
-                                            <form action="{{ path('sign_up_course', {'id': course.id}) }}" method="POST">
-                                                <label>
-                                                    <input type="checkbox" name="substitute">
-                                                    Kun som vikar
-                                                </label>
-                                                <br>
-                                                <button type="submit" {{ alreadySignedUp ? 'disabled' }}
-                                                   class="btn btn-primary btn-sm btn-sign-up onclick-disable">
-                                                    {{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}
-                                                </button>
-                                                <a href="{{ path('course_info', {id: course.id}) }}"
-                                                   class="btn btn-sm btn-default">Mer
-                                                    info</a>
-                                            </form>
+                                            {% include '@Course/sign_up/forms/tutor_signup_form.html.twig' %}
                                         </footer>
                                     </div>
                                 </div>

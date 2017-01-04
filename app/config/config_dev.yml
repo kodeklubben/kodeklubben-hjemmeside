@@ -15,7 +15,7 @@ doctrine:
         host: localhost
         port: null
         dbname: "%kernel.root_dir%/data/dev.db"
-        user: "%%database_dev_user%%"
+        user: "%database_dev_user%"
         password: "%database_dev_password%"
         charset: UTF8
 

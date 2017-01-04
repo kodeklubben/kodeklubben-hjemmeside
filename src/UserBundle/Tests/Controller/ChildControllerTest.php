@@ -1,16 +1,14 @@
 <?php
 
-//namespace UserBundle\Tests\Controller;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace UserBundle\Tests\Controller;
 
-class ChildControllerTest extends WebTestCase
+use CodeClubBundle\Tests\CodeClubWebTestCase;
+
+class ChildControllerTest extends CodeClubWebTestCase
 {
     public function testCreateChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -21,8 +19,8 @@ class ChildControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('h3:contains("Nytt Barn")')->count());
 
         $form = $crawler->selectButton('Lagre')->form();
-        $form['app_bundlecreate_child_type[firstName]']->setValue('TestChildFirst');
-        $form['app_bundlecreate_child_type[lastName]']->setValue('TestChildLast');
+        $form['app_bundle_create_child_type[firstName]']->setValue('TestChildFirst');
+        $form['app_bundle_create_child_type[lastName]']->setValue('TestChildLast');
         $client->submit($form);
 
         $this->assertTrue($client->getResponse()->isRedirect('/pamelding'));
@@ -31,15 +29,12 @@ class ChildControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('td:contains("TestChildFirst")')->count());
         $this->assertEquals(1, $crawler->filter('td:contains("TestChildLast")')->count());
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testDeleteChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -58,6 +53,6 @@ class ChildControllerTest extends WebTestCase
 
         $this->assertEquals(1, $childrenCountBefore - $childrenCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 }

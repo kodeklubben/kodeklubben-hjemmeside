@@ -1,0 +1,10 @@
+<span class="{{ course_availability_color_class(course) }}">
+    {% if course.participants | length > 0 %}
+        <a href="{{ path('cp_course_participants', {'id': course.id}) }}"
+           class="info-link underline">
+            {{ course.participants | length }}/{{ course.participantLimit }}
+            deltakere</a>
+    {% else %}
+        {{ course.participants | length }}/{{ course.participantLimit }} deltakere
+    {% endif %}
+</span>

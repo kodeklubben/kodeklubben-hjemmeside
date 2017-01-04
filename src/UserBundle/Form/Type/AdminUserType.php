@@ -3,11 +3,11 @@
 namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminUserType extends AbstractType
 {
@@ -16,10 +16,10 @@ class AdminUserType extends AbstractType
         $builder
             ->add('role', ChoiceType::class, array(
                 'choices' => array(
-                    'ROLE_PARENT' => 'Foresatt',
-                    'ROLE_PARTICIPANT' => 'Deltaker',
-                    'ROLE_TUTOR' => 'Veileder',
-                    'ROLE_ADMIN' => 'Admin',
+                    'Foresatt' => 'ROLE_PARENT',
+                    'Deltaker' => 'ROLE_PARTICIPANT',
+                    'Veileder' => 'ROLE_TUTOR',
+                    'Admin' => 'ROLE_ADMIN',
                     ),
                 'label' => 'Brukertype',
                 'multiple' => false,

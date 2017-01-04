@@ -2,9 +2,9 @@
 
 namespace CodeClubBundle\Tests\Availability;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use CodeClubBundle\Tests\CodeClubWebTestCase;
 
-class AvailabilityFunctionalTest extends WebTestCase
+class AvailabilityFunctionalTest extends CodeClubWebTestCase
 {
     /**
      * @dataProvider publicUrlProvider
@@ -13,7 +13,7 @@ class AvailabilityFunctionalTest extends WebTestCase
      */
     public function testPublicPageIsSuccessful($url)
     {
-        $client = self::createClient();
+        $client = $this->getAnonClient();
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
@@ -25,10 +25,7 @@ class AvailabilityFunctionalTest extends WebTestCase
      */
     public function testParticipantPageIsSuccessful($url)
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParticipantClient();
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
@@ -40,7 +37,7 @@ class AvailabilityFunctionalTest extends WebTestCase
     public function testParticipantPageIsDenied($url)
     {
         //Check if anonymous users gets denied
-        $client = self::createClient();
+        $client = $this->getAnonClient();
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
     }
@@ -52,10 +49,7 @@ class AvailabilityFunctionalTest extends WebTestCase
      */
     public function testTutorPageIsSuccessful($url)
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getTutorClient();
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
@@ -67,7 +61,7 @@ class AvailabilityFunctionalTest extends WebTestCase
     public function testTutorPageIsDenied($url)
     {
         //Check if anonymous users gets denied
-        $client = self::createClient();
+        $client = $this->getAnonClient();
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
     }
@@ -79,10 +73,7 @@ class AvailabilityFunctionalTest extends WebTestCase
      */
     public function testAdminPageIsSuccessful($url)
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'admin@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getAdminClient();
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
@@ -94,23 +85,22 @@ class AvailabilityFunctionalTest extends WebTestCase
     public function testAdminPageIsDenied($url)
     {
         //Check if anonymous users gets denied
-        $client = self::createClient();
+        $client = $this->getAnonClient();
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
 
         //Check if participant gets denied
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParticipantClient();
+        $client->request('GET', $url);
+        $this->assertFalse($client->getResponse()->isSuccessful());
+
+        //Check if parent gets denied
+        $client = $this->getParentClient();
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
 
         //Check if tutor gets denied
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getTutorClient();
         $client->request('GET', $url);
         $this->assertFalse($client->getResponse()->isSuccessful());
     }

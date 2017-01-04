@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\MessageType;
 use AppBundle\Entity\Message;
+use AppBundle\Form\Type\MessageType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class MessageController.
@@ -22,15 +22,17 @@ class MessageController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/melding", name="cp_message")
+     * @Method({"GET", "POST"})
      */
     public function showAction(Request $request)
     {
-        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages($club);
 
         $message = new Message();
-        $message->setClub($this->get('app.club_finder')->getCurrentClub());
+        $message->setClub($club);
 
-        $form = $this->createForm(new MessageType(), $message);
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
@@ -62,6 +64,8 @@ class MessageController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
         $message = $manager->getRepository('AppBundle:Message')->find($id);
+        $this->get('club_manager')->denyIfNotCurrentClub($message);
+
         if (!is_null($message)) {
             $manager->remove($message);
             $manager->flush();

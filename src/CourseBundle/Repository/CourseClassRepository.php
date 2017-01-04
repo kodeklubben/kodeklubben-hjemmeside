@@ -3,6 +3,7 @@
 namespace CourseBundle\Repository;
 
 use AppBundle\Entity\Semester;
+use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\CourseClass;
 use Doctrine\ORM\EntityRepository;
 
@@ -33,30 +34,34 @@ class CourseClassRepository extends EntityRepository
     /**
      * @param int      $week
      * @param Semester $semester
+     * @param Club     $club
      *
-     * @return CourseClass[]
+     * @return \CourseBundle\Entity\CourseClass[]
      */
-    public function findByWeek($week, Semester $semester)
+    public function findByWeek($week, Semester $semester, Club $club)
     {
         $now = new \DateTime();
         $currentYear = $now->format('Y');
-        list($startOfWeek, $endOfWeek) = $this->_getStartAndEndDateOfWeek($week, $currentYear);
+        list($startOfWeek, $endOfWeek) = $this->getStartAndEndDateOfWeek($week, $currentYear);
 
         return $this->createQueryBuilder('class')
             ->select('class')
             ->join('class.course', 'course')
+            ->join('course.courseType', 'courseType')
             ->where('course.deleted = false')
             ->andWhere('class.time > :startOfWeek')
             ->andWhere('class.time < :endOfWeek')
             ->andWhere('course.semester = :semester')
+            ->andWhere('courseType.club = :club')
             ->setParameter('startOfWeek', $startOfWeek)
             ->setParameter('endOfWeek', $endOfWeek)
             ->setParameter('semester', $semester)
+            ->setParameter('club', $club)
             ->getQuery()
             ->getResult();
     }
 
-    private function _getStartAndEndDateOfWeek($week, $year)
+    private function getStartAndEndDateOfWeek($week, $year)
     {
         $time = strtotime("1 January $year", time());
         $day = date('w', $time);

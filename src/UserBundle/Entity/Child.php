@@ -100,6 +100,14 @@ class Child
     }
 
     /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->parent;
+    }
+
+    /**
      * @return string
      */
     public function getFullName()

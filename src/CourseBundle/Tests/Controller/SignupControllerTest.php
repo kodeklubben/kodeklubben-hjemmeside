@@ -1,16 +1,14 @@
 <?php
 
-//namespace UserBundle\Tests\Controller;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace UserBundle\Tests\Controller;
 
-class SignupControllerTest extends WebTestCase
+use CodeClubBundle\Tests\CodeClubWebTestCase;
+
+class SignupControllerTest extends CodeClubWebTestCase
 {
     public function testSignupParticipant()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParticipantClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -26,15 +24,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupTutor()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getTutorClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -50,15 +45,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -83,15 +75,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(2, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testSignupChildSameCourseTwice()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -116,15 +105,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountAfter - $signedUpCourseCountBefore);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawParticipant()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParticipantClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -140,15 +126,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawTutor()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getTutorClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -164,15 +147,12 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testWithdrawChild()
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        $client = $this->getParentClient();
 
         $crawler = $client->request('GET', '/pamelding');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -188,6 +168,6 @@ class SignupControllerTest extends WebTestCase
         $signedUpCourseCountAfter = $crawler->selectButton('Meld av')->count();
         $this->assertEquals(1, $signedUpCourseCountBefore - $signedUpCourseCountAfter);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 }

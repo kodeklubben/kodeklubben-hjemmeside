@@ -3,6 +3,8 @@
 namespace CourseBundle\Repository;
 
 use AppBundle\Entity\Semester;
+use CodeClubBundle\Entity\Club;
+use CourseBundle\Entity\CourseType;
 use Doctrine\ORM\EntityRepository;
 
 class CourseTypeRepository extends EntityRepository
@@ -17,7 +19,30 @@ class CourseTypeRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findNotHiddenBySemester(Semester $semester)
+    /**
+     * @param Club $club
+     *
+     * @return CourseType[]
+     */
+    public function findAllByClub(Club $club)
+    {
+        return $this->createQueryBuilder('ct')
+            ->select('ct')
+            ->where('ct.deleted = false')
+            ->andWhere('ct.club = :club')
+            ->setParameter('club', $club)
+            ->orderBy('ct.name', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param Semester $semester
+     * @param Club     $club
+     *
+     * @return CourseType[]
+     */
+    public function findNotHiddenBySemester(Semester $semester, Club $club)
     {
         return $this->createQueryBuilder('ct')
             ->select('ct')
@@ -26,7 +51,9 @@ class CourseTypeRepository extends EntityRepository
             ->andWhere('courses.deleted = false')
             ->andWhere('ct.deleted = false')
             ->andWhere('ct.hideOnHomepage = false')
+            ->andWhere('ct.club = :club')
             ->setParameter('semester', $semester)
+            ->setParameter('club', $club)
             ->orderBy('ct.name', 'DESC')
             ->getQuery()
             ->getResult();

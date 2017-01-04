@@ -2,17 +2,15 @@
 
 namespace CourseBundle\Controller;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use UserBundle\Entity\Child;
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use UserBundle\Entity\Participant;
 
 class SignUpController extends Controller
 {
@@ -42,7 +40,8 @@ class SignUpController extends Controller
     private function showParticipantAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
         $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
@@ -61,7 +60,8 @@ class SignUpController extends Controller
     private function showParentAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
 
@@ -83,7 +83,8 @@ class SignUpController extends Controller
     private function showTutorAction()
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAll();
+        $club = $this->get('club_manager')->getCurrentClub();
+        $allCourseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findAllByClub($club);
         $courseTypes = $this->filterActiveCourses($allCourseTypes);
         $user = $this->getUser();
         $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
@@ -113,11 +114,13 @@ class SignUpController extends Controller
      */
     public function signUpChildAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
         $childId = $request->get('child');
         if ($childId === null) {
             throw new NotFoundHttpException();
         }
         $child = $this->getDoctrine()->getRepository('UserBundle:Child')->find($childId);
+        $this->get('club_manager')->denyIfNotCurrentClub($child);
         if (!$child->getParent() === $this->getUser()) {
             throw new AccessDeniedException();
         }
@@ -164,6 +167,8 @@ class SignUpController extends Controller
      */
     public function signUpAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT')) {
             return $this->signUpParticipantAction($course);
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_TUTOR')) {
@@ -253,6 +258,8 @@ class SignUpController extends Controller
      */
     public function withdrawTutorAction(Course $course, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($course);
+
         $tutorRepo = $this->getDoctrine()->getRepository('UserBundle:Tutor');
         $user = $this->getUser();
 
@@ -288,6 +295,8 @@ class SignUpController extends Controller
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
+        $this->get('club_manager')->denyIfNotCurrentClub($participant);
+
         if ($participant->getUser()->getId() == $this->getUser()->getId()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($participant);

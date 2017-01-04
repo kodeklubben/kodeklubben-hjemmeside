@@ -23,6 +23,18 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($this->createImage($club, 'minecraft', 'minecraft.png'));
         $manager->persist($this->createImage($club, 'java', 'java.png'));
 
+        $club = $this->getReference('club-default');
+
+        $manager->persist($this->createImage($club, 'header', 'header.jpg'));
+        $manager->persist($this->createImage($club, 'participant', 'deltaker.jpg'));
+        $manager->persist($this->createImage($club, 'tutor', 'veileder.jpg'));
+        $manager->persist($this->createImage($club, 'about', 'about.jpg'));
+        $manager->persist($this->createImage($club, 'about_social', 'about_social.jpg'));
+        $manager->persist($this->createImage($club, 'scratch', 'scratch.png'));
+        $manager->persist($this->createImage($club, 'python', 'python.png'));
+        $manager->persist($this->createImage($club, 'minecraft', 'minecraft.png'));
+        $manager->persist($this->createImage($club, 'java', 'java.png'));
+
         $manager->flush();
     }
 

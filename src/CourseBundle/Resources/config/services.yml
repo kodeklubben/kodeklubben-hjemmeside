@@ -1,6 +1,7 @@
 services:
-  course.sign_up:
-    class: CourseBundle\Service\SignUp
-    arguments:
-#      doctrine: "@doctrine"
-#      container: "@router"
+    course.sign_up:
+        class: CourseBundle\Service\SignUp
+    twig.extension.sign_up:
+        class: CourseBundle\Twig\SignupExtension
+        tags:
+            - { name: twig.extension }

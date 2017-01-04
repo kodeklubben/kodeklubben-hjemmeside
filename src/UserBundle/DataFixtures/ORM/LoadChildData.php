@@ -2,10 +2,10 @@
 
 namespace UserBundle\DataFixtures\ORM;
 
-use UserBundle\Entity\Child;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use UserBundle\Entity\Child;
 
 class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -22,6 +22,16 @@ class LoadChildData extends AbstractFixture implements OrderedFixtureInterface
         $child2->setLastName('Child2-last');
         $child2->setParent($this->getReference('user-parent'));
         $manager->persist($child2);
+
+        for ($i = 0; $i < 50; ++$i) {
+            $child = new Child();
+            $child->setFirstName('Child');
+            $child->setLastName($i);
+            $parent = 'user-parent-'.intdiv($i, 2);
+            $child->setParent($this->getReference($parent));
+            $this->setReference('child-'.$i, $child);
+            $manager->persist($child);
+        }
 
         $manager->flush();
 

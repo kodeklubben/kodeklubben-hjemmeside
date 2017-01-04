@@ -31,13 +31,13 @@
                 <a href="{{ path('control_panel') }}">Kontrollpanel</a>
             </li>
         {% endif %}
-        <li>
             {% if app.user %}
-                <a href="{{ path('security_logout') }}">Logg ut</a>
+                {% include 'base/user_navigation.html.twig' %}
             {% else %}
-                <a href="{{ path('security_login_form') }}">Logg inn</a>
+                <li>
+                    <a href="{{ path('security_login_form') }}">Logg inn</a>
+                </li>
             {% endif %}
-        </li>
     </ul>
 </div>
 <!-- /.navbar-collapse -->

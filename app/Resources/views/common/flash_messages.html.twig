@@ -1,0 +1,18 @@
+{% include 'common/flash_message.html.twig' with {type: 'success'} %}
+{% include 'common/flash_message.html.twig' with {type: 'warning'} %}
+{% include 'common/flash_message.html.twig' with {type: 'danger'} %}
+
+{% if timeout is not defined %}
+    {% set timeout = 5000 %}
+{% endif %}
+{% if animationType is not defined %}
+    {% set animationType = 'slideUp' %}
+{% endif %}
+
+<script>
+    window.onload = function () {
+        setInterval(function () {
+            $('.alert').{{ animationType }}();
+        }, {{ timeout }})
+    };
+</script>

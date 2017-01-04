@@ -1,13 +1,14 @@
 <?php
 
-//namespace UserBundle\Tests\Controller;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace UserBundle\Tests\Controller;
 
-class UserControllerTest extends WebTestCase
+use CodeClubBundle\Tests\CodeClubWebTestCase;
+
+class UserControllerTest extends CodeClubWebTestCase
 {
     public function testRegisterParticipant()
     {
-        $client = static::createClient();
+        $client = $this->getAnonClient();
 
         $crawler = $client->request('GET', '/registrer/deltaker');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -23,12 +24,12 @@ class UserControllerTest extends WebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testRegisterParent()
     {
-        $client = static::createClient();
+        $client = $this->getAnonClient();
 
         $crawler = $client->request('GET', '/registrer/foresatt');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -44,12 +45,12 @@ class UserControllerTest extends WebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testRegisterTutor()
     {
-        $client = static::createClient();
+        $client = $this->getAnonClient();
 
         $crawler = $client->request('GET', '/registrer/veileder');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -65,12 +66,12 @@ class UserControllerTest extends WebTestCase
 
         $this->login($email, $password);
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     public function testUniqueEmail()
     {
-        $client = static::createClient();
+        $client = $this->getAnonClient();
 
         $crawler = $client->request('GET', '/registrer/deltaker');
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -93,7 +94,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertFalse($client->getResponse()->isRedirection());
 
-        restoreDatabase();
+        \TestDataManager::restoreDatabase();
     }
 
     private function fillForm(\Symfony\Component\DomCrawler\Form $form, $email, $password)
@@ -110,7 +111,7 @@ class UserControllerTest extends WebTestCase
 
     private function login($email, $password)
     {
-        $client = static::createClient();
+        $client = $this->getAnonClient();
 
         $crawler = $client->request('GET', '/login');
         $this->assertTrue($client->getResponse()->isSuccessful());
