@@ -33,12 +33,6 @@ class StaticContentExtension extends \Twig_Extension
             ->getRepository('StaticContentBundle:StaticContent')
             ->findOneByStringId($stringId, $club);
         if (!$staticContent) {
-            $club = $this->clubManager->getDefaultClub();
-            $staticContent = $this->manager
-                ->getRepository('StaticContentBundle:StaticContent')
-                ->findOneByStringId($stringId, $club);
-        }
-        if (!$staticContent) {
             //Makes new record for requested htmlID
             $newStaticContent = new StaticContent();
             $newStaticContent->setIdString($stringId);

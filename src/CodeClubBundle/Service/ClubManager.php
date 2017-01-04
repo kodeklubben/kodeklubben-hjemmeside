@@ -92,7 +92,7 @@ class ClubManager
             $club = $obj;
         }
 
-        if ($club !== $this->currentClub) {
+        if ($club !== $this->getCurrentClub()) {
             throw new AccessDeniedException();
         }
     }
