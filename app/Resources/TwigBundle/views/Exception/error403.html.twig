@@ -1,0 +1,13 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    <br>
+    <div class="text-">
+        <h1>Oops!</h1>
+        <h3>Du har ikke rettigheter til å se denne siden</h3>
+        <p>Feilkode: 403</p>
+        <p>Her er noen nyttige linker</p>
+        {% include '@Twig/Exception/useful_links.html.twig' %}
+    </div>
+    <br>
+{% endblock %}

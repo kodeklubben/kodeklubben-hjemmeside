@@ -1,0 +1,14 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    <br>
+    <div class="text-">
+        <h1>Oops!</h1>
+        <h3>Det har oppstått en feil på serveren</h3>
+        <p> Vennligst kontakt oss på <span class="text-info">{{ get_club().email }}</span> hvis problemet vedvarer.</p>
+        <p>Feilkode: 500</p>
+        <p>Her er noen nyttige linker</p>
+        {% include '@Twig/Exception/useful_links.html.twig' %}
+    </div>
+    <br>
+{% endblock %}
