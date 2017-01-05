@@ -2,18 +2,29 @@
 
 namespace CodeClubBundle\Tests;
 
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CodeClubWebTestCase extends WebTestCase
 {
+    private $anonClient;
+    private $participantClient;
+    private $parentClient;
+    private $tutorClient;
+    private $adminClient;
+
     /**
      * @return \Symfony\Bundle\FrameworkBundle\Client
      */
     protected function getAnonClient()
     {
-        return self::createClient(array(), array(
-            'HTTP_HOST' => 'trondheim.localhost',
-        ));
+        if ($this->anonClient === null) {
+            $this->anonClient = self::createClient(array(), array(
+                'HTTP_HOST' => 'trondheim.localhost',
+            ));
+        }
+
+        return $this->anonClient;
     }
 
     /**
@@ -21,11 +32,15 @@ class CodeClubWebTestCase extends WebTestCase
      */
     protected function getParticipantClient()
     {
-        return static::createClient(array(), array(
-            'HTTP_HOST' => 'trondheim.localhost',
-            'PHP_AUTH_USER' => 'participant@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        if ($this->participantClient === null) {
+            $this->participantClient = self::createClient(array(), array(
+                'HTTP_HOST' => 'trondheim.localhost',
+                'PHP_AUTH_USER' => 'participant@mail.no',
+                'PHP_AUTH_PW' => '1234',
+            ));
+        }
+
+        return $this->participantClient;
     }
 
     /**
@@ -33,11 +48,15 @@ class CodeClubWebTestCase extends WebTestCase
      */
     protected function getParentClient()
     {
-        return static::createClient(array(), array(
-            'HTTP_HOST' => 'trondheim.localhost',
-            'PHP_AUTH_USER' => 'parent@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        if ($this->parentClient === null) {
+            $this->parentClient = self::createClient(array(), array(
+                'HTTP_HOST' => 'trondheim.localhost',
+                'PHP_AUTH_USER' => 'parent@mail.no',
+                'PHP_AUTH_PW' => '1234',
+            ));
+        }
+
+        return $this->parentClient;
     }
 
     /**
@@ -45,11 +64,15 @@ class CodeClubWebTestCase extends WebTestCase
      */
     protected function getTutorClient()
     {
-        return static::createClient(array(), array(
-            'HTTP_HOST' => 'trondheim.localhost',
-            'PHP_AUTH_USER' => 'tutor@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        if ($this->tutorClient === null) {
+            $this->tutorClient = self::createClient(array(), array(
+                'HTTP_HOST' => 'trondheim.localhost',
+                'PHP_AUTH_USER' => 'tutor@mail.no',
+                'PHP_AUTH_PW' => '1234',
+            ));
+        }
+
+        return $this->tutorClient;
     }
 
     /**
@@ -57,10 +80,36 @@ class CodeClubWebTestCase extends WebTestCase
      */
     protected function getAdminClient()
     {
-        return static::createClient(array(), array(
-            'HTTP_HOST' => 'trondheim.localhost',
-            'PHP_AUTH_USER' => 'admin@mail.no',
-            'PHP_AUTH_PW' => '1234',
-        ));
+        if ($this->adminClient === null) {
+            $this->adminClient = self::createClient(array(), array(
+                'HTTP_HOST' => 'trondheim.localhost',
+                'PHP_AUTH_USER' => 'admin@mail.no',
+                'PHP_AUTH_PW' => '1234',
+            ));
+        }
+
+        return $this->adminClient;
+    }
+
+    protected function post($uri, array $data, Client $client = null)
+    {
+        if ($client === null) {
+            $client = $this->getAnonClient();
+        }
+
+        $headers = array('CONTENT_TYPE' => 'application/json');
+        $content = json_encode($data);
+        $client->request('POST', $uri, $data, array(), $headers, $content);
+
+        return $client->getResponse();
+    }
+
+    protected function goToSuccessful(Client $client, string $path)
+    {
+        $crawler = $client->request('GET', $path);
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
+
+        return $crawler;
     }
 }

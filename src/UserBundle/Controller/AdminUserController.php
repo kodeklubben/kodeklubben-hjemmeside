@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\User;
 use UserBundle\Form\Type\AdminUserType;
@@ -145,7 +146,7 @@ class AdminUserController extends Controller
      *
      * @return JsonResponse
      *
-     * @Route("/buker/slett",
+     * @Route("/bruker/slett",
      *     options = { "expose" = true },
      *     name="cp_user_delete"
      * )
@@ -154,21 +155,30 @@ class AdminUserController extends Controller
     public function deleteAction(Request $request)
     {
         $userId = $request->request->get('userId');
+
+        if ($userId === null) {
+            throw new BadRequestHttpException();
+        }
+
+        $this->get('logger')->info("Deleting user with id $userId");
+
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
+
+        if ($user === null) {
+            throw $this->createNotFoundException();
+        }
+
         $this->get('club_manager')->denyIfNotCurrentClub($user);
 
         if ($user === $this->getUser()) {
             throw new AccessDeniedException('It\'s illegal to kill yourself');
         }
 
-        //Clear all connections to courses
-        $this->removeTutors($user);
-        $this->removeParticipants($user);
-        $this->removeChildren($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($user);
-        $manager->flush();
+        $this->get('logger')->info("User with name {$user} deleted");
 
         return new JsonResponse(array('status' => 'success'));
     }
@@ -189,26 +199,6 @@ class AdminUserController extends Controller
         //Remove tutor from all courses this and future semesters
         $manager = $this->getDoctrine()->getManager();
         $tutors = $this->getDoctrine()->getRepository('CourseBundle:Tutor')->findByUserThisAndLaterSemesters($user);
-        foreach ($tutors as $tutor) {
-            $manager->remove($tutor);
-        }
-        $manager->flush();
-    }
-
-    private function removeParticipants($user)
-    {
-        $participants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findByUser($user);
-        $manager = $this->getDoctrine()->getManager();
-        foreach ($participants as $participant) {
-            $manager->remove($participant);
-        }
-        $manager->flush();
-    }
-
-    private function removeTutors($user)
-    {
-        $tutors = $this->getDoctrine()->getRepository('CourseBundle:Tutor')->findByUser($user);
-        $manager = $this->getDoctrine()->getManager();
         foreach ($tutors as $tutor) {
             $manager->remove($tutor);
         }
