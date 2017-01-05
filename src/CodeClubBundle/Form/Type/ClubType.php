@@ -34,6 +34,6 @@ class ClubType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'code_club_bundle_club_type';
+        return 'code_club';
     }
 }

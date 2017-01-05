@@ -37,8 +37,10 @@ class ClubManager
      */
     public function getCurrentClub()
     {
-        // Remove this line for multidomain support
-        $this->currentClub = $this->em->getRepository('CodeClubBundle:Club')->findOneBySubdomain('trondheim');
+        if ($this->currentClub === null) {
+            // Remove this line for multidomain support
+            $this->currentClub = $this->em->getRepository('CodeClubBundle:Club')->findAll()[0];
+        }
 
         return $this->currentClub;
     }
@@ -56,6 +58,10 @@ class ClubManager
      */
     public function getDefaultClub()
     {
+        if ($this->defaultClub === null) {
+            $this->defaultClub = $this->em->getRepository('CodeClubBundle:Club')->findOneBySubdomain('default');
+        }
+
         return $this->defaultClub;
     }
 
