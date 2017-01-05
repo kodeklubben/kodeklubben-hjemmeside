@@ -26,10 +26,10 @@ class ControlPanelController extends Controller
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $userCount = count($doctrine->getRepository('UserBundle:User')->findByClub($club));
         $newUsersCurrentSemesterCount = count($doctrine->getRepository('UserBundle:User')->findNewUsersBySemester($currentSemester, $club));
-        $participantCount = count($doctrine->getRepository('UserBundle:Participant')->findByClub($club));
-        $participantCountCurrentSemester = count($doctrine->getRepository('UserBundle:Participant')->findBySemester($currentSemester, $club));
-        $tutorCount = count($doctrine->getRepository('UserBundle:Tutor')->findByClub($club));
-        $tutorCountCurrentSemester = count($doctrine->getRepository('UserBundle:Tutor')->findBySemester($currentSemester, $club));
+        $participantCount = count($doctrine->getRepository('CourseBundle:Participant')->findByClub($club));
+        $participantCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Participant')->findBySemester($currentSemester, $club));
+        $tutorCount = count($doctrine->getRepository('CourseBundle:Tutor')->findByClub($club));
+        $tutorCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Tutor')->findBySemester($currentSemester, $club));
         $courseCount = count($doctrine->getRepository('CourseBundle:Course')->findByClub($club));
         $courseCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Course')->findBySemester($currentSemester, $club));
 

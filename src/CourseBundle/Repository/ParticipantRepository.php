@@ -1,13 +1,13 @@
 <?php
 
-namespace UserBundle\Repository;
+namespace CourseBundle\Repository;
 
 use AppBundle\Entity\Semester;
 use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\EntityRepository;
 use UserBundle\Entity\Child;
-use UserBundle\Entity\Participant;
+use CourseBundle\Entity\Participant;
 use UserBundle\Entity\User;
 
 class ParticipantRepository extends EntityRepository
@@ -56,6 +56,46 @@ class ParticipantRepository extends EntityRepository
     }
 
     /**
+     * @param User   $user
+     * @param Course $course
+     *
+     * @return Participant|null
+     */
+    public function findOneByUserAndCourse(User $user, Course $course)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->where('participant.user = :user')
+            ->andWhere('participant.course = :course')
+            ->setParameter('user', $user)
+            ->setParameter('course', $course)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param User     $user
+     * @param Semester $semester
+     *
+     * @return \CourseBundle\Entity\Participant[]
+     */
+    public function findByUserAndSemester(User $user, Semester $semester)
+    {
+        return $this->createQueryBuilder('participant')
+            ->select('participant')
+            ->join('participant.course', 'course')
+            ->join('course.courseType', 'courseType')
+            ->where('participant.user = :user')
+            ->andWhere('course.semester = :semester')
+            ->andWhere('course.deleted = false')
+            ->andWhere('courseType.deleted = false')
+            ->setParameter('user', $user)
+            ->setParameter('semester', $semester)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param Course $course
      * @param Child  $child
      *
@@ -77,7 +117,7 @@ class ParticipantRepository extends EntityRepository
      * @param Semester $semester
      * @param Club     $club
      *
-     * @return \UserBundle\Entity\Participant[]
+     * @return \CourseBundle\Entity\Participant[]
      */
     public function findBySemester(Semester $semester, Club $club)
     {

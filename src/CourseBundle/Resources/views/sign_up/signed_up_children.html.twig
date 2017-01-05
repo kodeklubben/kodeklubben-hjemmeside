@@ -20,7 +20,7 @@
                     <td>{{ participant.course.description }}</td>
                     <td>
                         <form action="{{ path(is_granted('ROLE_ADMIN') ? 'course_admin_withdraw_participant' : 'withdraw_from_course_participant', {'id': participant.id}) }}"
-                              method="POST">
+                              method="POST"onsubmit="return confirm('Er du sikker på at du vil melde {{ participant }} av {{ participant.course }}?')">
                             <button type="submit" class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
                                 Meld av
                             </button>

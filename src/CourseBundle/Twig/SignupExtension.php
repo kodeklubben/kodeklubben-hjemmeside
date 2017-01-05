@@ -3,7 +3,7 @@
 namespace CourseBundle\Twig;
 
 use CourseBundle\Entity\Course;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Tutor;
 
 class SignupExtension extends \Twig_Extension
 {

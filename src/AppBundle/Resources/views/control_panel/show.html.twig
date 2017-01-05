@@ -18,7 +18,8 @@
                             <span class="info-box-text">Brukere</span>
                             <span class="info-box-number">{{ userCount }}</span>
                             {% if newUserCount > 0 %}
-                                <p class="text-faded"><span class="text-success">+{{ newUserCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span
+                                            class="text-success">+{{ newUserCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->
@@ -33,7 +34,8 @@
                             <span class="info-box-text">Kurs</span>
                             <span class="info-box-number">{{ courseCount }}</span>
                             {% if newCourseCount > 0 %}
-                                <p class="text-faded"><span class="text-success">+{{ newCourseCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span
+                                            class="text-success">+{{ newCourseCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->
@@ -49,7 +51,8 @@
                             <span class="info-box-text">Kursdeltakere</span>
                             <span class="info-box-number">{{ participantCount }}</span>
                             {% if newParticipantCount > 0 %}
-                                <p class="text-faded"><span class="text-success">+{{ newParticipantCount }}</span> {{ currentSemester }}
+                                <p class="text-faded"><span
+                                            class="text-success">+{{ newParticipantCount }}</span> {{ currentSemester }}
                                 </p>
                             {% endif %}
                         </div>
@@ -66,7 +69,8 @@
                             <span class="info-box-text">Kursveiledere</span>
                             <span class="info-box-number">{{ tutorCount }}</span>
                             {% if newTutorCount > 0 %}
-                                <p class="text-faded"><span class="text-success">+{{ newTutorCount }}</span> {{ currentSemester }}</p>
+                                <p class="text-faded"><span
+                                            class="text-success">+{{ newTutorCount }}</span> {{ currentSemester }}</p>
                             {% endif %}
                         </div>
                         <!-- /.info-box-content -->
@@ -75,5 +79,32 @@
                 </a>
             </div>
         </div><!-- /.row -->
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-10 col-lg-6">
+                <h3>Changelog</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Beskrivelse</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>04.01.17</td>
+                        <td>Deltakere og foreldre kan sette seg på venteliste hvis kurset er fullt. De blir automatisk
+                            flyttet fra venteliste til kurset når det blir plass. De får en e-post når de blir flyttet.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>03.01.17</td>
+                        <td>Brukere kan endre kontoinformasjon fra dropdown-listen øverst til høyere i navigasjonen.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section><!-- /.content -->
 {% endblock %}

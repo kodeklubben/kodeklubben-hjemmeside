@@ -3,6 +3,7 @@
 namespace UserBundle\Entity;
 
 use CodeClubBundle\Entity\Club;
+use CourseBundle\Entity\CourseQueueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -105,6 +106,34 @@ class User implements UserInterface, EquatableInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $newUserCode;
+
+    /**
+     * @var Child[]
+     *
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Child", mappedBy="parent", cascade={"remove"})
+     */
+    private $children;
+
+    /**
+     * @var Participant[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseBundle\Entity\Participant", mappedBy="user", cascade={"remove"})
+     */
+    private $participants;
+
+    /**
+     * @var Tutor[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseBundle\Entity\Tutor", mappedBy="user", cascade={"remove"})
+     */
+    private $tutors;
+
+    /**
+     * @var CourseQueueEntity[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseBundle\Entity\CourseQueueEntity", mappedBy="user", cascade={"remove"})
+     */
+    private $queues;
 
     /**
      * User constructor.
@@ -344,5 +373,37 @@ class User implements UserInterface, EquatableInterface
     public function __toString()
     {
         return $this->getFullName();
+    }
+
+    /**
+     * @return Participant[]
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @return CourseQueueEntity[]
+     */
+    public function getQueues()
+    {
+        return $this->queues;
+    }
+
+    /**
+     * @return Child[]
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @return Tutor[]
+     */
+    public function getTutors()
+    {
+        return $this->tutors;
     }
 }

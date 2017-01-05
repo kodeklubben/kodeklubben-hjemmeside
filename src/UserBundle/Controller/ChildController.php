@@ -87,7 +87,7 @@ class ChildController extends Controller
         $isAdmin = $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN');
         //A parent can only delete their own children
         if ($child->getParent()->getId() == $this->getUser()->getId() || $isAdmin) {
-            $childParticipants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('child' => $child));
+            $childParticipants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('child' => $child));
             $manager = $this->getDoctrine()->getManager();
             $manager->remove($child);
             //Remove all child participation

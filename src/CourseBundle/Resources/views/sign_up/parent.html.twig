@@ -7,7 +7,7 @@
     <h1 class="text-center">Påmelding for barn til foresatte {{ currentSemester }}</h1>
     <hr>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 {{ participants|length ? 'col-lg-push-6' }}">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 {{ participants|length or queueEntities|length ? 'col-lg-push-6' }}">
             <div class="box box-info">
                 <div class="box-header">
                     <h4>Dine barn <a href="{{ path('child_create') }}" class="btn btn-xs btn-success float-right">Nytt
@@ -19,11 +19,16 @@
             </div>
         </div>
 
-        {% if participants|length %}
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
-                {% include '@Course/sign_up/signed_up_children.html.twig' %}
-            </div>
-        {% endif %}
+            {% if queueEntities|length or participants|length %}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
+                    {% if queueEntities|length %}
+                        {% include '@Course/sign_up/queue_list_parent.html.twig' %}
+                    {% endif %}
+                    {% if participants|length %}
+                        {% include '@Course/sign_up/signed_up_children.html.twig' %}
+                    {% endif %}
+                </div>
+            {% endif %}
 
     </div>
 

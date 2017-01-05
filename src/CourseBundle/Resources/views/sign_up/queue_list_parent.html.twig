@@ -1,0 +1,36 @@
+<div class="box box-warning">
+    <div class="box-header">
+        <h4>Ventelister</h4>
+    </div>
+    <div class="box-body">
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th class="text-center">Barn</th>
+                <th class="text-center">Kurs</th>
+                <th class="text-center">Beskrivelse</th>
+                <th class="text-center">Kø nr.</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for queueEntity in queueEntities %}
+                <tr>
+                    <td>{{ queueEntity.child.firstName }}</td>
+                    <td>{{ queueEntity.course.name }}</td>
+                    <td>{{ queueEntity.course.description }}</td>
+                    <td>{{ queueEntity.position }}</td>
+                    <td>
+                        <form action="{{ path(is_granted('ROLE_ADMIN') ? 'admin_queue_entity_delete' : 'queue_entity_delete', {'id': queueEntity.id}) }}"
+                              method="POST" onsubmit="return confirm('Er du sikker på at du vil melde {{ queueEntity }} av ventelisten til {{ queueEntity.course }}?')">
+                            <button type="submit" class="btn btn-warning btn-xs btn-flat float-right onclick-disable">
+                                Meld av
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

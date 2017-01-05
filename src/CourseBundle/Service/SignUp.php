@@ -4,8 +4,8 @@ namespace CourseBundle\Service;
 
 use CourseBundle\Entity\Course;
 use UserBundle\Entity\Child;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Participant;
+use CourseBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 
 class SignUp

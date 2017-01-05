@@ -1,0 +1,26 @@
+{% extends 'base/control_panel/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Venteliste for {{ course }}: {{ course.description }}</h1>
+        <hr>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="{{ path('cp_course') }}" class="btn btn-default btn-sm">Alle kurs <i class="fa fa-reply"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <h3>Venteliste</h3>
+                <ol class="list-group">
+                    {% for qe in queueEntities %}
+                        <li class="list-group-item">{{ loop.index }}. {{ qe }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

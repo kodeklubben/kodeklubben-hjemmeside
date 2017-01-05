@@ -176,7 +176,7 @@ class AdminUserController extends Controller
     private function removeCurrentParticipants($user)
     {
         //Remove participation from all courses this and future semesters
-        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUserThisAndLaterSemesters($user);
+        $participants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findByUserThisAndLaterSemesters($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
             $manager->remove($participant);
@@ -188,7 +188,7 @@ class AdminUserController extends Controller
     {
         //Remove tutor from all courses this and future semesters
         $manager = $this->getDoctrine()->getManager();
-        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUserThisAndLaterSemesters($user);
+        $tutors = $this->getDoctrine()->getRepository('CourseBundle:Tutor')->findByUserThisAndLaterSemesters($user);
         foreach ($tutors as $tutor) {
             $manager->remove($tutor);
         }
@@ -197,7 +197,7 @@ class AdminUserController extends Controller
 
     private function removeParticipants($user)
     {
-        $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findByUser($user);
+        $participants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findByUser($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($participants as $participant) {
             $manager->remove($participant);
@@ -207,7 +207,7 @@ class AdminUserController extends Controller
 
     private function removeTutors($user)
     {
-        $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findByUser($user);
+        $tutors = $this->getDoctrine()->getRepository('CourseBundle:Tutor')->findByUser($user);
         $manager = $this->getDoctrine()->getManager();
         foreach ($tutors as $tutor) {
             $manager->remove($tutor);

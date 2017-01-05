@@ -1,20 +1,16 @@
 <?php
 
-namespace UserBundle\Entity;
+namespace CourseBundle\Entity;
 
-use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\User;
 
 /**
  * Class.
  *
  * @ORM\Table(name="participant")
- * @ORM\Entity(repositoryClass="UserBundle\Repository\ParticipantRepository")
- * @UniqueEntity(
- *     fields={"user", "course"}
- * )
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\ParticipantRepository")
  */
 class Participant
 {
@@ -30,19 +26,10 @@ class Participant
     /**
      * @var Child
      *
-     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\Child")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\Child", inversedBy="participants")
      * @ORM\JoinColumn(name="child_id", referencedColumnName="id", nullable=true)
      */
     private $child;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\Valid
-     */
-    private $user;
 
     /**
      * @var Course
@@ -52,6 +39,30 @@ class Participant
      * @Assert\Valid
      */
     private $course;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User", inversedBy="participants")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Assert\Valid
+     */
+    private $user;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * ParticipantBase constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id.
@@ -112,6 +123,26 @@ class Participant
     }
 
     /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        if ($this->child !== null) {
+            return $this->child->getFullName();
+        } else {
+            return $this->user->getFullName();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
+
+    /**
      * @return Course
      */
     public function getCourse()
@@ -128,22 +159,18 @@ class Participant
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getFullName()
+    public function getCreatedAt()
     {
-        return $this->user->getFullName();
+        return $this->createdAt;
     }
 
     /**
-     * @return string
+     * @param \DateTime $createdAt
      */
-    public function __toString()
+    public function setCreatedAt($createdAt)
     {
-        if ($this->child !== null) {
-            return $this->child->getFullName();
-        } else {
-            return $this->user->getFullName();
-        }
+        $this->createdAt = $createdAt;
     }
 }

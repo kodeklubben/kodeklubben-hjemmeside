@@ -1,11 +1,11 @@
 <?php
 
-namespace UserBundle\DataFixtures\ORM;
+namespace CourseBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Tutor;
 
 class LoadTutorData extends AbstractFixture implements OrderedFixtureInterface
 {

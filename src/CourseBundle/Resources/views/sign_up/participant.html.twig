@@ -6,11 +6,14 @@
     {% include 'common/flash_message.html.twig' with {'type': 'success'} %}
     <h1 class="text-center">Påmelding for deltakere {{ currentSemester }}</h1>
     <hr>
+    {% if queueEntities|length %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            {% include '@Course/sign_up/queue_list_participant.html.twig' %}
+        </div>
+    {% endif %}
     {% if participants|length %}
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
-                {% include '@Course/sign_up/signed_up_participant.html.twig' %}
-            </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            {% include '@Course/sign_up/signed_up_participant.html.twig' %}
         </div>
     {% endif %}
 

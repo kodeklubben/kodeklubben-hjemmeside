@@ -1,11 +1,11 @@
 <?php
 
-namespace UserBundle\DataFixtures\ORM;
+namespace CourseBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use UserBundle\Entity\Participant;
+use CourseBundle\Entity\Participant;
 
 class LoadParticipantData extends AbstractFixture implements OrderedFixtureInterface
 {

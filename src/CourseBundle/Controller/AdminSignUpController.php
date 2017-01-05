@@ -4,13 +4,14 @@ namespace CourseBundle\Controller;
 
 use CourseBundle\Entity\Course;
 use CourseBundle\Entity\CourseType;
+use CourseBundle\Event\ParticipantDeletedEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Participant;
+use CourseBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 
 /**
@@ -44,7 +45,7 @@ class AdminSignUpController extends Controller
             'user' => $user,
         );
         if (in_array('ROLE_PARENT', $user->getRoles())) {
-            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
+            $participants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('user' => $user));
             $children = $this->getDoctrine()->getRepository('UserBundle:Child')->findBy(array('parent' => $user));
 
             return $this->render('@Course/control_panel/sign_up/parent.html.twig', array_merge($parameters, array(
@@ -52,13 +53,13 @@ class AdminSignUpController extends Controller
                 'children' => $children,
             )));
         } elseif (in_array('ROLE_PARTICIPANT', $user->getRoles())) {
-            $participants = $this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('user' => $user));
+            $participants = $this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('user' => $user));
 
             return $this->render('@Course/control_panel/sign_up/participant.html.twig', array_merge($parameters, array(
                 'participants' => $participants,
             )));
         } elseif (in_array('ROLE_TUTOR', $user->getRoles())) {
-            $tutors = $this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('user' => $user));
+            $tutors = $this->getDoctrine()->getRepository('CourseBundle:Tutor')->findBy(array('user' => $user));
 
             return $this->render('@Course/control_panel/sign_up/tutor.html.twig', array_merge($parameters, array(
                 'tutors' => $tutors,
@@ -91,7 +92,7 @@ class AdminSignUpController extends Controller
             throw new NotFoundHttpException('Child not found');
         }
         // Check if child is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
+        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('course' => $course, 'child' => $child))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || !$isThisSemester) {
             if ($isAlreadyParticipant) {
@@ -138,8 +139,8 @@ class AdminSignUpController extends Controller
         $this->get('club_manager')->denyIfNotCurrentClub($course);
         $this->get('club_manager')->denyIfNotCurrentClub($user);
         // Check if user is already signed up to the course or the course is set for another semester
-        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('UserBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
-        $isAlreadyTutor = count($this->getDoctrine()->getRepository('UserBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
+        $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
+        $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isThisSemester = $course->getSemester()->isEqualTo($this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester());
         if ($isAlreadyParticipant || $isAlreadyTutor || !$isThisSemester) {
             $this->addFlash('warning', 'Du er allerede påmeldt '.$course->getName());
@@ -222,6 +223,7 @@ class AdminSignUpController extends Controller
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
+        dump('hei?');
         $this->get('club_manager')->denyIfNotCurrentClub($participant);
 
         $name = $participant->getChild() === null ? $participant->getFullName() : $participant->getChild()->getFullName();
@@ -229,6 +231,8 @@ class AdminSignUpController extends Controller
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($participant);
         $manager->flush();
+
+        $this->get('event_dispatcher')->dispatch(ParticipantDeletedEvent::NAME, new ParticipantDeletedEvent($participant));
 
         $this->addFlash('success', 'Du har meldt '.$name.' av '.$participant->getCourse()->getName());
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace UserBundle\Repository;
+namespace CourseBundle\Repository;
 
 use AppBundle\Entity\Semester;
 use CodeClubBundle\Entity\Club;
 use CourseBundle\Entity\Course;
 use Doctrine\ORM\EntityRepository;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 
 class TutorRepository extends EntityRepository
@@ -22,6 +22,25 @@ class TutorRepository extends EntityRepository
             ->select('tutor')
             ->where('tutor.user = :user')
             ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param User     $user
+     * @param Semester $semester
+     *
+     * @return \CourseBundle\Entity\Tutor[]
+     */
+    public function findByUserAndSemester(User $user, Semester $semester)
+    {
+        return $this->createQueryBuilder('tutor')
+            ->select('tutor')
+            ->join('tutor.course', 'course')
+            ->where('tutor.user = :user')
+            ->andWhere('course.semester = :semester')
+            ->setParameter('user', $user)
+            ->setParameter('semester', $semester)
             ->getQuery()
             ->getResult();
     }
@@ -67,7 +86,7 @@ class TutorRepository extends EntityRepository
      * @param Semester $semester
      * @param Club     $club
      *
-     * @return \UserBundle\Entity\Tutor[]
+     * @return \CourseBundle\Entity\Tutor[]
      */
     public function findBySemester(Semester $semester, Club $club)
     {

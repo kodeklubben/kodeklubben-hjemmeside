@@ -6,8 +6,6 @@ use AppBundle\Entity\Semester;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
 
 /**
  * Course.
@@ -71,14 +69,14 @@ class Course
     /**
      * @var Tutor[]
      *
-     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Tutor", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Tutor", mappedBy="course")
      */
     private $tutors;
 
     /**
      * @var Participant[]
      *
-     * @ORM\OneToMany(targetEntity="UserBundle\Entity\Participant", mappedBy="course")
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="course")
      */
     private $participants;
 
@@ -88,6 +86,13 @@ class Course
      * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="course")
      */
     private $classes;
+
+    /**
+     * @var CourseQueueEntity[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseQueueEntity", mappedBy="course")
+     */
+    private $queue;
 
     /**
      * @var bool
@@ -102,6 +107,7 @@ class Course
     public function __construct()
     {
         $this->classes = new ArrayCollection();
+        $this->queue = new ArrayCollection();
         $this->tutors = new ArrayCollection();
         $this->substitutes = new ArrayCollection();
         $this->deleted = false;
@@ -254,6 +260,14 @@ class Course
     }
 
     /**
+     * @param Participant $participant
+     */
+    public function addParticipant(Participant $participant)
+    {
+        $this->participants[] = $participant;
+    }
+
+    /**
      * @param Participant[] $participants
      */
     public function setParticipants($participants)
@@ -347,5 +361,21 @@ class Course
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return CourseQueueEntity[]
+     */
+    public function getQueue()
+    {
+        return $this->queue->toArray();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFull()
+    {
+        return $this->participantLimit - count($this->participants) <= 0;
     }
 }

@@ -1,4 +1,4 @@
-<form action="{{ path('sign_up_course_child', {id: course.id}) }}"
+<form action="{{ path(course.isFull ? 'course_enqueue' : 'sign_up_course_child', {id: course.id}) }}"
       method="POST">
     <div class="form-group">
         <label for="course-{{ course.id }}-child">Velg barn</label>
@@ -18,8 +18,9 @@
 
     <div class="form-group">
         {% if placesLeft <= 0 %}
-            <button type="button" disabled class="btn btn-primary btn-sm">
-                Fullt
+            <p>Venteliste: {{ course.queue|length }} i kø</p>
+            <button type="submit" class="btn btn-warning btn-sm onclick-disable">
+                Venteliste
             </button>
         {% else %}
             <button {{ children|length == 0 ? 'type="button" disabled' : 'type="submit"' }}

@@ -12,8 +12,8 @@ use ImageBundle\Entity\Image;
 use StaticContentBundle\Entity\StaticContent;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\Child;
-use UserBundle\Entity\Participant;
-use UserBundle\Entity\Tutor;
+use CourseBundle\Entity\Participant;
+use CourseBundle\Entity\Tutor;
 use UserBundle\Entity\User;
 
 class ClubManager
@@ -37,7 +37,10 @@ class ClubManager
      */
     public function getCurrentClub()
     {
-        return $this->em->getRepository('CodeClubBundle:Club')->findOneBySubdomain('trondheim');
+        // Remove this line for multidomain support
+        $this->currentClub = $this->em->getRepository('CodeClubBundle:Club')->findOneBySubdomain('trondheim');
+
+        return $this->currentClub;
     }
 
     /**

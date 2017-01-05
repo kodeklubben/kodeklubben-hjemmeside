@@ -1,4 +1,4 @@
-<form action="{{ path('sign_up_course', {'id': course.id}) }}" method="POST">
+<form action="{{ path(course.isFull ? 'course_enqueue' : 'sign_up_course', {'id': course.id}) }}" method="POST">
 
     {% set alreadySignedUp = is_in_course(participants, course) %}
 
@@ -6,7 +6,10 @@
 
     <p class="{{ places_left_color_class(course) }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
     {% if placesLeft <= 0 %}
-        <button disabled class="btn btn-primary btn-sm">Fullt</button>
+        <p>Venteliste: {{ course.queue|length }} i kø</p>
+        <button type="submit" class="btn btn-warning btn-sm onclick-disable">
+            Venteliste
+        </button>
     {% else %}
         <button {{ alreadySignedUp ? 'type="button" disabled' : 'type="submit"' }}
                 class="btn btn-primary btn-sm onclick-disable">{{ alreadySignedUp ? 'Påmeldt': 'Meld på' }}</button>

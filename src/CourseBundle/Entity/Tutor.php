@@ -1,17 +1,17 @@
 <?php
 
-namespace UserBundle\Entity;
+namespace CourseBundle\Entity;
 
-use CourseBundle\Entity\Course;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\User;
 
 /**
  * Class.
  *
  * @ORM\Table(name="tutor")
- * @ORM\Entity(repositoryClass="UserBundle\Repository\TutorRepository")
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\TutorRepository")
  * @UniqueEntity(
  *     fields={"user", "course"}
  * )
@@ -30,8 +30,8 @@ class Tutor
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User", inversedBy="tutors")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @Assert\Valid
      */
     private $user;
@@ -40,7 +40,7 @@ class Tutor
      * @var Course
      *
      * @ORM\ManyToOne(targetEntity="CourseBundle\Entity\Course", inversedBy="tutors")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
      * @Assert\Valid
      */
     private $course;

@@ -6,6 +6,10 @@
     <p class="description">{{ course.description }}</p>
     {% include '@Course/control_panel/course_box/participants_link.html.twig' %}
     <br>
+    {% if course.queue | length > 0 %}
+        {% include '@Course/control_panel/course_box/queue_link.html.twig' %}
+        <br>
+    {% endif %}
     {% include '@Course/control_panel/course_box/tutors_link.html.twig' %}
     <br>
     {% include '@Course/control_panel/course_box/substitutes_link.html.twig' %}

@@ -2,6 +2,8 @@
 
 namespace UserBundle\Entity;
 
+use CourseBundle\Entity\CourseQueueEntity;
+use CourseBundle\Entity\Participant;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,11 +39,25 @@ class Child
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="\UserBundle\Entity\User", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @Assert\Valid
      */
     private $parent;
+
+    /**
+     * @var Participant[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseBundle\Entity\Participant", mappedBy="child", cascade={"remove"})
+     */
+    private $participants;
+
+    /**
+     * @var CourseQueueEntity[]
+     *
+     * @ORM\OneToMany(targetEntity="CourseBundle\Entity\CourseQueueEntity", mappedBy="child", cascade={"remove"})
+     */
+    private $queues;
 
     /**
      * @return int
@@ -118,5 +134,21 @@ class Child
     public function __toString()
     {
         return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    /**
+     * @return CourseQueueEntity[]
+     */
+    public function getQueues()
+    {
+        return $this->queues;
+    }
+
+    /**
+     * @return \CourseBundle\Entity\Participant[]
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

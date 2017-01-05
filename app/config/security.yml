@@ -60,4 +60,5 @@ security:
         - { path: ^/pamelding, roles: [ROLE_PARTICIPANT, ROLE_TUTOR] }
         - { path: ^/pamelding/veileder/meldav, roles: [ROLE_TUTOR] }
         - { path: ^/pamelding/deltaker/meldav, roles: [ROLE_PARTICIPANT] }
+        - { path: ^/pamelding/venteliste, roles: [ROLE_PARTICIPANT, ROLE_PARENT] }
         - { path: ^/bruker, roles: IS_AUTHENTICATED_REMEMBERED }
