@@ -6,6 +6,9 @@ services:
         class: CourseBundle\Service\CourseQueueManager
         arguments: ['@doctrine.orm.default_entity_manager', '@app.notification_manager']
 
+    course.manager:
+        class: CourseBundle\Service\CourseManager
+
     course.queue_subscriber:
         class: CourseBundle\EventSubscriber\CourseQueueSubscriber
         arguments: ['@course.queue_manager', '@logger']

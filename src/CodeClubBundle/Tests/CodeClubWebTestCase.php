@@ -112,4 +112,13 @@ class CodeClubWebTestCase extends WebTestCase
 
         return $crawler;
     }
+
+    protected function goToNotFound(Client $client, string $path)
+    {
+        $crawler = $client->request('GET', $path);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+
+        return $crawler;
+    }
 }

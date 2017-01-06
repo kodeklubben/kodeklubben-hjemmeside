@@ -49,6 +49,7 @@ class CourseClassRepository extends EntityRepository
             ->join('class.course', 'course')
             ->join('course.courseType', 'courseType')
             ->where('course.deleted = false')
+            ->andWhere('courseType.deleted = false')
             ->andWhere('class.time > :startOfWeek')
             ->andWhere('class.time < :endOfWeek')
             ->andWhere('course.semester = :semester')

@@ -50,7 +50,7 @@ class AdminCourseTypeController extends Controller
     {
 
         // Check if this is a create or edit
-        $isCreate = is_null($courseType);
+        $isCreate = $courseType === null;
         if ($isCreate) {
             $club = $this->get('club_manager')->getCurrentClub();
 
@@ -61,25 +61,26 @@ class AdminCourseTypeController extends Controller
             $courseType = new CourseType();
             $courseType->setClub($club);
             $courseType->setImage($image);
-        } else {
-            $this->get('club_manager')->denyIfNotCurrentClub($courseType);
         }
 
-        $form = $this->createForm(CourseTypeType::class, $courseType, array(
-            'isCreate' => $isCreate,
-        ));
+        $this->get('club_manager')->denyIfNotCurrentClub($courseType);
+
+        $form = $this->createForm(CourseTypeType::class, $courseType);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Upload image
             $image = $courseType->getImage();
-            if (!is_null($image->getFile())) {
-                $image->setName($courseType->getName());
+            $image->setName($courseType->getName());
+            if ($image->getFile() !== null) {
                 $this->get('app.image_uploader')->uploadImage($image);
+            } else {
+                $this->get('app.image_uploader')->setDefaultCourseTypeImage($image);
             }
 
             // Save CourseType
             $manager = $this->getDoctrine()->getManager();
+            $manager->persist($image);
             $manager->persist($courseType);
             $manager->flush();
 

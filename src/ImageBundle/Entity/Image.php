@@ -32,7 +32,7 @@ class Image
     /**
      * @var Club
      *
-     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club", cascade={"persist"})
      * @Assert\Valid
      */
     private $club;

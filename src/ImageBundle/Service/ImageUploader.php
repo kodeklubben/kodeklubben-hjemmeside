@@ -57,4 +57,10 @@ class ImageUploader
 
         return $image;
     }
+
+    public function setDefaultCourseTypeImage(Image $image)
+    {
+        $image->setFilePath('http://placehold.it/200x200');
+        $image->setFileName('200x200');
+    }
 }

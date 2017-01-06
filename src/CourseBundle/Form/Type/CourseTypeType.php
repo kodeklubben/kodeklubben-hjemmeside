@@ -12,11 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CourseTypeType extends AbstractType
 {
-    private $isCreate;
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->isCreate = $options['isCreate'];
         $builder
             ->add('name', TextType::class, array(
                 'label' => 'Navn',
@@ -37,21 +34,19 @@ class CourseTypeType extends AbstractType
             ))
             ->add('image', ImageType::class, array(
                 'label' => 'Bilde',
-                'required' => $this->isCreate,
-            ))
-        ;
+                'required' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'CourseBundle\Entity\CourseType',
-            'isCreate' => false,
         ));
     }
 
     public function getBlockPrefix()
     {
-        return 'app_bundle_course_type';
+        return 'course_type';
     }
 }

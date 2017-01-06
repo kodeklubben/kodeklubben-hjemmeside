@@ -58,6 +58,8 @@ class AdminCourseController extends Controller
      */
     public function editCourseAction(Request $request, Course $course = null)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($course);
+
         $isCreateAction = is_null($course);
         if ($isCreateAction) {
             $course = new Course();
@@ -99,6 +101,8 @@ class AdminCourseController extends Controller
      */
     public function editTimeTableAction(Request $request, Course $course)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($course);
+
         $this->get('club_manager')->denyIfNotCurrentClub($course);
 
         $courseClass = new CourseClass();
@@ -144,6 +148,8 @@ class AdminCourseController extends Controller
      */
     public function deleteCourseAction(Course $course)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($course);
+
         $this->get('club_manager')->denyIfNotCurrentClub($course);
 
         $course->delete();
@@ -167,6 +173,8 @@ class AdminCourseController extends Controller
      */
     public function showParticipantsAction(Course $course)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($course);
+
         $this->get('club_manager')->denyIfNotCurrentClub($course);
 
         return $this->render('@Course/control_panel/show_course_participants.html.twig', array('course' => $course));
@@ -185,6 +193,8 @@ class AdminCourseController extends Controller
      */
     public function showTutorsAction(Course $course)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($course);
+
         $this->get('club_manager')->denyIfNotCurrentClub($course);
 
         return $this->render('@Course/control_panel/show_course_tutors.html.twig', array('course' => $course));
