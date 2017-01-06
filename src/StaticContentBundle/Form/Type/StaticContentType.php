@@ -30,6 +30,6 @@ class StaticContentType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_bundle_static_content_type';
+        return 'static_content';
     }
 }
