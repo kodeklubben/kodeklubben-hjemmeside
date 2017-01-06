@@ -48,6 +48,7 @@ class AdminCourseTypeController extends Controller
      */
     public function editCourseTypeAction(Request $request, CourseType $courseType = null)
     {
+        $this->get('course.manager')->throw404ifCourseOrCourseTypeIsDeleted($courseType);
 
         // Check if this is a create or edit
         $isCreate = $courseType === null;

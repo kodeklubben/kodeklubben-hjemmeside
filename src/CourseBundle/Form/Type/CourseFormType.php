@@ -78,6 +78,6 @@ class CourseFormType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_bundle_course_series_type';
+        return 'course_form';
     }
 }

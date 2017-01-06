@@ -2,15 +2,15 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use CourseBundle\Tests\Controller\CourseTestBase;
 
-class AdminCourseTypeControllerTest extends CodeClubWebTestCase
+class AdminCourseTypeControllerTest extends CourseTestBase
 {
     public function testCreate()
     {
         $client = $this->getAdminClient();
 
-        $courseTypeCountBefore = $this->countCourseTypes();
+        $courseTypeCountBefore = $this->countCourseTypesOnCourseTypePage();
 
         $response = $this->submitCourseType('test123', 'test123description', 'http://test123.com');
 
@@ -20,7 +20,7 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
 
         $this->assertEquals(1, $crawler->filter('div.course h3:contains("test123")')->count());
 
-        $courseTypeCountAfter = $this->countCourseTypes();
+        $courseTypeCountAfter = $this->countCourseTypesOnCourseTypePage();
 
         $this->assertEquals(1, $courseTypeCountAfter - $courseTypeCountBefore);
 
@@ -31,7 +31,7 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
     {
         $client = $this->getAdminClient();
 
-        $courseTypeCountBefore = $this->countCourseTypes();
+        $courseTypeCountBefore = $this->countCourseTypesOnCourseTypePage();
 
         $response = $this->submitCourseType('test123', 'test123description', 'http://test123.com');
         $this->assertTrue($response->isRedirect('/kontrollpanel/kurs/type'));
@@ -43,7 +43,7 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
 
         $this->assertEquals(1, $crawler->filter('div.course h3:contains("test123")')->count());
 
-        $courseTypeCountAfter = $this->countCourseTypes();
+        $courseTypeCountAfter = $this->countCourseTypesOnCourseTypePage();
 
         $this->assertEquals(1, $courseTypeCountAfter - $courseTypeCountBefore);
 
@@ -54,7 +54,7 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
     {
         $client = $this->getAdminClient();
 
-        $courseTypeCountBefore = $this->countCourseTypes();
+        $courseTypeCountBefore = $this->countCourseTypesOnCourseTypePage();
 
         $crawler = $this->goToSuccessful($client, '/kontrollpanel/kurs/type/1');
 
@@ -72,7 +72,7 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
 
         $this->assertEquals(1, $crawler->filter('div.course h3:contains("edited course type")')->count());
 
-        $courseTypeCountAfter = $this->countCourseTypes();
+        $courseTypeCountAfter = $this->countCourseTypesOnCourseTypePage();
 
         $this->assertEquals($courseTypeCountBefore, $courseTypeCountAfter);
 
@@ -88,20 +88,23 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
         $this->goToNotFound($client, '/kurs/1');
 
         $this->goToNotFound($client, '/kontrollpanel/kurs/1');
-        $this->goToNotFound($client, '/kontrollpanel/kurs/timeplan/1');
+        $this->goToNotFound($client, '/kontrollpanel/kurs/type/1');
         $this->goToNotFound($client, '/kontrollpanel/kurs/deltakere/1');
         $this->goToNotFound($client, '/kontrollpanel/kurs/veiledere/1');
+        $this->goToNotFound($client, '/kontrollpanel/kurs/veiledere/1');
+
+        \TestDataManager::restoreDatabase();
     }
 
     public function testCourseTypePageAfterDeletingCourseType()
     {
-        $courseTypeCountBefore = $this->countCourseTypes();
+        $courseTypeCountBefore = $this->countCourseTypesOnCourseTypePage();
 
         $response = $this->deleteFirstCourseType();
 
         $this->assertTrue($response->isRedirect('/kontrollpanel/kurs/type'));
 
-        $courseTypeCountAfter = $this->countCourseTypes();
+        $courseTypeCountAfter = $this->countCourseTypesOnCourseTypePage();
 
         // Assert that there is one less course type after deleting
         $this->assertEquals(1, $courseTypeCountBefore - $courseTypeCountAfter);
@@ -111,11 +114,11 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
 
     public function testCoursesAdminPageAfterDeletingCourseType()
     {
-        $courseCountBefore = $this->countCourses();
+        $courseCountBefore = $this->countCoursesOnCoursePage();
 
         $this->deleteFirstCourseType();
 
-        $courseCountAfter = $this->countCourses();
+        $courseCountAfter = $this->countCoursesOnCoursePage();
 
         // Assert that there are less courses after deleting the first courseType
         $this->assertLessThan($courseCountBefore, $courseCountAfter);
@@ -235,77 +238,5 @@ class AdminCourseTypeControllerTest extends CodeClubWebTestCase
         $client->submit($form);
 
         return $client->getResponse();
-    }
-
-    private function countCourseTypes()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/kurs/type');
-
-        return $crawler->filter('div.course')->count();
-    }
-
-    private function countCourses()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/kurs');
-
-        return $crawler->filter('div.box-course-admin')->count();
-    }
-
-    private function countCoursesOnSignupPage()
-    {
-        $client = $this->getParticipantClient();
-
-        $crawler = $this->goToSuccessful($client, '/pamelding');
-
-        return $crawler->filter('div.box')->count();
-    }
-
-    private function countCoursesOnCourseInfoPage()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/kurs');
-
-        return $crawler->filter('div.container>div.row')->count();
-    }
-
-    private function countCourseTypesOnHomePage()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/');
-
-        return $crawler->filter('div.course')->count();
-    }
-
-    private function countCoursesInTimeTable()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/');
-
-        return $crawler->filter('table#timeTable')->filter('tr')->count() - 1;
-    }
-
-    private function countParticipantsOnParticipantsPage()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/deltakere');
-
-        return $crawler->filter('tr')->count() - 1;
-    }
-
-    private function countTutorsOnTutorsPage()
-    {
-        $client = $this->getAdminClient();
-
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/veiledere');
-
-        return $crawler->filter('tr')->count() - 1;
     }
 }
