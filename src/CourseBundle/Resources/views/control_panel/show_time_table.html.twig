@@ -32,7 +32,15 @@
                                     <td>{{ class.time|date('d. M') }}</td>
                                     <td>{{ class.time|date('H:i') }}</td>
                                     <td>{{ class.place }}</td>
-                                    <td><a href="{{ path('cp_delete_course_class', { 'id': class.id }) }}" class="btn btn-danger btn-sm onclick-disable"><i class="fa fa-trash"></i></a></td>
+                                    <td>
+                                        <form action="{{ path('cp_delete_course_class', { 'id': class.id }) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Er du sikker på at du vil slette kurstiden?');">
+                                            <button type="submit" class="btn btn-link btn-xs onclick-disable text-danger">
+                                                <i class="fa fa-trash fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
