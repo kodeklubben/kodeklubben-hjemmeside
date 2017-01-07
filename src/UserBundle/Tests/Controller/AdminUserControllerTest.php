@@ -53,6 +53,33 @@ class AdminUserControllerTest extends CodeClubWebTestCase
         \TestDataManager::restoreDatabase();
     }
 
+    public function testAdminDeleteHimself()
+    {
+        $client = $this->getAdminClient();
+
+        $response = $this->post($client, '/kontrollpanel/bruker/slett', array(
+           'userId' => 1,
+        ));
+
+        $this->assertEquals(403, $response->getStatusCode());
+
+        \TestDataManager::restoreDatabase();
+    }
+
+    public function testAdminChangeOwnRole()
+    {
+        $client = $this->getAdminClient();
+
+        $response = $this->post($client, '/kontrollpanel/bruker/type', array(
+            'userId' => 1,
+            'role' => 'participant',
+        ));
+
+        $this->assertEquals(400, $response->getStatusCode());
+
+        \TestDataManager::restoreDatabase();
+    }
+
     public function testChangeUserRolesFromParticipant()
     {
         $this->assertSuccessfulChangeUserRoleFromParticipantTo('Foresatt');
@@ -101,7 +128,7 @@ class AdminUserControllerTest extends CodeClubWebTestCase
         $userCountBefore = $crawler->filter('.content')->first()->filter('tr')->count();
 
         // "Click" the delete button. Can't execute javascript so we have to create the POST request manually.
-        $response = $this->post('/kontrollpanel/bruker/slett', array('userId' => $user['id']), $client);
+        $response = $this->post($client, '/kontrollpanel/bruker/slett', array('userId' => $user['id']));
 
         $this->assertTrue($response->isSuccessful());
 
@@ -160,10 +187,10 @@ class AdminUserControllerTest extends CodeClubWebTestCase
         // Assert that user is '$fromRole'
         $this->assertEquals(1, $crawler->filter('tr:contains("'.$user['name'].'")')->filter('td:contains("'.$fromRole.'")')->count());
 
-        $response = $this->post('/kontrollpanel/bruker/type', array(
+        $response = $this->post($client, '/kontrollpanel/bruker/type', array(
             'userId' => $user['id'],
             'role' => $this->translateRole($toRole),
-        ), $client);
+        ));
 
         $this->assertTrue($response->isSuccessful());
 

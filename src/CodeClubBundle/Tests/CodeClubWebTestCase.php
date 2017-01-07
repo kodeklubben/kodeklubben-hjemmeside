@@ -91,7 +91,7 @@ class CodeClubWebTestCase extends WebTestCase
         return $this->adminClient;
     }
 
-    protected function post($uri, array $data, Client $client = null)
+    protected function post(Client $client = null, $uri, array $data)
     {
         if ($client === null) {
             $client = $this->getAnonClient();

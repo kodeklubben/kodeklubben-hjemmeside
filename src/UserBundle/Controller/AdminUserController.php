@@ -99,14 +99,23 @@ class AdminUserController extends Controller
     public function changeUserTypeAction(Request $request)
     {
         $userId = $request->request->get('userId');
+        $role = $request->request->get('role');
+
+        $userRole = 'ROLE_'.strtoupper($role);
+
         $user = $this->getDoctrine()->getRepository('UserBundle:User')->find($userId);
+
+        if (!$this->get('user.roles')->isValidRole($userRole) ||
+            $user === $this->getUser()
+        ) {
+            throw new BadRequestHttpException();
+        }
+
         $this->get('club_manager')->denyIfNotCurrentClub($user);
 
-        $role = $request->request->get('role');
-        $userRole = 'ROLE_'.strtoupper($role);
         $currentUserRole = $user->getRoles()[0];
         //Check if trying to change to current role
-        if ($userRole == $currentUserRole) {
+        if ($userRole === $currentUserRole) {
             return new JsonResponse(array('status' => 'success'));
         }
 

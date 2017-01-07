@@ -42,7 +42,11 @@
                                 <td>{{ user.phone }}</td>
                                 <td>{{ user.createdDatetime|date('d.m.Y') }}</td>
                                 <td class="user-role">
-                                    {{ role }} (<span class="text-clickable text-warning change-user-type">Endre</span>)
+                                    {% if user != app.user %}
+                                        {{ role }} (<span class="text-clickable text-warning change-user-type">Endre</span>)
+                                    {% else %}
+                                        <span class="text-gray">Kan ikke endre deg selv</span>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {% if user != app.user %}
