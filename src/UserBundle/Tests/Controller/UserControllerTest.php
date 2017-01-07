@@ -3,6 +3,7 @@
 namespace UserBundle\Tests\Controller;
 
 use CodeClubBundle\Tests\CodeClubWebTestCase;
+use Symfony\Component\DomCrawler\Form;
 
 class UserControllerTest extends CodeClubWebTestCase
 {
@@ -97,7 +98,7 @@ class UserControllerTest extends CodeClubWebTestCase
         \TestDataManager::restoreDatabase();
     }
 
-    private function fillForm(\Symfony\Component\DomCrawler\Form $form, $email, $password)
+    private function fillForm(Form $form, $email, $password)
     {
         $form['user[firstName]']->setValue('Test');
         $form['user[lastName]']->setValue('User');
@@ -113,6 +114,9 @@ class UserControllerTest extends CodeClubWebTestCase
     {
         $client = $this->getAnonClient();
 
+        $crawler = $this->goToSuccessful($client, '/');
+        $this->assertEquals(1, $crawler->filter('nav:contains("Logg inn")')->count());
+
         $crawler = $client->request('GET', '/login');
         $this->assertTrue($client->getResponse()->isSuccessful());
 
@@ -125,5 +129,8 @@ class UserControllerTest extends CodeClubWebTestCase
         // Check if user is logged in by trying to go to login page
         $client->request('GET', '/login');
         $this->assertTrue($client->getResponse()->isRedirect('/'));
+
+        $crawler = $this->goToSuccessful($client, '/');
+        $this->assertEquals(0, $crawler->filter('nav:contains("Logg inn")')->count());
     }
 }
