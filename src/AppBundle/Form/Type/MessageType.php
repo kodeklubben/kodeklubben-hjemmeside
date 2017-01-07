@@ -30,6 +30,6 @@ class MessageType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_bundle_message_type';
+        return 'message';
     }
 }
