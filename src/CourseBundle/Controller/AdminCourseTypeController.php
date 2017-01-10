@@ -75,7 +75,7 @@ class AdminCourseTypeController extends Controller
             $image->setName($courseType->getName());
             if ($image->getFile() !== null) {
                 $this->get('app.image_uploader')->uploadImage($image);
-            } else {
+            } elseif ($isCreate) {
                 $this->get('app.image_uploader')->setDefaultCourseTypeImage($image);
             }
 

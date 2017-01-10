@@ -6,7 +6,7 @@
     <hr>
     <br>
     <br>
-    {% for course in courses %}
+    {% for course in courses if not course.hideOnHomepage %}
         <div class="row" id="{{ course.name }}">
 
             <div class="col-md-4">
