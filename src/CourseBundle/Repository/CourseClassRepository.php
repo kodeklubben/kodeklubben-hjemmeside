@@ -41,8 +41,10 @@ class CourseClassRepository extends EntityRepository
     public function findByWeek($week, Semester $semester, Club $club)
     {
         $now = new \DateTime();
+
         $currentYear = $now->format('Y');
-        list($startOfWeek, $endOfWeek) = $this->getStartAndEndDateOfWeek($week, $currentYear);
+        $startOfWeek = $this->getStartOfWeek($week, $currentYear);
+        $endOfWeek = $this->getEndDateOfWeek($week, $currentYear);
 
         return $this->createQueryBuilder('class')
             ->select('class')
@@ -62,15 +64,21 @@ class CourseClassRepository extends EntityRepository
             ->getResult();
     }
 
-    private function getStartAndEndDateOfWeek($week, $year)
+    private function getStartOfWeek($week, $year)
     {
-        $time = strtotime("1 January $year", time());
-        $day = date('w', $time);
-        $time += ((7 * $week) + 1 - $day) * 24 * 3600;
-        $return[0] = new \DateTime(date('Y-m-d 00:00:00', $time));
-        $time += 6 * 24 * 3600;
-        $return[1] = new \DateTime(date('Y-m-d 23:59:59', $time));
+        $start = new \DateTime();
+        $start->setISODate($year, $week);
+        $start->setTime(0, 0);
 
-        return $return;
+        return $start;
+    }
+
+    private function getEndDateOfWeek($week, $year)
+    {
+        $end = new \DateTime();
+        $end->setISODate($year, $week, 7);
+        $end->setTime(23, 59);
+
+        return $end;
     }
 }
