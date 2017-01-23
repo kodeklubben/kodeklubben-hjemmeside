@@ -10,7 +10,7 @@
         <meta property="og:url" content="{{ app.request.uri }}"/>
         <meta property="og:title" content="{{ block('title') }}"/>
         <meta property="og:image" content="{% block facebookImage %}{{ app.request.getSchemeAndHttpHost() ~ get_image('header').filePath }}{% endblock %}" />
-        <meta property="og:description" content="{% block facebookDescription %}{{ get_content('header') }}{% endblock %}" />
+        <meta property="og:description" content="{% block facebookDescription %}{{ get_content('header')|striptags }}{% endblock %}" />
         <meta property="og:site_name" content="{{ club.name }}" />
 
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
