@@ -76,6 +76,8 @@ class AdminCourseController extends Controller
             $manager->persist($course);
             $manager->flush();
 
+            $this->get('course.queue_manager')->promoteParticipantsFromQueueToCourse($course);
+
             return $this->redirectToRoute('cp_course');
         }
 

@@ -118,6 +118,8 @@ class AdminSignUpController extends Controller
         $flashMessage = 'Du har meldt '.$child->getFirstName().' '.$child->getLastName().' på '.$course->getName();
         $this->addFlash('success', $flashMessage);
 
+        $this->get('course.queue_manager')->promoteParticipantsFromQueueToCourse($course);
+
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -136,8 +138,6 @@ class AdminSignUpController extends Controller
      */
     public function signUpAction(Course $course, User $user, Request $request)
     {
-        $this->get('club_manager')->denyIfNotCurrentClub($course);
-        $this->get('club_manager')->denyIfNotCurrentClub($user);
         // Check if user is already signed up to the course or the course is set for another semester
         $isAlreadyParticipant = count($this->getDoctrine()->getRepository('CourseBundle:Participant')->findBy(array('course' => $course, 'user' => $user))) > 0;
         $isAlreadyTutor = count($this->getDoctrine()->getRepository('CourseBundle:Tutor')->findBy(array('course' => $course, 'user' => $user))) > 0;
@@ -188,6 +188,8 @@ class AdminSignUpController extends Controller
         $manager->flush();
 
         $this->addFlash('success', 'Du har meldt '.$user->getFullName().' på '.$course->getName());
+
+        $this->get('course.queue_manager')->promoteParticipantsFromQueueToCourse($course);
 
         return $this->redirect($request->headers->get('referer'));
     }
