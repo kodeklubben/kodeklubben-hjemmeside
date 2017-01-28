@@ -2,7 +2,9 @@
 
 {% block body %}
     <header class="content-header">
-        <input id="user-search" type="text" placeholder="Søk..." class="form-control input-sm float-right">
+        <form>
+            <input id="user-search" type="text" name="search" placeholder="Søk..." class="form-control input-sm float-right">
+        </form>
         <h1>Brukere</h1>
         <hr>
         <div class="row">
@@ -10,6 +12,11 @@
                 <a class="btn btn-success btn-sm btn-flat" href="{{ path('cp_user_create') }}">
                     Ny bruker <i class="fa fa-plus"></i>
                 </a>
+                {% if searchQuery | length > 0 %}
+                    <h4>
+                        Søkeresultat: {{ searchQuery }}
+                    </h4>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -20,43 +27,49 @@
                     <table class="table table-striped user-table">
                         <thead>
                         <tr>
-                            <th>Navn</th>
-                            <th>E-post</th>
-                            <th>Telefon</th>
-                            <th>Opprettet</th>
-                            <th>Brukertype</th>
+                            <th>{{ knp_pagination_sortable(users, 'Navn', ['user.firstName', 'user.lastName']) }}</th>
+                            <th>{{ knp_pagination_sortable(users, 'E-post', 'user.email') }}</th>
+                            <th>{{ knp_pagination_sortable(users, 'Telefon', 'user.phone') }}</th>
+                            <th>{{ knp_pagination_sortable(users, 'Opprettet', 'user.createdDatetime') }}</th>
+                            <th>{{ knp_pagination_sortable(users, 'Brukertype', 'user.roles') }}</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for user in users %}
-                            {% set role = user.roles[0]|role %}
-                            <tr userid="{{ user.id }}"
-                                role="{{ role }}">
-                                <td>
-                                    <a class="no-text-decoration" href="{{ path('cp_user', {'id': user.id}) }}">
-                                        {{ user.fullName }}
-                                    </a>
-                                </td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.phone }}</td>
-                                <td>{{ user.createdDatetime|date('d.m.Y') }}</td>
-                                <td class="user-role">
-                                    {% if user != app.user %}
-                                        {{ role }} (<span class="text-clickable text-warning change-user-type">Endre</span>)
-                                    {% else %}
-                                        <span class="text-gray">Kan ikke endre deg selv</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if user != app.user %}
-                                        <span class="text-clickable text-danger delete-user">Slett bruker</span>
-                                    {% else %}
-                                        <span class="text-gray">Kan ikke slette deg selv</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
+                            {% for user in users %}
+                                {% set role = user.roles[0]|role %}
+                                <tr userid="{{ user.id }}"
+                                    role="{{ role }}">
+                                    <td>
+                                        <a class="no-text-decoration" href="{{ path('cp_user', {'id': user.id}) }}">
+                                            {{ user.fullName }}
+                                        </a>
+                                    </td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.phone }}</td>
+                                    <td>{{ user.createdDatetime|date('d.m.Y') }}</td>
+                                    <td class="user-role">
+                                        {% if user != app.user %}
+                                            {{ role }} (<span class="text-clickable text-warning change-user-type">Endre</span>)
+                                        {% else %}
+                                            <span class="text-gray">Kan ikke endre deg selv</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if user != app.user %}
+                                            <span class="text-clickable text-danger delete-user">Slett bruker</span>
+                                        {% else %}
+                                            <span class="text-gray">Kan ikke slette deg selv</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        {# display navigation #}
+                        <div class="navigation">
+                            {{ knp_pagination_render(users) }}
+                        </div>
+
                         </tbody>
                     </table>
                 </div>

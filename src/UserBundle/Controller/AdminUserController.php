@@ -20,18 +20,29 @@ use UserBundle\Form\Type\AdminUserType;
 class AdminUserController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/brukere", name="cp_users")
      * @Method("GET")
      */
-    public function showAction()
+    public function showAction(Request $request)
     {
         $club = $this->get('club_manager')->getCurrentClub();
-        $users = $this->getDoctrine()->getRepository('UserBundle:User')->findByClub($club);
+        $searchQuery = $request->query->get('search', '');
+
+        $query = $this->getDoctrine()->getRepository('UserBundle:User')->findFilteredByClubQuery($club, $searchQuery);
+
+        $paginator = $this->get('knp_paginator');
+        $users = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            20/*limit per page*/
+        );
 
         return $this->render('@User/control_panel/show_users.html.twig', array(
             'users' => $users,
+            'searchQuery' => $searchQuery,
         ));
     }
 

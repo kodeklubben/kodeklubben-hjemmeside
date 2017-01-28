@@ -4355,3 +4355,7 @@ table.text-center th {
 }
 
 @import 'skin-blue';
+
+.disabled>span {
+  background-color: #d2d6de !important;
+}

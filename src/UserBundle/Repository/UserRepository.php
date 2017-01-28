@@ -66,6 +66,25 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * @param Club   $club
+     * @param string $searchQuery
+     *
+     * @return \Doctrine\ORM\Query
+     */
+    public function findFilteredByClubQuery(Club $club, string $searchQuery)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user')
+            ->where('user.club = :club')
+            ->andWhere("CONCAT(CONCAT(user.firstName, ' '), user.lastName) LIKE :searchQuery")
+            ->orWhere('user.email LIKE :searchQuery')
+            ->orWhere('user.phone LIKE :searchQuery')
+            ->setParameter('searchQuery', "%$searchQuery%")
+            ->setParameter('club', $club)
+            ->getQuery();
+    }
+
+    /**
      * @param Club $club
      *
      * @return User[]

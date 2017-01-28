@@ -122,8 +122,9 @@ class AdminUserControllerTest extends CodeClubWebTestCase
 
         $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere');
 
-        // Assert that user exists
-        $this->assertEquals(1, $crawler->filter('tr:contains("'.$user['name'].'")')->count());
+        $pagesCount = $crawler->filter('.pagination')->children()->count() - 2;
+
+        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere?page='.$pagesCount);
 
         $userCountBefore = $crawler->filter('.content')->first()->filter('tr')->count();
 
@@ -133,10 +134,7 @@ class AdminUserControllerTest extends CodeClubWebTestCase
         $this->assertTrue($response->isSuccessful());
 
         // Refresh page
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere');
-
-        // Assert that the user does not exists
-        $this->assertEquals(0, $crawler->filter('tr:contains("'.$user['name'].'")')->count());
+        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere?page='.$pagesCount);
 
         $userCountAfter = $crawler->filter('.content')->first()->filter('tr')->count();
 
@@ -179,7 +177,7 @@ class AdminUserControllerTest extends CodeClubWebTestCase
     {
         $client = $this->getAdminClient();
 
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere');
+        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere?search='.$user['name']);
 
         // Assert that user exists
         $this->assertEquals(1, $crawler->filter('tr:contains("'.$user['name'].'")')->count());
@@ -195,7 +193,7 @@ class AdminUserControllerTest extends CodeClubWebTestCase
         $this->assertTrue($response->isSuccessful());
 
         // Refresh page
-        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere');
+        $crawler = $this->goToSuccessful($client, '/kontrollpanel/brukere?search='.$user['name']);
 
         // Assert that the user still exists
         $this->assertEquals(1, $crawler->filter('tr:contains("'.$user['name'].'")')->count());

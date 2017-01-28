@@ -23,7 +23,7 @@ class ClubType extends AbstractType
                 'label' => 'E-post til kodeklubb',
             ))
             ->add('facebook', TextType::class, array(
-                'label' => '(Valgfri) facbook.com/',
+                'label' => '(valgfri) facebook.com/',
                 'required' => false,
             ));
     }
