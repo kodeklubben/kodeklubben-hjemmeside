@@ -50,3 +50,4 @@ parameters:
     remember_me.name: KKREMEMBER
 
     default_mail: ~
+    webmaster_mail: ~
