@@ -44,3 +44,4 @@ crashlytics-build.properties
 ### NPM ###
 node_modules
 
+.php_cs.cache
