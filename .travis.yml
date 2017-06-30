@@ -8,7 +8,7 @@ before_script:
 
 script:
   - ./bin/php-cs-fixer fix src/ --dry-run --diff -vv
-  - ./bin/phpunit --configuration app/phpunit.xml.dist --coverage-text
+  - ./bin/phpunit --configuration app/phpunit.xml.dist
 
 notifications:
   email: false
