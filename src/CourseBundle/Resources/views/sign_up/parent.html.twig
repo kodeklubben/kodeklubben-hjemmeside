@@ -61,17 +61,4 @@
         </div>
         <hr>
     {% endfor %}
-
-
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var $timeTables = $('.time-table');
-            $timeTables.each(function () {
-                sortTableByAttribute($(this), 'timestamp', true);
-            });
-        })
-    </script>
 {% endblock %}

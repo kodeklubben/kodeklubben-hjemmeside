@@ -2,7 +2,7 @@
     <table class="time-table">
         <thead>
         <tr>
-            <th>Uke</th>
+            <th>Dato</th>
             <th>Dag</th>
             <th>Tid</th>
             <th>Sted</th>
@@ -12,9 +12,8 @@
         {% for class in course.classes %}
             {% set week, currentWeek = class.time|date('W'), 'now'|date('W') %}
 
-            <tr class="{{ week == currentWeek ? 'text-bold text-primary' }}{{ week < currentWeek ? 'text-faded' }}"
-                timestamp="{{ class.time|date('U') }}">
-                <td>{{ week }}</td>
+            <tr class="{{ week == currentWeek ? 'text-bold text-primary' }}{{ week < currentWeek ? 'text-faded' }}">
+                <td>{{ class.time|localizeddate('none', 'none', app.request.locale, null, 'dd MMM')|replace({'.': '', ' ': '. '}) }}</td>
                 <td>{{ class.dayNorwegian|slice(0,3) }}</td>
                 <td>{{ class.time|date('H:i') }}</td>
                 <td>{{ class.place }}</td>

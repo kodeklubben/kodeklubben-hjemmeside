@@ -84,6 +84,7 @@ class Course
      * @var CourseClass[]
      *
      * @ORM\OneToMany(targetEntity="CourseClass", mappedBy="course")
+     * @ORM\OrderBy({"time" = "ASC"})
      */
     private $classes;
 
@@ -377,5 +378,53 @@ class Course
     public function isFull()
     {
         return $this->participantLimit - count($this->participants) <= 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasStarted()
+    {
+        $now = new \DateTime();
+        $classes = $this->getClasses();
+
+        $earliestClass = $classes->first();
+        if ($earliestClass === false) {
+            return false;
+        }
+
+        return $earliestClass->getTime() < $now;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasEnded()
+    {
+        $now = new \DateTime();
+        $classes = $this->getClasses();
+
+        $latestClass = $classes->last();
+        if ($latestClass === false) {
+            return false;
+        }
+
+        return $latestClass->getTime() < $now;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->getClasses()->first()->getTime();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->getClasses()->last()->getTime();
     }
 }

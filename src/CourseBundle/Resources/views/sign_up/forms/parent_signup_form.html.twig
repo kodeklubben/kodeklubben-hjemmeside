@@ -1,33 +1,46 @@
-<form action="{{ path(course.isFull ? 'course_enqueue' : 'sign_up_course_child', {id: course.id}) }}"
-      method="POST">
-    <div class="form-group">
-        <label for="course-{{ course.id }}-child">Velg barn</label>
-        <select name="child" id="course-{{ course.id }}-child" class="form-control">
-            {% if children|length == 0 %}
-                <option>Ingen barn</option>
+{% if not course.hasStarted %}
+    <p class="text-info">
+        Første kursdag er
+        {{ course.startDate|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}
+    </p>
+{% endif %}
+
+{% if course.hasEnded %}
+    <p class="text-danger">Siste kursdag var
+        {{ course.endDate|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}
+    </p>
+{% else %}
+    <form action="{{ path(course.isFull ? 'course_enqueue' : 'sign_up_course_child', {id: course.id}) }}"
+          method="POST">
+        <div class="form-group">
+            <label for="course-{{ course.id }}-child">Velg barn</label>
+            <select name="child" id="course-{{ course.id }}-child" class="form-control">
+                {% if children|length == 0 %}
+                    <option>Ingen barn</option>
+                {% endif %}
+                {% for child in children %}
+                    <option value="{{ child.id }}">{{ child.fullName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% set placesLeft = course.participantLimit-course.participants|length %}
+
+        <p class="{{ places_left_color_class(course) }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
+
+        <div class="form-group">
+            {% if placesLeft <= 0 %}
+                <p>Venteliste: {{ course.queue|length }} i kø</p>
+                <button type="submit" class="btn btn-warning btn-sm onclick-disable">
+                    Venteliste
+                </button>
+            {% else %}
+                <button {{ children|length == 0 ? 'type="button" disabled' : 'type="submit"' }}
+                        class="btn btn-primary btn-sm onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
             {% endif %}
-            {% for child in children %}
-                <option value="{{ child.id }}">{{ child.fullName }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    {% set placesLeft = course.participantLimit-course.participants|length %}
-
-    <p class="{{ places_left_color_class(course) }} text-bold">{{ placesLeft }} {{ placesLeft == 1 ? 'ledig plass' : 'ledige plasser' }}</p>
-
-    <div class="form-group">
-        {% if placesLeft <= 0 %}
-            <p>Venteliste: {{ course.queue|length }} i kø</p>
-            <button type="submit" class="btn btn-warning btn-sm onclick-disable">
-                Venteliste
-            </button>
-        {% else %}
-            <button {{ children|length == 0 ? 'type="button" disabled' : 'type="submit"' }}
-                    class="btn btn-primary btn-sm onclick-disable">{{ children|length == 0 ? 'Ingen barn' : 'Meld på' }}</button>
-        {% endif %}
-        <a href="{{ path('course_info', {id: course.id}) }}"
-           class="btn btn-sm btn-default">Mer
-            info</a>
-    </div>
-</form>
+            <a href="{{ path('course_info', {id: course.id}) }}"
+               class="btn btn-sm btn-default">Mer
+                info</a>
+        </div>
+    </form>
+{% endif %}
