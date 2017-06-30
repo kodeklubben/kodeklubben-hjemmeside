@@ -72,11 +72,21 @@ class HomeController extends Controller
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $club = $this->get('club_manager')->getCurrentClub();
         $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
+        $allCourseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findAll();
+
+        $firstClass = reset($allCourseClasses);
+        $lastClass = end($allCourseClasses);
+        $coursesHasStarted = $firstClass !== false && $firstClass->getTime() < new \DateTime();
+        $coursesHasEnded = $lastClass !== false && $lastClass->getTime() < new \DateTime();
 
         return $this->render('@App/home/time_table.html.twig', array(
             'courseClasses' => $courseClasses,
             'week' => $week,
             'currentSemester' => $currentSemester,
+            'firstClass' => $firstClass,
+            'lastClass' => $lastClass,
+            'coursesHasStarted' => $coursesHasStarted,
+            'coursesHasEnded' => $coursesHasEnded
         ));
     }
 }

@@ -12,6 +12,17 @@ class CourseClassRepository extends EntityRepository
     /**
      * @return CourseClass[]
      */
+    public function findAll()
+    {
+        return $this->createQueryBuilder('class')
+            ->orderBy('class.time', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return CourseClass[]
+     */
     public function findCurrentClasses()
     {
         $now = new \DateTime();
@@ -60,6 +71,7 @@ class CourseClassRepository extends EntityRepository
             ->setParameter('endOfWeek', $endOfWeek)
             ->setParameter('semester', $semester)
             ->setParameter('club', $club)
+            ->orderBy('class.time', 'ASC')
             ->getQuery()
             ->getResult();
     }

@@ -45,7 +45,17 @@
                 {% endfor %}
                 </tbody>
             </table>
-            {% if (not courseClasses|length) %}<h5>Ingen kurs denne uken</h5>{% endif %}
+            {% if not courseClasses|length %}
+                <h5>Ingen kurs denne uken</h5>
+
+                {% if not coursesHasStarted %}
+                    <p class="warning text-info">Første kursdag er {{ firstClass.time|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}</p>
+                {% endif %}
+
+                {% if coursesHasEnded %}
+                    <p class="warning text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Siste kursdag var {{ lastClass.time|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}</p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
@@ -57,7 +67,6 @@
     var week = {{ week }};
     var $loadingWheel;
     document.addEventListener("DOMContentLoaded", function () {
-        sortTable();
 
         //Cache loading wheel
         var size = 50;
@@ -102,23 +111,23 @@
         //Clear table
         clearTable();
 
-        //Show loading wheel
+        $('.warning').hide();
+
+      //Show loading wheel
         $timeTable.parent().append($loadingWheel);
 
         $.get('/api/kurs/uke/' + week, function (data) {
             var $rows = $('<div></div>');
             if (data.length === 0) {
                 clearTable();
-                $timeTable.parent().append($('<h5></h5>').html('Ingen kurs denne uken'));
+                var $message = $('<h5></h5>').html('Ingen kurs denne uken');
+                $message.insertAfter($timeTable);
+                $('.warning').show();
             }else{
                 data.forEach(function (courseClass) {
                     var $tr = $('<tr></tr>');
-                    var unixTime = new Date(courseClass['datetime'].date).getTime();
 
-                    //Add timestamp to row. Used for sorting
-                    $tr.attr('timestamp', unixTime);
-
-                    $courseLink = $('<a></a>');
+                    var $courseLink = $('<a></a>');
                     $courseLink.html(courseClass.course);
                     $courseLink.attr('href', Routing.generate('course_info', {id: courseClass.courseId}));
 
@@ -133,14 +142,8 @@
 
                 clearTable();
                 $timeTable.find('tbody').append($rows.children());
-
-                sortTable();
             }
         })
-    }
-
-    function sortTable() {
-        sortTableByAttribute($('#timeTable'), 'timestamp', true);
     }
 
 </script>
