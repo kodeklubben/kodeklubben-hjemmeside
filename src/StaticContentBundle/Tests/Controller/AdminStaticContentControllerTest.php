@@ -2,9 +2,9 @@
 
 namespace StaticContentBundle\Test\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class AdminStaticContentControllerTest extends CodeClubWebTestCase
+class AdminStaticContentControllerTest extends AppWebTestCase
 {
     public function testChangeHeader()
     {

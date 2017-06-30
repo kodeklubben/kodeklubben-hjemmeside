@@ -2,10 +2,10 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 use Symfony\Component\DomCrawler\Form;
 
-class UserControllerTest extends CodeClubWebTestCase
+class UserControllerTest extends AppWebTestCase
 {
     public function testRegisterParticipant()
     {

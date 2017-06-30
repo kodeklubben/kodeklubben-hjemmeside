@@ -2,9 +2,9 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class AdminUserControllerTest extends CodeClubWebTestCase
+class AdminUserControllerTest extends AppWebTestCase
 {
     private $participant = array(
         'name' => 'Participant Participant',

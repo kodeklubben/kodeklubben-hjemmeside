@@ -2,9 +2,9 @@
 
 namespace CodeClubBundle\Tests\Availability;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class AvailabilityFunctionalTest extends CodeClubWebTestCase
+class AvailabilityFunctionalTest extends AppWebTestCase
 {
     /**
      * @dataProvider publicUrlProvider
@@ -140,6 +140,7 @@ class AvailabilityFunctionalTest extends CodeClubWebTestCase
             array('/kontrollpanel/kurs'),
             array('/kontrollpanel/kurs/ny'),
             array('/kontrollpanel/kurs/1'),
+            array('/kontrollpanel/kurs/venteliste/1'),
             array('/kontrollpanel/kurs/timeplan/1'),
             array('/kontrollpanel/kurs/deltakere/1'),
             array('/kontrollpanel/kurs/veiledere/1'),

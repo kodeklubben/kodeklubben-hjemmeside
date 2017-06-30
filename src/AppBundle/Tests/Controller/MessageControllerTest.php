@@ -2,9 +2,9 @@
 
 namespace AppBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class MessageControllerTest extends CodeClubWebTestCase
+class MessageControllerTest extends AppWebTestCase
 {
     const NEW_MESSAGE_CONTENT = 'new_test_message';
 

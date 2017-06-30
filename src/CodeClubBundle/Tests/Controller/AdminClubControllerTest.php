@@ -2,9 +2,9 @@
 
 namespace CodeClubBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class AdminClubControllerTest extends CodeClubWebTestCase
+class AdminClubControllerTest extends AppWebTestCase
 {
     public function testChangeName()
     {

@@ -2,10 +2,10 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
-class PasswordResetControllerTest extends CodeClubWebTestCase
+class PasswordResetControllerTest extends AppWebTestCase
 {
     const email = 'admin@mail.no';
     const newPassword = 'resetpassword123';

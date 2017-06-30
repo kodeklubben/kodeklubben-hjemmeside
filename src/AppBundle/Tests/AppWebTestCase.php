@@ -1,11 +1,11 @@
 <?php
 
-namespace CodeClubBundle\Tests;
+namespace AppBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class CodeClubWebTestCase extends WebTestCase
+class AppWebTestCase extends WebTestCase
 {
     private $anonClient;
     private $participantClient;

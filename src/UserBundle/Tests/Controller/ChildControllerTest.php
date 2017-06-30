@@ -2,9 +2,9 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class ChildControllerTest extends CodeClubWebTestCase
+class ChildControllerTest extends AppWebTestCase
 {
     public function testCreateChild()
     {

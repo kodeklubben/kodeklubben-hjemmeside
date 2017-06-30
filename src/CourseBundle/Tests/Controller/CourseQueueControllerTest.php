@@ -2,9 +2,9 @@
 
 namespace UserBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class CourseQueueControllerTest extends CodeClubWebTestCase
+class CourseQueueControllerTest extends AppWebTestCase
 {
     public function testParticipantSignUpToCourseQueue()
     {

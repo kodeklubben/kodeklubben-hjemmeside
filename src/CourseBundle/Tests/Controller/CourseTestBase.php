@@ -2,9 +2,9 @@
 
 namespace CourseBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class CourseTestBase extends CodeClubWebTestCase
+class CourseTestBase extends AppWebTestCase
 {
     protected function countCourseTypesOnCourseTypePage()
     {

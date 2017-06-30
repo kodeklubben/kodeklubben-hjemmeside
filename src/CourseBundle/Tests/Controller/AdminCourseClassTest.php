@@ -2,9 +2,9 @@
 
 namespace CourseBundle\Tests\Controller;
 
-use CodeClubBundle\Tests\CodeClubWebTestCase;
+use AppBundle\Tests\AppWebTestCase;
 
-class AdminCourseClassTest extends CodeClubWebTestCase
+class AdminCourseClassTest extends AppWebTestCase
 {
     public function testAddCourseClass()
     {
