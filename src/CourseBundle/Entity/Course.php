@@ -417,7 +417,12 @@ class Course
      */
     public function getStartDate()
     {
-        return $this->getClasses()->first()->getTime();
+        $firstClass = $this->getClasses()->first();
+        if ($firstClass === false) {
+            return false;
+        }
+
+        return $firstClass->getTime();
     }
 
     /**
@@ -425,6 +430,11 @@ class Course
      */
     public function getEndDate()
     {
-        return $this->getClasses()->last()->getTime();
+        $lastClass = $this->getClasses()->last();
+        if ($lastClass === false) {
+            return false;
+        }
+        
+        return $lastClass->getTime();
     }
 }

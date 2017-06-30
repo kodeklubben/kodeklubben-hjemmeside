@@ -1,11 +1,11 @@
-{% if not course.hasStarted %}
+{% if course.startDate and not course.hasStarted %}
     <p class="text-info">
         Første kursdag er
         {{ course.startDate|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}
     </p>
 {% endif %}
 
-{% if course.hasEnded %}
+{% if course.endDate and course.hasEnded %}
     <p class="text-danger">Siste kursdag var
         {{ course.endDate|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}
     </p>

@@ -29,13 +29,15 @@
                                         <p class="description">{{ course.description }}</p>
                                         {% include '@Course/sign_up/course_time_table.html.twig' with {'course': course} %}
                                     </div>
-                                    <div class="pull-down">
-                                        <footer>
-                                            {% set alreadySignedUp = is_in_course(tutors, course) %}
-                                            <hr>
-                                            {% include '@Course/sign_up/forms/tutor_signup_form.html.twig' %}
-                                        </footer>
-                                    </div>
+                                    {% if course.classes|length %}
+                                        <div class="pull-down">
+                                            <footer>
+                                                {% set alreadySignedUp = is_in_course(tutors, course) %}
+                                                <hr>
+                                                {% include '@Course/sign_up/forms/tutor_signup_form.html.twig' %}
+                                            </footer>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

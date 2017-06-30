@@ -72,7 +72,7 @@ class HomeController extends Controller
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $club = $this->get('club_manager')->getCurrentClub();
         $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
-        $allCourseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findAll();
+        $allCourseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findBySemester($currentSemester);
 
         $firstClass = reset($allCourseClasses);
         $lastClass = end($allCourseClasses);

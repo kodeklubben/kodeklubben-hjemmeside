@@ -19,16 +19,16 @@
             </div>
         </div>
 
-            {% if queueEntities|length or participants|length %}
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
-                    {% if queueEntities|length %}
-                        {% include '@Course/sign_up/queue_list_parent.html.twig' %}
-                    {% endif %}
-                    {% if participants|length %}
-                        {% include '@Course/sign_up/signed_up_children.html.twig' %}
-                    {% endif %}
-                </div>
-            {% endif %}
+        {% if queueEntities|length or participants|length %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-lg-offset-0 col-lg-pull-6">
+                {% if queueEntities|length %}
+                    {% include '@Course/sign_up/queue_list_parent.html.twig' %}
+                {% endif %}
+                {% if participants|length %}
+                    {% include '@Course/sign_up/signed_up_children.html.twig' %}
+                {% endif %}
+            </div>
+        {% endif %}
 
     </div>
 
@@ -47,11 +47,13 @@
                                         <p class="description">{{ course.description }}</p>
                                         {% include '@Course/sign_up/course_time_table.html.twig' with {'course': course} %}
                                     </div>
-                                    <div class="pull-down">
-                                        <footer>
-                                            {% include '@Course/sign_up/forms/parent_signup_form.html.twig' %}
-                                        </footer>
-                                    </div>
+                                    {% if course.classes|length %}
+                                        <div class="pull-down">
+                                            <footer>
+                                                {% include '@Course/sign_up/forms/parent_signup_form.html.twig' %}
+                                            </footer>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

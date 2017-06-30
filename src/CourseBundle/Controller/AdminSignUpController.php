@@ -225,7 +225,6 @@ class AdminSignUpController extends Controller
      */
     public function withdrawParticipantAction(Participant $participant, Request $request)
     {
-        dump('hei?');
         $this->get('club_manager')->denyIfNotCurrentClub($participant);
 
         $name = $participant->getChild() === null ? $participant->getFullName() : $participant->getChild()->getFullName();

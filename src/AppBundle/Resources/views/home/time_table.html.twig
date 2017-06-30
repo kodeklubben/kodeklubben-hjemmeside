@@ -48,11 +48,11 @@
             {% if not courseClasses|length %}
                 <h5>Ingen kurs denne uken</h5>
 
-                {% if not coursesHasStarted %}
+                {% if firstClass and not coursesHasStarted %}
                     <p class="warning text-info">Første kursdag er {{ firstClass.time|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}</p>
                 {% endif %}
 
-                {% if coursesHasEnded %}
+                {% if lastClass and coursesHasEnded %}
                     <p class="warning text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Siste kursdag var {{ lastClass.time|localizeddate('none', 'none', app.request.locale, null, 'dd. MMMM') }}</p>
                 {% endif %}
             {% endif %}

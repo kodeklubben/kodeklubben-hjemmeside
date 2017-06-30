@@ -33,9 +33,11 @@
                                         {% include '@Course/sign_up/course_time_table.html.twig' with {'course': course} %}
                                     </div>
                                     <div class="pull-down">
-                                        <footer>
-                                            {% include '@Course/sign_up/forms/participant_signup_form.html.twig' %}
-                                        </footer>
+                                        {% if course.classes|length %}
+                                            <footer>
+                                                {% include '@Course/sign_up/forms/participant_signup_form.html.twig' %}
+                                            </footer>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

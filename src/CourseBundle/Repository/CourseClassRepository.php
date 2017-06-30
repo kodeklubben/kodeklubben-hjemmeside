@@ -21,6 +21,23 @@ class CourseClassRepository extends EntityRepository
     }
 
     /**
+     * @param Semester $semester
+     *
+     * @return CourseClass[]
+     */
+    public function findBySemester(Semester $semester)
+    {
+        return $this->createQueryBuilder('class')
+            ->join('class.course', 'course')
+            ->where('course.semester = :semester')
+            ->andWhere('course.deleted = false')
+            ->setParameter('semester', $semester)
+            ->orderBy('class.time', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @return CourseClass[]
      */
     public function findCurrentClasses()
