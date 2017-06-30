@@ -1,13 +1,9 @@
 services:
   app.twig_image_extension:
     class: ImageBundle\Twig\ImageExtension
-    arguments:
-      manager: "@doctrine.orm.default_entity_manager"
-      clubFinder: "@club_manager"
+    arguments: ["@doctrine.orm.default_entity_manager", "@club_manager"]
     tags:
       - { name: twig.extension }
   app.image_uploader:
         class: ImageBundle\Service\ImageUploader
-        arguments:
-          manager: "@doctrine.orm.default_entity_manager"
-          imageDir: "%image_directory%"
+        arguments: ["@doctrine.orm.default_entity_manager", "%image_directory%"]
