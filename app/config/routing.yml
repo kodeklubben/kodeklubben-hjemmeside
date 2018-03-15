@@ -2,51 +2,31 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-image:
-    resource: '@ImageBundle/Controller/'
-    type:     annotation
-
-user:
-    resource: '@UserBundle/Controller/'
-    type:     annotation
-
-course:
-    resource: '@CourseBundle/Controller/'
-    type:     annotation
-
-static_content:
-    resource: '@StaticContentBundle/Controller/'
-    type:     annotation
-
-code_club:
-    resource: '@CodeClubBundle/Controller/'
-    type:     annotation
-
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 #Security
 security_login_form:
     path: /login/{last_username}
-    defaults: {_controller: UserBundle:Security:login, last_username: ''}
+    defaults: {_controller: AppBundle:Security:login, last_username: ''}
     methods: [GET]
 
 security_login_check:
     path: /login_check
-    defaults: {_controller: UserBundle:Security:loginCheck}
+    defaults: {_controller: AppBundle:Security:loginCheck}
     methods: [POST]
 
 security_logout:
     path: /logout
-    defaults: {_controller: UserBundle:Security:logout}
+    defaults: {_controller: AppBundle:Security:logout}
     methods: [GET]
 
 password_reset:
   path: /reset_passord
-  defaults: {_controller: UserBundle:PasswordReset:show}
+  defaults: {_controller: AppBundle:PasswordReset:show}
   methods: [GET, POST]
 
 password_new:
   path: /reset_passord/{code}
-  defaults: {_controller: UserBundle:PasswordReset:resetPassword}
+  defaults: {_controller: AppBundle:PasswordReset:resetPassword}
   methods: [GET, POST]

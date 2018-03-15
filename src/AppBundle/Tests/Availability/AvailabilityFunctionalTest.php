@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeClubBundle\Tests\Availability;
+namespace AppBundle\Tests\Availability;
 
 use AppBundle\Tests\AppWebTestCase;
 

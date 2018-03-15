@@ -1,9 +1,0 @@
-services:
-  app.twig_image_extension:
-    class: ImageBundle\Twig\ImageExtension
-    arguments: ["@doctrine.orm.default_entity_manager", "@club_manager"]
-    tags:
-      - { name: twig.extension }
-  app.image_uploader:
-        class: ImageBundle\Service\ImageUploader
-        arguments: ["@doctrine.orm.default_entity_manager", "%image_directory%"]

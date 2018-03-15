@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function showAction()
     {
-        return $this->render('@App/home/show.html.twig');
+        return $this->render('home/show.html.twig');
     }
 
     /**
@@ -44,7 +44,7 @@ class HomeController extends Controller
         $club = $this->get('club_manager')->getCurrentClub();
         $messages = $this->getDoctrine()->getRepository('AppBundle:Message')->findLatestMessages($club);
 
-        return $this->render('@App/home/messages.html.twig', array('messages' => $messages));
+        return $this->render('home/messages.html.twig', array('messages' => $messages));
     }
 
     /**
@@ -54,9 +54,9 @@ class HomeController extends Controller
     {
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $club = $this->get('club_manager')->getCurrentClub();
-        $courseTypes = $this->getDoctrine()->getRepository('CourseBundle:CourseType')->findNotHiddenBySemester($currentSemester, $club);
+        $courseTypes = $this->getDoctrine()->getRepository('AppBundle:CourseType')->findNotHiddenBySemester($currentSemester, $club);
 
-        return $this->render('@App/home/course.html.twig', array('courseTypes' => $courseTypes));
+        return $this->render('home/course.html.twig', array('courseTypes' => $courseTypes));
     }
 
     /**
@@ -71,15 +71,15 @@ class HomeController extends Controller
         }
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
         $club = $this->get('club_manager')->getCurrentClub();
-        $courseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
-        $allCourseClasses = $this->getDoctrine()->getRepository('CourseBundle:CourseClass')->findBySemester($currentSemester);
+        $courseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findByWeek($week, $currentSemester, $club);
+        $allCourseClasses = $this->getDoctrine()->getRepository('AppBundle:CourseClass')->findBySemester($currentSemester);
 
         $firstClass = reset($allCourseClasses);
         $lastClass = end($allCourseClasses);
         $coursesHasStarted = $firstClass !== false && $firstClass->getTime() < new \DateTime();
         $coursesHasEnded = $lastClass !== false && $lastClass->getTime() < new \DateTime();
 
-        return $this->render('@App/home/time_table.html.twig', array(
+        return $this->render('home/time_table.html.twig', array(
             'courseClasses' => $courseClasses,
             'week' => $week,
             'currentSemester' => $currentSemester,

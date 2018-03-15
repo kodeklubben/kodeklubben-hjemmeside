@@ -1,6 +1,106 @@
 services:
+    app.notification_manager:
+        class: AppBundle\Service\NotificationManager
+        arguments: ['@mailer', '@twig']
+
+    club_manager:
+        class: AppBundle\Service\ClubManager
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@request_stack"
+
+    club_registration:
+        class: AppBundle\Service\ClubRegistration
+        arguments:
+            - "@mailer"
+            - "@router"
+            - "@user.registration"
+            - "%base_host%"
+            - "%default_mail%"
+    course.sign_up:
+        class: AppBundle\Service\SignUp
+
+    course.queue_manager:
+        class: AppBundle\Service\CourseQueueManager
+        arguments: ['@doctrine.orm.default_entity_manager', '@app.notification_manager']
+
+    course.manager:
+        class: AppBundle\Service\CourseManager
+
+    course.queue_subscriber:
+        class: AppBundle\EventSubscriber\CourseQueueSubscriber
+        arguments: ['@course.queue_manager', '@logger']
+        tags:
+          - { name: kernel.event_subscriber }
+
+    user.provider:
+        class: AppBundle\Service\UserProvider
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@club_manager'
+            
+    user.registration:
+        class: AppBundle\Service\UserRegistration
+        arguments: ['@security.password_encoder', '@doctrine.orm.default_entity_manager', '@club_manager', '@twig', '@mailer']
+    
+    user.roles:
+        class: AppBundle\Service\UserRoles
+        arguments: ['%security.role_hierarchy.roles%']
+            
+    app.image_uploader:
+        class: AppBundle\Service\ImageUploader
+        arguments: ["@doctrine.orm.default_entity_manager", "%image_directory%"]
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    app.twig_image_extension:
+        class: AppBundle\Twig\ImageExtension
+        arguments: ["@doctrine.orm.default_entity_manager", "@club_manager"]
+        tags:
+          - { name: twig.extension }
+
+    app.static_content_extension:
+        class: AppBundle\Twig\StaticContentExtension
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@club_manager"
+        tags:
+          - { name: twig.extension }
+          
+    user.twig_user_role_filter:
+        class: AppBundle\Twig\UserExtension
+        public: false
+        tags:
+          - { name: twig.extension }
+
+    # Nullify this service. It is deprecated and raises an error on SensioLabs Insight
+    twig.extension.actions:
+        class: AppBundle\Twig\NullExtension
+
+    twig.extensions.semester:
+        class: AppBundle\Twig\SemesterExtension
+        arguments: ["@doctrine.orm.default_entity_manager"]
+        tags:
+            - { name: twig.extension }
+
+    twig.extensions.domain:
+        class: AppBundle\Twig\DomainExtension
+        arguments: ["%base_host%"]
+        tags:
+            - { name: twig.extension }
+
+    app.twig_code_club_extension:
+        class: AppBundle\Twig\CodeClubExtension
+        arguments:
+            - "@club_manager"
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.sign_up:
+        class: AppBundle\Twig\SignupExtension
         tags:
             - { name: twig.extension }
 

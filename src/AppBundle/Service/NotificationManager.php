@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use CourseBundle\Entity\Participant;
+use AppBundle\Entity\Participant;
 
 class NotificationManager
 {
@@ -23,6 +23,10 @@ class NotificationManager
 
     /**
      * @param Participant $participant
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendDequeueNotification(Participant $participant)
     {
@@ -32,7 +36,7 @@ class NotificationManager
             ->setSubject("{$name} har rykket opp fra ventelisten i {$participant->getCourse()}")
             ->setFrom('ikkesvar@kodeklubben.no')
             ->setTo($participant->getUser()->getEmail())
-            ->setBody($this->twig->render('@Course/course_queue/dequeue_notification_template.html.twig', array(
+            ->setBody($this->twig->render('course/course_queue/dequeue_notification_template.html.twig', array(
                 'name' => $name,
                 'participant' => $participant,
             )), 'text/html')

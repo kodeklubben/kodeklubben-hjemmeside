@@ -42,7 +42,7 @@ class MessageController extends Controller
             return $this->redirectToRoute('cp_message');
         }
 
-        return $this->render('@App/control_panel/show_message.html.twig', array(
+        return $this->render('control_panel/show_message.html.twig', array(
             'messages' => $messages,
             'form' => $form->createView(),
         ));

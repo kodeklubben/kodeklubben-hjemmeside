@@ -26,11 +26,6 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new CodeClubBundle\CodeClubBundle(),
-            new StaticContentBundle\StaticContentBundle(),
-            new CourseBundle\CourseBundle(),
-            new UserBundle\UserBundle(),
-            new ImageBundle\ImageBundle(),
             new AppBundle\AppBundle(),
         );
 

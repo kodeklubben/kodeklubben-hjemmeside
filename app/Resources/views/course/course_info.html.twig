@@ -1,0 +1,63 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    <header class="row">
+        <div class="col-xs-12">
+            <h1>{{ course.name }}</h1>
+            <p>{{ course.description }}</p>
+            <p><b>Kurstype: </b><a
+                        href="{{ path('courses') }}#{{ course.courseType.name }}">{{ course.courseType.name }}</a></p>
+            <a href="{{ path('sign_up') }}#{{ course.courseType.name }}">Påmelding</a>
+            <hr>
+        </div>
+    </header>
+    <section class="row">
+        <div class="col-xs-12">
+            <h3>Beskrivelse</h3>
+            <p>{{ course.courseType.description|purify }}</p>
+        </div>
+    </section>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-md-5 col-lg-5">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Timeplan</h3>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive text-center">
+                        <table class="time-table table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Uke</th>
+                                <th>Dag</th>
+                                <th>Tid</th>
+                                <th>Sted</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for class in course.classes %}
+                                <tr class="{{ 'now'|date('W') == class.time|date('W') ? 'text-bold text-info' }}"
+                                    timestamp="{{ class.time|date('U') }}">
+                                    <td>{{ class.time|date('W') }}</td>
+                                    <td>{{ class.dayNorwegian }}</td>
+                                    <td>{{ class.time|date('H:i') }}</td>
+                                    <td>{{ class.place }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if (not course.classes|length) %}<h5 class="text-bold">Ingen kurstider er planlagt enda</h5>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if is_granted('ROLE_TUTOR') %}
+            <div class="col-xs-12 col-md-7 col-lg-7">
+                {% include 'course/tutor_table.html.twig' with {'tutors': course.tutors} %}
+                {% include 'course/participant_table.html.twig' with {'participants': course.participants} %}
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

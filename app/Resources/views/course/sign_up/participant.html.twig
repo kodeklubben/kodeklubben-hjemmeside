@@ -1,0 +1,51 @@
+{% extends 'base/base.html.twig' %}
+
+{% block body %}
+    {% include 'common/flash_message.html.twig' with {'type': 'danger'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'warning'} %}
+    {% include 'common/flash_message.html.twig' with {'type': 'success'} %}
+    <h1 class="text-center">Påmelding for deltakere {{ currentSemester }}</h1>
+    <hr>
+    {% if queueEntities|length %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            {% include 'course/sign_up/queue_list_participant.html.twig' %}
+        </div>
+    {% endif %}
+    {% if participants|length %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            {% include 'course/sign_up/signed_up_participant.html.twig' %}
+        </div>
+    {% endif %}
+
+    {% for courseTypeName in courseTypes|keys %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 id="{{ courseTypeName }}">{{ courseTypeName }}</h3>
+
+                <div class="row is-flex text-center">
+                    {% for course in courseTypes[courseTypeName] %}
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                            <div class="box box-primary">
+                                <div class="box-body">
+                                    <div>
+                                        <h4><b>{{ course.name }}</b></h4>
+                                        <p class="description">{{ course.description }}</p>
+                                        {% include 'course/sign_up/course_time_table.html.twig' with {'course': course} %}
+                                    </div>
+                                    <div class="pull-down">
+                                        {% if course.classes|length %}
+                                            <footer>
+                                                {% include 'course/sign_up/forms/participant_signup_form.html.twig' %}
+                                            </footer>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

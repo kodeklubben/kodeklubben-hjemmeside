@@ -1,0 +1,28 @@
+{% extends 'base/control_panel/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>E-post kurs {{ semester }}</h1>
+    </section>
+    <section class="content">
+        <div class="box box-info">
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-fixed">
+                        <tbody>
+                        {% for course in courses if course.participants|length or course.tutors|length%}
+                            <tr>
+                                <td>
+                                    <h5 class="text-bold text-primary">{{ course.name }} ({{ course.description }})</h5>
+                                </td>
+                            </tr>
+                            {% include 'control_panel/email_list_row.html.twig' with {'participants': course.participants, 'label': 'Deltakere'} %}
+                            {% include 'control_panel/email_list_row.html.twig' with {'participants': course.tutors, 'label': 'Veiledere'} %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository;
 
-use CodeClubBundle\Entity\Club;
+use AppBundle\Entity\Club;
 use Doctrine\ORM\EntityRepository;
 
 /**

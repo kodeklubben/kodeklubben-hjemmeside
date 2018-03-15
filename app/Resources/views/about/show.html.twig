@@ -1,0 +1,33 @@
+{% extends 'base/base.html.twig' %}
+{% block facebookImage %}{{ app.request.getSchemeAndHttpHost() ~ get_image('about').filePath }}{% endblock %}
+{% block facebookDescription %}{{ get_content('about_participant')|striptags }}{% endblock %}
+{% block body %}
+    <div class="row container">
+        <h1>Om {{ get_club().name }}</h1>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                {% include 'image/editable_image_template.html.twig' with {'image': get_image('about')} %}
+            </div>
+            <div class="col-md-8">
+                <h2>For Deltakere</h2>
+                <p>{{ get_content('about_participant')|purify }}</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-8">
+                <h2>For Veildere</h2>
+                <p>{{ get_content('about_tutor')|purify }}</p>
+                <br>
+                <h4>Kontakt: {{ get_club().email }}</h4>
+                <p><a href="{{ path('courses') }}">Les mer om kursene våre -></a></p>
+            </div>
+            <div class="col-md-4">
+                {% include 'image/editable_image_template.html.twig' with {'image': get_image('about_social')} %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

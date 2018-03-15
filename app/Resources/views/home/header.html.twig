@@ -1,0 +1,15 @@
+<div class="row hero-spacer top-header">
+    <div class="col-md-8">
+        {% if get_image('header') %}
+            {% include 'image/editable_image_template.html.twig' with {'image': get_image('header')} %}
+        {% endif %}
+    </div>
+    <!-- /.col-md-8 -->
+    <div class="col-md-4">
+        <h1>{{ get_club().getName() }}</h1>
+        <p>{{ get_content('header')|purify }}</p>
+        <a class="btn btn-primary btn-lg" href="{{ path('sign_up') }}">Meld deg på!</a>
+    </div>
+    <!-- /.col-md-4 -->
+</div>
+<!-- /.row -->

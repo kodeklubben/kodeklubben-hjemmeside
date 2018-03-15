@@ -1,0 +1,17 @@
+<div class="img-container">
+    <img src="{{ course.courseType.image.filePath }}" alt="{{ course.name }}">
+</div>
+<br>
+<div>
+    <p class="description">{{ course.description }}</p>
+    {% include 'course/control_panel/course_box/participants_link.html.twig' %}
+    <br>
+    {% if course.queue | length > 0 %}
+        {% include 'course/control_panel/course_box/queue_link.html.twig' %}
+        <br>
+    {% endif %}
+    {% include 'course/control_panel/course_box/tutors_link.html.twig' %}
+    <br>
+    {% include 'course/control_panel/course_box/substitutes_link.html.twig' %}
+    <br/>
+</div>

@@ -16,6 +16,8 @@ class ControlPanelController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      * @Route("/", name="control_panel")
      * @Method("GET")
      */
@@ -24,16 +26,16 @@ class ControlPanelController extends Controller
         $club = $this->get('club_manager')->getCurrentClub();
         $doctrine = $this->getDoctrine();
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $userCount = count($doctrine->getRepository('UserBundle:User')->findByClub($club));
-        $newUsersCurrentSemesterCount = count($doctrine->getRepository('UserBundle:User')->findNewUsersBySemester($currentSemester, $club));
-        $participantCount = count($doctrine->getRepository('CourseBundle:Participant')->findByClub($club));
-        $participantCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Participant')->findBySemester($currentSemester, $club));
-        $tutorCount = count($doctrine->getRepository('CourseBundle:Tutor')->findByClub($club));
-        $tutorCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Tutor')->findBySemester($currentSemester, $club));
-        $courseCount = count($doctrine->getRepository('CourseBundle:Course')->findByClub($club));
-        $courseCountCurrentSemester = count($doctrine->getRepository('CourseBundle:Course')->findBySemester($currentSemester, $club));
+        $userCount = count($doctrine->getRepository('AppBundle:User')->findByClub($club));
+        $newUsersCurrentSemesterCount = count($doctrine->getRepository('AppBundle:User')->findNewUsersBySemester($currentSemester, $club));
+        $participantCount = count($doctrine->getRepository('AppBundle:Participant')->findByClub($club));
+        $participantCountCurrentSemester = count($doctrine->getRepository('AppBundle:Participant')->findBySemester($currentSemester, $club));
+        $tutorCount = count($doctrine->getRepository('AppBundle:Tutor')->findByClub($club));
+        $tutorCountCurrentSemester = count($doctrine->getRepository('AppBundle:Tutor')->findBySemester($currentSemester, $club));
+        $courseCount = count($doctrine->getRepository('AppBundle:Course')->findByClub($club));
+        $courseCountCurrentSemester = count($doctrine->getRepository('AppBundle:Course')->findBySemester($currentSemester, $club));
 
-        return $this->render('@App/control_panel/show.html.twig', array(
+        return $this->render('control_panel/show.html.twig', array(
             'userCount' => $userCount,
             'newUserCount' => $newUsersCurrentSemesterCount,
             'participantCount' => $participantCount,
@@ -49,6 +51,8 @@ class ControlPanelController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      * @Route("/epost", name="cp_email")
      * @Method("GET")
      */
@@ -56,9 +60,9 @@ class ControlPanelController extends Controller
     {
         $club = $this->get('club_manager')->getCurrentClub();
         $currentSemester = $this->getDoctrine()->getRepository('AppBundle:Semester')->findCurrentSemester();
-        $courses = $this->getDoctrine()->getRepository('CourseBundle:Course')->findBySemester($currentSemester, $club);
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findBySemester($currentSemester, $club);
 
-        return $this->render('@App/control_panel/show_email.html.twig', array(
+        return $this->render('control_panel/show_email.html.twig', array(
             'semester' => $currentSemester,
             'courses' => $courses,
         ));

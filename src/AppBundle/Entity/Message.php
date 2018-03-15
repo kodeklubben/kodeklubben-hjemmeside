@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use CodeClubBundle\Entity\Club;
+use AppBundle\Entity\Club;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -26,7 +26,7 @@ class Message
     /**
      * @var Club
      *
-     * @ORM\ManyToOne(targetEntity="\CodeClubBundle\Entity\Club")
+     * @ORM\ManyToOne(targetEntity="Club")
      * @Assert\Valid
      */
     private $club;

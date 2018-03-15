@@ -2,14 +2,16 @@ security:
     encoders:
         # Our user class and the algorithm we'll use to encode passwords
         # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
-        UserBundle\Entity\User: bcrypt
+        AppBundle\Entity\User: bcrypt
 
     providers:
         # in this example, users are stored via Doctrine in the database
         # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
         # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
         code_club_users:
-            id: user.provider
+            entity:
+                class: AppBundle:User
+                property: email
 #        database_users:
 #            entity: { class: UserBundle:User, property: username }
 
