@@ -15,7 +15,6 @@ $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../app/bootstrap.php.cache';
 
 $kernel = new AppKernel('prod', false);
-$kernel->loadClassCache();
 
 // When using the HTTP Cache to improve application performance, the application
 // kernel is wrapped by the AppCache class to activate the built-in reverse proxy.
