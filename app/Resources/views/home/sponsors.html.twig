@@ -1,0 +1,27 @@
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title box-title-lg">Sponsorer</h3>
+    </div>
+    <div class="box-body">
+        <div class="messages">
+            {% if sponsors|length == 0 %}
+                <p>Ingen sponsorer</p>
+            {% else %}
+                {% for sponsor in sponsors %}
+                    <div class="col-md-3 col-sm-6 hero-feature">
+                        <div class="box box-primary" onclick="location.href = '{{ sponsor.url }}'">
+                            <div class="box-body sponsor">
+                                <div class="img-container">
+                                    <img class="img-responsive" src="{{ sponsor.filePath }}" alt="{{ sponsor.name }}">
+                                </div>
+                                <div>
+                                    <h3>{{ sponsor.name }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>

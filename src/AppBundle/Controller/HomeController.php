@@ -89,4 +89,17 @@ class HomeController extends Controller
             'coursesHasEnded' => $coursesHasEnded
         ));
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showSponsorsAction()
+    {
+        $club = $this->get('club_manager')->getCurrentClub();
+        $clubSponsors = $this->getDoctrine()->getRepository('AppBundle:Sponsor')->findAllByClub($club);
+
+        return $this->render('home/sponsors.html.twig', array(
+            'sponsors' => $clubSponsors,
+        ));
+    }
 }
