@@ -16,7 +16,7 @@ class SponsorRepository extends EntityRepository
      * @param Club   $club
      * @param string $name
      *
-     * @return Sponsor
+     * @return array
      */
     public function findAllByClub(Club $club)
     {
@@ -25,6 +25,6 @@ class SponsorRepository extends EntityRepository
             ->where('sponsor.club = :club')
             ->setParameter('club', $club)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getArrayResult();
     }
 }
