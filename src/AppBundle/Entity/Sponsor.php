@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -37,27 +36,6 @@ class Sponsor
     private $club;
 
     /**
-     * @var UploadedFile
-     *
-     * @Assert\File(mimeTypes={ "image/png", "image/jpeg", "image/jpg" })
-     */
-    private $file;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $fileName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $filePath;
-    
-    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -79,22 +57,6 @@ class Sponsor
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
     }
 
     /**
@@ -127,38 +89,6 @@ class Sponsor
     public function setName($name)
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * @param string $fileName
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilePath()
-    {
-        return $this->filePath;
-    }
-
-    /**
-     * @param string $filePath
-     */
-    public function setFilePath($filePath)
-    {
-        $this->filePath = $filePath;
     }
     
     /**
