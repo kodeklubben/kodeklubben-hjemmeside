@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Club.
@@ -153,5 +154,25 @@ class Image
     public function setFilePath($filePath)
     {
         $this->filePath = $filePath;
+    }
+    
+    /**
+     * @return Image
+     */
+    public static function getPlaceholderImage(Club $club, $name = null){
+        $image = new Image();
+        $image->setName($name ?$name :"placeholder");
+        $image->setClub($club);
+        $image->setFileName(self::getPlaceholderFilename());
+        $image->setFilePath(self::getPlaceholderPath());
+        $image->setFile(new File(self::getPlaceholderPath()));
+        dump($image);
+        return $image;
+    }
+    private static function getPlaceholderPath(){
+        return "img/club/default/placeholder.svg";
+    }
+    private static function getPlaceholderFilename(){
+        return preg_replace("_^.*/([^/]*)\$_", '\1', self::getPlaceholderPath());
     }
 }

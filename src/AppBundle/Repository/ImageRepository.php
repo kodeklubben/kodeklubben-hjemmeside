@@ -19,7 +19,7 @@ class ImageRepository extends EntityRepository
      */
     public function findByClubAndName(Club $club, $name)
     {
-        return $this->createQueryBuilder('image')
+        $image =  $this->createQueryBuilder('image')
             ->select('image')
             ->where('image.club = :club')
             ->andWhere('image.name = :name')
@@ -27,5 +27,11 @@ class ImageRepository extends EntityRepository
             ->setParameter('name', $name)
             ->getQuery()
             ->getOneOrNullResult();
+            
+            if($image === null){
+                $image = Image::getPlaceholderImage($club, $name);
+            }
+        
+        return $image;
     }
 }

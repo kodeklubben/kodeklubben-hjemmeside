@@ -1,0 +1,3 @@
+{% if is_granted('ROLE_ADMIN') %}
+    <a class="btn btn-xs btn-flat btn-warning" href="{{ path('image_upload', {'name': image.name}) }}">Endre bilde</a>
+{% endif %}

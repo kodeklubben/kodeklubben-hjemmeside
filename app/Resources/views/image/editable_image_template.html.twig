@@ -1,6 +1,4 @@
 {% if image %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-xs btn-flat btn-warning" href="{{ path('image_upload', {'name': image.name}) }}">Endre bilde</a>
-    {% endif %}
-    <img class="img-responsive" src="{{ image.filePath }}" alt="Bli Deltaker">
+    {% include 'image/edit_image_button.html.twig' with { 'image': image } %}
+    <img class="img-responsive" src="{{ image.filePath }}" alt="{{ image.name }}">
 {% endif %}
