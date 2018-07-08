@@ -10,7 +10,7 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "php"                                  : ">=7.0",
+        "php"                                  : ">=7.2",
         "doctrine/doctrine-bundle"             : "~1.5",
         "doctrine/doctrine-fixtures-bundle"    : "~2.2",
         "doctrine/orm"                         : "~2.4",
@@ -26,7 +26,7 @@
         "symfony/assetic-bundle"               : "~2.6",
         "symfony/monolog-bundle"               : "~2.7",
         "symfony/swiftmailer-bundle"           : "~2.3",
-        "symfony/symfony"                      : "~3.2",
+        "symfony/symfony"                      : "~3.4",
         "twig/extensions"                      : "^1.5",
         "friendsofsymfony/jsrouting-bundle"    : "^1.6",
         "symfony/filesystem"                   : "^2.8",
@@ -70,7 +70,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "7.0"
+            "php": "7.2"
         }
     },
     "extra": {
