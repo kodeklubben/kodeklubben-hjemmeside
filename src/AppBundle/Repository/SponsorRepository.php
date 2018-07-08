@@ -14,7 +14,6 @@ class SponsorRepository extends EntityRepository
 {
     /**
      * @param Club   $club
-     * @param string $name
      *
      * @return array
      */
@@ -26,5 +25,18 @@ class SponsorRepository extends EntityRepository
             ->setParameter('club', $club)
             ->getQuery()
             ->getArrayResult();
+    }
+    
+    /**
+     * @return Sponsor
+     */
+    public function findById(integer $id)
+    {
+        return $this->createQueryBuilder('sponsor')
+            ->select('sponsor')
+            ->where('sponsor.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
     }
 }

@@ -106,4 +106,9 @@ class Sponsor
     {
         $this->url = $url;
     }
+
+    public function getImageName()
+    {
+        return "sponsor_{$this->id}";
+    }
 }
