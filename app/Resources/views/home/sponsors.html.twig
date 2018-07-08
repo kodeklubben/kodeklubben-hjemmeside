@@ -11,7 +11,7 @@
                     <div class="box box-primary">
                         <div class="box-body sponsor">
                             <div class="img-container">
-                                {% include 'image/editable_image_template.html.twig' with {'image': get_image("sponsor_" ~ sponsor.id)} %}
+                                {% include 'image/editable_image_template.html.twig' with {'image': get_sponsor_image(sponsor.id)} %}
                             </div>
                             <div>
                                 <a href='{{ sponsor.url | escape('html_attr') }}'>
