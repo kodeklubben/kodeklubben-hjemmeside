@@ -8,13 +8,15 @@
         {% else %}
             {% for sponsor in sponsors %}
                 <div class="col-md-3 col-sm-6 hero-feature">
-                    <div class="box box-primary" onclick="location.href = '{{ sponsor.url }}'">
-                        <div class="box-body sponsor clickable">
+                    <div class="box box-primary">
+                        <div class="box-body sponsor">
                             <div class="img-container">
                                 {% include 'image/editable_image_template.html.twig' with {'image': get_image("sponsor_" ~ sponsor.id)} %}
                             </div>
                             <div>
-                                <h3>{{ sponsor.name }}</h3>
+                                <a href='{{ sponsor.url | escape('html_attr') }}'>
+                                    <h3>{{ sponsor.name }}</h3>
+                                </a>
                             </div>
                         </div>
                     </div>

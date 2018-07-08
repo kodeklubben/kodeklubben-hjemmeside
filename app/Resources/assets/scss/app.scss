@@ -285,3 +285,24 @@ hr{
   white-space: nowrap;
   overflow: auto;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.sponsor {
+  $imageRatio: 1.618;
+  $imageWidth: 230px;
+  $imageHeight: $imageWidth / $imageRatio;
+
+  .img-container {
+    width: $imageWidth;
+    height: $imageHeight;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0 auto;
+    }
+  }
+}
