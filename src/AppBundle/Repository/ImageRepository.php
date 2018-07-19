@@ -28,9 +28,9 @@ class ImageRepository extends EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
             
-            if($image === null){
-                $image = Image::getPlaceholderImage($club, $name);
-            }
+        if ($image === null) {
+            $image = Image::getPlaceholderImage($club, $name);
+        }
         
         return $image;
     }

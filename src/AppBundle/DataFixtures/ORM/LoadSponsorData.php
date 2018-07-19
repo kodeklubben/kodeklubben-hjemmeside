@@ -11,7 +11,7 @@ class SponsorData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        foreach(['club-trondheim', 'club-oslo', 'club-default'] as $clubRef){
+        foreach (['club-trondheim', 'club-oslo', 'club-default'] as $clubRef) {
             $club = $this->getReference($clubRef);
 
             $manager->persist($this->createSponsor($club, "Sponsor 1, {$clubRef}", "sponsor1.png"));
