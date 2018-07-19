@@ -29,7 +29,7 @@ class ImageExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('get_image', array($this, 'getImage')),
-            new \Twig_SimpleFunction('get_sponsor_image', array($this, 'getImage')),
+            new \Twig_SimpleFunction('get_sponsor_image', array($this, 'getSponsorImage')),
         );
     }
     public function getImage($name)
@@ -43,7 +43,7 @@ class ImageExtension extends \Twig_Extension
 
         return $image;
     }
-    public function getSponsorImage(integer $id)
+    public function getSponsorImage($id)
     {
         $club = $this->clubManager->getCurrentClub();
         $sponsor = $this->doctrine

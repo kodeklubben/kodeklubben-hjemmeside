@@ -30,7 +30,7 @@ class SponsorRepository extends EntityRepository
     /**
      * @return Sponsor
      */
-    public function findById(integer $id)
+    public function findById($id)
     {
         return $this->createQueryBuilder('sponsor')
             ->select('sponsor')
