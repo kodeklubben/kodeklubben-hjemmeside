@@ -306,3 +306,12 @@ hr{
     }
   }
 }
+
+.alternating-colors:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.v-padded {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

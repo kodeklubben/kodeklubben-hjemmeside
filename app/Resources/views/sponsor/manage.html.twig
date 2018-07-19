@@ -7,10 +7,20 @@
     </section>
 
     <section class="content">
-        <ul>
-            {% for sponsor in sponsors %}
-                <li>{{ sponsor.name }}
-            {% endfor %}
-        </ul>
+        {% for sponsor in sponsors %}
+            <div class="row alternating-colors v-padded">
+                <div class="col-xs-12 col-md-10">
+                    <big>{{ sponsor.name }}</big>
+                </div>
+                <div class="col-xs-6 col-md-1">
+                    <a class="btn btn-xs btn-flat btn-success" href="{{ path('cp_edit_sponsor', {sponsor: sponsor.id}) }}">
+                        Endre info
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-1">
+                    {% include 'image/edit_image_button.html.twig' with { 'image': get_sponsor_image(sponsor.id) } %}
+                </div>
+            </div>
+        {% endfor %}
     </section>
 {% endblock %}

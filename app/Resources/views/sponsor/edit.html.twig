@@ -1,0 +1,15 @@
+{% extends 'base/control_panel/admin_base.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Endrer sponsor</h1>
+        <hr>
+    </section>
+
+    <section class="content">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary btn-sm onclick-disable" type="submit">Lagre endringer</button>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
