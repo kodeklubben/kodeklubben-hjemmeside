@@ -167,12 +167,16 @@ class Image
         $image->setFileName(self::getPlaceholderFilename());
         $image->setFilePath(self::getPlaceholderPath());
         $image->setFile(new File(self::getPlaceholderPath()));
-        dump($image);
         return $image;
     }
     private static function getPlaceholderPath()
     {
-        return "img/club/default/placeholder.svg";
+        # Workaround for tests which are run inside web/
+        if(file_exists("web")){
+            return "web/img/club/default/placeholder.svg";
+        } else {
+            return "img/club/default/placeholder.svg";
+        }
     }
     private static function getPlaceholderFilename()
     {
