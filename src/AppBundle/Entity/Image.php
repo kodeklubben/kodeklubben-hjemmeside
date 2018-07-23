@@ -171,12 +171,7 @@ class Image
     }
     private static function getPlaceholderPath()
     {
-        # Workaround for tests which are run inside web/
-        if(file_exists("web")){
-            return "web/img/club/default/placeholder.svg";
-        } else {
-            return "img/club/default/placeholder.svg";
-        }
+        return __DIR__."/../../../web/img/club/default/placeholder.svg";
     }
     private static function getPlaceholderFilename()
     {
