@@ -15,7 +15,7 @@ var path = {
     src: 'app/Resources/assets/'
 };
 
-gulp.task('stylesProd', function () {
+function stylesProd(){
     var dest = path.dist + 'css/';
     gulp.src(path.src + 'scss/**/*.scss')
         .pipe(plumber())
@@ -24,18 +24,18 @@ gulp.task('stylesProd', function () {
         .pipe(autoprefixer())
         .pipe(cssnano())
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('scriptsProd', function () {
+function scriptsProd(){
     var dest = path.dist + 'js/';
     gulp.src(path.src + 'js/**/*.js')
         .pipe(plumber())
         .pipe(changed(dest))
         .pipe(uglify())
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('imagesProd', function () {
+function imagesProd(){
     var dest = path.dist + 'img/';
     gulp.src(path.src + 'img/**/*')
         .pipe(plumber())
@@ -46,50 +46,54 @@ gulp.task('imagesProd', function () {
             optimizationLevel: 1
         }))
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('stylesDev', function () {
+function stylesDev(){
     var dest = path.dist + 'css/';
-    gulp.src(path.src + 'scss/**/*.scss')
+    return gulp.src(path.src + 'scss/**/*.scss')
         .pipe(plumber())
         .pipe(changed(dest))
         .pipe(sass())
         .pipe(autoprefixer())
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('scriptsDev', function () {
+function scriptsDev(){
     var dest = path.dist + 'js/';
-    gulp.src(path.src + 'js/**/*.js')
+    return gulp.src(path.src + 'js/**/*.js')
         .pipe(plumber())
         .pipe(changed(dest))
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('vendor', function () {
-    gulp.src('node_modules/ckeditor/**/*')
+function vendor(){
+    var ret = true;
+
+    ret = ret && gulp.src('node_modules/ckeditor/**/*')
         .pipe(gulp.dest('web/js/vendor/ckeditor/'));
-    gulp.src('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+    ret = ret && gulp.src('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
         .pipe(gulp.dest('web/js/'));
-    gulp.src('node_modules/jquery/dist/jquery.min.js')
+    ret = ret && gulp.src('node_modules/jquery/dist/jquery.min.js')
         .pipe(gulp.dest('web/js/'));
-    gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
+    ret = ret && gulp.src('node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
         .pipe(gulp.dest('web/fonts/bootstrap'));
-    gulp.src('node_modules/font-awesome/fonts/*')
+    ret = ret && gulp.src('node_modules/font-awesome/fonts/*')
         .pipe(gulp.dest('web/fonts/'));
-});
 
-gulp.task('imagesDev', function () {
+    return ret;
+}
+
+function imagesDev(){
     var dest = path.dist + 'img/';
-    gulp.src(path.src + 'img/**/*')
+    return gulp.src(path.src + 'img/**/*')
         .pipe(plumber())
         .pipe(changed(dest))
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('compressImages', function(){
+function compressImages(){
     var dest = 'web/img/';
-    gulp.src('web/img/**/*')
+    return gulp.src('web/img/**/*')
         .pipe(plumber())
         .pipe(imagemin({
             progressive: false,
@@ -97,26 +101,27 @@ gulp.task('compressImages', function(){
             optimizationLevel: 1
         }))
         .pipe(gulp.dest(dest))
-});
+}
 
-gulp.task('config', function(){
-    gulp.src('app/Resources/config/ckeditor.js')
+function config(){
+    return gulp.src('app/Resources/config/ckeditor.js')
         .pipe(concat('config.js'))
         .pipe(gulp.dest('web/bundles/ivoryckeditor/'));
-});
+}
 
-gulp.task('files', function(){
-    gulp.src(path.src + 'files/*')
+function files(){
+    return gulp.src(path.src + 'files/*')
         .pipe(gulp.dest('web/files/'))
-});
+}
 
-gulp.task('watch', function () {
-    gulp.watch(path.src + 'scss/**/*.scss', ['stylesDev']);
-    gulp.watch(path.src + 'js/**/*.js', ['scriptsDev']);
-    gulp.watch(path.src + 'images/*', ['imagesDev']);
-});
+function watch(){
+    gulp.watch(path.src + 'scss/**/*.scss', stylesDev);
+    gulp.watch(path.src + 'js/**/*.js', scriptsDev);
+    gulp.watch(path.src + 'images/*', imagesDev);
+}
 
+gulp.task('build:prod', gulp.parallel(stylesProd, scriptsProd, imagesProd, files, vendor, config));
+gulp.task('build:dev', gulp.parallel(stylesDev, scriptsDev, imagesDev, files, vendor, config));
+gulp.task('default', gulp.series('build:dev', watch));
 
-gulp.task('build:prod', ['stylesProd', 'scriptsProd', 'imagesProd', 'files', 'vendor', 'config']);
-gulp.task('build:dev', ['stylesDev', 'scriptsDev', 'imagesDev', 'files', 'vendor', 'config']);
-gulp.task('default', ['build:dev', 'watch']);
+exports.watch = watch;
