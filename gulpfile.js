@@ -115,14 +115,13 @@ function files(){
 }
 
 function watch(){
-    gulp.watch(path.src + 'scss/**/*.scss', [stylesDev]);
-    gulp.watch(path.src + 'js/**/*.js', [scriptsDev]);
-    gulp.watch(path.src + 'images/*', [imagesDev]);
+    gulp.watch(path.src + 'scss/**/*.scss', stylesDev);
+    gulp.watch(path.src + 'js/**/*.js', scriptsDev);
+    gulp.watch(path.src + 'images/*', imagesDev);
 }
-
 
 gulp.task('build:prod', gulp.parallel(stylesProd, scriptsProd, imagesProd, files, vendor, config));
 gulp.task('build:dev', gulp.parallel(stylesDev, scriptsDev, imagesDev, files, vendor, config));
 gulp.task('default', gulp.series('build:dev', watch));
 
-//exports.stylesProd = stylesProd;
+exports.watch = watch;
